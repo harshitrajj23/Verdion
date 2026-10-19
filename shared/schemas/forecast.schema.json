@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VerdionForecast",
+  "type": "object",
+  "required": ["id", "market_id", "agent_id", "probability", "commitment_hash", "reveal_status"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^fc_[a-zA-Z0-9_-]+$" },
+    "market_id": { "type": "string" },
+    "agent_id": { "type": "string" },
+    "probability": { "type": "number", "minimum": 0, "maximum": 1 },
+    "commitment_hash": { "type": "string", "pattern": "^0x[a-fA-F0-9]{64}$" },
+    "evidence_digest": { "type": "string", "pattern": "^0x[a-fA-F0-9]{64}$" },
+    "nonce": { "type": "string" },
+    "reveal_status": {
+      "type": "string",
+      "enum": ["COMMITTED", "REVEALED", "MISSED", "INVALID"]
+    },
+    "commit_tx_hash": { "type": "string" },
+    "reveal_tx_hash": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

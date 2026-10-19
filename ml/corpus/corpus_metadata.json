@@ -1,0 +1,46 @@
+{
+  "corpus_id": "eu_ai_data_protection_v2026_1",
+  "name": "EU AI Act & Data Protection Regulatory Corpus",
+  "jurisdiction": "European Union",
+  "workflow": "AI Model Training & Secondary Data Processing Compliance",
+  "version": "2026.1.0",
+  "created_at": "2026-01-10T00:00:00Z",
+  "sources": [
+    {
+      "id": "gdpr_reg_2016_679",
+      "title": "Regulation (EU) 2016/679 (General Data Protection Regulation)",
+      "authority": "European Parliament and Council",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0679",
+      "publication_date": "2016-04-27",
+      "effective_date": "2018-05-25",
+      "is_superseded": false
+    },
+    {
+      "id": "eu_ai_act_2024_1689",
+      "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+      "authority": "European Parliament and Council",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R1689",
+      "publication_date": "2024-07-12",
+      "effective_date": "2024-08-01",
+      "is_superseded": false
+    },
+    {
+      "id": "edpb_guidelines_4_2019",
+      "title": "EDPB Guidelines 4/2019 on Article 25 Data Protection by Design and by Default",
+      "authority": "European Data Protection Board",
+      "url": "https://edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-42019-article-25-data-protection-design-and-default_en",
+      "publication_date": "2019-11-13",
+      "effective_date": "2020-10-20",
+      "is_superseded": false
+    },
+    {
+      "id": "edpb_statement_01_2024",
+      "title": "EDPB Statement 01/2024 on Data Protection and Generative AI Model Development",
+      "authority": "European Data Protection Board",
+      "url": "https://edpb.europa.eu/our-work-tools/our-documents/statements/statement-012024-generative-ai_en",
+      "publication_date": "2024-04-17",
+      "effective_date": "2024-04-17",
+      "is_superseded": false
+    }
+  ]
+}

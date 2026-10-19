@@ -1,0 +1,335 @@
+[
+  {
+    "scenario_id": "scen_01",
+    "split": "train",
+    "title": "Customer Support Fine-Tuning Without Specific Consent",
+    "jurisdiction": "European Union",
+    "workflow": "AI Model Training",
+    "facts": {
+      "processing_purpose": "LLM fine-tuning on user support transcripts",
+      "user_consent_mechanism": "general terms of service",
+      "data_categories": ["chat transcripts", "user account IDs"],
+      "retention_period_days": 365,
+      "safeguards": []
+    },
+    "ground_truth_label": 1,
+    "labeled_issues": ["PURPOSE_LIMITATION_BREACH", "MISSING_SPECIFIC_CONSENT"],
+    "key_statutes": ["GDPR Art 6(4)", "GDPR Art 5(1)(b)"]
+  },
+  {
+    "scenario_id": "scen_02",
+    "split": "train",
+    "title": "Fine-Tuning With Pre-Training Redaction and Opt-Out",
+    "jurisdiction": "European Union",
+    "workflow": "AI Model Training",
+    "facts": {
+      "processing_purpose": "LLM fine-tuning on user support transcripts",
+      "user_consent_mechanism": "general terms of service",
+      "data_categories": ["chat transcripts"],
+      "retention_period_days": 180,
+      "safeguards": ["pre-training redaction", "opt-out", "pseudonymisation"]
+    },
+    "ground_truth_label": 0,
+    "labeled_issues": ["LEGITIMATE_INTEREST_DEFENSIBLE"],
+    "key_statutes": ["GDPR Art 6(1)(f)", "EDPB Stmt 01/2024"]
+  },
+  {
+    "scenario_id": "scen_03",
+    "split": "train",
+    "title": "Customer Profiling With Automated Decision-Making and No Marking",
+    "jurisdiction": "European Union",
+    "workflow": "High-Risk AI System",
+    "facts": {
+      "processing_purpose": "creditworthiness automated decision-making",
+      "automated_decision_making": true,
+      "machine_readable_marking": false,
+      "retention_period_days": 730,
+      "safeguards": []
+    },
+    "ground_truth_label": 1,
+    "labeled_issues": ["TRANSPARENCY_DEFECT", "AI_ACT_MARKING_ABSENT"],
+    "key_statutes": ["EU AI Act Art 50(2)"]
+  },
+  {
+    "scenario_id": "scen_04",
+    "split": "train",
+    "title": "Indefinite Retention of Raw Training Vector Embeddings",
+    "jurisdiction": "European Union",
+    "workflow": "AI Model Training",
+    "facts": {
+      "processing_purpose": "semantic search index generation",
+      "retention_period_days": null,
+      "data_categories": ["customer queries"],
+      "safeguards": ["encryption"]
+    },
+    "ground_truth_label": 1,
+    "labeled_issues": ["STORAGE_LIMITATION_BREACH"],
+    "key_statutes": ["GDPR Art 5(1)(e)"]
+  },
+  {
+    "scenario_id": "scen_05",
+    "split": "train",
+    "title": "Internal Employee Feedback Model Training With Explicit Consent",
+    "jurisdiction": "European Union",
+    "workflow": "Internal AI Assistant",
+    "facts": {
+      "processing_purpose": "internal knowledge retrieval assistant",
+      "user_consent_mechanism": "specific renewed consent",
+      "retention_period_days": 90,
+      "safeguards": ["pseudonymisation"]
+    },
+    "ground_truth_label": 0,
+    "labeled_issues": ["COMPLIANT_PROCESSING"],
+    "key_statutes": ["GDPR Art 6(1)(a)"]
+  },
+  {
+    "scenario_id": "scen_06",
+    "split": "train",
+    "title": "Unredacted Special Category Health Inquiries in Training Corpus",
+    "jurisdiction": "European Union",
+    "workflow": "Healthcare Bot Training",
+    "facts": {
+      "processing_purpose": "triage chatbot fine-tuning",
+      "data_categories": ["health symptom transcripts", "patient identifiers"],
+      "user_consent_mechanism": "general terms of service",
+      "retention_period_days": 365,
+      "safeguards": []
+    },
+    "ground_truth_label": 1,
+    "labeled_issues": ["SPECIAL_CATEGORY_VIOLATION"],
+    "key_statutes": ["GDPR Art 9"]
+  },
+  {
+    "scenario_id": "scen_07",
+    "split": "train",
+    "title": "Biometric Voiceprint Ingestion for Audio Model Synthesis",
+    "jurisdiction": "European Union",
+    "workflow": "Audio Generation Model",
+    "facts": {
+      "processing_purpose": "synthetic voice generation",
+      "data_categories": ["voiceprints", "audio recordings"],
+      "automated_decision_making": false,
+      "machine_readable_marking": false,
+      "safeguards": []
+    },
+    "ground_truth_label": 1,
+    "labeled_issues": ["AI_ACT_MARKING_ABSENT", "BIOMETRIC_DATA_RISK"],
+    "key_statutes": ["EU AI Act Art 50(2)", "GDPR Art 9"]
+  },
+  {
+    "scenario_id": "scen_08",
+    "split": "train",
+    "title": "Pseudonymized Telemetry Logs for Bug Prediction",
+    "jurisdiction": "European Union",
+    "workflow": "Operational AI",
+    "facts": {
+      "processing_purpose": "error telemetry analytics",
+      "data_categories": ["system error codes", "hashed device IDs"],
+      "retention_period_days": 60,
+      "safeguards": ["pseudonymisation", "encryption"]
+    },
+    "ground_truth_label": 0,
+    "labeled_issues": ["COMPLIANT_TELEMETRY"],
+    "key_statutes": ["GDPR Art 6(1)(f)"]
+  },
+  {
+    "scenario_id": "scen_09",
+    "split": "train",
+    "title": "Third-Party Foundation Model Provider Transfer Without Data Processing Agreement",
+    "jurisdiction": "European Union",
+    "workflow": "Cloud LLM Integration",
+    "facts": {
+      "processing_purpose": "third-party model inference",
+      "third_party_transfer": true,
+      "has_dpa": false,
+      "retention_period_days": 30,
+      "safeguards": []
+    },
+    "ground_truth_label": 1,
+    "labeled_issues": ["ARTICLE_28_DPA_ABSENT"],
+    "key_statutes": ["GDPR Art 28"]
+  },
+  {
+    "scenario_id": "scen_10",
+    "split": "train",
+    "title": "Synthetic Data Generation for Model Evaluation",
+    "jurisdiction": "European Union",
+    "workflow": "AI Evaluation",
+    "facts": {
+      "processing_purpose": "evaluation benchmark creation",
+      "data_categories": ["purely synthetic simulated profiles"],
+      "retention_period_days": 365,
+      "safeguards": ["no personal data"]
+    },
+    "ground_truth_label": 0,
+    "labeled_issues": ["NON_PERSONAL_DATA"],
+    "key_statutes": ["GDPR Recital 26"]
+  },
+  {
+    "scenario_id": "scen_11",
+    "split": "train",
+    "title": "User Right to Erasure Pipeline Failure in Training Weights",
+    "jurisdiction": "European Union",
+    "workflow": "Model Retraining",
+    "facts": {
+      "processing_purpose": "model parameter updates",
+      "erasure_pipeline_functional": false,
+      "retention_period_days": 1000,
+      "safeguards": []
+    },
+    "ground_truth_label": 1,
+    "labeled_issues": ["RIGHT_TO_ERASURE_DEFECT"],
+    "key_statutes": ["GDPR Art 17"]
+  },
+  {
+    "scenario_id": "scen_12",
+    "split": "train",
+    "title": "Marketing Email Generator With Clear AI Notification",
+    "jurisdiction": "European Union",
+    "workflow": "Content Generation",
+    "facts": {
+      "processing_purpose": "marketing copy assistance",
+      "automated_decision_making": false,
+      "machine_readable_marking": true,
+      "retention_period_days": 30,
+      "safeguards": ["transparent disclosure"]
+    },
+    "ground_truth_label": 0,
+    "labeled_issues": ["TRANSPARENCY_MET"],
+    "key_statutes": ["EU AI Act Art 50(2)"]
+  },
+  {
+    "scenario_id": "scen_13",
+    "split": "train",
+    "title": "Multi-Tenant RAG Vector Store Without Tenant Isolation",
+    "jurisdiction": "European Union",
+    "workflow": "SaaS AI App",
+    "facts": {
+      "processing_purpose": "enterprise search",
+      "tenant_isolation_enforced": false,
+      "data_categories": ["client confidential files"],
+      "retention_period_days": 365,
+      "safeguards": []
+    },
+    "ground_truth_label": 1,
+    "labeled_issues": ["SECURITY_OF_PROCESSING_BREACH"],
+    "key_statutes": ["GDPR Art 32"]
+  },
+  {
+    "scenario_id": "scen_14",
+    "split": "train",
+    "title": "Local On-Device Speech Model Without Cloud Offload",
+    "jurisdiction": "European Union",
+    "workflow": "Edge AI",
+    "facts": {
+      "processing_purpose": "on-device dictation",
+      "cloud_offload": false,
+      "retention_period_days": 0,
+      "safeguards": ["ephemeral RAM processing"]
+    },
+    "ground_truth_label": 0,
+    "labeled_issues": ["EPHEMERAL_COMPLIANT"],
+    "key_statutes": ["GDPR Art 5(1)(e)"]
+  },
+  {
+    "scenario_id": "scen_15",
+    "split": "held_out",
+    "title": "Autonomous Candidate Resume Screening Without Explainability",
+    "jurisdiction": "European Union",
+    "workflow": "HR Recruitment AI",
+    "facts": {
+      "processing_purpose": "automated hiring filter",
+      "automated_decision_making": true,
+      "machine_readable_marking": false,
+      "retention_period_days": 500,
+      "safeguards": []
+    },
+    "ground_truth_label": 1,
+    "labeled_issues": ["HIGH_RISK_ANNEX_III", "TRANSPARENCY_DEFECT"],
+    "key_statutes": ["EU AI Act Annex III(4)", "GDPR Art 22"]
+  },
+  {
+    "scenario_id": "scen_16",
+    "split": "held_out",
+    "title": "Academic Research On Open Access Datasets",
+    "jurisdiction": "European Union",
+    "workflow": "Scientific Research",
+    "facts": {
+      "processing_purpose": "scientific research on linguistics",
+      "data_categories": ["public domain books"],
+      "retention_period_days": 1825,
+      "safeguards": ["public interest research"]
+    },
+    "ground_truth_label": 0,
+    "labeled_issues": ["RESEARCH_EXEMPTION"],
+    "key_statutes": ["GDPR Art 89(1)"]
+  },
+  {
+    "scenario_id": "scen_17",
+    "split": "held_out",
+    "title": "Customer Service AI Model Training Using Opt-Out Banner Only",
+    "jurisdiction": "European Union",
+    "workflow": "AI Model Training",
+    "facts": {
+      "processing_purpose": "foundation model fine-tuning",
+      "user_consent_mechanism": "opt-out banner in footer",
+      "data_categories": ["customer chat history"],
+      "retention_period_days": 730,
+      "safeguards": ["opt-out only"]
+    },
+    "ground_truth_label": 1,
+    "labeled_issues": ["INVALID_CONSENT", "INCOMPATIBLE_PURPOSE"],
+    "key_statutes": ["GDPR Art 6(4)", "EDPB Stmt 01/2024"]
+  },
+  {
+    "scenario_id": "scen_18",
+    "split": "held_out",
+    "title": "Contract Analysis AI for In-House Legal Counsel",
+    "jurisdiction": "European Union",
+    "workflow": "Enterprise Decision Support",
+    "facts": {
+      "processing_purpose": "contract clause review",
+      "automated_decision_making": false,
+      "machine_readable_marking": true,
+      "retention_period_days": 90,
+      "safeguards": ["role-based access", "encryption"]
+    },
+    "ground_truth_label": 0,
+    "labeled_issues": ["COMPLIANT_DECISION_SUPPORT"],
+    "key_statutes": ["GDPR Art 6(1)(b)"]
+  },
+  {
+    "scenario_id": "scen_19",
+    "split": "held_out",
+    "title": "Cross-Border LLM Inference with Unvetted Non-EU Cloud Host",
+    "jurisdiction": "European Union",
+    "workflow": "Global AI API",
+    "facts": {
+      "processing_purpose": "chat assistance",
+      "third_party_transfer": true,
+      "adequacy_decision": false,
+      "standard_contractual_clauses": false,
+      "retention_period_days": 30,
+      "safeguards": []
+    },
+    "ground_truth_label": 1,
+    "labeled_issues": ["UNLAWFUL_CROSS_BORDER_TRANSFER"],
+    "key_statutes": ["GDPR Chapter V (Art 44-49)"]
+  },
+  {
+    "scenario_id": "scen_20",
+    "split": "held_out",
+    "title": "Pre-Trained Open Weights Deployed Locally On Secure Infrastructure",
+    "jurisdiction": "European Union",
+    "workflow": "Private AI Deployment",
+    "facts": {
+      "processing_purpose": "document summarization",
+      "user_consent_mechanism": "internal employee policy",
+      "retention_period_days": 14,
+      "safeguards": ["air-gapped network", "zero retention"]
+    },
+    "ground_truth_label": 0,
+    "labeled_issues": ["COMPLIANT_LOCAL_DEPLOYMENT"],
+    "key_statutes": ["GDPR Art 32"]
+  }
+]

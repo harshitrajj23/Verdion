@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VerdionCase",
+  "type": "object",
+  "required": ["id", "title", "jurisdiction", "question", "assessment_date", "facts", "scope_version", "status", "created_at"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^case_[a-zA-Z0-9_-]+$" },
+    "title": { "type": "string", "minLength": 3 },
+    "jurisdiction": { "type": "string" },
+    "question": { "type": "string", "minLength": 10 },
+    "assessment_date": { "type": "string", "format": "date" },
+    "facts": {
+      "type": "object",
+      "required": ["data_categories", "processing_purpose", "affected_users"],
+      "properties": {
+        "data_categories": { "type": "array", "items": { "type": "string" } },
+        "processing_purpose": { "type": "string" },
+        "affected_users": { "type": "string" },
+        "retention_period_days": { "type": "integer" },
+        "automated_decision_making": { "type": "boolean" },
+        "third_party_transfer": { "type": "boolean" },
+        "user_consent_mechanism": { "type": "string" }
+      }
+    },
+    "scope_version": { "type": "integer", "minimum": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["DRAFT", "RETRIEVAL", "ANALYSIS", "INVESTIGATION", "REVIEW", "COMPLETED", "FAILED"]
+    },
+    "missing_facts": { "type": "array", "items": { "type": "string" } },
+    "source_corpus_version": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

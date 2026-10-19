@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VerdionClaim",
+  "type": "object",
+  "required": ["id", "case_id", "case_version", "agent_id", "claim_text", "claim_type", "evidence_status", "timestamp"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^claim_[a-zA-Z0-9_-]+$" },
+    "case_id": { "type": "string" },
+    "case_version": { "type": "integer" },
+    "agent_id": { "type": "string" },
+    "claim_text": { "type": "string", "minLength": 5 },
+    "claim_type": {
+      "type": "string",
+      "enum": ["LEGAL_INTERPRETATION", "FACTUAL_MAPPING", "RISK_FINDING", "HYPOTHESIS", "STATUTORY_REQUIREMENT"]
+    },
+    "evidence_status": {
+      "type": "string",
+      "enum": ["SUPPORTED", "UNSUPPORTED", "CONTRADICTED", "QUALIFIED"]
+    },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "confidence_metadata": {
+      "type": "object",
+      "properties": {
+        "self_reported_score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "source_coverage_ratio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "adversarial_resilience": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

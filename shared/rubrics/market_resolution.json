@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "name": "Verdion Prediction Market Resolution Rules",
+  "description": "Rules governing the resolution, challenge, and voiding of legal evaluation forecast markets (§10.5)",
+  "resolution_process": {
+    "benchmark_evaluation": {
+      "evaluator_role": "INDEPENDENT_EVALUATOR",
+      "procedure": "An authorized independent evaluator evaluates whether a specified compliance gap exists according to the pre-frozen benchmark rubric and test scenario facts.",
+      "outcome_types": ["YES", "NO"],
+      "ambiguity_handling": "If facts are insufficient or contradictory authorities remain unharmonized by published case law, evaluator must designate VOID / UNRESOLVED rather than forcing a speculative binary outcome."
+    },
+    "challenge_window_duration_seconds": 86400,
+    "challenge_deposit_credits": 50,
+    "settlement_rules": {
+      "payout_metric": "Brier Score Proper Scoring Rule BS = (1/N) * sum((p_i - y_i)^2)",
+      "credit_distribution": "Deterministic reward pool distributed proportionally to inverse Brier score variance among revealed participants.",
+      "dust_remainder_handling": "Integer division dust remainder (totalRewardPool % n) is computed as (totalRewardPool - perAgentReward * n) and tracked explicitly in the named contract storage field Market.dustRemainder, guaranteeing strict conservation of simulated credits (totalPaidOut + dustRemainder == fundedAmount). dustRemainder is intentionally not distributed in the MVP and stays in the market contract.",
+      "unrevealed_penalty": "Agents who commit but fail to reveal forfeit their commitment deposit."
+    },
+    "void_conditions": [
+      "Benchmark rubric deemed corrupted or inconsistent prior to reveal window",
+      "Less than minimum required sample size (N < 2 revealed forecasts)",
+      "Evaluation scenario invalidated by conflicting authoritative guidance issued before assessment date"
+    ]
+  }
+}

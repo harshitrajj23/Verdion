@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VerdionSettlement",
+  "type": "object",
+  "required": ["id", "target_type", "target_id", "participant", "score", "reward_credits", "resolution_reference", "transaction_hash", "timestamp"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^set_[a-zA-Z0-9_-]+$" },
+    "target_type": { "type": "string", "enum": ["MARKET", "BOUNTY"] },
+    "target_id": { "type": "string" },
+    "participant": { "type": "string" },
+    "score": { "type": "number" },
+    "reward_credits": { "type": "number", "minimum": 0 },
+    "resolution_reference": { "type": "string" },
+    "transaction_hash": { "type": "string", "pattern": "^0x[a-fA-F0-9]{64}$" },
+    "reputation_delta": { "type": "number" },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

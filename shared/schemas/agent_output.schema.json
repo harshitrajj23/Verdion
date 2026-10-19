@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VerdionAgentOutput",
+  "type": "object",
+  "required": [
+    "agent_id",
+    "role",
+    "case_id",
+    "case_version",
+    "claims",
+    "evidence_refs",
+    "assumptions",
+    "counterarguments",
+    "uncertainty",
+    "recommended_actions",
+    "model_version",
+    "prompt_version",
+    "tool_versions",
+    "status",
+    "error_details"
+  ],
+  "properties": {
+    "agent_id": { "type": "string" },
+    "role": {
+      "type": "string",
+      "enum": ["LEGAL_RESEARCHER", "LEGAL_INTERPRETER", "ADVERSARIAL_RESEARCHER", "EVIDENCE_VERIFIER", "QUANTITATIVE_FORECASTER", "COORDINATOR"]
+    },
+    "case_id": { "type": "string" },
+    "case_version": { "type": "integer" },
+    "claims": {
+      "type": "array",
+      "items": { "$ref": "claim.schema.json" }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "counterarguments": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "uncertainty": {
+      "type": "object",
+      "required": ["score", "impact", "feasibility", "priority", "rationale"],
+      "properties": {
+        "score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "impact": { "type": "number", "minimum": 0, "maximum": 1 },
+        "feasibility": { "type": "number", "minimum": 0, "maximum": 1 },
+        "priority": { "type": "number", "minimum": 0, "maximum": 1 },
+        "rationale": { "type": "string" }
+      }
+    },
+    "forecast": {
+      "type": "object",
+      "properties": {
+        "probability": { "type": "number", "minimum": 0, "maximum": 1 },
+        "event_definition": { "type": "string" },
+        "confidence_interval": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "model_version": { "type": "string" },
+    "prompt_version": { "type": "string" },
+    "tool_versions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["SUCCESS", "PARTIAL", "FAILED", "ABSTAINED"]
+    },
+    "error_details": {
+      "type": ["string", "null"]
+    },
+    "execution_metrics": {
+      "type": "object",
+      "properties": {
+        "elapsed_ms": { "type": "number" },
+        "token_usage": { "type": "integer" },
+        "cost_usd": { "type": "number" }
+      }
+    }
+  }
+}

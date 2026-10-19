@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "name": "Verdion Evidence Bounty Acceptance Rubric",
+  "description": "Standardized evaluation criteria for reviewing evidence bounty submissions (§11.3)",
+  "criteria": [
+    {
+      "id": "AUTH_PROV",
+      "name": "Source Authenticity and Provenance",
+      "weight": 0.20,
+      "description": "The evidence must originate from an official, authoritative source (e.g. regulatory agency, court, legislative gazette). A valid URL or document reference with cryptographic digest is required."
+    },
+    {
+      "id": "RELEVANCE",
+      "name": "Relevance to Exact Research Question",
+      "weight": 0.25,
+      "description": "Passage directly addresses the specific legal question or compliance gap stated in the bounty specification."
+    },
+    {
+      "id": "JURISDICTION_DATE",
+      "name": "Jurisdictional Applicability and Effective Date",
+      "weight": 0.20,
+      "description": "Source must be active and legally applicable to the target jurisdiction as of the assessment date; superseded or amended statutes without explicit savings provisions are rejected."
+    },
+    {
+      "id": "REPRODUCIBILITY",
+      "name": "Reproducibility and Exact Passage Reference",
+      "weight": 0.15,
+      "description": "Submission must provide exact chapter, section, paragraph, or page references capable of independent verification without ambiguity."
+    },
+    {
+      "id": "NOVELTY",
+      "name": "Novelty Relative to Existing Evidence",
+      "weight": 0.10,
+      "description": "Evidence must not be a duplicate or trivial restatement of materials already accepted into the case's versioned corpus."
+    },
+    {
+      "id": "UNCERTAINTY_IMPACT",
+      "name": "Demonstrable Effect on Defined Uncertainty",
+      "weight": 0.10,
+      "description": "Submission clearly reduces the target uncertainty score or establishes a dispositive legal rule."
+    }
+  ],
+  "passing_threshold_score": 0.70,
+  "anti_gaming_rules": [
+    "Identical digests to existing accepted evidence trigger automatic duplicate rejection (FR-045)",
+    "Submissions lacking explicit effective-date metadata fail JURISDICTION_DATE check",
+    "Review decisions must cite at least two positive rubric criteria and full reviewer address"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VerdionBounty",
+  "type": "object",
+  "required": ["id", "case_id", "question", "acceptance_criteria", "reward_credits", "deadline", "status"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^bounty_[a-zA-Z0-9_-]+$" },
+    "case_id": { "type": "string" },
+    "question": { "type": "string", "minLength": 10 },
+    "acceptance_criteria": { "type": "array", "items": { "type": "string" } },
+    "accepted_evidence_types": { "type": "array", "items": { "type": "string" } },
+    "reward_credits": { "type": "number", "minimum": 1 },
+    "deadline": { "type": "string", "format": "date-time" },
+    "reviewer_address": { "type": "string" },
+    "challenge_period_seconds": { "type": "integer", "default": 86400 },
+    "status": {
+      "type": "string",
+      "enum": ["CREATED", "FUNDED", "OPEN", "REVIEW", "CHALLENGE", "AWARDED", "REJECTED", "CANCELLED", "SETTLED"]
+    },
+    "contract_address": { "type": "string" },
+    "winning_submission_id": { "type": "string" },
+    "settlement_tx_hash": { "type": "string" }
+  }
+}

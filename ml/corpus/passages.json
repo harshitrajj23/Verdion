@@ -1,0 +1,47 @@
+[
+  {
+    "passage_id": "pas_gdpr_art5_1_b",
+    "document_id": "gdpr_reg_2016_679",
+    "passage_reference": "Article 5(1)(b) - Purpose Limitation",
+    "content": "Personal data shall be collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes; further processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes shall, in accordance with Article 89(1), not be considered to be incompatible with the initial purposes.",
+    "effective_date": "2018-05-25",
+    "authority": "European Parliament and Council",
+    "keywords": ["purpose limitation", "incompatible", "further processing", "legitimate purposes"]
+  },
+  {
+    "passage_id": "pas_gdpr_art6_1",
+    "document_id": "gdpr_reg_2016_679",
+    "passage_reference": "Article 6(1) - Lawfulness of Processing",
+    "content": "Processing shall be lawful only if and to the extent that at least one of the following applies: (a) the data subject has given consent to the processing of his or her personal data for one or more specific purposes; ... (f) processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data.",
+    "effective_date": "2018-05-25",
+    "authority": "European Parliament and Council",
+    "keywords": ["lawful basis", "consent", "legitimate interests", "overridden"]
+  },
+  {
+    "passage_id": "pas_gdpr_art6_4",
+    "document_id": "gdpr_reg_2016_679",
+    "passage_reference": "Article 6(4) - Compatibility Test for Secondary Processing",
+    "content": "Where the processing for a purpose other than that for which the personal data have been collected is not based on the data subject's consent or on a Union or Member State law which constitutes a necessary and proportionate measure in a democratic society to safeguard the objectives referred to in Article 23(1), the controller shall, in order to ascertain whether processing for another purpose is compatible with the purpose for which the personal data are initially collected, take into account, inter alia: (a) any link between the purposes for which the personal data have been collected and the purposes of the intended further processing; (b) the context in which the personal data have been collected, in particular regarding the relationship between data subjects and the controller; (c) the nature of the personal data, in particular whether special categories of personal data are processed, pursuant to Article 9; (d) the possible consequences of the intended further processing for data subjects; (e) the existence of appropriate safeguards, which may include encryption or pseudonymisation.",
+    "effective_date": "2018-05-25",
+    "authority": "European Parliament and Council",
+    "keywords": ["compatibility test", "secondary processing", "link between purposes", "safeguards", "pseudonymisation"]
+  },
+  {
+    "passage_id": "pas_aiact_art50_2",
+    "document_id": "eu_ai_act_2024_1689",
+    "passage_reference": "Article 50(2) - Transparency Obligations for Providers and Deployers",
+    "content": "Providers of AI systems, including general-purpose AI models, that generate or manipulate image, audio or video content that appreciably resembles existing persons, objects, places or other entities and would falsely appear to a person to be authentic or truthful ('deepfakes'), shall ensure that the outputs of the AI system are marked in a machine-readable format and detectable as artificially generated or manipulated.",
+    "effective_date": "2024-08-01",
+    "authority": "European Parliament and Council",
+    "keywords": ["transparency obligations", "marking", "machine-readable", "general-purpose AI"]
+  },
+  {
+    "passage_id": "pas_edpb_stmt_01_2024_p4",
+    "document_id": "edpb_statement_01_2024",
+    "passage_reference": "Statement 01/2024 Paragraph 4 - Generative AI Training on Customer Interactions",
+    "content": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery. Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+    "effective_date": "2024-04-17",
+    "authority": "European Data Protection Board",
+    "keywords": ["repurposing", "customer support transcripts", "fine-tune", "legitimate interest", "opt-out", "reasonable expectations"]
+  }
+]
