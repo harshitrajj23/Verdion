@@ -1,0 +1,17 @@
+{
+  "veridion-ci-gate": {
+    "enabled": true,
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python ./scripts/antigravity_pre_push_hook.py",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}
