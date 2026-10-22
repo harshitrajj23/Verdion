@@ -1,0 +1,586 @@
+[
+  {
+    "scenario_id": "scen_01",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 2,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If service providers intend to repurpose customer support transcripts for training or fine-tuning AI models, then such training represents a distinct purpose from contract performance or routine service delivery.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 834,
+        "completion_tokens": 393,
+        "elapsed_ms": 38828.49
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If controllers rely on legitimate interest under Article 6(1)(f) of the GDPR, then they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 1,
+        "extracted_sentence": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 834,
+        "completion_tokens": 393,
+        "elapsed_ms": 38828.49
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_02",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 3,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If service providers intend to repurpose customer support transcripts for fine-tuning AI models, then such training represents a distinct purpose from contract performance or routine service delivery.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 1119,
+        "completion_tokens": 581,
+        "elapsed_ms": 43287.5
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If controllers rely on legitimate interest under Article 6(1)(f) to train or fine-tune AI models on user communications, then they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 1,
+        "extracted_sentence": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 1119,
+        "completion_tokens": 581,
+        "elapsed_ms": 43287.5
+      },
+      {
+        "claim_id": "claim_res_3",
+        "claim_text": "If the processing for a purpose other than that for which the personal data have been collected is not based on the data subject's consent or on a Union or Member State law, then the controller must take into account the link between the purposes for which the personal data have been collected and the purposes of the intended further processing.",
+        "supporting_passage_id": "pas_gdpr_art6_4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Where the processing for a purpose other than that for which the personal data have been collected is not based on the data subject's consent or on a Union or Member State law which constitutes a necessary and proportionate measure in a democratic society to safeguard the objectives referred to in Article 23(1), the controller shall, in order to ascertain whether processing for another purpose is compatible with the purpose for which the personal data are initially collected, take into account, inter alia: (a) any link between the purposes for which the personal data have been collected and the purposes of the intended further processing;",
+        "evidence_status": "UNSUPPORTED",
+        "verifier_notes": "supporting_passage_id=pas_gdpr_art6_4, match=false, reason=SENTENCE_TOO_LONG",
+        "prompt_tokens": 1119,
+        "completion_tokens": 581,
+        "elapsed_ms": 43287.5
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_03",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 3,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If service providers intend to repurpose customer support transcripts for training AI models, then such training represents a distinct purpose from contract performance or routine service delivery.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 985,
+        "completion_tokens": 504,
+        "elapsed_ms": 39286.47
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If controllers rely on legitimate interest under Article 6(1)(f) for automated decision-making, then they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 1,
+        "extracted_sentence": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 985,
+        "completion_tokens": 504,
+        "elapsed_ms": 39286.47
+      },
+      {
+        "claim_id": "claim_res_3",
+        "claim_text": "If automated decision-making is used for creditworthiness assessment, then the outputs of the AI system must be marked in a machine-readable format and detectable as artificially generated or manipulated.",
+        "supporting_passage_id": "pas_aiact_art50_2",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Providers of AI systems, including general-purpose AI models, that generate or manipulate image, audio or video content that appreciably resembles existing persons, objects, places or other entities and would falsely appear to a person to be authentic or truthful ('deepfakes'), shall ensure that the outputs of the AI system are marked in a machine-readable format and detectable as artificially generated or manipulated.",
+        "evidence_status": "UNSUPPORTED",
+        "verifier_notes": "supporting_passage_id=pas_aiact_art50_2, match=false, reason=SENTENCE_TOO_LONG",
+        "prompt_tokens": 985,
+        "completion_tokens": 504,
+        "elapsed_ms": 39286.47
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_04",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 2,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If personal data is further processed for archiving purposes in the public interest, then such processing is not considered incompatible with the initial purposes.",
+        "supporting_passage_id": "pas_gdpr_art5_1_b",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Personal data shall be collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes; further processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes shall, in accordance with Article 89(1), not be considered to be incompatible with the initial purposes.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 808,
+        "completion_tokens": 468,
+        "elapsed_ms": 37165.65
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If service providers intend to repurpose customer support transcripts for training AI models, then such training represents a distinct purpose from the original contract performance or routine service delivery.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 808,
+        "completion_tokens": 468,
+        "elapsed_ms": 37165.65
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_05",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 3,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If personal data is to be further processed for archiving purposes in the public interest, then such processing shall not be considered incompatible with the initial purposes, provided it complies with Article 89(1).",
+        "supporting_passage_id": "pas_gdpr_art5_1_b",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Personal data shall be collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes; further processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes shall, in accordance with Article 89(1), not be considered to be incompatible with the initial purposes.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 990,
+        "completion_tokens": 610,
+        "elapsed_ms": 58250.24
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If internal employee feedback is processed for training purposes, then such processing must be based on explicit consent from the data subject, according to Article 6(1)(a).",
+        "supporting_passage_id": "pas_gdpr_art6_1",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Processing shall be lawful only if and to the extent that at least one of the following applies: (a) the data subject has given consent to the processing of his or her personal data for one or more specific purposes;",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 990,
+        "completion_tokens": 610,
+        "elapsed_ms": 58250.24
+      },
+      {
+        "claim_id": "claim_res_3",
+        "claim_text": "If the internal knowledge retrieval assistant is used to train generative AI models, then it must be demonstrated that user reasonable expectations are not violated through rigorous risk assessments and opt-out mechanisms, as per the EDPB Statement 01/2024.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 1,
+        "extracted_sentence": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 990,
+        "completion_tokens": 610,
+        "elapsed_ms": 58250.24
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_06",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 2,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If personal data are collected for a purpose other than that for which the data are initially collected, then the controller shall take into account the nature of the personal data, including whether special categories of personal data are processed, to ascertain compatibility with the new purpose.",
+        "supporting_passage_id": "pas_gdpr_art6_4",
+        "supporting_sentence_index": 2,
+        "extracted_sentence": "(c) the nature of the personal data, in particular whether special categories of personal data are processed, pursuant to Article 9;",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 955,
+        "completion_tokens": 459,
+        "elapsed_ms": 58570.96
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If service providers intend to repurpose customer support transcripts for training AI models, then they must demonstrate compelling safeguards, such as pre-training redaction and opt-out mechanisms, to ensure user reasonable expectations are not violated.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 1,
+        "extracted_sentence": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 955,
+        "completion_tokens": 459,
+        "elapsed_ms": 58570.96
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_07",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 3,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If a synthetic voice generation model is used to generate audio that appreciably resembles an existing person, then the outputs of the AI system must be marked in a machine-readable format and detectable as artificially generated or manipulated.",
+        "supporting_passage_id": "pas_aiact_art50_2",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Providers of AI systems, including general-purpose AI models, that generate or manipulate image, audio or video content that appreciably resembles existing persons, objects, places or other entities and would falsely appear to a person to be authentic or truthful ('deepfakes'), shall ensure that the outputs of the AI system are marked in a machine-readable format and detectable as artificially generated or manipulated.",
+        "evidence_status": "UNSUPPORTED",
+        "verifier_notes": "supporting_passage_id=pas_aiact_art50_2, match=false, reason=SENTENCE_TOO_LONG",
+        "prompt_tokens": 982,
+        "completion_tokens": 556,
+        "elapsed_ms": 67108.27
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If service providers intend to repurpose customer support transcripts to train a general-purpose AI model, then they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 1,
+        "extracted_sentence": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 982,
+        "completion_tokens": 556,
+        "elapsed_ms": 67108.27
+      },
+      {
+        "claim_id": "claim_res_3",
+        "claim_text": "If personal data is collected for a specific purpose, then it cannot be further processed in a manner that is incompatible with that purpose, unless it is for archiving, scientific, historical, or statistical purposes.",
+        "supporting_passage_id": "pas_gdpr_art5_1_b",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Personal data shall be collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes; further processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes shall, in accordance with Article 89(1), not be considered to be incompatible with the initial purposes.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 982,
+        "completion_tokens": 556,
+        "elapsed_ms": 67108.27
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_08",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 3,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, then such training represents a distinct purpose from contract performance or routine service delivery.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 991,
+        "completion_tokens": 566,
+        "elapsed_ms": 65857.5
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If controllers rely on legitimate interest under Article 6(1)(f) to process personal data, then they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 1,
+        "extracted_sentence": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 991,
+        "completion_tokens": 566,
+        "elapsed_ms": 65857.5
+      },
+      {
+        "claim_id": "claim_res_3",
+        "claim_text": "If processing personal data is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, then such processing is lawful, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data.",
+        "supporting_passage_id": "pas_gdpr_art6_1",
+        "supporting_sentence_index": 1,
+        "extracted_sentence": "... (f) processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 991,
+        "completion_tokens": 566,
+        "elapsed_ms": 65857.5
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_09",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 3,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If personal data are collected for a specific purpose, then further processing for a purpose incompatible with the initial purpose is not allowed, unless it is for archiving, scientific, historical, or statistical purposes.",
+        "supporting_passage_id": "pas_gdpr_art5_1_b",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Personal data shall be collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes; further processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes shall, in accordance with Article 89(1), not be considered to be incompatible with the initial purposes.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 1113,
+        "completion_tokens": 510,
+        "elapsed_ms": 61405.81
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If the processing for a purpose other than that for which the personal data have been collected is not based on the data subject's consent or a necessary and proportionate measure in a democratic society, then the controller must take into account various factors to determine compatibility with the initial purpose.",
+        "supporting_passage_id": "pas_gdpr_art6_4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Where the processing for a purpose other than that for which the personal data have been collected is not based on the data subject's consent or on a Union or Member State law which constitutes a necessary and proportionate measure in a democratic society to safeguard the objectives referred to in Article 23(1), the controller shall, in order to ascertain whether processing for another purpose is compatible with the purpose for which the personal data are initially collected, take into account, inter alia: (a) any link between the purposes for which the personal data have been collected and the purposes of the intended further processing;",
+        "evidence_status": "UNSUPPORTED",
+        "verifier_notes": "supporting_passage_id=pas_gdpr_art6_4, match=false, reason=SENTENCE_TOO_LONG",
+        "prompt_tokens": 1113,
+        "completion_tokens": 510,
+        "elapsed_ms": 61405.81
+      },
+      {
+        "claim_id": "claim_res_3",
+        "claim_text": "If a service provider intends to repurpose customer support transcripts for training AI foundation models, then such training represents a distinct purpose from the original contract performance or service delivery.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 1113,
+        "completion_tokens": 510,
+        "elapsed_ms": 61405.81
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_10",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 4,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If service providers intend to repurpose customer support transcripts for training AI models, then such training represents a distinct purpose from contract performance or routine service delivery.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 987,
+        "completion_tokens": 720,
+        "elapsed_ms": 80533.68
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If controllers rely on legitimate interest under Article 6(1)(f) to process personal data, then they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 1,
+        "extracted_sentence": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 987,
+        "completion_tokens": 720,
+        "elapsed_ms": 80533.68
+      },
+      {
+        "claim_id": "claim_res_3",
+        "claim_text": "If processing personal data is for purposes other than the initial purposes, then it should not be considered incompatible with the initial purposes unless it is for archiving, scientific, historical, or statistical purposes.",
+        "supporting_passage_id": "pas_gdpr_art5_1_b",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Personal data shall be collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes; further processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes shall, in accordance with Article 89(1), not be considered to be incompatible with the initial purposes.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 987,
+        "completion_tokens": 720,
+        "elapsed_ms": 80533.68
+      },
+      {
+        "claim_id": "claim_res_4",
+        "claim_text": "If processing is necessary for the legitimate interests of the controller or a third party, then it must not override the interests or fundamental rights and freedoms of the data subject.",
+        "supporting_passage_id": "pas_gdpr_art6_1",
+        "supporting_sentence_index": 1,
+        "extracted_sentence": "... (f) processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 987,
+        "completion_tokens": 720,
+        "elapsed_ms": 80533.68
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_11",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 2,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If service providers intend to repurpose customer support transcripts for training AI models, then such training represents a distinct purpose from contract performance or routine service delivery.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 1005,
+        "completion_tokens": 361,
+        "elapsed_ms": 41769.74
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If controllers rely on legitimate interest under Article 6(1)(f) of the GDPR, then they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments.",
+        "supporting_passage_id": "pas_gdpr_art6_1",
+        "supporting_sentence_index": 1,
+        "extracted_sentence": "... (f) processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 1005,
+        "completion_tokens": 361,
+        "elapsed_ms": 41769.74
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_12",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 3,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If personal data are collected for a specific purpose, then further processing for a different purpose is not considered incompatible with the initial purposes, unless it is for archiving, scientific, historical research, or statistical purposes.",
+        "supporting_passage_id": "pas_gdpr_art5_1_b",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Personal data shall be collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes; further processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes shall, in accordance with Article 89(1), not be considered to be incompatible with the initial purposes.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 1108,
+        "completion_tokens": 515,
+        "elapsed_ms": 59980.93
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If the processing for a purpose other than that for which the personal data have been collected is not based on the data subject's consent or a necessary and proportionate measure in a democratic society, then the controller must take into account various factors to ascertain whether the processing is compatible with the initial purpose.",
+        "supporting_passage_id": "pas_gdpr_art6_4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Where the processing for a purpose other than that for which the personal data have been collected is not based on the data subject's consent or on a Union or Member State law which constitutes a necessary and proportionate measure in a democratic society to safeguard the objectives referred to in Article 23(1), the controller shall, in order to ascertain whether processing for another purpose is compatible with the purpose for which the personal data are initially collected, take into account, inter alia: (a) any link between the purposes for which the personal data have been collected and the purposes of the intended further processing;",
+        "evidence_status": "UNSUPPORTED",
+        "verifier_notes": "supporting_passage_id=pas_gdpr_art6_4, match=false, reason=SENTENCE_TOO_LONG",
+        "prompt_tokens": 1108,
+        "completion_tokens": 515,
+        "elapsed_ms": 59980.93
+      },
+      {
+        "claim_id": "claim_res_3",
+        "claim_text": "If service providers intend to repurpose customer support transcripts for training AI models, then such training represents a distinct purpose from the original contract performance or routine service delivery.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 1108,
+        "completion_tokens": 515,
+        "elapsed_ms": 59980.93
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_13",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 2,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If personal data is further processed for archiving purposes in the public interest, then such processing is not considered incompatible with the initial purposes.",
+        "supporting_passage_id": "pas_gdpr_art5_1_b",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "Personal data shall be collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes; further processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes shall, in accordance with Article 89(1), not be considered to be incompatible with the initial purposes.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 806,
+        "completion_tokens": 465,
+        "elapsed_ms": 58763.23
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If service providers intend to repurpose customer support transcripts for training AI models, then such training represents a distinct purpose from contract performance or routine service delivery.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 806,
+        "completion_tokens": 465,
+        "elapsed_ms": 58763.23
+      }
+    ]
+  },
+  {
+    "scenario_id": "scen_14",
+    "splitter_version": "1.1.0",
+    "status": "SUCCESS",
+    "attempts": 1,
+    "error_details": null,
+    "number_of_claims": 2,
+    "claims": [
+      {
+        "claim_id": "claim_res_1",
+        "claim_text": "If service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, then such training represents a distinct purpose from contract performance or routine service delivery.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 0,
+        "extracted_sentence": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 820,
+        "completion_tokens": 471,
+        "elapsed_ms": 60764.38
+      },
+      {
+        "claim_id": "claim_res_2",
+        "claim_text": "If controllers rely on legitimate interest under Article 6(1)(f) to repurpose customer support transcripts, logs, or user communications for training or fine-tuning AI models, then they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments.",
+        "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+        "supporting_sentence_index": 1,
+        "extracted_sentence": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+        "evidence_status": "SUPPORTED",
+        "verifier_notes": null,
+        "prompt_tokens": 820,
+        "completion_tokens": 471,
+        "elapsed_ms": 60764.38
+      }
+    ]
+  }
+]

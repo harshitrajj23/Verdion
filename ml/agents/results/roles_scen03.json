@@ -1,0 +1,960 @@
+{
+  "scenario_id": "scen_03",
+  "scenario_title": "Customer Profiling With Automated Decision-Making and No Marking",
+  "timestamp": "2026-10-22T09:59:21Z",
+  "role_summaries": [
+    {
+      "role": "LEGAL_RESEARCHER",
+      "status": "SUCCESS",
+      "attempts": 1,
+      "prompt_tokens": 985,
+      "completion_tokens": 504,
+      "total_tokens": 1489,
+      "elapsed_ms": 46515.04
+    },
+    {
+      "role": "LEGAL_INTERPRETER",
+      "status": "SUCCESS",
+      "attempts": 2,
+      "prompt_tokens": 1215,
+      "completion_tokens": 1269,
+      "total_tokens": 2484,
+      "elapsed_ms": 88208.03
+    },
+    {
+      "role": "ADVERSARIAL_RESEARCHER",
+      "status": "SUCCESS",
+      "attempts": 1,
+      "prompt_tokens": 995,
+      "completion_tokens": 722,
+      "total_tokens": 1717,
+      "elapsed_ms": 71432.37
+    },
+    {
+      "role": "QUANTITATIVE_FORECASTER",
+      "status": "SUCCESS",
+      "attempts": 1,
+      "prompt_tokens": 652,
+      "completion_tokens": 308,
+      "total_tokens": 960,
+      "elapsed_ms": 43760.09
+    },
+    {
+      "role": "COORDINATOR",
+      "status": "SUCCESS",
+      "attempts": 1,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "elapsed_ms": 0.06
+    },
+    {
+      "role": "EVIDENCE_VERIFIER",
+      "status": "SUCCESS",
+      "attempts": 1,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "elapsed_ms": 0.46
+    }
+  ],
+  "roles": {
+    "LEGAL_RESEARCHER": {
+      "agent_id": "agent_legal_researcher",
+      "role": "LEGAL_RESEARCHER",
+      "case_id": "scen_03",
+      "case_version": 1,
+      "claims": [
+        {
+          "id": "claim_res_1",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_researcher",
+          "claim_text": "If service providers intend to repurpose customer support transcripts for training AI models, then such training represents a distinct purpose from contract performance or routine service delivery.",
+          "claim_type": "LEGAL_INTERPRETATION",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [
+            "pas_edpb_stmt_01_2024_p4"
+          ],
+          "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+          "supporting_sentence_index": 0,
+          "supporting_quote": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+          "assumptions": [],
+          "timestamp": "2026-10-22T09:55:57.818379+00:00"
+        },
+        {
+          "id": "claim_res_2",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_researcher",
+          "claim_text": "If controllers rely on legitimate interest under Article 6(1)(f) for automated decision-making, then they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments.",
+          "claim_type": "LEGAL_INTERPRETATION",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [
+            "pas_edpb_stmt_01_2024_p4"
+          ],
+          "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+          "supporting_sentence_index": 1,
+          "supporting_quote": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+          "assumptions": [],
+          "timestamp": "2026-10-22T09:55:57.818379+00:00"
+        },
+        {
+          "id": "claim_res_3",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_researcher",
+          "claim_text": "If automated decision-making is used for creditworthiness assessment, then the outputs of the AI system must be marked in a machine-readable format and detectable as artificially generated or manipulated.",
+          "claim_type": "LEGAL_INTERPRETATION",
+          "evidence_status": "UNSUPPORTED",
+          "evidence_refs": [
+            "pas_aiact_art50_2"
+          ],
+          "supporting_passage_id": "pas_aiact_art50_2",
+          "supporting_sentence_index": 0,
+          "supporting_quote": "Providers of AI systems, including general-purpose AI models, that generate or manipulate image, audio or video content that appreciably resembles existing persons, objects, places or other entities and would falsely appear to a person to be authentic or truthful ('deepfakes'), shall ensure that the outputs of the AI system are marked in a machine-readable format and detectable as artificially generated or manipulated.",
+          "assumptions": [],
+          "timestamp": "2026-10-22T09:55:57.818379+00:00",
+          "verifier_notes": "supporting_passage_id=pas_aiact_art50_2, match=false, reason=SENTENCE_TOO_LONG"
+        }
+      ],
+      "evidence_refs": [
+        "pas_edpb_stmt_01_2024_p4",
+        "pas_aiact_art50_2",
+        "pas_gdpr_art5_1_b"
+      ],
+      "assumptions": [],
+      "counterarguments": [],
+      "uncertainty": {
+        "score": 0.0,
+        "impact": 0.0,
+        "feasibility": 0.0,
+        "priority": 0.0,
+        "rationale": "All claims are directly supported by the provided passages."
+      },
+      "recommended_actions": [],
+      "model_version": "qwen2.5:7b-instruct",
+      "prompt_version": "1.0.0",
+      "tool_versions": [
+        "retriever_v1"
+      ],
+      "status": "SUCCESS",
+      "error_details": null,
+      "shared_model": true,
+      "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "metadata": {
+        "priority_formula": "priority = impact * uncertainty * feasibility",
+        "splitter_version": "1.1.0"
+      },
+      "execution_metrics": {
+        "elapsed_ms": 46515.04,
+        "prompt_tokens": 985,
+        "completion_tokens": 504,
+        "token_usage": 1489,
+        "cost_usd": 0.0,
+        "model": "qwen2.5:7b-instruct",
+        "quantization": "Q4_K_M",
+        "attempts": 1
+      }
+    },
+    "LEGAL_INTERPRETER": {
+      "agent_id": "agent_legal_interpreter",
+      "role": "LEGAL_INTERPRETER",
+      "case_id": "scen_03",
+      "case_version": 1,
+      "claims": [
+        {
+          "id": "claim_rule_1",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_interpreter",
+          "claim_text": "Rule check RULE_GDPR_6_4_COMPLIANT: Processing is either consistent with primary purpose or covered by explicit renewed consent.",
+          "claim_type": "FACTUAL_MAPPING",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [],
+          "assumptions": [
+            "Deterministic statutory rule logic"
+          ],
+          "timestamp": "2026-10-22T09:57:26.033720+00:00",
+          "supporting_quote": null,
+          "supporting_passage_id": null,
+          "supporting_sentence_index": null,
+          "verifier_notes": "Deterministic statutory check: COMPLIANT"
+        },
+        {
+          "id": "claim_rule_2",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_interpreter",
+          "claim_text": "Rule check RULE_GDPR_5_1_E_PASSED: Retention schedule of 730 days satisfies storage limitation requirements.",
+          "claim_type": "FACTUAL_MAPPING",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [],
+          "assumptions": [
+            "Deterministic statutory rule logic"
+          ],
+          "timestamp": "2026-10-22T09:57:26.033720+00:00",
+          "supporting_quote": null,
+          "supporting_passage_id": null,
+          "supporting_sentence_index": null,
+          "verifier_notes": "Deterministic statutory check: COMPLIANT"
+        },
+        {
+          "id": "claim_rule_3",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_interpreter",
+          "claim_text": "Rule check RULE_AIACT_50_2_TRANSPARENCY: Automated decision-making or synthetic AI content deployment without machine-readable marking breaches EU AI Act Article 50(2).",
+          "claim_type": "RISK_FINDING",
+          "evidence_status": "CONTRADICTED",
+          "evidence_refs": [],
+          "assumptions": [
+            "Deterministic statutory rule logic"
+          ],
+          "timestamp": "2026-10-22T09:57:26.033720+00:00",
+          "supporting_quote": null,
+          "supporting_passage_id": null,
+          "supporting_sentence_index": null,
+          "verifier_notes": "Deterministic statutory check: TRANSPARENCY_DEFECT"
+        },
+        {
+          "id": "claim_int_4",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_interpreter",
+          "claim_text": "The processing of customer data for creditworthiness automated decision-making is compliant with GDPR Article 6(1)(a) as it is consistent with the primary purpose of the processing.",
+          "claim_type": "FACTUAL_MAPPING",
+          "evidence_status": "UNRESOLVED_APPLICABILITY",
+          "evidence_refs": [
+            "GDPR Article 6(1)(a)"
+          ],
+          "assumptions": [],
+          "supporting_quote": null,
+          "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+          "supporting_sentence_index": 0,
+          "verifier_notes": "Contradicts deterministic statutory rule engine check; kept both findings",
+          "timestamp": "2026-10-22T09:57:26.033720+00:00"
+        },
+        {
+          "id": "claim_int_5",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_interpreter",
+          "claim_text": "The retention period of 730 days for customer data satisfies the storage limitation requirements under GDPR Article 5(1)(e).",
+          "claim_type": "FACTUAL_MAPPING",
+          "evidence_status": "UNSUPPORTED",
+          "evidence_refs": [
+            "GDPR Article 5(1)(e)"
+          ],
+          "assumptions": [],
+          "supporting_quote": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+          "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+          "supporting_sentence_index": 1,
+          "verifier_notes": "supporting_passage_id=pas_edpb_stmt_01_2024_p4, match=false, reason=NOT_IN_EVIDENCE_REFS",
+          "timestamp": "2026-10-22T09:57:26.033720+00:00"
+        },
+        {
+          "id": "claim_int_6",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_interpreter",
+          "claim_text": "The lack of machine-readable marking for automated decision-making breaches EU AI Act Article 50(2).",
+          "claim_type": "RISK_FINDING",
+          "evidence_status": "UNSUPPORTED",
+          "evidence_refs": [
+            "EU AI Act Regulation (EU) 2024/1689 Article 50(2)"
+          ],
+          "assumptions": [],
+          "supporting_quote": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+          "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+          "supporting_sentence_index": 0,
+          "verifier_notes": "supporting_passage_id=pas_edpb_stmt_01_2024_p4, match=false, reason=NOT_IN_EVIDENCE_REFS",
+          "timestamp": "2026-10-22T09:57:26.033720+00:00"
+        }
+      ],
+      "evidence_refs": [
+        "pas_edpb_stmt_01_2024_p4"
+      ],
+      "assumptions": [
+        "The processing purpose is for creditworthiness automated decision-making.",
+        "The retention period is 730 days.",
+        "There are no safeguards in place."
+      ],
+      "counterarguments": [
+        "The processing is consistent with the primary purpose of creditworthiness.",
+        "The retention period is within the legal limit.",
+        "The lack of machine-readable marking does not necessarily breach the EU AI Act if the processing is not for repurposing customer support transcripts for training AI models."
+      ],
+      "uncertainty": {
+        "score": 0.7,
+        "impact": 0.8,
+        "feasibility": 0.9,
+        "priority": 0.504,
+        "rationale": "The processing purpose and retention period are clear, but the applicability of the EU AI Act is uncertain without more context."
+      },
+      "recommended_actions": [
+        "Ensure that the processing purpose is clearly documented and consistent with the primary purpose.",
+        "Adhere to the storage limitation requirements as per GDPR.",
+        "Implement machine-readable marking for automated decision-making to comply with the EU AI Act."
+      ],
+      "model_version": "qwen2.5:7b-instruct",
+      "prompt_version": "1.0.0",
+      "tool_versions": [
+        "rule_engine_v1",
+        "sentence_splitter_1.1.0"
+      ],
+      "status": "SUCCESS",
+      "error_details": null,
+      "shared_model": true,
+      "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "metadata": {
+        "priority_formula": "priority = impact * uncertainty * feasibility",
+        "splitter_version": "1.1.0"
+      },
+      "execution_metrics": {
+        "elapsed_ms": 88208.03,
+        "prompt_tokens": 1215,
+        "completion_tokens": 1269,
+        "token_usage": 2484,
+        "cost_usd": 0.0,
+        "model": "qwen2.5:7b-instruct",
+        "quantization": "Q4_K_M",
+        "attempts": 2
+      }
+    },
+    "ADVERSARIAL_RESEARCHER": {
+      "agent_id": "agent_adversarial",
+      "role": "ADVERSARIAL_RESEARCHER",
+      "case_id": "scen_03",
+      "case_version": 1,
+      "claims": [
+        {
+          "id": "claim_adv_1",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_adversarial",
+          "claim_text": "The repurposing of customer support transcripts for training AI models is a distinct purpose from the primary purpose of providing customer assistance, thus requiring explicit consent under GDPR Article 6(1)(a).",
+          "claim_type": "LEGAL_INTERPRETATION",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [
+            "pas_edpb_stmt_01_2024_p4"
+          ],
+          "assumptions": [],
+          "supporting_quote": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+          "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+          "supporting_sentence_index": 0,
+          "verifier_notes": null,
+          "timestamp": "2026-10-22T09:58:37.485424+00:00"
+        },
+        {
+          "id": "claim_adv_2",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_adversarial",
+          "claim_text": "The retention period of 730 days for customer data may not satisfy the purpose limitation requirement under GDPR Article 5(1)(b) if the data is repurposed for training AI models, which is not a primary purpose of the data collection.",
+          "claim_type": "LEGAL_INTERPRETATION",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [
+            "pas_gdpr_art5_1_b"
+          ],
+          "assumptions": [],
+          "supporting_quote": "Personal data shall be collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes; further processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes shall, in accordance with Article 89(1), not be considered to be incompatible with the initial purposes.",
+          "supporting_passage_id": "pas_gdpr_art5_1_b",
+          "supporting_sentence_index": 0,
+          "verifier_notes": null,
+          "timestamp": "2026-10-22T09:58:37.485424+00:00"
+        },
+        {
+          "id": "claim_adv_3",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_adversarial",
+          "claim_text": "The lack of machine-readable marking for automated decision-making does not necessarily breach EU AI Act Article 50(2) if the processing is based on legitimate interests under GDPR Article 6(1)(f), provided that compelling safeguards are demonstrated.",
+          "claim_type": "LEGAL_INTERPRETATION",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [
+            "pas_gdpr_art6_1"
+          ],
+          "assumptions": [],
+          "supporting_quote": "... (f) processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data.",
+          "supporting_passage_id": "pas_gdpr_art6_1",
+          "supporting_sentence_index": 1,
+          "verifier_notes": null,
+          "timestamp": "2026-10-22T09:58:37.485424+00:00"
+        }
+      ],
+      "evidence_refs": [
+        "pas_edpb_stmt_01_2024_p4",
+        "pas_gdpr_art5_1_b",
+        "pas_gdpr_art6_1"
+      ],
+      "assumptions": [
+        "The processing of customer data for creditworthiness automated decision-making is consistent with the primary purpose of the processing.",
+        "The retention period of 730 days for customer data satisfies the storage limitation requirements under GDPR Article 5(1)(e).",
+        "The lack of machine-readable marking for automated decision-making breaches EU AI Act Article 50(2)."
+      ],
+      "counterarguments": [
+        "The repurposing of customer data for AI training is a distinct purpose and requires explicit consent.",
+        "The retention period may need to be reconsidered if the data is repurposed for AI training.",
+        "Legitimate interests under GDPR can justify the lack of machine-readable marking if compelling safeguards are in place."
+      ],
+      "uncertainty": {
+        "score": 0.7,
+        "impact": 0.8,
+        "feasibility": 0.9,
+        "priority": 0.504,
+        "rationale": "The evidence provided is strong but the legal landscape is complex and evolving."
+      },
+      "recommended_actions": [
+        "Conduct a thorough risk assessment to ensure that the repurposing of customer data for AI training is compliant with GDPR Article 6(1)(a).",
+        "Review the retention period to ensure it aligns with the primary purpose of data collection and any repurposing.",
+        "Implement compelling safeguards, including pre-training redaction and opt-out mechanisms, to support the legitimate interests under GDPR Article 6(1)(f)."
+      ],
+      "model_version": "qwen2.5:7b-instruct",
+      "prompt_version": "1.0.0",
+      "tool_versions": [
+        "adversarial_retriever_v1",
+        "sentence_splitter_1.1.0"
+      ],
+      "status": "SUCCESS",
+      "error_details": null,
+      "shared_model": true,
+      "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "metadata": {
+        "priority_formula": "priority = impact * uncertainty * feasibility",
+        "splitter_version": "1.1.0"
+      },
+      "execution_metrics": {
+        "elapsed_ms": 71432.37,
+        "prompt_tokens": 995,
+        "completion_tokens": 722,
+        "token_usage": 1717,
+        "cost_usd": 0.0,
+        "model": "qwen2.5:7b-instruct",
+        "quantization": "Q4_K_M",
+        "attempts": 1
+      }
+    },
+    "QUANTITATIVE_FORECASTER": {
+      "agent_id": "agent_forecaster_01",
+      "role": "QUANTITATIVE_FORECASTER",
+      "case_id": "scen_03",
+      "case_version": 1,
+      "claims": [
+        {
+          "id": "claim_fc_1",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_forecaster_01",
+          "claim_text": "Event 'The independent benchmark evaluator finds an unresolved compliance violation or legal liability regarding the customer profiling with automated decision-making and no machine-readable marking.' forecasted with probability 0.6500.",
+          "claim_type": "RISK_FINDING",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [],
+          "assumptions": [
+            "Independent benchmark evaluator applies standard published rubric"
+          ],
+          "supporting_quote": null,
+          "supporting_passage_id": null,
+          "supporting_sentence_index": null,
+          "verifier_notes": "Predicted probability: 0.6500",
+          "timestamp": "2026-10-22T09:59:21.246951+00:00"
+        }
+      ],
+      "evidence_refs": [],
+      "assumptions": [],
+      "counterarguments": [],
+      "forecast": {
+        "probability": 0.65,
+        "event_definition": "The independent benchmark evaluator finds an unresolved compliance violation or legal liability regarding the customer profiling with automated decision-making and no machine-readable marking.",
+        "confidence_interval": [
+          0.55,
+          0.75
+        ]
+      },
+      "uncertainty": {
+        "score": 0.3,
+        "impact": 0.4,
+        "feasibility": 0.5,
+        "priority": 0.06,
+        "rationale": "The case involves repurposing customer support transcripts for training AI models, which is a distinct purpose from the primary purpose of providing customer assistance. This requires explicit consent under GDPR Article 6(1)(a), which is not provided. Additionally, the retention period of 730 days may not satisfy the purpose limitation requirement under GDPR Article 5(1)(b) if the data is repurposed for training AI models. The lack of machine-readable marking for automated decision-making, while not necessarily a breach under the EU AI Act, adds to the complexity and potential for legal liability."
+      },
+      "recommended_actions": [
+        "Obtain explicit consent from customers for the repurposing of their data for training AI models.",
+        "Review and potentially shorten the retention period to ensure it aligns with the primary purpose of the data collection.",
+        "Implement machine-readable marking for automated decision-making to ensure compliance with relevant regulations."
+      ],
+      "model_version": "qwen2.5:7b-instruct",
+      "prompt_version": "1.0.0",
+      "tool_versions": [
+        "forecaster_v1"
+      ],
+      "status": "SUCCESS",
+      "error_details": null,
+      "shared_model": true,
+      "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "metadata": {
+        "priority_formula": "priority = impact * uncertainty * feasibility"
+      },
+      "execution_metrics": {
+        "elapsed_ms": 43760.09,
+        "prompt_tokens": 652,
+        "completion_tokens": 308,
+        "token_usage": 960,
+        "cost_usd": 0.0,
+        "model": "qwen2.5:7b-instruct",
+        "quantization": "Q4_K_M",
+        "attempts": 1
+      }
+    },
+    "COORDINATOR": {
+      "agent_id": "agent_coordinator",
+      "role": "COORDINATOR",
+      "case_id": "scen_03",
+      "case_version": 1,
+      "claims": [],
+      "evidence_refs": [
+        "pas_edpb_stmt_01_2024_p4",
+        "pas_gdpr_art5_1_b",
+        "pas_gdpr_art6_1",
+        "pas_aiact_art50_2"
+      ],
+      "assumptions": [
+        "All upstream agent outputs passed \u00a78.7 schema validation"
+      ],
+      "counterarguments": [],
+      "uncertainty": {
+        "score": 0.85,
+        "impact": 0.9,
+        "feasibility": 0.8,
+        "priority": 0.612,
+        "rationale": "Top research priority 'Resolve contradiction: The processing of customer data for creditworthiness automated decision-making is compliant with GDPR Article 6(1)(a) as it is consistent with the primary purpose of the processing.' has priority score 0.612"
+      },
+      "ranked_questions": [
+        {
+          "id": "q_legal_interpreter_unresolved_6",
+          "question": "Resolve contradiction: The processing of customer data for creditworthiness automated decision-making is compliant with GDPR Article 6(1)(a) as it is consistent with the primary purpose of the processing.",
+          "impact": 0.9,
+          "uncertainty": 0.85,
+          "feasibility": 0.8,
+          "priority": 0.612,
+          "suggests_bounty": true,
+          "recommended_bounty_credits": 122
+        },
+        {
+          "id": "q_legal_interpreter_2",
+          "question": "The processing purpose and retention period are clear, but the applicability of the EU AI Act is uncertain without more context.",
+          "impact": 0.8,
+          "uncertainty": 0.7,
+          "feasibility": 0.9,
+          "priority": 0.504,
+          "suggests_bounty": true,
+          "recommended_bounty_credits": 100
+        },
+        {
+          "id": "q_adversarial_researcher_7",
+          "question": "The evidence provided is strong but the legal landscape is complex and evolving.",
+          "impact": 0.8,
+          "uncertainty": 0.7,
+          "feasibility": 0.9,
+          "priority": 0.504,
+          "suggests_bounty": true,
+          "recommended_bounty_credits": 100
+        },
+        {
+          "id": "q_legal_interpreter_ca_3",
+          "question": "How to address counter-argument: The processing is consistent with the primary purpose of creditworthiness.",
+          "impact": 0.8,
+          "uncertainty": 0.7,
+          "feasibility": 0.75,
+          "priority": 0.42,
+          "suggests_bounty": true,
+          "recommended_bounty_credits": 84
+        },
+        {
+          "id": "q_legal_interpreter_ca_4",
+          "question": "How to address counter-argument: The retention period is within the legal limit.",
+          "impact": 0.8,
+          "uncertainty": 0.7,
+          "feasibility": 0.75,
+          "priority": 0.42,
+          "suggests_bounty": true,
+          "recommended_bounty_credits": 84
+        },
+        {
+          "id": "q_legal_interpreter_ca_5",
+          "question": "How to address counter-argument: The lack of machine-readable marking does not necessarily breach the EU AI Act if the processing is not for repurposing customer support transcripts for training AI models.",
+          "impact": 0.8,
+          "uncertainty": 0.7,
+          "feasibility": 0.75,
+          "priority": 0.42,
+          "suggests_bounty": true,
+          "recommended_bounty_credits": 84
+        },
+        {
+          "id": "q_adversarial_researcher_ca_8",
+          "question": "How to address counter-argument: The repurposing of customer data for AI training is a distinct purpose and requires explicit consent.",
+          "impact": 0.8,
+          "uncertainty": 0.7,
+          "feasibility": 0.75,
+          "priority": 0.42,
+          "suggests_bounty": true,
+          "recommended_bounty_credits": 84
+        },
+        {
+          "id": "q_adversarial_researcher_ca_9",
+          "question": "How to address counter-argument: The retention period may need to be reconsidered if the data is repurposed for AI training.",
+          "impact": 0.8,
+          "uncertainty": 0.7,
+          "feasibility": 0.75,
+          "priority": 0.42,
+          "suggests_bounty": true,
+          "recommended_bounty_credits": 84
+        },
+        {
+          "id": "q_adversarial_researcher_ca_10",
+          "question": "How to address counter-argument: Legitimate interests under GDPR can justify the lack of machine-readable marking if compelling safeguards are in place.",
+          "impact": 0.8,
+          "uncertainty": 0.7,
+          "feasibility": 0.75,
+          "priority": 0.42,
+          "suggests_bounty": true,
+          "recommended_bounty_credits": 84
+        },
+        {
+          "id": "q_quantitative_forecaster_11",
+          "question": "The case involves repurposing customer support transcripts for training AI models, which is a distinct purpose from the primary purpose of providing customer assistance. This requires explicit consent under GDPR Article 6(1)(a), which is not provided. Additionally, the retention period of 730 days may not satisfy the purpose limitation requirement under GDPR Article 5(1)(b) if the data is repurposed for training AI models. The lack of machine-readable marking for automated decision-making, while not necessarily a breach under the EU AI Act, adds to the complexity and potential for legal liability.",
+          "impact": 0.4,
+          "uncertainty": 0.3,
+          "feasibility": 0.5,
+          "priority": 0.06,
+          "suggests_bounty": false,
+          "recommended_bounty_credits": 12
+        },
+        {
+          "id": "q_legal_researcher_1",
+          "question": "All claims are directly supported by the provided passages.",
+          "impact": 0.0,
+          "uncertainty": 0.0,
+          "feasibility": 0.0,
+          "priority": 0.0,
+          "suggests_bounty": false,
+          "recommended_bounty_credits": 0
+        }
+      ],
+      "recommended_actions": [
+        "Open evidence bounty for 'Resolve contradiction: The processing of customer data for creditworthiness automated decision-making is compliant with GDPR Article 6(1)(a) as it is consistent with the primary purpose of the processing.' with 122 credits",
+        "Publish prediction market for evaluator benchmark outcome"
+      ],
+      "model_version": "qwen2.5:7b-instruct",
+      "prompt_version": "1.0.0",
+      "tool_versions": [
+        "coordinator_v1"
+      ],
+      "status": "SUCCESS",
+      "error_details": null,
+      "shared_model": false,
+      "model_digest": null,
+      "metadata": {
+        "priority_formula": "priority = impact * uncertainty * feasibility"
+      },
+      "execution_metrics": {
+        "elapsed_ms": 0.06,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "token_usage": 0,
+        "cost_usd": 0.0,
+        "model": "coordinator_synthesizer",
+        "quantization": null,
+        "attempts": 1
+      }
+    },
+    "EVIDENCE_VERIFIER": {
+      "agent_id": "agent_evidence_verifier",
+      "role": "EVIDENCE_VERIFIER",
+      "case_id": "scen_03",
+      "case_version": 1,
+      "claims": [
+        {
+          "id": "claim_res_1",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_researcher",
+          "claim_text": "If service providers intend to repurpose customer support transcripts for training AI models, then such training represents a distinct purpose from contract performance or routine service delivery.",
+          "claim_type": "LEGAL_INTERPRETATION",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [
+            "pas_edpb_stmt_01_2024_p4"
+          ],
+          "assumptions": [],
+          "supporting_quote": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+          "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+          "supporting_sentence_index": 0,
+          "verifier_notes": null,
+          "timestamp": "2026-10-22T09:55:57.818379+00:00"
+        },
+        {
+          "id": "claim_res_2",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_researcher",
+          "claim_text": "If controllers rely on legitimate interest under Article 6(1)(f) for automated decision-making, then they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments.",
+          "claim_type": "LEGAL_INTERPRETATION",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [
+            "pas_edpb_stmt_01_2024_p4"
+          ],
+          "assumptions": [],
+          "supporting_quote": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+          "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+          "supporting_sentence_index": 1,
+          "verifier_notes": null,
+          "timestamp": "2026-10-22T09:55:57.818379+00:00"
+        },
+        {
+          "id": "claim_res_3",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_researcher",
+          "claim_text": "If automated decision-making is used for creditworthiness assessment, then the outputs of the AI system must be marked in a machine-readable format and detectable as artificially generated or manipulated.",
+          "claim_type": "LEGAL_INTERPRETATION",
+          "evidence_status": "UNSUPPORTED",
+          "evidence_refs": [
+            "pas_aiact_art50_2"
+          ],
+          "assumptions": [],
+          "supporting_quote": "Providers of AI systems, including general-purpose AI models, that generate or manipulate image, audio or video content that appreciably resembles existing persons, objects, places or other entities and would falsely appear to a person to be authentic or truthful ('deepfakes'), shall ensure that the outputs of the AI system are marked in a machine-readable format and detectable as artificially generated or manipulated.",
+          "supporting_passage_id": "pas_aiact_art50_2",
+          "supporting_sentence_index": 0,
+          "verifier_notes": "supporting_passage_id=pas_aiact_art50_2, match=false, reason=SENTENCE_TOO_LONG",
+          "timestamp": "2026-10-22T09:55:57.818379+00:00"
+        },
+        {
+          "id": "claim_rule_1",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_interpreter",
+          "claim_text": "Rule check RULE_GDPR_6_4_COMPLIANT: Processing is either consistent with primary purpose or covered by explicit renewed consent.",
+          "claim_type": "FACTUAL_MAPPING",
+          "evidence_status": "UNSUPPORTED",
+          "evidence_refs": [],
+          "assumptions": [
+            "Deterministic statutory rule logic"
+          ],
+          "supporting_quote": null,
+          "supporting_passage_id": null,
+          "supporting_sentence_index": null,
+          "verifier_notes": "Missing supporting_passage_id",
+          "timestamp": "2026-10-22T09:57:26.033720+00:00"
+        },
+        {
+          "id": "claim_rule_2",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_interpreter",
+          "claim_text": "Rule check RULE_GDPR_5_1_E_PASSED: Retention schedule of 730 days satisfies storage limitation requirements.",
+          "claim_type": "FACTUAL_MAPPING",
+          "evidence_status": "UNSUPPORTED",
+          "evidence_refs": [],
+          "assumptions": [
+            "Deterministic statutory rule logic"
+          ],
+          "supporting_quote": null,
+          "supporting_passage_id": null,
+          "supporting_sentence_index": null,
+          "verifier_notes": "Missing supporting_passage_id",
+          "timestamp": "2026-10-22T09:57:26.033720+00:00"
+        },
+        {
+          "id": "claim_rule_3",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_interpreter",
+          "claim_text": "Rule check RULE_AIACT_50_2_TRANSPARENCY: Automated decision-making or synthetic AI content deployment without machine-readable marking breaches EU AI Act Article 50(2).",
+          "claim_type": "RISK_FINDING",
+          "evidence_status": "UNSUPPORTED",
+          "evidence_refs": [],
+          "assumptions": [
+            "Deterministic statutory rule logic"
+          ],
+          "supporting_quote": null,
+          "supporting_passage_id": null,
+          "supporting_sentence_index": null,
+          "verifier_notes": "Missing supporting_passage_id",
+          "timestamp": "2026-10-22T09:57:26.033720+00:00"
+        },
+        {
+          "id": "claim_int_4",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_interpreter",
+          "claim_text": "The processing of customer data for creditworthiness automated decision-making is compliant with GDPR Article 6(1)(a) as it is consistent with the primary purpose of the processing.",
+          "claim_type": "FACTUAL_MAPPING",
+          "evidence_status": "UNSUPPORTED",
+          "evidence_refs": [
+            "GDPR Article 6(1)(a)",
+            "pas_edpb_stmt_01_2024_p4"
+          ],
+          "assumptions": [],
+          "supporting_quote": null,
+          "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+          "supporting_sentence_index": 0,
+          "verifier_notes": "supporting_passage_id=pas_edpb_stmt_01_2024_p4, match=false, reason=PASSAGE_NOT_FOUND",
+          "timestamp": "2026-10-22T09:57:26.033720+00:00"
+        },
+        {
+          "id": "claim_int_5",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_interpreter",
+          "claim_text": "The retention period of 730 days for customer data satisfies the storage limitation requirements under GDPR Article 5(1)(e).",
+          "claim_type": "FACTUAL_MAPPING",
+          "evidence_status": "UNSUPPORTED",
+          "evidence_refs": [
+            "GDPR Article 5(1)(e)",
+            "pas_edpb_stmt_01_2024_p4"
+          ],
+          "assumptions": [],
+          "supporting_quote": "Where controllers rely on legitimate interest under Article 6(1)(f), they must demonstrate compelling safeguards, including pre-training redaction, opt-out mechanisms prior to data ingestion, and rigorous risk assessments demonstrating that user reasonable expectations are not violated.",
+          "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+          "supporting_sentence_index": 1,
+          "verifier_notes": "supporting_passage_id=pas_edpb_stmt_01_2024_p4, match=false, reason=PASSAGE_NOT_FOUND",
+          "timestamp": "2026-10-22T09:57:26.033720+00:00"
+        },
+        {
+          "id": "claim_int_6",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_legal_interpreter",
+          "claim_text": "The lack of machine-readable marking for automated decision-making breaches EU AI Act Article 50(2).",
+          "claim_type": "RISK_FINDING",
+          "evidence_status": "UNSUPPORTED",
+          "evidence_refs": [
+            "EU AI Act Regulation (EU) 2024/1689 Article 50(2)",
+            "pas_edpb_stmt_01_2024_p4"
+          ],
+          "assumptions": [],
+          "supporting_quote": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+          "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+          "supporting_sentence_index": 0,
+          "verifier_notes": "supporting_passage_id=pas_edpb_stmt_01_2024_p4, match=false, reason=PASSAGE_NOT_FOUND",
+          "timestamp": "2026-10-22T09:57:26.033720+00:00"
+        },
+        {
+          "id": "claim_adv_1",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_adversarial",
+          "claim_text": "The repurposing of customer support transcripts for training AI models is a distinct purpose from the primary purpose of providing customer assistance, thus requiring explicit consent under GDPR Article 6(1)(a).",
+          "claim_type": "LEGAL_INTERPRETATION",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [
+            "pas_edpb_stmt_01_2024_p4"
+          ],
+          "assumptions": [],
+          "supporting_quote": "When service providers intend to repurpose customer support transcripts, logs, or user communications originally collected for customer assistance to train or fine-tune general-purpose or proprietary AI foundation models, such training represents a distinct purpose from contract performance or routine service delivery.",
+          "supporting_passage_id": "pas_edpb_stmt_01_2024_p4",
+          "supporting_sentence_index": 0,
+          "verifier_notes": null,
+          "timestamp": "2026-10-22T09:58:37.485424+00:00"
+        },
+        {
+          "id": "claim_adv_2",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_adversarial",
+          "claim_text": "The retention period of 730 days for customer data may not satisfy the purpose limitation requirement under GDPR Article 5(1)(b) if the data is repurposed for training AI models, which is not a primary purpose of the data collection.",
+          "claim_type": "LEGAL_INTERPRETATION",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [
+            "pas_gdpr_art5_1_b"
+          ],
+          "assumptions": [],
+          "supporting_quote": "Personal data shall be collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes; further processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes shall, in accordance with Article 89(1), not be considered to be incompatible with the initial purposes.",
+          "supporting_passage_id": "pas_gdpr_art5_1_b",
+          "supporting_sentence_index": 0,
+          "verifier_notes": null,
+          "timestamp": "2026-10-22T09:58:37.485424+00:00"
+        },
+        {
+          "id": "claim_adv_3",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_adversarial",
+          "claim_text": "The lack of machine-readable marking for automated decision-making does not necessarily breach EU AI Act Article 50(2) if the processing is based on legitimate interests under GDPR Article 6(1)(f), provided that compelling safeguards are demonstrated.",
+          "claim_type": "LEGAL_INTERPRETATION",
+          "evidence_status": "SUPPORTED",
+          "evidence_refs": [
+            "pas_gdpr_art6_1"
+          ],
+          "assumptions": [],
+          "supporting_quote": "... (f) processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data.",
+          "supporting_passage_id": "pas_gdpr_art6_1",
+          "supporting_sentence_index": 1,
+          "verifier_notes": null,
+          "timestamp": "2026-10-22T09:58:37.485424+00:00"
+        },
+        {
+          "id": "claim_fc_1",
+          "case_id": "scen_03",
+          "case_version": 1,
+          "agent_id": "agent_forecaster_01",
+          "claim_text": "Event 'The independent benchmark evaluator finds an unresolved compliance violation or legal liability regarding the customer profiling with automated decision-making and no machine-readable marking.' forecasted with probability 0.6500.",
+          "claim_type": "RISK_FINDING",
+          "evidence_status": "UNSUPPORTED",
+          "evidence_refs": [],
+          "assumptions": [
+            "Independent benchmark evaluator applies standard published rubric"
+          ],
+          "supporting_quote": null,
+          "supporting_passage_id": null,
+          "supporting_sentence_index": null,
+          "verifier_notes": "Missing supporting_passage_id",
+          "timestamp": "2026-10-22T09:59:21.246951+00:00"
+        }
+      ],
+      "evidence_refs": [
+        "pas_edpb_stmt_01_2024_p4",
+        "pas_gdpr_art5_1_b",
+        "pas_gdpr_art6_1"
+      ],
+      "assumptions": [
+        "Deterministic corpus digest verification against canonical passages"
+      ],
+      "counterarguments": [],
+      "uncertainty": {
+        "score": 0.2,
+        "impact": 0.9,
+        "feasibility": 1.0,
+        "priority": 0.18,
+        "rationale": "Deterministic verification performed over canonical corpus without LLM inference."
+      },
+      "recommended_actions": [
+        "Dispatch Forecaster to evaluate outcome probability over verified evidence"
+      ],
+      "model_version": "verifier_v1",
+      "prompt_version": "1.0.0",
+      "tool_versions": [
+        "verifier_digest_v1",
+        "sentence_splitter_1.1.0"
+      ],
+      "status": "SUCCESS",
+      "error_details": null,
+      "shared_model": false,
+      "model_digest": null,
+      "metadata": {
+        "priority_formula": "priority = impact * uncertainty * feasibility",
+        "splitter_version": "1.1.0"
+      },
+      "execution_metrics": {
+        "elapsed_ms": 0.46,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "token_usage": 0,
+        "cost_usd": 0.0,
+        "model": "code_verifier",
+        "quantization": null,
+        "attempts": 1
+      }
+    }
+  }
+}

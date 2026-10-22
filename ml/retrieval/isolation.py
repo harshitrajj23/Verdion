@@ -48,3 +48,31 @@ class PromptInjectionIsolation:
             f"[DATA_ONLY_END]\n"
             f"</untrusted_evidence_passage>"
         )
+
+    @classmethod
+    def format_isolated_passage_with_sentences(
+        cls, passage: Dict[str, Any], sentences: list[str]
+    ) -> str:
+        """
+        Wraps untrusted passage sentence list in explicit passive data fences (Stage 2B-1 Redesign).
+        Formats as:
+        [pas_id]
+        0: sentence 0
+        1: sentence 1
+        """
+        passage_id = passage.get("passage_id", "unknown")
+        doc_id = passage.get("document_id", "unknown")
+        ref = passage.get("passage_reference", "")
+        eff_date = passage.get("effective_date", "unknown")
+
+        numbered = "\n".join(
+            f"{i}: {cls.sanitize_untrusted_text(s)}" for i, s in enumerate(sentences)
+        )
+        return (
+            f'<untrusted_evidence_passage id="{passage_id}" doc="{doc_id}" ref="{ref}" effective="{eff_date}">\n'
+            f"[DATA_ONLY_START]\n"
+            f"[{passage_id}]\n"
+            f"{numbered}\n"
+            f"[DATA_ONLY_END]\n"
+            f"</untrusted_evidence_passage>"
+        )

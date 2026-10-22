@@ -1,5 +1,55 @@
-from typing import List, Dict, Any, Tuple
+from __future__ import annotations
+
 import math
+from typing import Any, Dict, List, Sequence, Tuple
+
+
+from decimal import Decimal, ROUND_HALF_UP
+
+
+def _round_half_up(val: float, places: int = 4) -> float:
+    d = Decimal(str(val))
+    return float(d.quantize(Decimal(10) ** -places, rounding=ROUND_HALF_UP))
+
+
+def aggregate_mean(probs: Sequence[float]) -> float:
+    """Computes unweighted arithmetic mean p_aggregate = sum(p_i) / N, rounded to 4 places (§9.2)."""
+    if not probs:
+        raise ValueError("Probability list cannot be empty")
+    for p in probs:
+        if not isinstance(p, (int, float)) or isinstance(p, bool) or not (0.0 <= p <= 1.0):
+            raise ValueError(f"Probability {p} is outside valid range [0, 1]")
+    return _round_half_up(sum(probs) / len(probs), 4)
+
+
+def population_variance(probs: Sequence[float]) -> float:
+    """
+    Computes disagreement metric as population variance, rounded to 4 places (§9.3):
+    D = (1/N) * sum((p_i - mean(p))^2)
+    """
+    if not probs:
+        raise ValueError("Probability list cannot be empty")
+    for p in probs:
+        if not isinstance(p, (int, float)) or isinstance(p, bool) or not (0.0 <= p <= 1.0):
+            raise ValueError(f"Probability {p} is outside valid range [0, 1]")
+    if len(probs) < 2:
+        return 0.0
+    mean_p = sum(probs) / len(probs)
+    var = sum((p - mean_p) ** 2 for p in probs) / len(probs)
+    return _round_half_up(var, 4)
+
+
+def brier(p: float, y: int) -> float:
+    """
+    Computes Brier score for a single prediction: (p - y)^2 with y in {0, 1} and p in [0, 1] (§9.5).
+    Rejects out-of-range values with ValueError.
+    """
+    if not isinstance(p, (int, float)) or isinstance(p, bool) or not (0.0 <= p <= 1.0):
+        raise ValueError(f"Probability p={p} must be in [0, 1]")
+    if y not in (0, 1) or isinstance(y, bool):
+        raise ValueError(f"Outcome y={y} must be binary in {{0, 1}}")
+    return round((float(p) - float(y)) ** 2, 4)
+
 
 class ForecastAggregator:
     """
