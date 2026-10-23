@@ -112,39 +112,45 @@ export default function BenchmarkPage() {
           </div>
         </div>
 
-        {/* Critical Caveats Panel */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-          {/* Caveat 1: Deterministic Greedy Decoding */}
-          <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1.5 text-xs">
-            <div className="flex items-center gap-2 text-indigo-400 font-semibold">
-              <Clock className="w-4 h-4" />
-              <span>Decoding Stability</span>
-            </div>
-            <p className="text-slate-400 leading-relaxed">
-              Labeled as <strong>“deterministic for fixed inputs and software at temperature 0”</strong> (per-scenario spread 0.0000 across 3 consecutive runs). Forecaster output is sensitive to upstream context variations.
-            </p>
+        {/* Current Limitations Panel */}
+        <div className="space-y-2 pt-2">
+          <div className="text-xs font-mono font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-amber-400" />
+            <span>Current Architectural Limitations (Unfinished Prototype Notice)</span>
           </div>
-
-          {/* Caveat 2: Placeholder Evidence Digest */}
-          <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1.5 text-xs">
-            <div className="flex items-center gap-2 text-rose-400 font-semibold">
-              <ShieldAlert className="w-4 h-4" />
-              <span>Placeholder Evidence Digest</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Limitation 1: Deterministic Greedy Decoding */}
+            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1.5 text-xs">
+              <div className="flex items-center gap-2 text-indigo-400 font-semibold">
+                <Clock className="w-4 h-4" />
+                <span>Limitation 1: Decoding Sensitivity</span>
+              </div>
+              <p className="text-slate-400 leading-relaxed">
+                Labeled as <strong>“deterministic for fixed inputs and software at temperature 0”</strong> (per-scenario spread 0.0000 across 3 consecutive runs). Forecaster output is sensitive to upstream context variations and does not reflect robustness across prompts or runtime environments.
+              </p>
             </div>
-            <p className="text-slate-400 leading-relaxed">
-              The evidence digest passed into the live prompt was <span className="font-mono text-slate-300">0x0000000000000000</span> (placeholder), not a canonical digest computed via <span className="font-mono text-slate-300">compute_evidence_digest</span>.
-            </p>
-          </div>
 
-          {/* Caveat 3: Event Definition Mismatch */}
-          <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1.5 text-xs">
-            <div className="flex items-center gap-2 text-cyan-400 font-semibold">
-              <Layers className="w-4 h-4" />
-              <span>Event-Definition Mismatch</span>
+            {/* Limitation 2: Placeholder Evidence Digest */}
+            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1.5 text-xs">
+              <div className="flex items-center gap-2 text-rose-400 font-semibold">
+                <ShieldAlert className="w-4 h-4" />
+                <span>Limitation 2: Placeholder Digest</span>
+              </div>
+              <p className="text-slate-400 leading-relaxed">
+                The evidence digest passed into the live prompt was <span className="font-mono text-slate-300">0x0000000000000000</span> (a zero-bytes stub), not a canonical digest computed via <span className="font-mono text-slate-300">compute_evidence_digest</span>. Stored scores were not evaluated against real cryptographically linked digests.
+              </p>
             </div>
-            <p className="text-slate-400 leading-relaxed">
-              Forecaster prompt defines resolution as general <em>compliance violation or legal liability</em>, whereas <span className="font-mono text-slate-300">PredictionMarket</span> resolves on <em>specific evaluator rubric gaps</em>. Definitions must harmonize before contract market integration.
-            </p>
+
+            {/* Limitation 3: Event Definition Mismatch */}
+            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1.5 text-xs">
+              <div className="flex items-center gap-2 text-cyan-400 font-semibold">
+                <Layers className="w-4 h-4" />
+                <span>Limitation 3: Event-Definition Mismatch</span>
+              </div>
+              <p className="text-slate-400 leading-relaxed">
+                Forecaster prompt defines resolution as general <em>compliance violation or legal liability</em>, whereas <span className="font-mono text-slate-300">PredictionMarket</span> contract resolves on <em>specific evaluator rubric gaps</em>. Definitions must match before any market can consume these probabilities.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -152,7 +158,7 @@ export default function BenchmarkPage() {
         <div className="p-3.5 rounded-xl bg-slate-950/40 border border-slate-800/80 text-xs text-slate-400 flex items-start gap-2.5">
           <Info className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
           <span>
-            <strong>Upstream Signal Contradictions:</strong> In scenarios like <span className="font-mono text-slate-300">scen_09</span>, upstream claims contain unadjudicated contradictions across sub-rules (e.g. storage limitation compliance alongside unlawful third-party model transfer without DPA), which the Forecaster synthesizes without prior resolution.
+            <strong>Limitation 4: Unadjudicated Upstream Contradictions:</strong> In scenarios like <span className="font-mono text-slate-300">scen_09</span>, upstream claims contain unadjudicated contradictions across sub-rules (e.g. storage limitation compliance alongside unlawful third-party model transfer without DPA), which the Forecaster synthesizes without prior resolution.
           </span>
         </div>
       </div>
@@ -202,8 +208,8 @@ export default function BenchmarkPage() {
             <div className="text-2xl font-black text-purple-300 font-mono">
               {computedMeans.mean_live.toFixed(4)}
             </div>
-            <p className="text-xs text-slate-400">
-              Full swarm (Researcher → Interpreter → Adversarial → Forecaster) running on local Ollama.
+            <p className="text-xs text-amber-400/90 font-medium">
+              ⚠️ Unvalidated in-sample figure: Subject to placeholder digest, upstream contradictions, and event mismatch. Not a validated forecaster.
             </p>
           </div>
         </div>
