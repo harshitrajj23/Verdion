@@ -52,4 +52,11 @@ describe("BenchmarkPage Component", () => {
     const rows = tableBody?.querySelectorAll("tr");
     expect(rows?.length).toBe(14);
   });
+
+  it("renders separation value and bootstrap interval labeled in-sample, train only", () => {
+    render(<BenchmarkPage />);
+    expect(screen.getByText("+0.3042")).toBeDefined();
+    expect(screen.getAllByText("in-sample, train only").length).toBeGreaterThan(0);
+    expect(screen.getByText(/10,000 bootstrap resamples/i)).toBeDefined();
+  });
 });

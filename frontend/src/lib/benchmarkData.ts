@@ -145,3 +145,65 @@ export function computeDynamicallyComputedMeans(scenarios: ScenarioResult[]) {
     mean_live: Number((sum_live / n).toFixed(4)),
   };
 }
+
+export interface DiscriminationAnalysis {
+  mean_p_pos: number;
+  mean_p_neg: number;
+  separation: number;
+  ci_lower: number;
+  ci_upper: number;
+  includes_zero: boolean;
+}
+
+/**
+ * Computes class separation [mean_p(1) - mean_p(0)] and a 95% bootstrap confidence interval
+ * for (forecaster mean Brier - base-rate mean Brier) over scenarios, labeled in-sample, train only.
+ */
+export function computeDiscriminationAndBootstrap(
+  scenarios: ScenarioResult[],
+  nResamples: number = 10000,
+  seed: number = 20261019
+): DiscriminationAnalysis {
+  const pos = scenarios.filter((s) => s.ground_truth_label === 1);
+  const neg = scenarios.filter((s) => s.ground_truth_label === 0);
+
+  const mean_p_pos = pos.length > 0 ? pos.reduce((acc, s) => acc + s.live_forecaster.probability, 0) / pos.length : 0;
+  const mean_p_neg = neg.length > 0 ? neg.reduce((acc, s) => acc + s.live_forecaster.probability, 0) / neg.length : 0;
+  const separation = Number((mean_p_pos - mean_p_neg).toFixed(4));
+
+  let a = seed;
+  const rand = () => {
+    let t = (a += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+
+  const n = scenarios.length;
+  const deltas: number[] = [];
+
+  for (let b = 0; b < nResamples; b++) {
+    let b_fc = 0;
+    let b_base = 0;
+    for (let i = 0; i < n; i++) {
+      const idx = Math.floor(rand() * n);
+      b_fc += scenarios[idx].live_forecaster.brier;
+      b_base += scenarios[idx].base_rate.brier;
+    }
+    deltas.push((b_fc - b_base) / n);
+  }
+
+  deltas.sort((x, y) => x - y);
+  const ci_lower = Number(deltas[Math.floor(0.025 * nResamples)].toFixed(4));
+  const ci_upper = Number(deltas[Math.floor(0.975 * nResamples)].toFixed(4));
+  const includes_zero = ci_lower <= 0 && ci_upper >= 0;
+
+  return {
+    mean_p_pos: Number(mean_p_pos.toFixed(4)),
+    mean_p_neg: Number(mean_p_neg.toFixed(4)),
+    separation,
+    ci_lower,
+    ci_upper,
+    includes_zero,
+  };
+}

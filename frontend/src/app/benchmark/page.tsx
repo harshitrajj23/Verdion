@@ -18,6 +18,7 @@ import rawBenchmarkJson from "@/data/results_train_live.json";
 import {
   validateBenchmarkData,
   computeDynamicallyComputedMeans,
+  computeDiscriminationAndBootstrap,
   LiveBenchmarkData,
 } from "@/lib/benchmarkData";
 
@@ -39,6 +40,12 @@ export default function BenchmarkPage() {
   const computedMeans = useMemo(() => {
     if (!dataResult) return null;
     return computeDynamicallyComputedMeans(dataResult.per_scenario);
+  }, [dataResult]);
+
+  // Compute separation and bootstrap CI dynamically
+  const discriminationMetrics = useMemo(() => {
+    if (!dataResult) return null;
+    return computeDiscriminationAndBootstrap(dataResult.per_scenario);
   }, [dataResult]);
 
   if (loadError) {
@@ -214,6 +221,46 @@ export default function BenchmarkPage() {
           </div>
         </div>
       </div>
+
+      {/* Discrimination & Calibration Metrics (In-Sample, Train Only) */}
+      {discriminationMetrics && (
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-bold text-slate-300 uppercase tracking-wider font-mono">
+              Discrimination & Calibration Metrics
+            </h2>
+            <span className="text-xs font-mono text-slate-400">Strictly in-sample, train only. Zero forecasting skill claimed.</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="glass-panel p-5 rounded-2xl border border-slate-800 bg-slate-900/30 space-y-2">
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="text-slate-400 font-semibold">Class Separation [mean p(1) - mean p(0)]</span>
+                <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-mono">in-sample, train only</span>
+              </div>
+              <div className="text-2xl font-black text-slate-200 font-mono">
+                +{discriminationMetrics.separation.toFixed(4)}
+              </div>
+              <p className="text-xs text-slate-400">
+                Mean forecast on positives ({discriminationMetrics.mean_p_pos.toFixed(4)}) minus negatives ({discriminationMetrics.mean_p_neg.toFixed(4)}). In-sample train separation, not out-of-sample skill.
+              </p>
+            </div>
+
+            <div className="glass-panel p-5 rounded-2xl border border-slate-800 bg-slate-900/30 space-y-2">
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="text-slate-400 font-semibold">Bootstrap 95% CI (Forecaster - Base Rate)</span>
+                <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-mono">in-sample, train only</span>
+              </div>
+              <div className="text-2xl font-black text-slate-200 font-mono">
+                [{discriminationMetrics.ci_lower.toFixed(4)}, {discriminationMetrics.ci_upper.toFixed(4)}]
+              </div>
+              <p className="text-xs text-slate-400">
+                10,000 bootstrap resamples. Interval {discriminationMetrics.includes_zero ? "includes zero (no statistically significant edge over base rate)" : "excludes zero"}, confirming no claimed forecasting skill.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Stability Summary Panel */}
       <div className="glass-panel p-5 rounded-2xl border border-slate-800 bg-slate-900/20 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
