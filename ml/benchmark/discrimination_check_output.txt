@@ -1,0 +1,32 @@
+========================================================================================
+VERIDION TRAIN-SPLIT DISCRIMINATION & CALIBRATION CHECK
+========================================================================================
+Metric                                   | v1 (Primary Live)    | v2 (Ablation)       
+----------------------------------------------------------------------------------------
+Total Scenarios (Train Split Only)       | 14                   | 14                  
+Positive / Negative Class Balance        | 8 pos / 6 neg        | 8 pos / 6 neg       
+Mean p (y = 1, Positives)                | 0.5875               | 0.7500              
+Mean p (y = 0, Negatives)                | 0.2833               | 0.6667              
+Separation [mean_p(1) - mean_p(0)]       | +0.3042              | +0.0833             
+Distinct Forecast Values Count           | 6                    | 3                   
+Distinct Values                          | [0.15, 0.25, 0.35, 0.65, 0.75, 0.85] | [0.35, 0.65, 0.75]  
+Count p >= 0.5 for Positives (y = 1)     | 5 / 8                | 8 / 8               
+Count p >= 0.5 for Negatives (y = 0)     | 0 / 6                | 5 / 6               
+----------------------------------------------------------------------------------------
+Mean Brier for Positives (y = 1)         | 0.2175               | 0.0625              
+Mean Brier for Negatives (y = 0)         | 0.0858               | 0.4658              
+Aggregate Mean Brier: Constant 0.65      | 0.2511               | 0.2511              
+Aggregate Mean Brier: Base Rate (8/14)   | 0.2449               | 0.2449              
+Aggregate Mean Brier: Live Forecaster    | 0.1611               | 0.2354              
+----------------------------------------------------------------------------------------
+Bootstrap 95% CI (Forecaster - Base Rate) | [-0.1824, 0.0309]    | [-0.0920, 0.0825]   
+Bootstrap CI Includes Zero?              | True                 | True                
+========================================================================================
+INTERPRETATION:
+1. Separation: v1 achieved +0.3042 separation between positive and negative scenarios on train.
+   v2 achieved only +0.0833 separation due to high false positives on negative cases.
+2. Statistical Significance: For both v1 ([-0.1824, +0.0309]) and v2 ([-0.0920, +0.0825]),
+   the 95% bootstrap confidence interval INCLUDES ZERO.
+   With N=14 train scenarios, the forecaster's in-sample edge over the base rate is not
+   statistically distinguishable from zero at the 95% confidence level.
+========================================================================================
