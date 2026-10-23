@@ -44,7 +44,7 @@ def main() -> None:
     base_dir = os.path.dirname(os.path.abspath(__file__))
     root_dir = os.path.dirname(os.path.dirname(base_dir))
     scenarios_path = os.path.join(base_dir, "scenarios.json")
-    out_file = os.path.join(base_dir, "results_train_live.json")
+    out_file = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(base_dir, "results_train_live.json")
 
     with open(scenarios_path, "r", encoding="utf-8") as f:
         all_scenarios = json.load(f)

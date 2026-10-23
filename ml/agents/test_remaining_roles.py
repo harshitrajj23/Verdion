@@ -428,6 +428,50 @@ class TestRemainingRoles(unittest.TestCase):
         self.assertEqual(output["status"], "ABSTAINED")
         self.assertIn("Insufficient factual clarity", str(output["error_details"]))
 
+    def test_forecaster_adjudication_detects_conflict_and_excludes_silent_win(self) -> None:
+        facts = {
+            "processing_purpose": "third-party model inference",
+            "third_party_transfer": True,
+            "has_dpa": False,
+            "retention_period_days": 30,
+        }
+        interp_out = {
+            "claims": [
+                {
+                    "agent_id": "agent_legal_interpreter",
+                    "claim_text": "Rule check RULE_GDPR_6_4_COMPLIANT: Processing is either consistent with primary purpose or covered by explicit renewed consent.",
+                    "evidence_status": "ENGINE_CHECKED",
+                },
+                {
+                    "agent_id": "agent_legal_interpreter",
+                    "claim_text": "Rule check RULE_GDPR_5_1_E_PASSED: Retention schedule of 30 days satisfies storage limitation requirements.",
+                    "evidence_status": "ENGINE_CHECKED",
+                },
+            ]
+        }
+        adv_out = {
+            "claims": [
+                {
+                    "agent_id": "agent_adversarial",
+                    "claim_text": "The transfer of personal data to a third-party model inference without a Data Processing Agreement (DPA) is not compliant with GDPR Article 6(1)(f) as the purpose of the data is incompatible with the initial purpose.",
+                    "evidence_status": "SUPPORTED",
+                }
+            ]
+        }
+
+        uncontested, conflicts = VerdionAgentSwarm.adjudicate_upstream_conflicts(facts, [interp_out, adv_out])
+
+        self.assertEqual(len(conflicts), 1)
+        self.assertEqual(conflicts[0]["topic"], "Purpose Compatibility & Lawful Basis (GDPR Art. 6(4) / 6(1))")
+        self.assertIn("RULE_GDPR_6_4_COMPLIANT", conflicts[0]["interpreter_source"])
+        self.assertIn("not compliant with GDPR Article 6(1)(f)", conflicts[0]["adversarial_source"])
+        # Neither conflicting claim may silently win in the uncontested list
+        for u in uncontested:
+            self.assertNotIn("RULE_GDPR_6_4_COMPLIANT", u)
+            self.assertNotIn("not compliant with GDPR Article 6(1)(f)", u)
+        # Uncontested retention check remains
+        self.assertTrue(any("RULE_GDPR_5_1_E_PASSED" in u for u in uncontested))
+
     # === COORDINATOR TESTS ===
 
     def test_coordinator_synthesizes_questions_without_inventing_and_ranks_priority(self) -> None:

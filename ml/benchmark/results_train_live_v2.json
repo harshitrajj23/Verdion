@@ -1,0 +1,435 @@
+{
+  "metadata": {
+    "eval_split": "train",
+    "scenario_count": 14,
+    "utc_run_time": "2026-10-23T12:04:28.939770+00:00",
+    "git_commit_hash": "763a9bbd8ad91a32411b863905cfc03b631de1c0",
+    "git_status_short": "M ml/agents/agent_swarm.py\n M ml/agents/test_remaining_roles.py\n M ml/benchmark/run_live_train_benchmark.py",
+    "prompt_sha256": "05b72f78c0a93a3cdb492cf50955687acb36ce577ddd03fdb1d020268e37e0d0",
+    "model_name": "qwen2.5:7b-instruct",
+    "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+    "quantization": "Q4_K_M",
+    "ollama_version": "0.40.6",
+    "train_base_rate": 0.5714
+  },
+  "aggregate_brier_scores": {
+    "constant_0_65": 0.2511,
+    "base_rate": 0.2449,
+    "live_forecaster": 0.2354
+  },
+  "stability_summary": {
+    "total_scenarios": 14,
+    "unstable_count": 0,
+    "unstable_scenarios": [],
+    "threshold": 0.05,
+    "verdict": "STABLE"
+  },
+  "per_scenario": [
+    {
+      "scenario_id": "scen_01",
+      "title": "Customer Support Fine-Tuning Without Specific Consent",
+      "ground_truth_label": 1,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.1225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.1837
+      },
+      "live_forecaster": {
+        "probability": 0.75,
+        "brier": 0.0625,
+        "prompt_tokens": 843,
+        "completion_tokens": 221,
+        "elapsed_ms": 42514.66
+      },
+      "stability_check": {
+        "runs": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_02",
+      "title": "Fine-Tuning With Pre-Training Redaction and Opt-Out",
+      "ground_truth_label": 0,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.4225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.3265
+      },
+      "live_forecaster": {
+        "probability": 0.75,
+        "brier": 0.5625,
+        "prompt_tokens": 876,
+        "completion_tokens": 251,
+        "elapsed_ms": 42909.8
+      },
+      "stability_check": {
+        "runs": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_03",
+      "title": "Customer Profiling With Automated Decision-Making and No Marking",
+      "ground_truth_label": 1,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.1225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.1837
+      },
+      "live_forecaster": {
+        "probability": 0.75,
+        "brier": 0.0625,
+        "prompt_tokens": 847,
+        "completion_tokens": 276,
+        "elapsed_ms": 47584.63
+      },
+      "stability_check": {
+        "runs": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_04",
+      "title": "Indefinite Retention of Raw Training Vector Embeddings",
+      "ground_truth_label": 1,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.1225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.1837
+      },
+      "live_forecaster": {
+        "probability": 0.75,
+        "brier": 0.0625,
+        "prompt_tokens": 699,
+        "completion_tokens": 243,
+        "elapsed_ms": 33872.83
+      },
+      "stability_check": {
+        "runs": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_05",
+      "title": "Internal Employee Feedback Model Training With Explicit Consent",
+      "ground_truth_label": 0,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.4225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.3265
+      },
+      "live_forecaster": {
+        "probability": 0.75,
+        "brier": 0.5625,
+        "prompt_tokens": 847,
+        "completion_tokens": 258,
+        "elapsed_ms": 32916.18
+      },
+      "stability_check": {
+        "runs": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_06",
+      "title": "Unredacted Special Category Health Inquiries in Training Corpus",
+      "ground_truth_label": 1,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.1225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.1837
+      },
+      "live_forecaster": {
+        "probability": 0.75,
+        "brier": 0.0625,
+        "prompt_tokens": 824,
+        "completion_tokens": 241,
+        "elapsed_ms": 35729.48
+      },
+      "stability_check": {
+        "runs": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_07",
+      "title": "Biometric Voiceprint Ingestion for Audio Model Synthesis",
+      "ground_truth_label": 1,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.1225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.1837
+      },
+      "live_forecaster": {
+        "probability": 0.75,
+        "brier": 0.0625,
+        "prompt_tokens": 986,
+        "completion_tokens": 308,
+        "elapsed_ms": 46157.06
+      },
+      "stability_check": {
+        "runs": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_08",
+      "title": "Pseudonymized Telemetry Logs for Bug Prediction",
+      "ground_truth_label": 0,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.4225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.3265
+      },
+      "live_forecaster": {
+        "probability": 0.75,
+        "brier": 0.5625,
+        "prompt_tokens": 939,
+        "completion_tokens": 251,
+        "elapsed_ms": 44096.4
+      },
+      "stability_check": {
+        "runs": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_09",
+      "title": "Third-Party Foundation Model Provider Transfer Without Data Processing Agreement",
+      "ground_truth_label": 1,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.1225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.1837
+      },
+      "live_forecaster": {
+        "probability": 0.75,
+        "brier": 0.0625,
+        "prompt_tokens": 854,
+        "completion_tokens": 334,
+        "elapsed_ms": 66223.7
+      },
+      "stability_check": {
+        "runs": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_10",
+      "title": "Synthetic Data Generation for Model Evaluation",
+      "ground_truth_label": 0,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.4225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.3265
+      },
+      "live_forecaster": {
+        "probability": 0.35,
+        "brier": 0.1225,
+        "prompt_tokens": 1104,
+        "completion_tokens": 295,
+        "elapsed_ms": 56992.28
+      },
+      "stability_check": {
+        "runs": [
+          0.35,
+          0.35,
+          0.35
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_11",
+      "title": "User Right to Erasure Pipeline Failure in Training Weights",
+      "ground_truth_label": 1,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.1225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.1837
+      },
+      "live_forecaster": {
+        "probability": 0.75,
+        "brier": 0.0625,
+        "prompt_tokens": 717,
+        "completion_tokens": 278,
+        "elapsed_ms": 56166.7
+      },
+      "stability_check": {
+        "runs": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_12",
+      "title": "Marketing Email Generator With Clear AI Notification",
+      "ground_truth_label": 0,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.4225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.3265
+      },
+      "live_forecaster": {
+        "probability": 0.75,
+        "brier": 0.5625,
+        "prompt_tokens": 784,
+        "completion_tokens": 257,
+        "elapsed_ms": 53018.99
+      },
+      "stability_check": {
+        "runs": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_13",
+      "title": "Multi-Tenant RAG Vector Store Without Tenant Isolation",
+      "ground_truth_label": 1,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.1225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.1837
+      },
+      "live_forecaster": {
+        "probability": 0.75,
+        "brier": 0.0625,
+        "prompt_tokens": 842,
+        "completion_tokens": 294,
+        "elapsed_ms": 64248.75
+      },
+      "stability_check": {
+        "runs": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    },
+    {
+      "scenario_id": "scen_14",
+      "title": "Local On-Device Speech Model Without Cloud Offload",
+      "ground_truth_label": 0,
+      "constant_0_65": {
+        "probability": 0.65,
+        "brier": 0.4225
+      },
+      "base_rate": {
+        "probability": 0.5714,
+        "brier": 0.3265
+      },
+      "live_forecaster": {
+        "probability": 0.65,
+        "brier": 0.4225,
+        "prompt_tokens": 877,
+        "completion_tokens": 236,
+        "elapsed_ms": 52085.33
+      },
+      "stability_check": {
+        "runs": [
+          0.65,
+          0.65,
+          0.65
+        ],
+        "spread": 0.0,
+        "is_stable": true
+      }
+    }
+  ]
+}

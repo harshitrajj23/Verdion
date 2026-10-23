@@ -1188,6 +1188,113 @@ class VerdionAgentSwarm:
         AgentOutput.validate_dict(output)
         return output
 
+    @staticmethod
+    def adjudicate_upstream_conflicts(
+        facts: Dict[str, Any],
+        upstream_outputs: Optional[List[Dict[str, Any]]] = None,
+    ) -> Tuple[List[str], List[Dict[str, Any]]]:
+        """
+        Adjudication step (§8.5, §9.1):
+        When the Interpreter's rule-engine result and an Adversarial claim conflict
+        on the same fact or statutory topic, pass both to the Forecaster labeled as
+        CONFLICT with their sources, and do not let either silently win.
+
+        Returns:
+          (uncontested_claims, conflict_records)
+        """
+        if not upstream_outputs:
+            return [], []
+
+        all_supported_claims = []
+        for out in upstream_outputs:
+            for c in out.get("claims", []):
+                if c.get("evidence_status") in ("SUPPORTED", "ENGINE_CHECKED"):
+                    all_supported_claims.append(c)
+
+        interpreter_rule_claims = [
+            c for c in all_supported_claims
+            if c.get("agent_id") == "agent_legal_interpreter" and "Rule check RULE_" in c.get("claim_text", "")
+        ]
+        adversarial_claims = [
+            c for c in all_supported_claims
+            if c.get("agent_id") == "agent_adversarial"
+        ]
+
+        conflicts: List[Dict[str, Any]] = []
+        conflicted_claim_ids = set()
+
+        for r_claim in interpreter_rule_claims:
+            r_text = r_claim.get("claim_text", "")
+            r_id = id(r_claim)
+
+            # Topic 1: Purpose Compatibility & Lawful Basis (GDPR Art. 6(4) / 6(1))
+            if "RULE_GDPR_6_4" in r_text:
+                is_rule_passed = "COMPLIANT" in r_text or "QUALIFIED" in r_text
+                for a_claim in adversarial_claims:
+                    a_text = a_claim.get("claim_text", "")
+                    a_id = id(a_claim)
+                    adv_keywords = ["purpose", "incompatible", "not compliant", "article 6", "6(1)", "6(4)", "dpa", "data processing agreement", "transfer"]
+                    if any(kw in a_text.lower() for kw in adv_keywords):
+                        is_adv_adverse = any(neg in a_text.lower() for neg in ["incompatible", "not compliant", "violation", "poses a legal risk", "unlawful"])
+                        if is_rule_passed and is_adv_adverse:
+                            conflicts.append({
+                                "topic": "Purpose Compatibility & Lawful Basis (GDPR Art. 6(4) / 6(1))",
+                                "fact_key": "processing_purpose, third_party_transfer, has_dpa",
+                                "interpreter_source": r_text,
+                                "adversarial_source": a_text,
+                                "open_question": "Does third-party model inference without a Data Processing Agreement (DPA) or explicit renewed consent constitute an unresolved statutory compliance gap under GDPR Article 6(4), despite collection purpose consistency?",
+                            })
+                            conflicted_claim_ids.add(r_id)
+                            conflicted_claim_ids.add(a_id)
+
+            # Topic 2: Storage Limitation & Retention Schedule (GDPR Art. 5(1)(e))
+            elif "RULE_GDPR_5_1_E" in r_text:
+                is_rule_passed = "PASSED" in r_text or "COMPLIANT" in r_text
+                for a_claim in adversarial_claims:
+                    a_text = a_claim.get("claim_text", "")
+                    a_id = id(a_claim)
+                    adv_keywords = ["retention", "storage limitation", "article 5(1)(e)", "5(1)(e)", "indefinite"]
+                    if any(kw in a_text.lower() for kw in adv_keywords):
+                        is_adv_adverse = any(neg in a_text.lower() for neg in ["excessive", "violates", "violation", "indefinite", "not compliant"])
+                        if is_rule_passed and is_adv_adverse:
+                            retention_days = facts.get("retention_period_days")
+                            conflicts.append({
+                                "topic": "Storage Limitation & Retention Schedule (GDPR Art. 5(1)(e))",
+                                "fact_key": "retention_period_days",
+                                "interpreter_source": r_text,
+                                "adversarial_source": a_text,
+                                "open_question": f"Does the retention schedule ({retention_days} days) satisfy storage limitation requirements under GDPR Article 5(1)(e), or does retained data create an unmitigated retention compliance defect?",
+                            })
+                            conflicted_claim_ids.add(r_id)
+                            conflicted_claim_ids.add(a_id)
+
+            # Topic 3: AI Transparency Marking (EU AI Act Art. 50(2))
+            elif "RULE_AIACT_50_2" in r_text:
+                is_rule_passed = "PASSED" in r_text
+                for a_claim in adversarial_claims:
+                    a_text = a_claim.get("claim_text", "")
+                    a_id = id(a_claim)
+                    adv_keywords = ["transparency", "marking", "article 50", "50(2)", "automated decision"]
+                    if any(kw in a_text.lower() for kw in adv_keywords):
+                        is_adv_adverse = any(neg in a_text.lower() for neg in ["violates", "gap", "failure", "not compliant", "unmarked"])
+                        if is_rule_passed and is_adv_adverse:
+                            conflicts.append({
+                                "topic": "AI Transparency Marking Obligations (EU AI Act Art. 50(2))",
+                                "fact_key": "automated_decision_making, machine_readable_marking",
+                                "interpreter_source": r_text,
+                                "adversarial_source": a_text,
+                                "open_question": "Are transparency marking obligations under EU AI Act Article 50(2) satisfied or non-applicable given the system's operational profile?",
+                            })
+                            conflicted_claim_ids.add(r_id)
+                            conflicted_claim_ids.add(a_id)
+
+        uncontested_claims = [
+            f"- [{c.get('agent_id')}]: {c.get('claim_text')}"
+            for c in all_supported_claims
+            if id(c) not in conflicted_claim_ids
+        ]
+        return uncontested_claims, conflicts
+
     def run_quantitative_forecaster(
         self,
         case: Dict[str, Any],
@@ -1201,22 +1308,33 @@ class VerdionAgentSwarm:
         facts = case.get("facts", {})
         facts_str = json.dumps(facts, indent=2) if isinstance(facts, dict) else str(facts)
 
-        evidence_summary = ""
-        if upstream_outputs:
-            all_c = []
-            for out in upstream_outputs:
-                for c in out.get("claims", []):
-                    if c.get("evidence_status") in ("SUPPORTED", "ENGINE_CHECKED"):
-                        all_c.append(f"- [{c.get('agent_id')}]: {c.get('claim_text')}")
-            evidence_summary = "\n".join(all_c) if all_c else "No verified claims available."
+        uncontested_claims, conflicts = self.adjudicate_upstream_conflicts(facts if isinstance(facts, dict) else {}, upstream_outputs)
+        evidence_summary = "\n".join(uncontested_claims) if uncontested_claims else "No uncontested verified claims available."
+
+        if conflicts:
+            conflict_blocks = []
+            for cf in conflicts:
+                conflict_blocks.append(
+                    f"- CONFLICT on [{cf['topic']}]:\n"
+                    f"  * [Source: agent_legal_interpreter (Rule Engine)]: {cf['interpreter_source']}\n"
+                    f"  * [Source: agent_adversarial]: {cf['adversarial_source']}\n"
+                    f"  * Open Question for Evaluation: {cf['open_question']}"
+                )
+            conflicts_summary = "\n\n".join(conflict_blocks)
+        else:
+            conflicts_summary = "None (Upstream rule-engine and adversarial findings are consistent)."
 
         system_prompt = (
             "You are the Quantitative Forecaster role in the Verdion protocol. "
-            "Your task is to forecast the probability (between 0.0 and 1.0) that an independent benchmark evaluator "
-            "will find an unresolved compliance violation or legal liability for the described case facts. "
+            "Your task is to forecast the probability (between 0.0 and 1.0) that the authorized evaluator "
+            "proposes a resolution outcome of true (YES / COMPLIANCE_GAP: an unresolved statutory compliance gap "
+            "or defect is identified under the evaluation rubric) versus false (NO: fully compliant / no gap identified) "
+            "for the described case facts in the PredictionMarket contract. "
+            "Where upstream roles present an unadjudicated CONFLICT on the same fact, do not treat either claim as conclusive; "
+            "weigh both sources and the stated Open Question when estimating the evaluator outcome probability. "
             "You MUST output: "
             "1) forecast.probability: numeric value strictly between 0.0 and 1.0 (never a hardcoded constant), "
-            "2) forecast.event_definition: explicit string defining the precise binary resolution event, "
+            "2) forecast.event_definition: explicit string defining the precise binary resolution event: 'The authorized evaluator proposes resolution outcome true (YES / COMPLIANCE_GAP: statutory compliance gap identified under evaluation rubric) for the described case facts.', "
             "3) forecast.confidence_interval: optional array of two numbers [lower, upper] in [0, 1]. "
             "If the facts or legal authority are genuinely insufficient to form any numerical estimate, "
             "you may abstain by setting forecast.abstain: true and stating the reason in forecast.reason. "
@@ -1228,8 +1346,9 @@ class VerdionAgentSwarm:
             f"Case Question: {question}\n\n"
             f"Case Facts:\n{facts_str}\n\n"
             f"Verified Evidence & Prior Agent Findings:\n{evidence_summary}\n\n"
+            f"Unadjudicated Upstream Conflicts (Open Questions for Evaluation):\n{conflicts_summary}\n\n"
             f"Verified Evidence Digest: {verified_evidence_digest or '0x0000000000000000'}\n\n"
-            "Estimate the evaluator outcome probability, provide the precise event definition, and produce valid JSON adhering to §8.7 schema."
+            "Estimate the evaluator outcome probability of true (YES / COMPLIANCE_GAP), provide the precise event definition matching PredictionMarket resolution, and produce valid JSON adhering to §8.7 schema."
         )
 
         url = getattr(self.llm_client, "url", "http://localhost:11434")
@@ -1341,6 +1460,7 @@ class VerdionAgentSwarm:
                 "model_digest": model_digest,
                 "metadata": {
                     "priority_formula": "priority = impact * uncertainty * feasibility",
+                    "adjudicated_conflicts": conflicts,
                 },
                 "execution_metrics": {
                     "elapsed_ms": round(total_latency_ms, 2),
