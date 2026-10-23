@@ -1,3 +1,10 @@
+"""STUB / QUARANTINED BENCHMARK RUNNER.
+
+This script previously invoked `runner.run_verdion_pipeline()`, which relied on
+quarantined hardcoded mock values in evaluate.py.
+It is preserved as a stub awaiting the live pipeline rewrite.
+"""
+
 from __future__ import annotations
 
 import hashlib
@@ -13,30 +20,12 @@ from ml.benchmark.evaluate import BenchmarkRunner
 from ml.aggregation.scoring import brier
 
 
-def get_git_commit() -> str:
-    try:
-        res = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True)
-        return res.stdout.strip()
-    except Exception:
-        return "unknown"
-
-
-def get_ollama_version() -> str:
-    try:
-        req = urllib.request.Request("http://localhost:11434/api/version")
-        with urllib.request.urlopen(req, timeout=3) as resp:
-            data = json.loads(resp.read().decode())
-            return data.get("version", "unknown")
-    except Exception:
-        return "unknown"
-
-
 def main() -> None:
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    out_file = os.path.join(base_dir, "results_train.json")
-
-    runner = BenchmarkRunner()
-    train_scenarios = [s for s in runner.scenarios if s.get("split") == "train"]
+    raise NotImplementedError(
+        "ml/benchmark/run_train_benchmark.py is a stub. "
+        "The underlying evaluate.py methods were quarantined due to hardcoded mock values. "
+        "Use the live train pipeline runner (Stage 2) once implemented."
+    )
 
     # Calculate train base rate
     labels = [s["ground_truth_label"] for s in train_scenarios]

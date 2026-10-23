@@ -28,89 +28,22 @@ class BenchmarkRunner:
 
     def run_baseline_a(self, scenario: Dict[str, Any]) -> Dict[str, Any]:
         """Baseline A: Single-agent RAG (No multi-agent debate, no rules, no incentives)."""
-        facts = scenario["facts"]
-        passages = self.retriever.search_passages(scenario["title"], top_k=2)
-        # Single agent heuristic: often misses subtle regulatory exceptions or over-confidently predicts
-        is_risky = ("fine-tuning" in str(facts.get("processing_purpose", "")).lower()) or bool(facts.get("automated_decision_making", False))
-        predicted_prob = 0.78 if is_risky else 0.22
-        # Single agent has no verifier, so unsupported claim rate is higher
-        return {
-            "predicted_prob": predicted_prob,
-            "unsupported_claim_rate": 0.25,
-            "issue_detected": is_risky,
-            "cost_usd": 0.0010,
-            "latency_ms": 320
-        }
+        raise NotImplementedError("Hardcoded benchmark mock logic quarantined; live pipeline rewrite pending.")
 
     def run_baseline_b(self, scenario: Dict[str, Any]) -> Dict[str, Any]:
         """Baseline B: Basic multi-agent (Specialized agents, no deterministic rules, no market/bounties)."""
-        facts = scenario["facts"]
-        # 3 agent simulation: researcher, interpreter, adversarial
-        passages = self.retriever.search_passages(scenario["title"], top_k=3)
-        has_issue = ("fine-tuning" in str(facts.get("processing_purpose", "")).lower()) or bool(facts.get("automated_decision_making", False)) or (facts.get("retention_period_days") is None)
-        p1 = 0.72 if has_issue else 0.28
-        p2 = 0.65 if has_issue else 0.35
-        p3 = 0.58 if has_issue else 0.42
-        agg_p = ForecastAggregator.aggregate_unweighted_mean([p1, p2, p3])
-        return {
-            "predicted_prob": agg_p,
-            "unsupported_claim_rate": 0.12,
-            "issue_detected": has_issue,
-            "cost_usd": 0.0035,
-            "latency_ms": 840
-        }
+        raise NotImplementedError("Hardcoded benchmark mock logic quarantined; live pipeline rewrite pending.")
 
     def run_baseline_c(self, scenario: Dict[str, Any]) -> Dict[str, Any]:
         """Baseline C: Hybrid without incentives (Agents + Deterministic rule engine, but no markets/bounties)."""
-        facts = scenario["facts"]
-        rule_checks = DeterministicRuleEngine.run_all_checks(facts)
-        rule_failed = any(not check["passed"] for check in rule_checks)
-        
-        # When rules fail deterministically, confidence is calibrated
-        if rule_failed:
-            predicted_prob = 0.88
-        else:
-            predicted_prob = 0.15
-
-        return {
-            "predicted_prob": predicted_prob,
-            "unsupported_claim_rate": 0.04,
-            "issue_detected": rule_failed,
-            "cost_usd": 0.0048,
-            "latency_ms": 950
-        }
+        raise NotImplementedError("Hardcoded benchmark mock logic quarantined; live pipeline rewrite pending.")
 
     def run_verdion_pipeline(self, scenario: Dict[str, Any]) -> Dict[str, Any]:
         """
         Verdion Full Pipeline:
         Agents + Deterministic Rule Engine + Commit-Reveal Market + Uncertainty Prioritization & Bounties.
         """
-        facts = scenario["facts"]
-        rule_checks = DeterministicRuleEngine.run_all_checks(facts)
-        rule_failed = any(not check["passed"] for check in rule_checks)
-
-        # Prioritize uncertainties
-        uncertainty = 0.85 if rule_failed else 0.25
-        priority = UncertaintyPrioritizer.calculate_priority(0.9, uncertainty, 0.85)
-        
-        # 3 committed forecasts from diverse agent roles
-        if rule_failed:
-            p_agents = [0.85, 0.90, 0.82]
-        else:
-            p_agents = [0.12, 0.15, 0.10]
-            
-        agg_p = ForecastAggregator.aggregate_unweighted_mean(p_agents)
-        disagreement = ForecastAggregator.compute_disagreement_variance(p_agents)
-
-        return {
-            "predicted_prob": agg_p,
-            "unsupported_claim_rate": 0.00, # 0% because verifier strictly rejects non-corpus citations
-            "issue_detected": rule_failed,
-            "disagreement_variance": disagreement,
-            "priority": priority,
-            "cost_usd": 0.0072,
-            "latency_ms": 1150
-        }
+        raise NotImplementedError("Hardcoded benchmark mock logic quarantined; live pipeline rewrite pending.")
 
     def evaluate_all(self) -> Dict[str, Any]:
         """Runs evaluation over all 20 scenarios, breaking down train vs held-out test splits."""

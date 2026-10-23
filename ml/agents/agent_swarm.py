@@ -1206,7 +1206,7 @@ class VerdionAgentSwarm:
             all_c = []
             for out in upstream_outputs:
                 for c in out.get("claims", []):
-                    if c.get("evidence_status") == "SUPPORTED":
+                    if c.get("evidence_status") in ("SUPPORTED", "ENGINE_CHECKED"):
                         all_c.append(f"- [{c.get('agent_id')}]: {c.get('claim_text')}")
             evidence_summary = "\n".join(all_c) if all_c else "No verified claims available."
 
