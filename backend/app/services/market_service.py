@@ -22,6 +22,7 @@ from backend.app.models.entities import (
     PredictionMarket,
     ReputationRecord,
     Settlement,
+    TransactionRecord,
     utcnow,
 )
 from backend.app.schemas.market import (
@@ -340,6 +341,25 @@ class MarketService:
         outcome = market.proposed_outcome
         settlement_results = []
 
+        # Look up if a confirmed settlement receipt is stored for this market
+        stmt_rec = select(TransactionRecord).where(
+            TransactionRecord.status.in_(["CONFIRMED", "confirmed", "0x1"]),
+            (
+                (TransactionRecord.event_name.in_(["MarketSettled", "SettlementExecuted", "SETTLEMENT"])) |
+                (TransactionRecord.case_id == market.case_id)
+            )
+        )
+        res_rec = await db.execute(stmt_rec)
+        tx_records = res_rec.scalars().all()
+        confirmed_tx_hash = None
+        for tr in tx_records:
+            tr_market = (tr.payload or {}).get("market_id")
+            if tr_market == market_id or tr.case_id == market.case_id or tr.contract_address == market.contract_address:
+                confirmed_tx_hash = tr.tx_hash
+                break
+
+        settlement_status = "confirmed" if confirmed_tx_hash else "pending"
+
         for fc in forecasts:
             if fc.probability is not None:
                 # Brier score for single binary outcome: (p - y)^2
@@ -390,7 +410,7 @@ class MarketService:
                     score=bs,
                     reward=reward,
                     resolution_reference=market.resolution_reference or "evaluator_benchmark",
-                    tx_hash=None,
+                    tx_hash=confirmed_tx_hash,
                     created_at=utcnow()
                 )
                 db.add(settlement)
@@ -401,8 +421,8 @@ class MarketService:
                     "outcome": outcome,
                     "brier_score": bs,
                     "reward": reward,
-                    "tx_hash": None,
-                    "status": "pending"
+                    "tx_hash": confirmed_tx_hash,
+                    "status": settlement_status
                 })
 
         market.status = "SETTLED"
@@ -417,8 +437,11 @@ class MarketService:
                 "market_id": market_id,
                 "outcome": outcome,
                 "participants_settled": len(settlement_results),
-                "aggregate_probability": market.aggregate_probability
-            }
+                "aggregate_probability": market.aggregate_probability,
+                "tx_hash": confirmed_tx_hash,
+                "status": settlement_status
+            },
+            tx_hash=confirmed_tx_hash
         )
 
         await db.commit()
