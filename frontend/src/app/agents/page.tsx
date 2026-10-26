@@ -37,71 +37,73 @@ export default function AgentLaboratoryPage() {
   const selectedAgentForDiagnostics = agents.find((a) => a.agent_id === diagnosticsAgentId);
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
-      {/* Header */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl space-y-3">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+    <div className="space-y-8 animate-fade-in-up">
+      {/* ── Apple Header Card ── */}
+      <div className="apple-card space-y-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream-200 pb-5">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/30">
+              <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-lavender-100 text-lavender-800 border border-lavender-200">
                 §16.3
               </span>
-              <h1 className="text-xl sm:text-2xl font-extrabold text-white">Agent Laboratory</h1>
+              <h1 className="text-2xl sm:text-3xl font-semibold text-ink tracking-tight font-appleDisplay">
+                Agent Laboratory
+              </h1>
             </div>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-ink-secondary mt-1">
               Inspect autonomous agent roles, task executions, cited sources, uncertainty estimates, compute cost, and failure diagnostics.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-slate-400 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <div className="flex items-center gap-2 text-xs text-ink-secondary bg-cream-50 px-3.5 py-1.5 rounded-full border border-cream-300">
+            <ShieldCheck className="w-4 h-4 text-lavender-600" />
             <span>Honest telemetry: static execution snapshot (§16.3)</span>
           </div>
         </div>
 
         {/* Swarm Resource Consumption Metrics */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-          <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-0.5">
-            <span className="text-[10px] text-slate-400 flex items-center gap-1 font-semibold uppercase">
-              <Cpu className="w-3.5 h-3.5 text-indigo-400" /> Active Roles
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-300 space-y-0.5">
+            <span className="text-[10px] text-ink-muted flex items-center gap-1 font-semibold uppercase tracking-wider">
+              <Cpu className="w-3.5 h-3.5 text-lavender-600" /> Active Roles
             </span>
-            <div className="text-lg font-bold text-white">{agents.length} Nodes</div>
+            <div className="text-xl font-semibold text-ink font-appleDisplay">{agents.length} Nodes</div>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-0.5">
-            <span className="text-[10px] text-slate-400 flex items-center gap-1 font-semibold uppercase">
-              <Clock className="w-3.5 h-3.5 text-cyan-400" /> Avg Latency
+          <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-300 space-y-0.5">
+            <span className="text-[10px] text-ink-muted flex items-center gap-1 font-semibold uppercase tracking-wider">
+              <Clock className="w-3.5 h-3.5 text-lavender-600" /> Avg Latency
             </span>
-            <div className="text-lg font-bold text-white font-mono">{avgLatency} ms</div>
+            <div className="text-xl font-semibold text-ink font-mono">{avgLatency} ms</div>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-0.5">
-            <span className="text-[10px] text-slate-400 flex items-center gap-1 font-semibold uppercase">
-              <Zap className="w-3.5 h-3.5 text-amber-400" /> Tokens Ingested
+          <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-300 space-y-0.5">
+            <span className="text-[10px] text-ink-muted flex items-center gap-1 font-semibold uppercase tracking-wider">
+              <Zap className="w-3.5 h-3.5 text-lavender-600" /> Tokens Ingested
             </span>
-            <div className="text-lg font-bold text-white font-mono">{totalTokens}</div>
+            <div className="text-xl font-semibold text-ink font-mono">{totalTokens}</div>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-0.5">
-            <span className="text-[10px] text-slate-400 flex items-center gap-1 font-semibold uppercase">
-              <DollarSign className="w-3.5 h-3.5 text-emerald-400" /> Execution Cost
+          <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-300 space-y-0.5">
+            <span className="text-[10px] text-ink-muted flex items-center gap-1 font-semibold uppercase tracking-wider">
+              <DollarSign className="w-3.5 h-3.5 text-lavender-600" /> Execution Cost
             </span>
-            <div className="text-lg font-bold text-white font-mono">${totalCost.toFixed(4)}</div>
+            <div className="text-xl font-semibold text-ink font-mono">${totalCost.toFixed(4)}</div>
           </div>
         </div>
 
-        {/* Filters and Failure Toggle */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-3">
-          <div className="flex flex-wrap items-center gap-2">
+        {/* Filters and Failure Toggle: Apple Pill Groups */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <div className="inline-flex p-1 rounded-full bg-cream-200 border border-cream-300 max-w-full overflow-x-auto scrollbar-none">
             {["ALL", "LEGAL_RESEARCHER", "LEGAL_INTERPRETER", "ADVERSARIAL_RESEARCHER", "EVIDENCE_VERIFIER", "QUANTITATIVE_FORECASTER", "COORDINATOR"].map(
               (role) => (
                 <button
                   key={role}
                   onClick={() => setRoleFilter(role)}
-                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-150 active:scale-[0.97] whitespace-nowrap ${
                     roleFilter === role
-                      ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-glow"
-                      : "text-slate-400 hover:text-white bg-slate-900/60 border border-slate-800"
+                      ? "bg-white text-ink shadow-sm border border-cream-300/60"
+                      : "text-ink-secondary hover:text-ink hover:bg-cream-100/60"
                   }`}
                 >
                   {role.replace(/_/g, " ")}
@@ -112,13 +114,13 @@ export default function AgentLaboratoryPage() {
 
           <button
             onClick={() => setShowFailuresOnly(!showFailuresOnly)}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-medium flex items-center gap-1.5 transition-all duration-150 active:scale-[0.97] ${
               showFailuresOnly
-                ? "bg-rose-500/20 text-rose-300 border border-rose-500/40 shadow-glow-rose"
-                : "bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white"
+                ? "bg-rose-100 text-rose-800 border border-rose-300 shadow-sm"
+                : "bg-cream-200 text-ink-secondary border border-cream-300 hover:text-ink"
             }`}
           >
-            <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
+            <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
             <span>Failures Only ({totalFailures})</span>
           </button>
         </div>
@@ -127,7 +129,7 @@ export default function AgentLaboratoryPage() {
       {/* Agents Grid */}
       {filteredAgents.length === 0 ? (
         <EmptyState
-          icon={<Cpu className="w-7 h-7 text-indigo-400" />}
+          icon={<Cpu className="w-7 h-7 text-lavender-600" />}
           title="No Agents Match Filter"
           description={`No agent telemetry matching the selected role '${roleFilter}'.`}
         />
@@ -139,10 +141,10 @@ export default function AgentLaboratoryPage() {
               {agent.failures.length > 0 && (
                 <button
                   onClick={() => setDiagnosticsAgentId(agent.agent_id)}
-                  className="mt-2 w-full py-1.5 px-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                  className="mt-2 w-full py-2 px-3 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-800 border border-rose-200 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors active:scale-[0.97]"
                 >
-                  <ShieldAlert className="w-3.5 h-3.5" />
-                  <span>Inspect Detailed Stack / Diagnostic Failures</span>
+                  <ShieldAlert className="w-3.5 h-3.5 text-rose-600" />
+                  <span>Inspect Detailed Stack / Diagnostics</span>
                 </button>
               )}
             </div>
@@ -150,47 +152,47 @@ export default function AgentLaboratoryPage() {
         </div>
       )}
 
-      {/* Failure Diagnostics Modal (§16.3) */}
+      {/* Failure Diagnostics Modal */}
       {selectedAgentForDiagnostics && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="relative w-full max-w-xl rounded-3xl border border-rose-900/60 bg-slate-950 p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/40 backdrop-blur-md animate-fade-in-up">
+          <div className="relative w-full max-w-xl rounded-[20px] border border-cream-300 bg-white p-6 sm:p-8 shadow-apple-hover space-y-4">
+            <div className="flex items-center justify-between border-b border-cream-200 pb-3">
               <div className="flex items-center gap-2">
-                <ShieldAlert className="w-5 h-5 text-rose-400" />
-                <h3 className="text-base font-bold text-white">Diagnostic Failure Inspector</h3>
+                <ShieldAlert className="w-5 h-5 text-rose-600" />
+                <h3 className="text-base font-semibold text-ink font-appleDisplay">Diagnostic Failure Inspector</h3>
               </div>
               <button
                 onClick={() => setDiagnosticsAgentId(null)}
-                className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800"
+                className="text-ink-muted hover:text-ink p-1 rounded-full hover:bg-cream-100"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <div className="space-y-1 text-xs">
-              <div className="flex items-center justify-between text-slate-400">
-                <span>Agent: <strong className="text-white">{selectedAgentForDiagnostics.name}</strong></span>
-                <span className="font-mono text-cyan-400">{selectedAgentForDiagnostics.agent_id}</span>
+              <div className="flex items-center justify-between text-ink-secondary">
+                <span>Agent: <strong className="text-ink">{selectedAgentForDiagnostics.name}</strong></span>
+                <span className="font-mono text-lavender-700 font-semibold">{selectedAgentForDiagnostics.agent_id}</span>
               </div>
-              <div className="text-slate-400">
-                Role: <strong className="text-indigo-400 font-mono">{selectedAgentForDiagnostics.role}</strong>
+              <div className="text-ink-secondary">
+                Role: <strong className="text-lavender-700 font-mono">{selectedAgentForDiagnostics.role}</strong>
               </div>
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-semibold text-rose-300 block">Reported Unhandled Diagnostic Logs:</span>
-              <div className="p-3 rounded-2xl bg-slate-900 border border-rose-950/80 font-mono text-xs text-rose-200/90 space-y-2 max-h-60 overflow-y-auto">
+              <span className="text-xs font-semibold text-rose-800 block">Reported Unhandled Diagnostic Logs:</span>
+              <div className="p-3.5 rounded-[14px] bg-rose-50 border border-rose-200 font-mono text-xs text-rose-950 space-y-2 max-h-60 overflow-y-auto">
                 {selectedAgentForDiagnostics.failures.map((f, i) => (
-                  <div key={i} className="flex items-start gap-2 border-b border-rose-900/30 pb-2 last:border-0 last:pb-0">
-                    <span className="text-rose-500 font-bold shrink-0">[{i + 1}]</span>
+                  <div key={i} className="flex items-start gap-2 border-b border-rose-200/60 pb-2 last:border-0 last:pb-0">
+                    <span className="text-rose-600 font-bold shrink-0">[{i + 1}]</span>
                     <span>{f}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400 space-y-1">
-              <span className="font-semibold text-slate-300 block">Protocol Handling Policy:</span>
+            <div className="p-3.5 rounded-[12px] bg-cream-50 border border-cream-300 text-xs text-ink-secondary space-y-1">
+              <span className="font-semibold text-ink block">Protocol Handling Policy:</span>
               <p>
                 Agent failures do not trigger synthetic retry loops. They are logged immutably, and the coordinator either falls back to deterministic rule evaluations or initiates an Evidence Bounty (§11).
               </p>
@@ -199,7 +201,7 @@ export default function AgentLaboratoryPage() {
             <div className="flex justify-end pt-2">
               <button
                 onClick={() => setDiagnosticsAgentId(null)}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white transition-colors"
+                className="apple-btn-secondary text-xs px-4 py-2"
               >
                 Dismiss Diagnostics
               </button>
@@ -210,3 +212,4 @@ export default function AgentLaboratoryPage() {
     </div>
   );
 }
+
