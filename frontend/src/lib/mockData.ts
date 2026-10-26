@@ -91,6 +91,8 @@ export interface MarketData {
   settlement_tx?: string;
   /** Optional: human-readable phase label derived from deadlines */
   deadline_phase_label?: string;
+  /** Provenance indicator: true if this record reflects on-chain Sepolia execution */
+  is_recorded_sepolia?: boolean;
 }
 
 export interface BountyData {
@@ -126,7 +128,7 @@ export interface BountyData {
 
 export interface AuditRecord {
   id: string;
-  event_type: "CASE_CREATED" | "SCOPE_VERSIONED" | "EVIDENCE_ANCHORED" | "FORECAST_COMMITTED" | "FORECAST_REVEALED" | "RESOLUTION_PROPOSED" | "BOUNTY_OPENED" | "BOUNTY_SETTLED" | "SETTLEMENT_EXECUTED";
+  event_type: "CASE_CREATED" | "SCOPE_VERSIONED" | "EVIDENCE_ANCHORED" | "FORECAST_COMMITTED" | "FORECAST_REVEALED" | "RESOLUTION_PROPOSED" | "BOUNTY_OPENED" | "BOUNTY_SETTLED" | "SETTLEMENT_EXECUTED" | "AGENT_REGISTERED" | "MARKET_CREATED" | "MARKET_FUNDED" | "MARKET_PUBLISHED" | "MARKET_CLOSED";
   actor: string;
   target_id: string;
   payload_digest: string;
@@ -136,6 +138,8 @@ export interface AuditRecord {
   status: "CONFIRMED" | "PENDING" | "REVERTED";
   /** Optional: direct Etherscan link */
   etherscan_url?: string;
+  /** Provenance tag to distinguish recorded on-chain testnet data from mock fixtures */
+  source_type?: "ON_CHAIN_RECORDED" | "SAMPLE_FIXTURE";
 }
 
 export interface BenchmarkResult {
@@ -372,6 +376,38 @@ export const initialGraphEdges: GraphEdge[] = [
 
 export const initialMarkets: MarketData[] = [
   {
+    market_id: "0x28ae...5b3e (Sepolia Lifecycle)",
+    case_id: "0xe3a5...4df1",
+    case_version: 1,
+    question: "Did data processing comply with GDPR Article 6(1)(f) legitimate interest requirements for training AI models?",
+    outcome_definition: "Resolves YES (1) if processing meets EDPB legitimate interest criteria; NO (0) otherwise. Settled on Sepolia Testnet via proper scoring rubric.",
+    resolution_source: "Sepolia Testnet Evaluator (0x3486...2888)",
+    evaluator_address: "0x34867B3Ad7B4353BA08bD74664E8bF27836e2888",
+    commit_deadline: "2026-03-15T12:00:00Z",
+    reveal_deadline: "2026-03-15T12:05:00Z",
+    challenge_deadline: "2026-03-15T12:10:00Z",
+    state: "SETTLED",
+    aggregate_probability: 0.65,
+    disagreement_variance: 0.0,
+    sample_size: 1,
+    reward_pool_credits: 1000,
+    revealed_forecasts: [
+      {
+        agent_id: "deployer_agent (Single Deployer Demo)",
+        agent_address: "0x34867B3Ad7B4353BA08bD74664E8bF27836e2888",
+        probability: 0.65,
+        evidence_digest: "0xb798544e39396e624c9c1b7529433ff9ee69a48f4b00ce994ff37b25208466ff",
+        revealed_at: "2026-03-15T12:04:00Z",
+        brier_score: 0.1225
+      }
+    ],
+    challenge_status: {
+      is_challenged: false
+    },
+    settlement_tx: "0x220d460591302025e7f12d621399e2ab15724979678b4aed92ec2d2970e989e4",
+    is_recorded_sepolia: true
+  },
+  {
     market_id: "mkt_gdpr_001",
     case_id: "case_euaia_001",
     case_version: 1,
@@ -412,7 +448,8 @@ export const initialMarkets: MarketData[] = [
     ],
     challenge_status: {
       is_challenged: false
-    }
+    },
+    is_recorded_sepolia: false
   },
   {
     market_id: "mkt_retention_002",
@@ -443,7 +480,8 @@ export const initialMarkets: MarketData[] = [
     challenge_status: {
       is_challenged: false
     },
-    settlement_tx: "0xd8a9140283fbd19842a9bcf01248ba09148bcae91823901bca819047190bc129"
+    settlement_tx: "0xd8a9140283fbd19842a9bcf01248ba09148bcae91823901bca819047190bc129",
+    is_recorded_sepolia: false
   }
 ];
 
@@ -483,8 +521,118 @@ export const initialBounties: BountyData[] = [
 ];
 
 export const initialAuditRecords: AuditRecord[] = [
+  // ── Verified On-Chain Sepolia Lifecycle Transaction Receipts (§16.7) ──
   {
-    id: "aud_01",
+    id: "aud_sep_09",
+    event_type: "SETTLEMENT_EXECUTED",
+    actor: "0x34867B3Ad7B4353BA08bD74664E8bF27836e2888",
+    target_id: "0x28ae...5b3e",
+    payload_digest: "0x220d460591302025e7f12d621399e2ab15724979678b4aed92ec2d2970e989e4",
+    tx_hash: "0x220d460591302025e7f12d621399e2ab15724979678b4aed92ec2d2970e989e4",
+    timestamp: "2026-03-15T12:12:00Z",
+    block_number: 11997718,
+    status: "CONFIRMED",
+    source_type: "ON_CHAIN_RECORDED"
+  },
+  {
+    id: "aud_sep_08",
+    event_type: "RESOLUTION_PROPOSED",
+    actor: "0x34867B3Ad7B4353BA08bD74664E8bF27836e2888",
+    target_id: "0x28ae...5b3e",
+    payload_digest: "0x540fa04a63548c7d86e8dfbef3342e7dfd2daab82e77bbd9efcd5a0a0c8c9f52",
+    tx_hash: "0x540fa04a63548c7d86e8dfbef3342e7dfd2daab82e77bbd9efcd5a0a0c8c9f52",
+    timestamp: "2026-03-15T12:08:00Z",
+    block_number: 11997482,
+    status: "CONFIRMED",
+    source_type: "ON_CHAIN_RECORDED"
+  },
+  {
+    id: "aud_sep_07",
+    event_type: "FORECAST_REVEALED",
+    actor: "0x34867B3Ad7B4353BA08bD74664E8bF27836e2888",
+    target_id: "0x28ae...5b3e",
+    payload_digest: "0xc6365643831ced46cc294393283e1f06f7128f30b564c42edbe8ca8126764815",
+    tx_hash: "0xc6365643831ced46cc294393283e1f06f7128f30b564c42edbe8ca8126764815",
+    timestamp: "2026-03-15T12:05:00Z",
+    block_number: 11997472,
+    status: "CONFIRMED",
+    source_type: "ON_CHAIN_RECORDED"
+  },
+  {
+    id: "aud_sep_06",
+    event_type: "MARKET_CLOSED",
+    actor: "0x34867B3Ad7B4353BA08bD74664E8bF27836e2888",
+    target_id: "0x28ae...5b3e",
+    payload_digest: "0xaadb64b6f1ecbb49c58487838c62d55bbbc2c1b168b869678e7f07f310b055b1",
+    tx_hash: "0xaadb64b6f1ecbb49c58487838c62d55bbbc2c1b168b869678e7f07f310b055b1",
+    timestamp: "2026-03-15T12:04:00Z",
+    block_number: 11997471,
+    status: "CONFIRMED",
+    source_type: "ON_CHAIN_RECORDED"
+  },
+  {
+    id: "aud_sep_05",
+    event_type: "FORECAST_COMMITTED",
+    actor: "0x34867B3Ad7B4353BA08bD74664E8bF27836e2888",
+    target_id: "0x28ae...5b3e",
+    payload_digest: "0xb6adb372a41a4b5e2a8d9f0c432ad27df62175f0dc7d67dc0bc0b850ace4908e",
+    tx_hash: "0xb6adb372a41a4b5e2a8d9f0c432ad27df62175f0dc7d67dc0bc0b850ace4908e",
+    timestamp: "2026-03-15T12:02:00Z",
+    block_number: 11997464,
+    status: "CONFIRMED",
+    source_type: "ON_CHAIN_RECORDED"
+  },
+  {
+    id: "aud_sep_04",
+    event_type: "MARKET_PUBLISHED",
+    actor: "0x34867B3Ad7B4353BA08bD74664E8bF27836e2888",
+    target_id: "0x28ae...5b3e",
+    payload_digest: "0x104054e7082b47a7b262c9b552d0efd294e3521a3bea7e3ce8aa9a6627b1a6ae",
+    tx_hash: "0x104054e7082b47a7b262c9b552d0efd294e3521a3bea7e3ce8aa9a6627b1a6ae",
+    timestamp: "2026-03-15T12:01:30Z",
+    block_number: 11997463,
+    status: "CONFIRMED",
+    source_type: "ON_CHAIN_RECORDED"
+  },
+  {
+    id: "aud_sep_03",
+    event_type: "MARKET_FUNDED",
+    actor: "0x34867B3Ad7B4353BA08bD74664E8bF27836e2888",
+    target_id: "0x28ae...5b3e",
+    payload_digest: "0x2a993f2f2668116ff7ab0e6c4bb70a233aefd325aaa71db90fafa12f524e86e5",
+    tx_hash: "0x2a993f2f2668116ff7ab0e6c4bb70a233aefd325aaa71db90fafa12f524e86e5",
+    timestamp: "2026-03-15T12:01:00Z",
+    block_number: 11997462,
+    status: "CONFIRMED",
+    source_type: "ON_CHAIN_RECORDED"
+  },
+  {
+    id: "aud_sep_02",
+    event_type: "MARKET_CREATED",
+    actor: "0x34867B3Ad7B4353BA08bD74664E8bF27836e2888",
+    target_id: "0x28ae...5b3e",
+    payload_digest: "0xf5588b6c9bb37e63df3937cf9f4bb3e3e99140442596aa76b562d4578ad0c1c7",
+    tx_hash: "0xf5588b6c9bb37e63df3937cf9f4bb3e3e99140442596aa76b562d4578ad0c1c7",
+    timestamp: "2026-03-15T12:00:30Z",
+    block_number: 11997461,
+    status: "CONFIRMED",
+    source_type: "ON_CHAIN_RECORDED"
+  },
+  {
+    id: "aud_sep_01",
+    event_type: "AGENT_REGISTERED",
+    actor: "0x34867B3Ad7B4353BA08bD74664E8bF27836e2888",
+    target_id: "agent_deployer",
+    payload_digest: "0x1f94f5085df2191495baf81a448bdc4d7965649e98e5177f11c494d7c0525d11",
+    tx_hash: "0x1f94f5085df2191495baf81a448bdc4d7965649e98e5177f11c494d7c0525d11",
+    timestamp: "2026-03-15T11:58:00Z",
+    block_number: 11997418,
+    status: "CONFIRMED",
+    source_type: "ON_CHAIN_RECORDED"
+  },
+  // ── Sample Benchmark Fixtures (Client-Side Simulations) ──
+  {
+    id: "aud_demo_01",
     event_type: "CASE_CREATED",
     actor: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
     target_id: "case_euaia_001",
@@ -492,10 +640,11 @@ export const initialAuditRecords: AuditRecord[] = [
     tx_hash: "0x1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef01",
     timestamp: "2026-03-15T09:30:12Z",
     block_number: 5410291,
-    status: "CONFIRMED"
+    status: "CONFIRMED",
+    source_type: "SAMPLE_FIXTURE"
   },
   {
-    id: "aud_02",
+    id: "aud_demo_02",
     event_type: "EVIDENCE_ANCHORED",
     actor: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
     target_id: "pas_gdpr_art6_4",
@@ -503,10 +652,11 @@ export const initialAuditRecords: AuditRecord[] = [
     tx_hash: "0x2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef0123",
     timestamp: "2026-03-15T10:05:40Z",
     block_number: 5410310,
-    status: "CONFIRMED"
+    status: "CONFIRMED",
+    source_type: "SAMPLE_FIXTURE"
   },
   {
-    id: "aud_03",
+    id: "aud_demo_03",
     event_type: "FORECAST_COMMITTED",
     actor: "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
     target_id: "mkt_gdpr_001",
@@ -514,10 +664,11 @@ export const initialAuditRecords: AuditRecord[] = [
     tx_hash: "0x3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef012345",
     timestamp: "2026-03-15T13:45:00Z",
     block_number: 5410450,
-    status: "CONFIRMED"
+    status: "CONFIRMED",
+    source_type: "SAMPLE_FIXTURE"
   },
   {
-    id: "aud_04",
+    id: "aud_demo_04",
     event_type: "FORECAST_REVEALED",
     actor: "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
     target_id: "mkt_gdpr_001",
@@ -525,10 +676,11 @@ export const initialAuditRecords: AuditRecord[] = [
     tx_hash: "0x4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef01234567",
     timestamp: "2026-03-15T14:15:20Z",
     block_number: 5410495,
-    status: "CONFIRMED"
+    status: "CONFIRMED",
+    source_type: "SAMPLE_FIXTURE"
   },
   {
-    id: "aud_05",
+    id: "aud_demo_05",
     event_type: "BOUNTY_OPENED",
     actor: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
     target_id: "bounty_edpb_001",
@@ -536,16 +688,17 @@ export const initialAuditRecords: AuditRecord[] = [
     tx_hash: "0x5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef0123456789",
     timestamp: "2026-03-15T10:45:00Z",
     block_number: 5410342,
-    status: "CONFIRMED"
+    status: "CONFIRMED",
+    source_type: "SAMPLE_FIXTURE"
   }
 ];
 
 export const mockContractAddresses = {
   chainId: 11155111, // Sepolia Testnet
   networkName: "Ethereum Sepolia Testnet",
-  CaseRegistry: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-  AgentRegistry: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-  PredictionMarket: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-  EvidenceBounty: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-  ReputationSettlement: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+  CaseRegistry: "0x9dEEFCa6b93d9812Cf67Dc7b3daCc51b62C6455E",
+  AgentRegistry: "0x32d5D291e287fF173F803f5ee53Aef75BADb2006",
+  PredictionMarket: "0xFF5e85547E443e3d50b393E09885c6Eb9671EE27",
+  EvidenceBounty: "0xF9805f322ccB6f25f1FAD9266DA9420DC2595a46",
+  ReputationSettlement: "0xb002cd06fC2ce01B38C08787E6C4EaeAf547748c"
 };

@@ -204,7 +204,8 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       tx_hash: txHash,
       timestamp: new Date().toISOString(),
       block_number: 5410520 + Math.floor(Math.random() * 10),
-      status: "CONFIRMED"
+      status: "CONFIRMED",
+      source_type: "SAMPLE_FIXTURE"
     };
 
     setAuditRecords((prev) => [newAudit, ...prev]);

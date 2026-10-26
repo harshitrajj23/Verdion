@@ -32,7 +32,7 @@ export default function PredictionMarketsPage() {
     isLiveChain
   } = useStore();
 
-  const [selectedMarketId, setSelectedMarketId] = useState<string>("mkt_gdpr_001");
+  const [selectedMarketId, setSelectedMarketId] = useState<string>("0x28ae...5b3e (Sepolia Lifecycle)");
   const [probInput, setProbInput] = useState<number>(70);
   const [nonceInput, setNonceInput] = useState<string>(
     "0x" + Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")
@@ -149,11 +149,43 @@ export default function PredictionMarketsPage() {
               }`}
             >
               <span>{m.market_id}</span>
+              {m.is_recorded_sepolia ? (
+                <span className="text-[9px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold border border-emerald-200">
+                  On-Chain
+                </span>
+              ) : (
+                <span className="text-[9px] px-2 py-0.5 rounded-full bg-cream-100 text-ink-muted font-mono">
+                  Sample
+                </span>
+              )}
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-cream-100 text-ink-muted font-mono">
                 {m.state}
               </span>
             </button>
           ))}
+        </div>
+
+        {/* Protocol Disclosures & Architecture Transparency */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-cream-200">
+          <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200 space-y-1 text-xs">
+            <div className="flex items-center gap-1.5 font-semibold text-lavender-700">
+              <Users className="w-3.5 h-3.5" />
+              <span>Demonstration Architecture Disclosure</span>
+            </div>
+            <p className="text-ink-secondary leading-relaxed text-[11px]">
+              The recorded Sepolia on-chain lifecycle (<span className="font-mono text-ink">0x28ae...5b3e</span>) was executed with a single deployer account (<span className="font-mono text-ink">0x3486...2888</span>) acting as both agent and evaluator. Multi-agent panels (<span className="font-semibold text-ink">N = 3</span>) represent simulated benchmark scenarios to demonstrate protocol aggregation.
+            </p>
+          </div>
+
+          <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200 space-y-1 text-xs">
+            <div className="flex items-center gap-1.5 font-semibold text-lavender-700">
+              <AlertCircle className="w-3.5 h-3.5" />
+              <span>Limitation 3: Event-Definition Mismatch</span>
+            </div>
+            <p className="text-ink-secondary leading-relaxed text-[11px]">
+              Upstream ML forecasters predict general GDPR/EU AI Act liability outcomes, whereas <span className="font-mono text-ink">PredictionMarket</span> resolves on specific evaluator rubric gap findings. Operational deployment requires alignment between question syntax and on-chain rubric criteria.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -235,7 +267,7 @@ export default function PredictionMarketsPage() {
               <div className="flex flex-wrap items-center justify-between text-xs text-ink-muted pt-1">
                 <span className="flex items-center gap-1">
                   <Users className="w-3.5 h-3.5 text-lavender-600" />
-                  Sample Size: <strong className="text-ink font-medium">N = {market.sample_size} Agents</strong>
+                  Sample Size: <strong className="text-ink font-medium">N = {market.sample_size} {market.is_recorded_sepolia ? "Agent (Single Deployer Demo)" : "Agents (Simulated)"}</strong>
                 </span>
                 <span>Disagreement Variance: <strong className="font-mono text-ink font-medium">{market.disagreement_variance}</strong></span>
                 <span>Rule: <strong className="text-ink font-medium">Brier Proper Scoring</strong></span>
@@ -302,17 +334,25 @@ export default function PredictionMarketsPage() {
               <div className="p-3.5 rounded-[12px] bg-lavender-50 border border-lavender-200 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-lavender-600" />
-                  <span className="font-semibold text-lavender-800">Market Settled On-Chain</span>
+                  <span className="font-semibold text-lavender-800">
+                    {market.is_recorded_sepolia ? "Market Settled On-Chain (Sepolia)" : "Market Settled (Simulated Benchmark)"}
+                  </span>
                 </div>
-                <a
-                  href={`https://sepolia.etherscan.io/tx/${market.settlement_tx}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-[11px] text-lavender-700 hover:underline flex items-center gap-1 font-medium"
-                >
-                  <span>{market.settlement_tx.slice(0, 14)}...{market.settlement_tx.slice(-8)}</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
+                {market.is_recorded_sepolia ? (
+                  <a
+                    href={`https://sepolia.etherscan.io/tx/${market.settlement_tx}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-[11px] text-lavender-700 hover:underline flex items-center gap-1 font-medium"
+                  >
+                    <span>{market.settlement_tx.slice(0, 14)}...{market.settlement_tx.slice(-8)}</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                ) : (
+                  <span className="font-mono text-[11px] text-ink-muted">
+                    {market.settlement_tx.slice(0, 14)}... (Simulated)
+                  </span>
+                )}
               </div>
             )}
           </div>

@@ -24,6 +24,7 @@ export default function AuditExplorerPage() {
   const [search, setSearch] = useState("");
   const [eventTypeFilter, setEventTypeFilter] = useState<string>("ALL");
   const [statusFilter, setStatusFilter] = useState<string>("ALL");
+  const [sourceFilter, setSourceFilter] = useState<string>("ALL");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
@@ -48,10 +49,13 @@ export default function AuditExplorerPage() {
 
       const matchesType = eventTypeFilter === "ALL" || a.event_type === eventTypeFilter;
       const matchesStatus = statusFilter === "ALL" || a.status === statusFilter;
+      const matchesSource =
+        sourceFilter === "ALL" ||
+        (a.source_type || "SAMPLE_FIXTURE") === sourceFilter;
 
-      return matchesSearch && matchesType && matchesStatus;
+      return matchesSearch && matchesType && matchesStatus && matchesSource;
     });
-  }, [auditRecords, search, eventTypeFilter, statusFilter]);
+  }, [auditRecords, search, eventTypeFilter, statusFilter, sourceFilter]);
 
   const totalPages = Math.max(1, Math.ceil(filteredAudit.length / itemsPerPage));
   const paginatedAudit = filteredAudit.slice(
@@ -106,7 +110,7 @@ export default function AuditExplorerPage() {
               </h1>
             </div>
             <p className="text-[15px] text-ink-secondary leading-relaxed">
-              Public tamper-evident ledger of smart contract addresses, lifecycle transitions, cryptographic commitments, evidence digests, and settlement proofs.
+              Public tamper-evident ledger of smart contract addresses, lifecycle transitions, cryptographic commitments, evidence digests, and settlement proofs. Records with the &apos;Sepolia Receipt&apos; badge link directly to confirmed transactions on Sepolia Etherscan.
             </p>
           </div>
 
@@ -157,11 +161,25 @@ export default function AuditExplorerPage() {
           <div>
             <h3 className="text-base font-bold text-ink">Immutable Event Journal</h3>
             <p className="text-xs text-ink-secondary">
-              {isLiveChain ? "Live on-chain transaction log" : "Chronological feed of validated testnet state transitions."}
+              {isLiveChain ? "Live on-chain transaction log" : "Chronological feed of validated testnet state transitions and benchmark records."}
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5">
+            {/* Source Filter */}
+            <select
+              value={sourceFilter}
+              onChange={(e) => {
+                setSourceFilter(e.target.value);
+                setCurrentPage(1);
+              }}
+              className="bg-cream-100 border border-cream-200 rounded-full px-3.5 py-1.5 text-xs text-ink font-medium focus:outline-none cursor-pointer"
+            >
+              <option value="ALL">All Data Sources</option>
+              <option value="ON_CHAIN_RECORDED">Recorded Sepolia Receipts</option>
+              <option value="SAMPLE_FIXTURE">Sample Benchmark Fixtures</option>
+            </select>
+
             {/* Event Type Filter */}
             <div className="flex items-center gap-1.5 bg-cream-100 border border-cream-200 rounded-full px-3 py-1.5 text-xs text-ink">
               <Filter className="w-3.5 h-3.5 text-ink-tertiary" />
@@ -225,6 +243,7 @@ export default function AuditExplorerPage() {
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
                   <tr className="border-b border-cream-200 text-ink-secondary font-semibold text-[10px] uppercase tracking-wider bg-cream-50">
+                    <th className="py-3 px-3.5">Provenance</th>
                     <th className="py-3 px-3.5">Event Type</th>
                     <th className="py-3 px-3.5">Target ID</th>
                     <th className="py-3 px-3.5">Actor Address</th>
@@ -238,6 +257,18 @@ export default function AuditExplorerPage() {
                   {paginatedAudit.map((row) => (
                     <tr key={row.id} className="hover:bg-cream-50 transition-colors">
                       <td className="py-3 px-3.5">
+                        {row.source_type === "ON_CHAIN_RECORDED" ? (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                            <Check className="w-3 h-3 text-emerald-600" />
+                            Sepolia Receipt
+                          </span>
+                        ) : (
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cream-200 text-ink-muted border border-cream-300">
+                            Sample Demo
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-3 px-3.5">
                         <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-lavender-50 text-lavender-700 border border-lavender-200">
                           {row.event_type}
                         </span>
@@ -248,15 +279,22 @@ export default function AuditExplorerPage() {
                       </td>
                       <td className="py-3 px-3.5 font-mono text-[11px] text-ink">{row.block_number}</td>
                       <td className="py-3 px-3.5">
-                        <a
-                          href={`https://sepolia.etherscan.io/tx/${row.tx_hash}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-mono text-[11px] text-lavender-700 hover:text-lavender-900 flex items-center gap-1 font-medium"
-                        >
-                          <span>{row.tx_hash.slice(0, 10)}...</span>
-                          <ExternalLink className="w-3 h-3 text-lavender-600" />
-                        </a>
+                        {row.source_type === "ON_CHAIN_RECORDED" ? (
+                          <a
+                            href={`https://sepolia.etherscan.io/tx/${row.tx_hash}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-mono text-[11px] text-lavender-700 hover:text-lavender-900 flex items-center gap-1 font-medium"
+                          >
+                            <span>{row.tx_hash.slice(0, 10)}...</span>
+                            <ExternalLink className="w-3 h-3 text-lavender-600" />
+                          </a>
+                        ) : (
+                          <span className="font-mono text-[11px] text-ink-muted flex items-center gap-1">
+                            <span>{row.tx_hash.slice(0, 10)}...</span>
+                            <span className="text-[9px] text-amber-800 bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200 font-sans">Simulated</span>
+                          </span>
+                        )}
                       </td>
                       <td className="py-3 px-3.5 font-mono text-[11px] text-ink-tertiary">
                         {row.payload_digest.slice(0, 12)}...
