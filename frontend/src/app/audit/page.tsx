@@ -63,28 +63,28 @@ export default function AuditExplorerPage() {
     switch (status) {
       case "CONFIRMED":
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/40">
-            <Check className="w-3 h-3 text-emerald-400" />
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <Check className="w-3 h-3 text-emerald-600" />
             CONFIRMED
           </span>
         );
       case "PENDING":
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-950/80 text-amber-300 border border-amber-500/40">
-            <Clock className="w-3 h-3 text-amber-400" />
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+            <Clock className="w-3 h-3 text-amber-600" />
             PENDING
           </span>
         );
       case "REVERTED":
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-950/80 text-rose-300 border border-rose-500/40">
-            <AlertTriangle className="w-3 h-3 text-rose-400" />
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+            <AlertTriangle className="w-3 h-3 text-rose-600" />
             REVERTED
           </span>
         );
       default:
         return (
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-slate-300">
+          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-cream-200 text-ink-secondary">
             {status}
           </span>
         );
@@ -92,34 +92,36 @@ export default function AuditExplorerPage() {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
+    <div className="space-y-6 animate-fade-in-up">
       {/* Header */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
-          <div>
+      <div className="apple-card p-6 sm:p-8 rounded-[18px] bg-white border border-cream-300 shadow-apple-card space-y-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream-200 pb-5">
+          <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-lavender-100 text-lavender-700 border border-lavender-200">
                 §16.7
               </span>
-              <h1 className="text-xl sm:text-2xl font-extrabold text-white">Protocol Audit Explorer</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
+                Protocol Audit Explorer
+              </h1>
             </div>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-[15px] text-ink-secondary leading-relaxed">
               Public tamper-evident ledger of smart contract addresses, lifecycle transitions, cryptographic commitments, evidence digests, and settlement proofs.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-slate-300 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 font-mono">
-            <Network className="w-4 h-4 text-cyan-400" />
+          <div className="flex items-center gap-2 text-xs text-ink bg-cream-100 px-3.5 py-1.5 rounded-full border border-cream-200 font-mono shadow-apple-sm">
+            <Network className="w-4 h-4 text-lavender-600" />
             <span>ChainId: {contractAddresses.chainId} ({contractAddresses.networkName})</span>
           </div>
         </div>
 
         {/* Contract Address Registry (§12.2, §16.7) */}
-        <div className="space-y-2">
-          <span className="text-xs font-bold text-white uppercase tracking-wider block">
+        <div className="space-y-2.5">
+          <span className="text-xs font-bold text-ink uppercase tracking-wider block">
             Deployed Smart Contract Modules:
           </span>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
             {[
               { name: "CaseRegistry", address: contractAddresses.CaseRegistry, desc: "FR-001..FR-004 scope versioning" },
               { name: "AgentRegistry", address: contractAddresses.AgentRegistry, desc: "PRD §8 agent role authorizations" },
@@ -129,20 +131,20 @@ export default function AuditExplorerPage() {
             ].map((c) => (
               <div
                 key={c.name}
-                className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1 hover:border-slate-700 transition-colors"
+                className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200 space-y-1.5 hover:border-lavender-300 hover:shadow-apple-sm transition-all"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-xs text-emerald-300">{c.name}</span>
+                  <span className="font-bold text-xs text-lavender-700">{c.name}</span>
                   <button
                     onClick={() => copyToClipboard(c.name, c.address)}
-                    className="text-slate-400 hover:text-white"
+                    className="p-1 rounded-full text-ink-tertiary hover:text-ink hover:bg-cream-200 transition-colors"
                     title="Copy Address"
                   >
-                    {copiedKey === c.name ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedKey === c.name ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
-                <div className="font-mono text-[10px] text-cyan-400 truncate">{c.address}</div>
-                <div className="text-[10px] text-slate-500">{c.desc}</div>
+                <div className="font-mono text-[11px] text-ink font-medium truncate">{c.address}</div>
+                <div className="text-[11px] text-ink-secondary">{c.desc}</div>
               </div>
             ))}
           </div>
@@ -150,29 +152,29 @@ export default function AuditExplorerPage() {
       </div>
 
       {/* Audit Log Table */}
-      <div className="glass-panel p-6 rounded-3xl space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+      <div className="apple-card p-6 rounded-[18px] bg-white border border-cream-300 shadow-apple-card space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream-200 pb-4">
           <div>
-            <h3 className="text-sm font-bold text-white">Immutable Event Journal</h3>
-            <p className="text-xs text-slate-400">
+            <h3 className="text-base font-bold text-ink">Immutable Event Journal</h3>
+            <p className="text-xs text-ink-secondary">
               {isLiveChain ? "Live on-chain transaction log" : "Chronological feed of validated testnet state transitions."}
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2.5">
             {/* Event Type Filter */}
-            <div className="flex items-center gap-1.5 bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1">
-              <Filter className="w-3 h-3 text-slate-400" />
+            <div className="flex items-center gap-1.5 bg-cream-100 border border-cream-200 rounded-full px-3 py-1.5 text-xs text-ink">
+              <Filter className="w-3.5 h-3.5 text-ink-tertiary" />
               <select
                 value={eventTypeFilter}
                 onChange={(e) => {
                   setEventTypeFilter(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="bg-transparent text-xs text-slate-300 focus:outline-none cursor-pointer"
+                className="bg-transparent text-xs text-ink focus:outline-none cursor-pointer font-medium"
               >
                 {eventTypes.map((t) => (
-                  <option key={t} value={t} className="bg-slate-900 text-slate-200">
+                  <option key={t} value={t} className="bg-white text-ink">
                     {t === "ALL" ? "All Event Types" : t}
                   </option>
                 ))}
@@ -186,17 +188,17 @@ export default function AuditExplorerPage() {
                 setStatusFilter(e.target.value);
                 setCurrentPage(1);
               }}
-              className="bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none cursor-pointer"
+              className="bg-cream-100 border border-cream-200 rounded-full px-3.5 py-1.5 text-xs text-ink font-medium focus:outline-none cursor-pointer"
             >
-              <option value="ALL" className="bg-slate-900">All Statuses</option>
-              <option value="CONFIRMED" className="bg-slate-900">Confirmed</option>
-              <option value="PENDING" className="bg-slate-900">Pending</option>
-              <option value="REVERTED" className="bg-slate-900">Reverted</option>
+              <option value="ALL">All Statuses</option>
+              <option value="CONFIRMED">Confirmed</option>
+              <option value="PENDING">Pending</option>
+              <option value="REVERTED">Reverted</option>
             </select>
 
             {/* Search Input */}
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+              <Search className="w-3.5 h-3.5 text-ink-tertiary absolute left-3 top-2.5" />
               <input
                 type="text"
                 placeholder="Search target, tx, actor..."
@@ -205,7 +207,7 @@ export default function AuditExplorerPage() {
                   setSearch(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="pl-8 pr-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 w-52"
+                className="pl-8 pr-4 py-1.5 rounded-full bg-cream-100 border border-cream-200 text-xs text-ink placeholder:text-ink-tertiary focus:outline-none focus:border-lavender-600 focus:bg-white w-56 shadow-apple-sm transition-all"
               />
             </div>
           </div>
@@ -213,7 +215,7 @@ export default function AuditExplorerPage() {
 
         {filteredAudit.length === 0 ? (
           <EmptyState
-            icon={<FileCheck2 className="w-7 h-7 text-slate-500" />}
+            icon={<FileCheck2 className="w-7 h-7 text-ink-tertiary" />}
             title="No Matching Audit Records"
             description="Try clearing your search query or selecting 'All Event Types' to inspect the complete cryptographic journal."
           />
@@ -222,44 +224,44 @@ export default function AuditExplorerPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-400 font-semibold text-[10px] uppercase">
-                    <th className="py-3 px-3">Event Type</th>
-                    <th className="py-3 px-3">Target ID</th>
-                    <th className="py-3 px-3">Actor Address</th>
-                    <th className="py-3 px-3">Block</th>
-                    <th className="py-3 px-3">Transaction Hash</th>
-                    <th className="py-3 px-3">Payload Digest</th>
-                    <th className="py-3 px-3">Status</th>
+                  <tr className="border-b border-cream-200 text-ink-secondary font-semibold text-[10px] uppercase tracking-wider bg-cream-50">
+                    <th className="py-3 px-3.5">Event Type</th>
+                    <th className="py-3 px-3.5">Target ID</th>
+                    <th className="py-3 px-3.5">Actor Address</th>
+                    <th className="py-3 px-3.5">Block</th>
+                    <th className="py-3 px-3.5">Transaction Hash</th>
+                    <th className="py-3 px-3.5">Payload Digest</th>
+                    <th className="py-3 px-3.5">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/80">
+                <tbody className="divide-y divide-cream-200">
                   {paginatedAudit.map((row) => (
-                    <tr key={row.id} className="hover:bg-slate-900/40 transition-colors">
-                      <td className="py-3 px-3">
-                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-800 text-slate-300">
+                    <tr key={row.id} className="hover:bg-cream-50 transition-colors">
+                      <td className="py-3 px-3.5">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-lavender-50 text-lavender-700 border border-lavender-200">
                           {row.event_type}
                         </span>
                       </td>
-                      <td className="py-3 px-3 font-semibold text-slate-200">{row.target_id}</td>
-                      <td className="py-3 px-3 font-mono text-[10px] text-slate-400">
+                      <td className="py-3 px-3.5 font-semibold text-ink">{row.target_id}</td>
+                      <td className="py-3 px-3.5 font-mono text-[11px] text-ink-secondary">
                         {row.actor.slice(0, 8)}...{row.actor.slice(-4)}
                       </td>
-                      <td className="py-3 px-3 font-mono text-[11px] text-slate-300">{row.block_number}</td>
-                      <td className="py-3 px-3">
+                      <td className="py-3 px-3.5 font-mono text-[11px] text-ink">{row.block_number}</td>
+                      <td className="py-3 px-3.5">
                         <a
                           href={`https://sepolia.etherscan.io/tx/${row.tx_hash}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-[11px] text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
+                          className="font-mono text-[11px] text-lavender-700 hover:text-lavender-900 flex items-center gap-1 font-medium"
                         >
                           <span>{row.tx_hash.slice(0, 10)}...</span>
-                          <ExternalLink className="w-3 h-3" />
+                          <ExternalLink className="w-3 h-3 text-lavender-600" />
                         </a>
                       </td>
-                      <td className="py-3 px-3 font-mono text-[10px] text-slate-500">
+                      <td className="py-3 px-3.5 font-mono text-[11px] text-ink-tertiary">
                         {row.payload_digest.slice(0, 12)}...
                       </td>
-                      <td className="py-3 px-3">
+                      <td className="py-3 px-3.5">
                         {getStatusBadge(row.status)}
                       </td>
                     </tr>
@@ -270,7 +272,7 @@ export default function AuditExplorerPage() {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-between pt-3 border-t border-slate-800 text-xs text-slate-400">
+              <div className="flex items-center justify-between pt-3 border-t border-cream-200 text-xs text-ink-secondary">
                 <span>
                   Showing {(currentPage - 1) * itemsPerPage + 1}–{Math.min(currentPage * itemsPerPage, filteredAudit.length)} of {filteredAudit.length} records
                 </span>
@@ -278,17 +280,17 @@ export default function AuditExplorerPage() {
                   <button
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="p-1.5 rounded-full bg-cream-100 border border-cream-200 text-ink hover:bg-cream-200 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
-                  <span className="font-mono text-white">
+                  <span className="font-mono font-semibold text-ink">
                     {currentPage} / {totalPages}
                   </span>
                   <button
                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="p-1.5 rounded-full bg-cream-100 border border-cream-200 text-ink hover:bg-cream-200 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>
