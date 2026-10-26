@@ -62,7 +62,11 @@ print('v2:', get_sha('8c9dc7b'))
 
 ---
 
-## 6. Held-Out Evaluation Status
+## 6. Held-Out Evaluation Status & Decision
 
+* **Decision**: **not run, out of scope for the hackathon**
 * **Status**: The 6 held-out test scenarios (`scen_15` through `scen_20`) have **NOT been run**.
-* **Requirement**: Running held-out evaluation requires a separate, explicit decision and authorization. Neither v1 nor v2 figures represent generalization or out-of-sample performance.
+* **Rationale**:
+  - In strict compliance with the benchmark evaluation guidelines and evaluation protocol freeze, the held-out split (`scen_15`–`scen_20`) is held in blind reserve to preserve zero data leakage and guarantee zero train-set contamination.
+  - Running held-out evaluation during development or pre-competition tuning would invalidate its role as an unbiased, unseen test set.
+  - Consequently, the official hackathon submission evaluation figures reflect the primary baseline pipeline (`v1`) across the 14 training scenarios, and held-out test evaluation is designated as **not run, out of scope for the hackathon**.
