@@ -1,0 +1,85 @@
+{
+  "network": "sepolia",
+  "chainId": 11155111,
+  "marketId": "0x28ae417f244d0e508d7a27a92b0434f79694b0cab002e4a00c2939ad46e05b3e",
+  "caseId": "0xe3a50d7bef63bb5dd908208b11e80d05e341075aad8119c3eccd443864364df1",
+  "deployer": "0x34867B3Ad7B4353BA08bD74664E8bF27836e2888",
+  "contracts": {
+    "AgentRegistry": "0x32d5D291e287fF173F803f5ee53Aef75BADb2006",
+    "ReputationSettlement": "0xb002cd06fC2ce01B38C08787E6C4EaeAf547748c",
+    "CaseRegistry": "0x9dEEFCa6b93d9812Cf67Dc7b3daCc51b62C6455E",
+    "PredictionMarket": "0xFF5e85547E443e3d50b393E09885c6Eb9671EE27",
+    "EvidenceBounty": "0xF9805f322ccB6f25f1FAD9266DA9420DC2595a46"
+  },
+  "steps": [
+    {
+      "step": "registerAgent",
+      "txHash": "0x1f94f5085df2191495baf81a448bdc4d7965649e98e5177f11c494d7c0525d11",
+      "blockNumber": 11997418,
+      "gasUsed": 684473,
+      "status": "0x1"
+    },
+    {
+      "step": "createMarket",
+      "txHash": "0xf5588b6c9bb37e63df3937cf9f4bb3e3e99140442596aa76b562d4578ad0c1c7",
+      "blockNumber": 11997461,
+      "gasUsed": 819991,
+      "status": "0x1"
+    },
+    {
+      "step": "fundMarket",
+      "txHash": "0x2a993f2f2668116ff7ab0e6c4bb70a233aefd325aaa71db90fafa12f524e86e5",
+      "blockNumber": 11997462,
+      "gasUsed": 379985,
+      "status": "0x1"
+    },
+    {
+      "step": "publishMarket",
+      "txHash": "0x104054e7082b47a7b262c9b552d0efd294e3521a3bea7e3ce8aa9a6627b1a6ae",
+      "blockNumber": 11997463,
+      "gasUsed": 133793,
+      "status": "0x1"
+    },
+    {
+      "step": "commitForecast",
+      "txHash": "0xb6adb372a41a4b5e2a8d9f0c432ad27df62175f0dc7d67dc0bc0b850ace4908e",
+      "blockNumber": 11997464,
+      "gasUsed": 588702,
+      "status": "0x1"
+    },
+    {
+      "step": "closeMarket",
+      "txHash": "0xaadb64b6f1ecbb49c58487838c62d55bbbc2c1b168b869678e7f07f310b055b1",
+      "blockNumber": 11997471,
+      "gasUsed": 33524,
+      "status": "0x1"
+    },
+    {
+      "step": "revealForecast",
+      "txHash": "0xc6365643831ced46cc294393283e1f06f7128f30b564c42edbe8ca8126764815",
+      "blockNumber": 11997472,
+      "gasUsed": 701995,
+      "status": "0x1"
+    },
+    {
+      "step": "proposeResolution",
+      "txHash": "0x540fa04a63548c7d86e8dfbef3342e7dfd2daab82e77bbd9efcd5a0a0c8c9f52",
+      "blockNumber": 11997482,
+      "gasUsed": 259949,
+      "status": "0x1"
+    },
+    {
+      "step": "settleMarket",
+      "txHash": "0x220d460591302025e7f12d621399e2ab15724979678b4aed92ec2d2970e989e4",
+      "blockNumber": 11997718,
+      "gasUsed": 975238,
+      "status": "0x1"
+    }
+  ],
+  "finalState": {
+    "marketState": 6,
+    "marketStateName": "SETTLED",
+    "deployerCredits": 1000000,
+    "marketCredits": 0
+  }
+}
