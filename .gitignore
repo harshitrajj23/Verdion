@@ -22,6 +22,7 @@ env/
 venv/
 ENV/
 .venv/
+.venv
 .pytest_cache/
 veridion.db
 .env
