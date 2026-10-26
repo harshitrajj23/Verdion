@@ -16,32 +16,32 @@ interface DeadlineCountdownProps {
 
 const accentMap = {
   cyan: {
-    bg: "bg-cyan-950/30",
-    border: "border-cyan-800/40",
-    text: "text-cyan-300",
-    icon: "text-cyan-400",
-    value: "text-cyan-400"
+    bg: "bg-lavender-50",
+    border: "border-lavender-200",
+    text: "text-lavender-700",
+    icon: "text-lavender-600",
+    value: "text-lavender-700"
   },
   amber: {
-    bg: "bg-amber-950/30",
-    border: "border-amber-800/40",
-    text: "text-amber-300",
-    icon: "text-amber-400",
-    value: "text-amber-400"
+    bg: "bg-amber-50",
+    border: "border-amber-200",
+    text: "text-amber-800",
+    icon: "text-amber-600",
+    value: "text-amber-800"
   },
   rose: {
-    bg: "bg-rose-950/30",
-    border: "border-rose-800/40",
-    text: "text-rose-300",
-    icon: "text-rose-400",
-    value: "text-rose-400"
+    bg: "bg-rose-50",
+    border: "border-rose-200",
+    text: "text-rose-800",
+    icon: "text-rose-600",
+    value: "text-rose-800"
   },
   emerald: {
-    bg: "bg-emerald-950/30",
-    border: "border-emerald-800/40",
-    text: "text-emerald-300",
-    icon: "text-emerald-400",
-    value: "text-emerald-400"
+    bg: "bg-emerald-50",
+    border: "border-emerald-200",
+    text: "text-emerald-800",
+    icon: "text-emerald-600",
+    value: "text-emerald-800"
   }
 };
 
@@ -79,14 +79,14 @@ export const DeadlineCountdown: React.FC<DeadlineCountdownProps> = ({
   if (compact) {
     if (isExpired) {
       return (
-        <span className="flex items-center gap-1 text-[10px] font-mono text-slate-500">
+        <span className="flex items-center gap-1 text-[10px] font-mono text-ink-tertiary">
           <Clock className="w-3 h-3" />
           <span>Expired</span>
         </span>
       );
     }
     return (
-      <span className={`flex items-center gap-1 text-[10px] font-mono ${isUrgent ? "text-rose-400" : colors.value}`}>
+      <span className={`flex items-center gap-1 text-[10px] font-mono font-semibold ${isUrgent ? "text-rose-600" : colors.value}`}>
         <Clock className="w-3 h-3" />
         <span>
           {String(hours).padStart(2, "0")}:{String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
@@ -96,7 +96,7 @@ export const DeadlineCountdown: React.FC<DeadlineCountdownProps> = ({
   }
 
   return (
-    <div className={`p-3 rounded-xl ${colors.bg} border ${colors.border} space-y-2`}>
+    <div className={`p-3 rounded-[14px] ${colors.bg} border ${colors.border} space-y-2 shadow-apple-sm`}>
       <div className="flex items-center justify-between">
         <span className={`text-[10px] font-semibold uppercase tracking-wider ${colors.text} flex items-center gap-1.5`}>
           {isUrgent && !isExpired ? (
@@ -107,31 +107,31 @@ export const DeadlineCountdown: React.FC<DeadlineCountdownProps> = ({
           {label}
         </span>
         {isExpired && (
-          <span className="text-[10px] font-bold text-slate-500 uppercase">Expired</span>
+          <span className="text-[10px] font-bold text-ink-tertiary uppercase">Expired</span>
         )}
       </div>
 
       {!isExpired && (
         <div className="flex items-center gap-3">
           <div className="countdown-segment">
-            <span className={`countdown-value ${isUrgent ? "text-rose-400" : colors.value}`}>
+            <span className={`countdown-value font-mono font-bold text-sm ${isUrgent ? "text-rose-600" : colors.value}`}>
               {String(hours).padStart(2, "0")}
             </span>
-            <span className="countdown-label">Hrs</span>
+            <span className="countdown-label text-[10px] text-ink-tertiary">Hrs</span>
           </div>
-          <span className="text-slate-600 font-mono text-sm">:</span>
+          <span className="text-ink-tertiary font-mono text-xs">:</span>
           <div className="countdown-segment">
-            <span className={`countdown-value ${isUrgent ? "text-rose-400" : colors.value}`}>
+            <span className={`countdown-value font-mono font-bold text-sm ${isUrgent ? "text-rose-600" : colors.value}`}>
               {String(minutes).padStart(2, "0")}
             </span>
-            <span className="countdown-label">Min</span>
+            <span className="countdown-label text-[10px] text-ink-tertiary">Min</span>
           </div>
-          <span className="text-slate-600 font-mono text-sm">:</span>
+          <span className="text-ink-tertiary font-mono text-xs">:</span>
           <div className="countdown-segment">
-            <span className={`countdown-value ${isUrgent ? "text-rose-400" : colors.value}`}>
+            <span className={`countdown-value font-mono font-bold text-sm ${isUrgent ? "text-rose-600" : colors.value}`}>
               {String(seconds).padStart(2, "0")}
             </span>
-            <span className="countdown-label">Sec</span>
+            <span className="countdown-label text-[10px] text-ink-tertiary">Sec</span>
           </div>
         </div>
       )}

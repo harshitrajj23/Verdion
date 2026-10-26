@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 from backend.app.core.config import settings
 from backend.app.core.crypto import compute_commitment_hash, generate_nonce
 from backend.app.core.database import Base
+from backend.app.models.entities import Agent, TransactionRecord
 from backend.app.core.errors import (
     CommitmentMismatchException,
     InvalidScopeException,
@@ -76,6 +77,8 @@ async def test_prediction_market_commit_reveal_and_settle(test_db):
 
     # 2. Commit Forecast
     agent_id = "agent_legal_researcher"
+    agent = await test_db.get(Agent, agent_id)
+    assert agent is not None and agent.wallet_address.startswith("0x")
     prob = 0.85
     digest = "0x" + "a" * 64
     nonce = generate_nonce()
@@ -86,13 +89,14 @@ async def test_prediction_market_commit_reveal_and_settle(test_db):
         agent_id=agent_id,
         probability=prob,
         evidence_digest=digest,
-        nonce=nonce
+        nonce=nonce,
+        wallet_address=agent.wallet_address
     )
 
     commit_res = await MarketService.commit_forecast(
         test_db,
         market.id,
-        MarketCommitRequest(agent_id=agent_id, commitment_hash=c_hash)
+        MarketCommitRequest(agent_id=agent_id, commitment_hash=c_hash, wallet_address=agent.wallet_address)
     )
     assert commit_res.reveal_status == "COMMITTED"
 
@@ -105,7 +109,8 @@ async def test_prediction_market_commit_reveal_and_settle(test_db):
                 agent_id=agent_id,
                 probability=prob,
                 evidence_digest=digest,
-                nonce=generate_nonce()  # Wrong nonce!
+                nonce=generate_nonce(),  # Wrong nonce!
+                wallet_address=agent.wallet_address
             )
         )
 
@@ -117,7 +122,8 @@ async def test_prediction_market_commit_reveal_and_settle(test_db):
             agent_id=agent_id,
             probability=prob,
             evidence_digest=digest,
-            nonce=nonce
+            nonce=nonce,
+            wallet_address=agent.wallet_address
         )
     )
     assert reveal_res.reveal_status == "REVEALED"
@@ -152,6 +158,8 @@ async def test_prediction_market_commit_reveal_and_settle(test_db):
     assert len(settle_res["settlements"]) == 1
     # Brier score: (0.85 - 1)^2 = 0.0225
     assert round(settle_res["settlements"][0]["brier_score"], 4) == 0.0225
+    assert settle_res["settlements"][0]["tx_hash"] is None
+    assert settle_res["settlements"][0]["status"] == "pending"
 
     # 8. Duplicate settlement fails (FR-052)
     with pytest.raises(SettlementAlreadyDoneException):
@@ -232,3 +240,189 @@ async def test_bounty_submission_duplicate_check_and_settle(test_db):
                 review_reason="Duplicate attempt."
             )
         )
+
+
+@pytest.mark.asyncio
+async def test_market_settlement_with_stored_receipt_present(test_db):
+    now = datetime.now(timezone.utc)
+    case_req = CaseCreateRequest(
+        title="Market Case with Receipt",
+        question="Question",
+        jurisdiction="EU",
+        assessment_date="2026-10-19",
+        facts={"data_categories": ["health"], "processing_purpose": "analytics"}
+    )
+    case = await CaseService.create_case(test_db, case_req)
+
+    m_req = MarketCreateRequest(
+        case_id=case.id,
+        question="Will compliance gap be confirmed?",
+        outcome_definition="1 if gap exists, 0 otherwise",
+        resolution_method="Independent evaluator audit",
+        commit_deadline=now + timedelta(hours=1),
+        reveal_deadline=now + timedelta(hours=2),
+        resolution_deadline=now + timedelta(hours=3),
+        challenge_window_seconds=86400,
+        void_criteria="Void if statute repealed",
+        evaluator_address=settings.EVALUATOR_ADDRESS
+    )
+    market = await MarketService.create_market(test_db, m_req)
+
+    agent_id = "agent_legal_researcher"
+    agent = await test_db.get(Agent, agent_id)
+    prob = 0.70
+    digest = "0x" + "b" * 64
+    nonce = generate_nonce()
+
+    c_hash = compute_commitment_hash(
+        chain_id=settings.CHAIN_ID,
+        market_id=market.id,
+        agent_id=agent_id,
+        probability=prob,
+        evidence_digest=digest,
+        nonce=nonce,
+        wallet_address=agent.wallet_address
+    )
+
+    await MarketService.commit_forecast(
+        test_db,
+        market.id,
+        MarketCommitRequest(agent_id=agent_id, commitment_hash=c_hash, wallet_address=agent.wallet_address)
+    )
+
+    await MarketService.reveal_forecast(
+        test_db,
+        market.id,
+        MarketRevealRequest(
+            agent_id=agent_id,
+            probability=prob,
+            evidence_digest=digest,
+            nonce=nonce,
+            wallet_address=agent.wallet_address
+        )
+    )
+
+    await MarketService.propose_resolution(
+        test_db,
+        market.id,
+        MarketResolveRequest(
+            proposed_outcome=1,
+            resolution_reference="Audit #2",
+            evaluator_address=settings.EVALUATOR_ADDRESS
+        )
+    )
+
+    # Store a confirmed settlement receipt in TransactionRecord
+    confirmed_hash = "0x220d460591302025e7f12d621399e2ab15724979678b4aed92ec2d2970e989e4"
+    tx_rec = TransactionRecord(
+        tx_hash=confirmed_hash,
+        contract_address=market.contract_address,
+        event_name="MarketSettled",
+        sender=settings.EVALUATOR_ADDRESS,
+        case_id=market.case_id,
+        status="CONFIRMED",
+        payload={"market_id": market.id}
+    )
+    test_db.add(tx_rec)
+    await test_db.flush()
+
+    # Settle market and assert confirmed status and stored receipt tx_hash
+    settle_res = await MarketService.settle_market(test_db, market.id, settler_address=settings.EVALUATOR_ADDRESS)
+    assert settle_res["status"] == "SETTLED"
+    assert len(settle_res["settlements"]) == 1
+    assert settle_res["settlements"][0]["tx_hash"] == confirmed_hash
+    assert settle_res["settlements"][0]["status"] == "confirmed"
+
+
+@pytest.mark.asyncio
+async def test_market_settlement_with_unrelated_record_not_attached(test_db):
+    now = datetime.now(timezone.utc)
+    case_req = CaseCreateRequest(
+        title="Market Case Unrelated Record",
+        question="Question",
+        jurisdiction="EU",
+        assessment_date="2026-10-19",
+        facts={"data_categories": ["audio"], "processing_purpose": "analytics"}
+    )
+    case = await CaseService.create_case(test_db, case_req)
+
+    m_req = MarketCreateRequest(
+        case_id=case.id,
+        question="Will compliance gap be confirmed?",
+        outcome_definition="1 if gap exists, 0 otherwise",
+        resolution_method="Independent evaluator audit",
+        commit_deadline=now + timedelta(hours=1),
+        reveal_deadline=now + timedelta(hours=2),
+        resolution_deadline=now + timedelta(hours=3),
+        challenge_window_seconds=86400,
+        void_criteria="Void if statute repealed",
+        evaluator_address=settings.EVALUATOR_ADDRESS
+    )
+    market = await MarketService.create_market(test_db, m_req)
+
+    agent_id = "agent_legal_researcher"
+    agent = await test_db.get(Agent, agent_id)
+    prob = 0.75
+    digest = "0x" + "c" * 64
+    nonce = generate_nonce()
+
+    c_hash = compute_commitment_hash(
+        chain_id=settings.CHAIN_ID,
+        market_id=market.id,
+        agent_id=agent_id,
+        probability=prob,
+        evidence_digest=digest,
+        nonce=nonce,
+        wallet_address=agent.wallet_address
+    )
+
+    await MarketService.commit_forecast(
+        test_db,
+        market.id,
+        MarketCommitRequest(agent_id=agent_id, commitment_hash=c_hash, wallet_address=agent.wallet_address)
+    )
+
+    await MarketService.reveal_forecast(
+        test_db,
+        market.id,
+        MarketRevealRequest(
+            agent_id=agent_id,
+            probability=prob,
+            evidence_digest=digest,
+            nonce=nonce,
+            wallet_address=agent.wallet_address
+        )
+    )
+
+    await MarketService.propose_resolution(
+        test_db,
+        market.id,
+        MarketResolveRequest(
+            proposed_outcome=1,
+            resolution_reference="Audit #3",
+            evaluator_address=settings.EVALUATOR_ADDRESS
+        )
+    )
+
+    # Store an unrelated confirmed TransactionRecord on the same case and contract address, but different market_id
+    unrelated_hash = "0x9999999999999999999999999999999999999999999999999999999999999999"
+    unrelated_rec = TransactionRecord(
+        tx_hash=unrelated_hash,
+        contract_address=market.contract_address,
+        event_name="MarketSettled",
+        sender=settings.EVALUATOR_ADDRESS,
+        case_id=market.case_id,
+        status="CONFIRMED",
+        payload={"market_id": "mkt_different_unrelated_id"}
+    )
+    test_db.add(unrelated_rec)
+    await test_db.flush()
+
+    # Settle market and assert unrelated record is NOT attached (tx_hash is None, status is pending)
+    settle_res = await MarketService.settle_market(test_db, market.id, settler_address=settings.EVALUATOR_ADDRESS)
+    assert settle_res["status"] == "SETTLED"
+    assert len(settle_res["settlements"]) == 1
+    assert settle_res["settlements"][0]["tx_hash"] is None
+    assert settle_res["settlements"][0]["status"] == "pending"
+
+

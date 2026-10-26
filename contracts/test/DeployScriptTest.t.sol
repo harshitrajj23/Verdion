@@ -70,4 +70,21 @@ contract DeployScriptTest is Test {
         );
         require(actual == expected, "Vector mismatch");
     }
+
+    function testCommitmentHashVector31337() public {
+        bytes32 expected = 0x5fb6b56580af9bfadf64e4f205aa1854a5261e37cc54e6e41acc373f398acaf3;
+        bytes memory packed = abi.encodePacked(
+            uint256(31337),
+            bytes32(0x28ae417f244d0e508d7a27a92b0434f79694b0cab002e4a00c2939ad46e05b3e),
+            address(0x34867B3Ad7B4353BA08bD74664E8bF27836e2888),
+            uint256(6500),
+            bytes32(hex"2222222222222222222222222222222222222222222222222222222222222222"),
+            bytes32(hex"3333333333333333333333333333333333333333333333333333333333333333")
+        );
+        bytes32 actual = keccak256(packed);
+        emit log_named_bytes32("keccak", actual);
+        require(actual == expected, "Vector mismatch");
+    }
 }
+
+

@@ -13,7 +13,7 @@ import {
   FileCheck2,
   FileText,
   BarChart3,
-  ExternalLink
+  ShieldCheck
 } from "lucide-react";
 
 const navigationItems = [
@@ -32,11 +32,11 @@ export const AppSidebar: React.FC = () => {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 shrink-0 hidden lg:block border-r border-slate-800/80 bg-verdion-950/50 p-4 min-h-[calc(100vh-4rem)]">
+    <aside className="w-64 shrink-0 hidden lg:block border-r border-cream-300/80 bg-cream-100/40 p-4 min-h-[calc(100vh-6rem)]">
       <div className="space-y-6">
         <div>
-          <p className="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-2">
-            Protocol Workspace
+          <p className="px-3 text-[11px] font-semibold uppercase tracking-wider text-ink-muted mb-2 font-appleDisplay">
+            Protocol Workspaces
           </p>
           <nav className="space-y-1">
             {navigationItems.map((item) => {
@@ -47,25 +47,25 @@ export const AppSidebar: React.FC = () => {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all group ${
+                  className={`flex items-center justify-between px-3.5 py-2 rounded-full text-xs transition-all duration-150 active:scale-[0.97] group ${
                     isActive
-                      ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 shadow-glow"
-                      : "text-slate-400 hover:text-slate-100 hover:bg-slate-900/60 border border-transparent"
+                      ? "bg-lavender-100 text-lavender-800 font-semibold border border-lavender-200 shadow-sm"
+                      : "text-ink-secondary hover:text-ink hover:bg-cream-200/70 border border-transparent font-normal"
                   }`}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2.5">
                     <Icon
-                      className={`w-4 h-4 transition-colors ${
-                        isActive ? "text-emerald-400" : "text-slate-400 group-hover:text-slate-200"
+                      className={`w-3.5 h-3.5 transition-colors ${
+                        isActive ? "text-lavender-600" : "text-ink-muted group-hover:text-ink"
                       }`}
                     />
                     <span>{item.label}</span>
                   </div>
                   <span
-                    className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
+                    className={`text-[10px] font-mono px-2 py-0.5 rounded-full ${
                       isActive
-                        ? "bg-emerald-500/20 text-emerald-400 font-bold"
-                        : "text-slate-600 group-hover:text-slate-500"
+                        ? "bg-white text-lavender-700 font-semibold shadow-xs"
+                        : "text-ink-muted group-hover:text-ink-secondary"
                     }`}
                   >
                     {item.section}
@@ -76,21 +76,21 @@ export const AppSidebar: React.FC = () => {
           </nav>
         </div>
 
-        {/* Protocol Metadata Card */}
-        <div className="p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/40 text-[11px] space-y-2">
-          <div className="flex items-center justify-between text-slate-400">
+        {/* Apple Store Utility Card: Protocol Metadata */}
+        <div className="apple-card p-4 text-[11px] space-y-2.5 bg-white border border-cream-300">
+          <div className="flex items-center justify-between text-ink-secondary">
             <span>Jurisdiction</span>
-            <span className="font-semibold text-slate-200">European Union</span>
+            <span className="font-semibold text-ink">European Union</span>
           </div>
-          <div className="flex items-center justify-between text-slate-400">
+          <div className="flex items-center justify-between text-ink-secondary">
             <span>Corpus Version</span>
-            <span className="font-mono text-emerald-400">2026.1.0</span>
+            <span className="font-mono text-lavender-700 font-medium">2026.1.0</span>
           </div>
-          <div className="flex items-center justify-between text-slate-400">
+          <div className="flex items-center justify-between text-ink-secondary">
             <span>Commit Hash</span>
-            <span className="font-mono text-cyan-400">0x8fa12b...</span>
+            <span className="font-mono text-lavender-600">0x8fa12b...</span>
           </div>
-          <div className="pt-2 border-t border-slate-800/80 text-[10px] text-slate-500 leading-relaxed">
+          <div className="pt-2 border-t border-cream-200 text-[10px] text-ink-muted leading-relaxed">
             VERIDION is decision support; it does not replace qualified legal counsel.
           </div>
         </div>
@@ -98,3 +98,4 @@ export const AppSidebar: React.FC = () => {
     </aside>
   );
 };
+

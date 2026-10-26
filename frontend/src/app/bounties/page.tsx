@@ -46,7 +46,7 @@ export default function EvidenceBountiesPage() {
   if (!bounty) {
     return (
       <EmptyState
-        icon={<Gift className="w-7 h-7 text-amber-500" />}
+        icon={<Gift className="w-7 h-7 text-lavender-600" />}
         title="No Evidence Bounties Available"
         description="No bounties have been created for this case yet."
       />
@@ -78,52 +78,54 @@ export default function EvidenceBountiesPage() {
 
   const stateColor =
     bounty.state === "SETTLED" || bounty.state === "AWARDED"
-      ? "bg-emerald-950 text-emerald-300 border-emerald-500/40"
+      ? "bg-lavender-100 text-lavender-800 border-lavender-300"
       : bounty.state === "CHALLENGE"
-      ? "bg-rose-950 text-rose-300 border-rose-500/40"
+      ? "bg-rose-50 text-rose-700 border-rose-200"
       : bounty.state === "REJECTED" || bounty.state === "CANCELLED"
-      ? "bg-slate-800 text-slate-400 border-slate-700"
-      : "bg-amber-950 text-amber-300 border-amber-500/40";
+      ? "bg-cream-200 text-ink-muted border-cream-300"
+      : "bg-amber-50 text-amber-800 border-amber-200";
 
   return (
-    <div className="space-y-6 animate-fade-in-up">
-      {/* Header */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+    <div className="space-y-8 animate-fade-in-up">
+      {/* ── Apple Header Card ── */}
+      <div className="apple-card space-y-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream-200 pb-5">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
+              <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-lavender-100 text-lavender-800 border border-lavender-200">
                 §16.6
               </span>
-              <h1 className="text-xl sm:text-2xl font-extrabold text-white">Evidence Bounty Protocol</h1>
+              <h1 className="text-2xl sm:text-3xl font-semibold text-ink tracking-tight font-appleDisplay">
+                Evidence Bounty Protocol
+              </h1>
             </div>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-ink-secondary mt-1">
               Directing economic incentives toward specific legal uncertainties using simulated credits and standardized acceptance rubrics.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs">
-              <Coins className="w-4 h-4 text-emerald-400" />
-              <span>Your Balance: <strong className="font-mono text-emerald-300">{userCredits}</strong> Credits</span>
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-50 border border-cream-300 text-xs">
+              <Coins className="w-4 h-4 text-lavender-600" />
+              <span className="text-ink-secondary">Balance: <strong className="font-mono text-lavender-700 font-semibold">{userCredits}</strong> Credits</span>
             </div>
           </div>
         </div>
 
-        {/* Bounty Selector */}
-        <div className="flex flex-wrap items-center gap-2">
+        {/* Bounty Selector: Apple Pill Bar */}
+        <div className="inline-flex p-1 rounded-full bg-cream-200 border border-cream-300 max-w-full overflow-x-auto scrollbar-none">
           {bounties.map((b) => (
             <button
               key={b.bounty_id}
               onClick={() => setSelectedBountyId(b.bounty_id)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
+              className={`px-4 py-1.5 rounded-full text-xs font-medium flex items-center gap-2 transition-all duration-150 active:scale-[0.97] ${
                 selectedBountyId === b.bounty_id
-                  ? "bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-glow"
-                  : "bg-slate-900/60 text-slate-400 hover:text-white border border-slate-800"
+                  ? "bg-white text-ink shadow-sm border border-cream-300/60"
+                  : "text-ink-secondary hover:text-ink hover:bg-cream-100/60"
               }`}
             >
               <span>{b.bounty_id}</span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-cream-100 text-ink-muted font-mono">
                 {b.state}
               </span>
             </button>
@@ -149,29 +151,29 @@ export default function EvidenceBountiesPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left (2 cols): Bounty Details & Rubric */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="glass-panel p-6 rounded-3xl space-y-5">
-            <div className="flex items-start justify-between gap-3 border-b border-slate-800 pb-4">
+          <div className="apple-card space-y-5">
+            <div className="flex items-start justify-between gap-3 border-b border-cream-200 pb-4">
               <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[10px] font-mono text-amber-400 uppercase font-bold">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[10px] font-mono text-lavender-700 uppercase font-semibold">
                     {bounty.bounty_id} • Case {bounty.case_id}
                   </span>
-                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${stateColor}`}>
+                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${stateColor}`}>
                     {bounty.state}
                   </span>
                 </div>
-                <h2 className="text-base sm:text-lg font-bold text-white">
+                <h2 className="text-xs font-semibold text-ink-muted uppercase tracking-wider font-appleDisplay">
                   Target Research Uncertainty:
                 </h2>
-                <p className="text-xs text-slate-200 mt-1 leading-relaxed bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                <div className="text-sm font-normal text-ink mt-1.5 leading-relaxed bg-cream-50 p-4 rounded-[14px] border border-cream-200">
                   {bounty.question}
-                </p>
+                </div>
               </div>
               <div className="text-right shrink-0">
-                <span className="text-lg font-extrabold font-mono text-emerald-400">
+                <span className="text-xl font-bold font-mono text-lavender-700">
                   +{bounty.reward_credits} Credits
                 </span>
-                <span className="block text-[10px] uppercase font-bold text-slate-400 mt-0.5">
+                <span className="block text-[10px] uppercase font-semibold text-ink-muted mt-0.5">
                   Simulated Reward (FR-041)
                 </span>
               </div>
@@ -189,32 +191,32 @@ export default function EvidenceBountiesPage() {
             {/* Published Acceptance Rubric (§11.3) */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-                  <FileCheck2 className="w-4 h-4 text-emerald-400" />
+                <h3 className="text-xs font-semibold text-ink-muted uppercase tracking-wider flex items-center gap-1.5 font-appleDisplay">
+                  <FileCheck2 className="w-4 h-4 text-lavender-600" />
                   <span>Published Acceptance Rubric Criteria (§11.3)</span>
                 </h3>
-                <span className="text-xs font-mono font-bold text-emerald-400">
+                <span className="text-xs font-mono font-bold text-lavender-700">
                   Weighted Score: {(weightedScore * 100).toFixed(1)}%
                 </span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 {bounty.acceptance_rubric.map((r, i) => (
-                  <div key={i} className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+                  <div key={i} className="p-3.5 rounded-[12px] bg-cream-50 border border-cream-200 space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-slate-200">{r.criterion}</span>
+                      <span className="font-semibold text-ink">{r.criterion}</span>
                       {r.score && (
-                        <span className="font-mono text-emerald-400 font-bold">
+                        <span className="font-mono text-lavender-700 font-bold">
                           {(r.score * 100).toFixed(0)}%
                         </span>
                       )}
                     </div>
-                    <div className="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                    <div className="w-full h-1.5 rounded-full bg-cream-200 overflow-hidden">
                       <div
-                        className="h-full bg-emerald-500 rounded-full transition-all duration-500"
+                        className="h-full bg-lavender-600 rounded-full transition-all duration-500"
                         style={{ width: `${(r.score || 0) * 100}%` }}
                       />
                     </div>
-                    <div className="text-[10px] text-slate-500">
+                    <div className="text-[10px] text-ink-muted font-medium">
                       Weight: {(r.weight * 100).toFixed(0)}%
                     </div>
                   </div>
@@ -224,12 +226,12 @@ export default function EvidenceBountiesPage() {
 
             {/* Submissions Register */}
             <div className="space-y-3 pt-2">
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+              <h3 className="text-xs font-semibold text-ink-muted uppercase tracking-wider font-appleDisplay">
                 Evidence Submissions ({bounty.submissions.length})
               </h3>
               {bounty.submissions.length === 0 ? (
                 <EmptyState
-                  icon={<PlusCircle className="w-6 h-6 text-amber-500" />}
+                  icon={<PlusCircle className="w-6 h-6 text-lavender-600" />}
                   title="No Submissions Yet"
                   description="Submit authoritative evidence references to earn the bounty reward."
                 />
@@ -238,42 +240,42 @@ export default function EvidenceBountiesPage() {
                   {bounty.submissions.map((sub) => (
                     <div
                       key={sub.submission_id}
-                      className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3"
+                      className="p-4 rounded-[14px] bg-cream-50 border border-cream-200 space-y-3"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <span className="text-xs font-bold text-white">{sub.source_title}</span>
-                          <span className="block text-[11px] text-cyan-400 font-mono">
+                          <span className="text-xs font-semibold text-ink">{sub.source_title}</span>
+                          <span className="block text-[11px] text-lavender-700 font-mono mt-0.5">
                             {sub.passage_reference}
                           </span>
                         </div>
                         {sub.is_accepted === true ? (
-                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-500/40 flex items-center gap-1">
-                            <CheckCircle2 className="w-3 h-3" /> ACCEPTED
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-lavender-100 text-lavender-800 border border-lavender-200 flex items-center gap-1">
+                            <CheckCircle2 className="w-3 h-3 text-lavender-600" /> ACCEPTED
                           </span>
                         ) : sub.is_accepted === false ? (
-                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-950 text-rose-300 border border-rose-500/40 flex items-center gap-1">
-                            <XCircle className="w-3 h-3" /> REJECTED
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-200 flex items-center gap-1">
+                            <XCircle className="w-3 h-3 text-rose-600" /> REJECTED
                           </span>
                         ) : (
-                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-950 text-amber-300 border border-amber-500/40">
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200">
                             PENDING REVIEW
                           </span>
                         )}
                       </div>
 
-                      <p className="text-xs text-slate-300 italic bg-slate-950/60 p-2.5 rounded-xl border border-slate-800">
+                      <p className="text-xs text-ink-secondary italic bg-white p-3 rounded-[10px] border border-cream-200 leading-relaxed">
                         &ldquo;{sub.quote}&rdquo;
                       </p>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[10px] font-mono text-slate-400 pt-1">
-                        <div>Digest: <span className="text-cyan-400">{sub.evidence_digest.slice(0, 16)}...</span></div>
-                        <div>Contributor: <span className="text-slate-300">{sub.contributor.slice(0, 12)}...</span></div>
-                        <div>Submitted: <span className="text-slate-300">{new Date(sub.submitted_at).toLocaleDateString()}</span></div>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[10px] font-mono text-ink-muted pt-1">
+                        <div>Digest: <span className="text-lavender-700">{sub.evidence_digest.slice(0, 16)}...</span></div>
+                        <div>Contributor: <span className="text-ink">{sub.contributor.slice(0, 12)}...</span></div>
+                        <div>Submitted: <span className="text-ink">{new Date(sub.submitted_at).toLocaleDateString()}</span></div>
                       </div>
 
                       {sub.reviewer_reason && (
-                        <div className="p-2.5 rounded-xl bg-emerald-950/30 border border-emerald-800/40 text-[11px] text-emerald-200">
+                        <div className="p-3 rounded-[10px] bg-lavender-50 border border-lavender-200 text-xs text-lavender-900 leading-relaxed">
                           <strong>Reviewer Rationale:</strong> {sub.reviewer_reason}
                         </div>
                       )}
@@ -285,16 +287,16 @@ export default function EvidenceBountiesPage() {
 
             {/* Settlement Tx */}
             {bounty.settlement_tx && (
-              <div className="p-3 rounded-xl bg-emerald-950/20 border border-emerald-800/30 flex items-center justify-between text-xs">
+              <div className="p-3.5 rounded-[12px] bg-lavender-50 border border-lavender-200 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  <span className="font-semibold text-emerald-300">Bounty Settled</span>
+                  <CheckCircle2 className="w-4 h-4 text-lavender-600" />
+                  <span className="font-semibold text-lavender-800">Bounty Settled</span>
                 </div>
                 <a
                   href={`https://sepolia.etherscan.io/tx/${bounty.settlement_tx}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-[10px] text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
+                  className="font-mono text-[10px] text-lavender-700 hover:underline flex items-center gap-1 font-medium"
                 >
                   <span>{bounty.settlement_tx.slice(0, 14)}...{bounty.settlement_tx.slice(-8)}</span>
                   <ExternalLink className="w-3 h-3" />
@@ -307,64 +309,64 @@ export default function EvidenceBountiesPage() {
         {/* Right (1 col): Submission Form & Settle Action */}
         <div className="space-y-6">
           {/* Submit Evidence Form */}
-          <div className="glass-panel p-6 rounded-3xl space-y-4">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <PlusCircle className="w-4 h-4 text-amber-400" />
+          <div className="apple-card space-y-4">
+            <h3 className="text-base font-semibold text-ink flex items-center gap-2 font-appleDisplay">
+              <PlusCircle className="w-4 h-4 text-lavender-600" />
               <span>Submit Evidence Reference</span>
             </h3>
 
             {!isLiveChain && (
-              <div className="p-2.5 rounded-lg bg-indigo-950/30 border border-indigo-800/30 text-[10px] text-indigo-300 flex items-center gap-1.5">
-                <AlertCircle className="w-3 h-3 shrink-0" />
+              <div className="p-2.5 rounded-[10px] bg-cream-200/80 border border-cream-300 text-[11px] text-ink-secondary flex items-center gap-1.5">
+                <AlertCircle className="w-3.5 h-3.5 text-lavender-600 shrink-0" />
                 <span>Sample mode — submissions update local state only.</span>
               </div>
             )}
 
-            <form onSubmit={handleSubmitEvidence} className="space-y-3 text-xs">
+            <form onSubmit={handleSubmitEvidence} className="space-y-3.5 text-xs">
               <div>
-                <label className="text-slate-400 font-semibold block mb-1">Source Title:</label>
+                <label className="text-ink-secondary font-medium block mb-1">Source Title:</label>
                 <input
                   type="text"
                   placeholder="e.g. CJEU Case C-300/21 or EDPB Statement"
                   value={sourceTitle}
                   onChange={(e) => setSourceTitle(e.target.value)}
                   required
-                  className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 focus:outline-none focus:border-amber-500 transition-colors"
+                  className="w-full p-2.5 rounded-[10px] bg-cream-50 border border-cream-300 text-ink focus:outline-none focus:border-lavender-400 transition-colors"
                 />
               </div>
 
               <div>
-                <label className="text-slate-400 font-semibold block mb-1">Passage Reference:</label>
+                <label className="text-ink-secondary font-medium block mb-1">Passage Reference:</label>
                 <input
                   type="text"
                   placeholder="e.g. Paragraph 42 or Section 3.1"
                   value={passageRef}
                   onChange={(e) => setPassageRef(e.target.value)}
                   required
-                  className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 focus:outline-none focus:border-amber-500 transition-colors"
+                  className="w-full p-2.5 rounded-[10px] bg-cream-50 border border-cream-300 text-ink focus:outline-none focus:border-lavender-400 transition-colors"
                 />
               </div>
 
               <div>
-                <label className="text-slate-400 font-semibold block mb-1">Exact Passage Text Quote:</label>
+                <label className="text-ink-secondary font-medium block mb-1">Exact Passage Text Quote:</label>
                 <textarea
                   rows={3}
                   placeholder="Paste exact authoritative quote..."
                   value={quote}
                   onChange={(e) => setQuote(e.target.value)}
                   required
-                  className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 focus:outline-none focus:border-amber-500 resize-none transition-colors"
+                  className="w-full p-2.5 rounded-[10px] bg-cream-50 border border-cream-300 text-ink focus:outline-none focus:border-lavender-400 resize-none transition-colors"
                 />
               </div>
 
-              <div className="text-[10px] text-slate-500 leading-tight">
+              <div className="text-[11px] text-ink-muted leading-tight">
                 Canonical Keccak256 digest will be generated deterministically and registered on EvidenceBounty contract (FR-026, FR-042).
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting || bounty.state === "SETTLED"}
-                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-600 to-emerald-600 hover:from-amber-500 hover:to-emerald-500 text-white font-bold text-xs shadow-glow transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="apple-btn-primary w-full py-2.5 justify-center disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
@@ -379,18 +381,18 @@ export default function EvidenceBountiesPage() {
           </div>
 
           {/* Settle Action */}
-          <div className="glass-panel p-6 rounded-3xl space-y-3">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <div className="apple-card space-y-3">
+            <h3 className="text-base font-semibold text-ink flex items-center gap-2 font-appleDisplay">
+              <ShieldCheck className="w-4 h-4 text-lavender-600" />
               <span>Authorized Bounty Settlement</span>
             </h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-ink-secondary leading-relaxed">
               Once the 24-hour challenge window elapses without dispute, the evaluator settles the bounty idempotently.
             </p>
             <button
               onClick={handleSettle}
               disabled={isSubmitting || bounty.state === "SETTLED"}
-              className="w-full py-2.5 px-4 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+              className="apple-btn-secondary w-full py-2.5 justify-center disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Execute Bounty Settlement (FR-050)
             </button>
@@ -400,3 +402,4 @@ export default function EvidenceBountiesPage() {
     </div>
   );
 }
+

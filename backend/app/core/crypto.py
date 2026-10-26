@@ -1,10 +1,10 @@
 import hashlib
 import json
 import secrets
-from typing import Any, Dict, List, Union
-from eth_abi import encode
-from eth_utils import keccak
-
+from decimal import Decimal, ROUND_HALF_UP
+from typing import Any, Dict, List, Optional, Union
+from eth_abi.packed import encode_packed
+from eth_utils import keccak, to_checksum_address
 
 def canonical_json(data: Any) -> str:
     """Produces deterministic, canonical JSON string with sorted keys and no unnecessary whitespace."""
@@ -31,30 +31,76 @@ def generate_nonce() -> str:
 
 def compute_commitment_hash(
     chain_id: int,
-    market_id: str,
+    market_id: Union[str, bytes],
     agent_id: str,
     probability: float,
-    evidence_digest: str,
-    nonce: str
+    evidence_digest: Union[str, bytes],
+    nonce: Union[str, bytes],
+    wallet_address: Optional[str] = None
 ) -> str:
     """
-    Computes keccak256 commitment hash adhering to PRD 10.4:
-    H(chainId, marketId, agentId, probability, evidenceDigest, nonce)
-    Probability is scaled by 10,000 to represent basis points (0 to 10000) for exact EVM integer math.
+    Computes keccak256 commitment hash adhering to PRD 10.4 and Solidity PredictionMarket.sol:
+    keccak256(abi.encodePacked(uint256 chainId, bytes32 marketId, address agent, uint256 probabilityBps, bytes32 evidenceDigest, bytes32 nonce))
+
+    The address must be the wallet registered in AgentRegistry, not a hash of agent_id.
     """
-    prob_bps = int(round(probability * 10000))
-    if not (0 <= prob_bps <= 10000):
-        raise ValueError(f"Probability must be between 0.0 and 1.0, got {probability}")
+    target_wallet = wallet_address or agent_id
+    if not (isinstance(target_wallet, str) and target_wallet.startswith("0x") and len(target_wallet) == 42):
+        raise ValueError(
+            f"A valid 0x Ethereum wallet address must be provided or found on the Agent record, got '{target_wallet}'."
+        )
+    try:
+        agent_wallet = to_checksum_address(target_wallet)
+    except Exception as e:
+        raise ValueError(f"Invalid Ethereum wallet address '{target_wallet}': {e}")
 
-    clean_digest = evidence_digest if evidence_digest.startswith("0x") else "0x" + evidence_digest
-    digest_bytes = bytes.fromhex(clean_digest[2:].zfill(64))
+    # Probability input unambiguous: accept float in [0,1] only. Reject anything else.
+    if isinstance(probability, bool) or not isinstance(probability, float):
+        raise ValueError(
+            f"Probability must be a float in [0, 1], got {type(probability).__name__}: {probability}"
+        )
+    if not (0.0 <= probability <= 1.0):
+        raise ValueError(f"Probability must be in range [0, 1], got {probability}")
 
-    clean_nonce = nonce if nonce.startswith("0x") else "0x" + nonce
-    nonce_bytes = bytes.fromhex(clean_nonce[2:].zfill(64))
+    prob_bps = int((Decimal(str(probability)) * Decimal("10000")).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
 
-    encoded = encode(
-        ["uint256", "string", "string", "uint256", "bytes32", "bytes32"],
-        [chain_id, str(market_id), str(agent_id), prob_bps, digest_bytes, nonce_bytes]
+
+    # Format market_id to 32 bytes
+    if isinstance(market_id, bytes):
+        market_bytes = market_id
+    elif isinstance(market_id, str):
+        clean_m = market_id.strip()
+        if clean_m.startswith("0x"):
+            market_bytes = bytes.fromhex(clean_m[2:].zfill(64))
+        else:
+            market_bytes = keccak(clean_m.encode("utf-8"))
+    else:
+        market_bytes = bytes(market_id)
+
+    # Format evidence_digest to 32 bytes
+    if isinstance(evidence_digest, bytes):
+        digest_bytes = evidence_digest
+    elif isinstance(evidence_digest, str):
+        clean_d = evidence_digest.strip()
+        clean_digest = clean_d if clean_d.startswith("0x") else "0x" + clean_d
+        digest_bytes = bytes.fromhex(clean_digest[2:].zfill(64))
+    else:
+        digest_bytes = bytes(evidence_digest)
+
+    # Format nonce to 32 bytes
+    if isinstance(nonce, bytes):
+        nonce_bytes = nonce
+    elif isinstance(nonce, str):
+        clean_n = nonce.strip()
+        clean_nonce = clean_n if clean_n.startswith("0x") else "0x" + clean_n
+        nonce_bytes = bytes.fromhex(clean_nonce[2:].zfill(64))
+    else:
+        nonce_bytes = bytes(nonce)
+
+    # Solidity-equivalent encoding: abi.encodePacked(uint256, bytes32, address, uint256, bytes32, bytes32)
+    encoded = encode_packed(
+        ["uint256", "bytes32", "address", "uint256", "bytes32", "bytes32"],
+        [chain_id, market_bytes, agent_wallet, prob_bps, digest_bytes, nonce_bytes]
     )
     hash_bytes = keccak(encoded)
     return "0x" + hash_bytes.hex()
@@ -67,7 +113,8 @@ def verify_commitment_hash(
     agent_id: str,
     probability: float,
     evidence_digest: str,
-    nonce: str
+    nonce: str,
+    wallet_address: Optional[str] = None
 ) -> bool:
     """Verifies that the revealed probability, digest, and nonce match the committed hash."""
     recomputed = compute_commitment_hash(
@@ -76,7 +123,8 @@ def verify_commitment_hash(
         agent_id=agent_id,
         probability=probability,
         evidence_digest=evidence_digest,
-        nonce=nonce
+        nonce=nonce,
+        wallet_address=wallet_address
     )
     return recomputed.lower() == expected_hash.lower()
 

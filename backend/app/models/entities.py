@@ -237,7 +237,7 @@ class Settlement(Base):
     score = Column(Float, nullable=True)
     reward = Column(Float, default=0.0, nullable=False)
     resolution_reference = Column(String(255), nullable=False)
-    tx_hash = Column(String(66), nullable=False, unique=True)
+    tx_hash = Column(String(66), nullable=True, index=True)
     created_at = Column(DateTime(timezone=True), default=utcnow, nullable=False)
 
 

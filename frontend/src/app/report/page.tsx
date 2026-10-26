@@ -125,40 +125,42 @@ ${currentCase.missing_facts.map((mf, i) => `${i + 1}. ${mf}`).join("\n")}
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
+    <div className="space-y-6 animate-fade-in-up">
       {/* Action Header (hidden on print) */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl space-y-4 no-print">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
-          <div>
+      <div className="apple-card p-6 sm:p-8 rounded-[18px] bg-white border border-cream-300 shadow-apple-card space-y-4 no-print">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream-200 pb-5">
+          <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-lavender-100 text-lavender-700 border border-lavender-200">
                 §16.8 • FR-005
               </span>
-              <h1 className="text-xl sm:text-2xl font-extrabold text-white">Final Evaluation Report</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
+                Final Evaluation Report
+              </h1>
             </div>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-[15px] text-ink-secondary leading-relaxed">
               Complete, evidence-linked 10-section investigative dossier with audit hashes, missing facts, and human escalation requirements.
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <button
               onClick={handleExportMarkdown}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-cream-100 hover:bg-cream-200 border border-cream-300 text-xs font-semibold text-ink transition-colors shadow-apple-sm"
             >
-              <Download className="w-3.5 h-3.5 text-cyan-400" />
+              <Download className="w-3.5 h-3.5 text-lavender-600" />
               <span>Export Markdown</span>
             </button>
             <button
               onClick={handleExportJson}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-cream-100 hover:bg-cream-200 border border-cream-300 text-xs font-semibold text-ink transition-colors shadow-apple-sm"
             >
-              <Download className="w-3.5 h-3.5 text-indigo-400" />
+              <Download className="w-3.5 h-3.5 text-lavender-600" />
               <span>Export JSON</span>
             </button>
             <button
               onClick={handlePrint}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold shadow-glow transition-all"
+              className="flex items-center gap-1.5 px-5 py-2 rounded-full bg-lavender-600 hover:bg-lavender-700 text-white text-xs font-semibold shadow-apple-sm transition-all"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Print / PDF</span>
@@ -168,66 +170,74 @@ ${currentCase.missing_facts.map((mf, i) => `${i + 1}. ${mf}`).join("\n")}
       </div>
 
       {/* The 10-Section Formal Report Document (§16.8) */}
-      <div className="p-8 sm:p-12 rounded-3xl border border-slate-800 bg-slate-950 shadow-2xl space-y-8 text-slate-200">
+      <div className="p-8 sm:p-12 rounded-[22px] border border-cream-300 bg-white shadow-apple-card space-y-8 text-ink">
         {/* Title & Metadata Block */}
-        <div className="border-b border-slate-800 pb-6 space-y-3">
-          <div className="flex items-center justify-between text-xs text-slate-400 font-mono">
+        <div className="border-b border-cream-200 pb-6 space-y-3">
+          <div className="flex items-center justify-between text-xs text-ink-secondary font-mono">
             <span>VERIDION PROTOCOL INVESTIGATION REPORT</span>
             <span>DATE: {currentCase.assessment_date}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
             {currentCase.title}
           </h1>
-          <div className="flex flex-wrap gap-4 text-xs font-mono text-slate-400 pt-1">
-            <span>Case ID: <strong className="text-emerald-400">{currentCase.id}</strong></span>
-            <span>Version: <strong className="text-cyan-400">{currentCase.scope_version}</strong></span>
-            <span>Jurisdiction: <strong className="text-slate-200">{currentCase.jurisdiction}</strong></span>
-            <span>Mode: <strong className="text-indigo-400">{isLiveChain ? "Live Testnet" : "Sample Benchmark"}</strong></span>
+          <div className="flex flex-wrap gap-2.5 text-xs font-mono text-ink-secondary pt-1">
+            <span className="px-3 py-1 rounded-full bg-cream-100 border border-cream-200">
+              Case ID: <strong className="font-semibold text-lavender-700">{currentCase.id}</strong>
+            </span>
+            <span className="px-3 py-1 rounded-full bg-cream-100 border border-cream-200">
+              Version: <strong className="font-semibold text-lavender-700">{currentCase.scope_version}</strong>
+            </span>
+            <span className="px-3 py-1 rounded-full bg-cream-100 border border-cream-200">
+              Jurisdiction: <strong className="font-semibold text-ink">{currentCase.jurisdiction}</strong>
+            </span>
+            <span className="px-3 py-1 rounded-full bg-cream-100 border border-cream-200">
+              Mode: <strong className="font-semibold text-emerald-700">{isLiveChain ? "Live Testnet" : "Sample Benchmark"}</strong>
+            </span>
           </div>
         </div>
 
         {/* 1. Executive Summary & Scope */}
         <section className="space-y-2">
-          <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+          <h2 className="text-xs font-bold text-lavender-700 uppercase tracking-widest">
             1. Executive Summary and Scope
           </h2>
-          <p className="text-xs text-slate-300 leading-relaxed">
+          <p className="text-[15px] text-ink leading-relaxed">
             This report evaluates the compliance risks of a hypothetical enterprise AI startup processing customer support conversation logs to fine-tune proprietary generative AI foundation models. The analysis combines retrieval-grounded legal research across verified European Union statutes, autonomous multi-agent debate, deterministic rule evaluation, and commit-reveal prediction markets.
           </p>
         </section>
 
         {/* 2. Facts and Assumptions */}
         <section className="space-y-3">
-          <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+          <h2 className="text-xs font-bold text-lavender-700 uppercase tracking-widest">
             2. Frozen Case Facts and Assumptions
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-            <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-              <span className="text-slate-400 block font-medium">Processing Purpose:</span>
-              <span className="text-white font-semibold">{currentCase.facts.processing_purpose}</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
+            <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200">
+              <span className="text-ink-secondary block font-medium">Processing Purpose:</span>
+              <span className="text-ink font-semibold">{currentCase.facts.processing_purpose}</span>
             </div>
-            <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-              <span className="text-slate-400 block font-medium">User Consent Mechanism:</span>
-              <span className="text-white font-semibold">{currentCase.facts.user_consent_mechanism}</span>
+            <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200">
+              <span className="text-ink-secondary block font-medium">User Consent Mechanism:</span>
+              <span className="text-ink font-semibold">{currentCase.facts.user_consent_mechanism}</span>
             </div>
-            <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-              <span className="text-slate-400 block font-medium">Affected Users:</span>
-              <span className="text-white font-semibold">{currentCase.facts.affected_users}</span>
+            <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200">
+              <span className="text-ink-secondary block font-medium">Affected Users:</span>
+              <span className="text-ink font-semibold">{currentCase.facts.affected_users}</span>
             </div>
-            <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-              <span className="text-slate-400 block font-medium">Retention Period:</span>
-              <span className="text-white font-semibold">{currentCase.facts.retention_period_days} Days</span>
+            <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200">
+              <span className="text-ink-secondary block font-medium">Retention Period:</span>
+              <span className="text-ink font-semibold">{currentCase.facts.retention_period_days} Days</span>
             </div>
           </div>
 
           {/* Missing Material Facts */}
           {currentCase.missing_facts.length > 0 && (
-            <div className="p-4 rounded-2xl bg-amber-950/20 border border-amber-900/40 space-y-2 text-xs">
-              <div className="flex items-center gap-2 text-amber-300 font-bold">
-                <AlertTriangle className="w-4 h-4 text-amber-400" />
+            <div className="p-4 rounded-[16px] bg-amber-50 border border-amber-200 space-y-2 text-xs">
+              <div className="flex items-center gap-2 text-amber-800 font-bold">
+                <AlertTriangle className="w-4 h-4 text-amber-600" />
                 <span>2.1 Identified Missing Material Facts (FR-002)</span>
               </div>
-              <ul className="list-disc pl-5 space-y-1 text-slate-300">
+              <ul className="list-disc pl-5 space-y-1 text-ink-secondary">
                 {currentCase.missing_facts.map((mf, i) => (
                   <li key={i}>{mf}</li>
                 ))}
@@ -238,37 +248,37 @@ ${currentCase.missing_facts.map((mf, i) => `${i + 1}. ${mf}`).join("\n")}
 
         {/* 3. Relevant Sources and Effective Dates */}
         <section className="space-y-3">
-          <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+          <h2 className="text-xs font-bold text-lavender-700 uppercase tracking-widest">
             3. Relevant Sources and Effective Dates (FR-007, FR-010)
           </h2>
-          <ul className="space-y-2 text-xs">
-            <li className="p-3 rounded-xl bg-slate-900/40 border border-slate-800 flex justify-between items-center">
+          <ul className="space-y-2.5 text-xs">
+            <li className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200 flex justify-between items-center">
               <span><strong>Regulation (EU) 2016/679 (GDPR)</strong> - Article 5(1)(b), Article 6(4)</span>
-              <span className="font-mono text-emerald-400 text-[11px]">Effective: 2018-05-25</span>
+              <span className="font-mono text-emerald-700 font-semibold text-[11px]">Effective: 2018-05-25</span>
             </li>
-            <li className="p-3 rounded-xl bg-slate-900/40 border border-slate-800 flex justify-between items-center">
+            <li className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200 flex justify-between items-center">
               <span><strong>EDPB Statement 01/2024</strong> on Generative AI Model Development (Para 4)</span>
-              <span className="font-mono text-emerald-400 text-[11px]">Effective: 2024-04-17</span>
+              <span className="font-mono text-emerald-700 font-semibold text-[11px]">Effective: 2024-04-17</span>
             </li>
           </ul>
         </section>
 
         {/* 4. Principal Claims & Evidence */}
         <section className="space-y-3">
-          <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+          <h2 className="text-xs font-bold text-lavender-700 uppercase tracking-widest">
             4. Principal Claims and Grounded Evidence
           </h2>
-          <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2 text-xs">
+          <div className="p-4 rounded-[16px] bg-cream-50 border border-cream-200 space-y-2 text-xs">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-white">Secondary AI Training Purpose Incompatibility</span>
-              <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+              <span className="font-bold text-ink">Secondary AI Training Purpose Incompatibility</span>
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold">
                 EVIDENCE VERIFIED
               </span>
             </div>
-            <p className="text-slate-300 leading-relaxed">
+            <p className="text-ink-secondary leading-relaxed">
               Under GDPR Article 6(4), secondary model training cannot be treated as compatible with routine customer support. EDPB Statement 01/2024 confirms controllers must establish standalone legal bases.
             </p>
-            <div className="pt-1 text-[10px] font-mono text-cyan-400">
+            <div className="pt-1 text-[11px] font-mono text-lavender-700 font-medium">
               Digest: 0x8fa12b9c3f4e8891d09e7284cb9124a919248bb82948019a827401bbac901842
             </div>
           </div>
@@ -276,12 +286,12 @@ ${currentCase.missing_facts.map((mf, i) => `${i + 1}. ${mf}`).join("\n")}
 
         {/* 5. Counterarguments & Conflicts */}
         <section className="space-y-3">
-          <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+          <h2 className="text-xs font-bold text-lavender-700 uppercase tracking-widest">
             5. Counterarguments and Conflict Surfacing (FR-021, FR-022)
           </h2>
-          <div className="p-4 rounded-2xl bg-rose-950/20 border border-rose-900/40 space-y-2 text-xs">
-            <span className="font-bold text-rose-300">Adversarial Defense: Commercial Legitimate Interest</span>
-            <p className="text-slate-300 leading-relaxed">
+          <div className="p-4 rounded-[16px] bg-rose-50 border border-rose-200 space-y-2 text-xs">
+            <span className="font-bold text-rose-800">Adversarial Defense: Commercial Legitimate Interest</span>
+            <p className="text-rose-900/80 leading-relaxed">
               Adversarial researcher argued model safety improvements fall under Article 6(1)(f). However, absence of pre-training automated PII scrubbing or user opt-outs renders this defense vulnerable to regulatory challenge.
             </p>
           </div>
@@ -289,42 +299,42 @@ ${currentCase.missing_facts.map((mf, i) => `${i + 1}. ${mf}`).join("\n")}
 
         {/* 6. Risk Findings & Limitations */}
         <section className="space-y-3">
-          <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+          <h2 className="text-xs font-bold text-lavender-700 uppercase tracking-widest">
             6. Risk Findings and Deterministic Rule Output (FR-025, FR-058)
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-            <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-              <span className="text-slate-400 block">Deterministic Rule Result:</span>
-              <span className="font-bold text-rose-400">RULE_GDPR_6_4_INCOMPATIBLE (FAILED)</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
+            <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200">
+              <span className="text-ink-secondary block font-medium">Deterministic Rule Result:</span>
+              <span className="font-bold text-rose-700">RULE_GDPR_6_4_INCOMPATIBLE (FAILED)</span>
             </div>
-            <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-              <span className="text-slate-400 block">Risk Level:</span>
-              <span className="font-bold text-amber-400">HIGH REGULATORY COMPLIANCE EXPOSURE</span>
+            <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200">
+              <span className="text-ink-secondary block font-medium">Risk Level:</span>
+              <span className="font-bold text-amber-700">HIGH REGULATORY COMPLIANCE EXPOSURE</span>
             </div>
           </div>
 
-          <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400 flex items-start gap-2">
-            <Info className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-            <span>
-              <strong>Confidence Limitations:</strong> The findings reflect multi-agent consensus and deterministic rule parsing on currently ingested statutory materials. Unrepresented authorities or forthcoming EU judicial precedents may alter this determination.
+          <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200 text-xs text-ink-secondary flex items-start gap-2.5">
+            <Info className="w-4 h-4 text-lavender-600 shrink-0 mt-0.5" />
+            <span className="leading-relaxed">
+              <strong className="text-ink">Confidence Limitations:</strong> The findings reflect multi-agent consensus and deterministic rule parsing on currently ingested statutory materials. Unrepresented authorities or forthcoming EU judicial precedents may alter this determination.
             </span>
           </div>
         </section>
 
         {/* 7. Forecast Definitions & Probabilities */}
         <section className="space-y-3">
-          <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+          <h2 className="text-xs font-bold text-lavender-700 uppercase tracking-widest">
             7. Forecast Definitions, Probabilities, and Disagreement (§16.5)
           </h2>
           {activeMarket && (
-            <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2 text-xs">
+            <div className="p-4 rounded-[16px] bg-cream-50 border border-cream-200 space-y-2 text-xs">
               <div className="flex items-center justify-between">
-                <span className="text-slate-300 font-semibold">{activeMarket.question}</span>
-                <span className="font-mono text-cyan-400 font-bold text-base">
+                <span className="text-ink font-semibold">{activeMarket.question}</span>
+                <span className="font-mono text-lavender-700 font-bold text-lg">
                   {(activeMarket.aggregate_probability * 100).toFixed(1)}%
                 </span>
               </div>
-              <div className="text-[11px] text-slate-400">
+              <div className="text-[11px] text-ink-secondary">
                 Sample Size: N = {activeMarket.sample_size} | Disagreement Variance: {activeMarket.disagreement_variance} | Proper Scoring: Brier Rule
               </div>
             </div>
@@ -333,14 +343,14 @@ ${currentCase.missing_facts.map((mf, i) => `${i + 1}. ${mf}`).join("\n")}
 
         {/* 8. Unresolved Uncertainties & Bounty Outcomes */}
         <section className="space-y-3">
-          <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+          <h2 className="text-xs font-bold text-lavender-700 uppercase tracking-widest">
             8. Unresolved Uncertainties and Evidence Bounty Outcomes (§16.6)
           </h2>
           {activeBounty && (
-            <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2 text-xs">
-              <span className="font-semibold text-slate-200">Bounty {activeBounty.bounty_id}:</span>
-              <p className="text-slate-300">{activeBounty.question}</p>
-              <div className="text-emerald-400 font-mono text-[11px]">
+            <div className="p-4 rounded-[16px] bg-cream-50 border border-cream-200 space-y-2 text-xs">
+              <span className="font-semibold text-ink">Bounty {activeBounty.bounty_id}:</span>
+              <p className="text-ink-secondary leading-relaxed">{activeBounty.question}</p>
+              <div className="text-emerald-700 font-mono text-[11px] font-semibold">
                 Winning Submission: sub_edpb_001 | Rewarded +{activeBounty.reward_credits} Simulated Credits
               </div>
             </div>
@@ -349,30 +359,30 @@ ${currentCase.missing_facts.map((mf, i) => `${i + 1}. ${mf}`).join("\n")}
 
         {/* 9. Recommended Next Steps & Mandatory Human Review */}
         <section className="space-y-3">
-          <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+          <h2 className="text-xs font-bold text-lavender-700 uppercase tracking-widest">
             9. Recommended Remediation and Human Review Requirement (§17.4)
           </h2>
-          <div className="p-4 rounded-2xl bg-amber-950/30 border border-amber-800/40 space-y-3 text-xs">
-            <div className="flex items-center gap-2 text-amber-300 font-bold">
-              <ShieldAlert className="w-4 h-4 text-amber-400" />
+          <div className="p-5 rounded-[16px] bg-amber-50 border border-amber-200 space-y-2.5 text-xs">
+            <div className="flex items-center gap-2 text-amber-800 font-bold">
+              <ShieldAlert className="w-4 h-4 text-amber-600" />
               <span>Mandatory Legal Counsel Escalation</span>
             </div>
-            <p className="text-slate-300 leading-relaxed">
+            <p className="text-amber-900/80 leading-relaxed">
               VERIDION provides automated decision support and research exploration. It does not issue binding legal opinions. Because the purpose compatibility check failed deterministically and benchmark forecasts exceed 60% probability of adverse finding, qualified European data protection counsel must review this deployment before model weights are promoted to production.
             </p>
           </div>
         </section>
 
         {/* 10. Audit References & Transaction Hashes */}
-        <section className="space-y-3 border-t border-slate-800 pt-6">
-          <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+        <section className="space-y-3 border-t border-cream-200 pt-6">
+          <h2 className="text-xs font-bold text-lavender-700 uppercase tracking-widest">
             10. Protocol Audit References and Transaction Hashes (FR-057)
           </h2>
           <div className="space-y-2 text-xs font-mono">
             {auditRecords.map((rec) => (
-              <div key={rec.id} className="flex flex-wrap items-center justify-between text-slate-400 py-1">
+              <div key={rec.id} className="flex flex-wrap items-center justify-between text-ink-secondary py-1.5 px-3 rounded-[10px] bg-cream-50 border border-cream-200">
                 <span>{rec.event_type} ({rec.target_id}):</span>
-                <span className="text-cyan-400">{rec.tx_hash}</span>
+                <span className="text-lavender-700 font-semibold">{rec.tx_hash}</span>
               </div>
             ))}
           </div>

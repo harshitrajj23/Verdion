@@ -38,70 +38,71 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
     n_claim_purpose: { x: 380, y: 160 },
     n_claim_legit_interest: { x: 140, y: 320 },
     n_claim_retention_gap: { x: 620, y: 320 },
-    n_evi_art6_4: { x: 220, y: 50 },
-    n_evi_edpb_stmt: { x: 540, y: 50 },
-    n_assumption_unredacted: { x: 380, y: 380 }
+    n_evi_art6_4: { x: 220, y: 55 },
+    n_evi_edpb_stmt: { x: 540, y: 55 },
+    n_assumption_unredacted: { x: 380, y: 385 }
   };
 
   const edgeColors: Record<string, { stroke: string; label: string; badge: string }> = {
-    SUPPORT: { stroke: "#10b981", label: "Supports", badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40" },
-    CONTRADICTION: { stroke: "#f43f5e", label: "Contradicts", badge: "bg-rose-500/20 text-rose-300 border-rose-500/40" },
-    QUALIFY: { stroke: "#f59e0b", label: "Qualifies", badge: "bg-amber-500/20 text-amber-300 border-amber-500/40" },
-    DEPEND_ON: { stroke: "#6366f1", label: "Depends On", badge: "bg-indigo-500/20 text-indigo-300 border-indigo-500/40" },
-    SUPERSEDE: { stroke: "#a855f7", label: "Supersedes", badge: "bg-purple-500/20 text-purple-300 border-purple-500/40" }
+    SUPPORT: { stroke: "#10b981", label: "Supports", badge: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+    CONTRADICTION: { stroke: "#e11d48", label: "Contradicts", badge: "bg-rose-50 text-rose-700 border-rose-200" },
+    QUALIFY: { stroke: "#d97706", label: "Qualifies", badge: "bg-amber-50 text-amber-700 border-amber-200" },
+    DEPEND_ON: { stroke: "#6e50bd", label: "Depends On", badge: "bg-lavender-50 text-lavender-700 border-lavender-200" },
+    SUPERSEDE: { stroke: "#8b5cf6", label: "Supersedes", badge: "bg-purple-50 text-purple-700 border-purple-200" }
   };
 
   return (
     <div className="space-y-4">
       {/* Controls Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 rounded-[16px] bg-white border border-cream-300 shadow-apple-card">
+        {/* Apple Segmented Control */}
+        <div className="inline-flex p-1 rounded-full bg-cream-200 border border-cream-300">
           <button
             onClick={() => setViewMode("visual")}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+            className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs transition-all ${
               viewMode === "visual"
-                ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-glow"
-                : "text-slate-400 hover:text-white"
+                ? "bg-white text-ink shadow-apple-sm font-semibold"
+                : "text-ink-secondary hover:text-ink font-medium"
             }`}
           >
-            <Network className="w-3.5 h-3.5" />
+            <Network className="w-3.5 h-3.5 text-lavender-600" />
             <span>Visual Graph</span>
           </button>
           <button
             onClick={() => setViewMode("table")}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+            className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs transition-all ${
               viewMode === "table"
-                ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-glow"
-                : "text-slate-400 hover:text-white"
+                ? "bg-white text-ink shadow-apple-sm font-semibold"
+                : "text-ink-secondary hover:text-ink font-medium"
             }`}
             title="Full screen-reader accessible text & table fallback (§16.4)"
           >
-            <TableIcon className="w-3.5 h-3.5" />
+            <TableIcon className="w-3.5 h-3.5 text-lavender-600" />
             <span>Accessible Table Fallback (§16.4)</span>
           </button>
         </div>
 
-        {/* Legend */}
-        <div className="hidden md:flex items-center gap-3 text-[11px]">
-          <span className="flex items-center gap-1.5 text-emerald-400">
+        {/* Legend Chips */}
+        <div className="hidden md:flex items-center gap-3 text-xs text-ink-secondary font-medium">
+          <span className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Support
           </span>
-          <span className="flex items-center gap-1.5 text-rose-400">
+          <span className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Contradiction
           </span>
-          <span className="flex items-center gap-1.5 text-amber-400">
+          <span className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Qualify
           </span>
-          <span className="flex items-center gap-1.5 text-indigo-400">
-            <span className="w-2.5 h-2.5 rounded-full bg-indigo-500"></span> Depend-On
+          <span className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-lavender-600"></span> Depend-On
           </span>
         </div>
       </div>
 
       {viewMode === "visual" ? (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           {/* SVG Canvas (2 cols) */}
-          <div className="lg:col-span-2 relative h-[500px] rounded-2xl border border-slate-800 bg-slate-950/80 overflow-hidden shadow-inner">
+          <div className="lg:col-span-2 relative h-[520px] rounded-[18px] border border-cream-300 bg-[#FDFCF9] overflow-hidden shadow-apple-card">
             <svg className="w-full h-full" viewBox="0 0 760 460">
               <defs>
                 <marker
@@ -124,7 +125,7 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                   markerHeight="6"
                   orient="auto-start-reverse"
                 >
-                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#f43f5e" />
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#e11d48" />
                 </marker>
                 <marker
                   id="arrow-QUALIFY"
@@ -135,7 +136,7 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                   markerHeight="6"
                   orient="auto-start-reverse"
                 >
-                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b" />
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706" />
                 </marker>
                 <marker
                   id="arrow-DEPEND_ON"
@@ -146,7 +147,7 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                   markerHeight="6"
                   orient="auto-start-reverse"
                 >
-                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#6366f1" />
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#6e50bd" />
                 </marker>
               </defs>
 
@@ -167,7 +168,7 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                       strokeWidth="2.5"
                       strokeDasharray={edge.relationship === "QUALIFY" ? "5,5" : "none"}
                       markerEnd={`url(#arrow-${edge.relationship})`}
-                      className="opacity-70 group-hover:opacity-100 transition-opacity"
+                      className="opacity-75 group-hover:opacity-100 transition-opacity"
                     />
                   </g>
                 );
@@ -180,19 +181,26 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
 
                 const nodeBg =
                   node.type === "EVIDENCE"
-                    ? "#064e3b" // Dark emerald
+                    ? "#ECFDF5" // soft emerald
                     : node.type === "ASSUMPTION"
-                    ? "#451a03" // Dark amber
-                    : "#0f172a"; // Slate
+                    ? "#FEF3C7" // soft amber
+                    : "#F1ECFB"; // soft lavender
 
                 const nodeStroke =
                   isSelected
-                    ? "#38bdf8"
+                    ? "#6E50BD"
                     : node.type === "EVIDENCE"
-                    ? "#10b981"
+                    ? "#10B981"
                     : node.type === "ASSUMPTION"
-                    ? "#f59e0b"
-                    : "#6366f1";
+                    ? "#F59E0B"
+                    : "#A78BFA";
+
+                const textFill =
+                  node.type === "EVIDENCE"
+                    ? "#065F46"
+                    : node.type === "ASSUMPTION"
+                    ? "#92400E"
+                    : "#5A3EA2";
 
                 return (
                   <g
@@ -201,17 +209,27 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                     onClick={() => setSelectedNodeId(node.id)}
                     className="cursor-pointer transition-transform hover:scale-105"
                   >
+                    {isSelected && (
+                      <circle
+                        r="32"
+                        fill="none"
+                        stroke="#6E50BD"
+                        strokeWidth="1.5"
+                        strokeDasharray="3 3"
+                        className="animate-spin-slow opacity-60"
+                      />
+                    )}
                     <circle
                       r={isSelected ? "26" : "22"}
                       fill={nodeBg}
                       stroke={nodeStroke}
-                      strokeWidth={isSelected ? "3.5" : "2"}
-                      className="transition-all drop-shadow-md"
+                      strokeWidth={isSelected ? "3" : "2"}
+                      className="transition-all drop-shadow-sm"
                     />
                     <text
                       textAnchor="middle"
                       dy="4"
-                      fill="#f8fafc"
+                      fill={textFill}
                       fontSize="10"
                       fontWeight="bold"
                       className="pointer-events-none select-none"
@@ -221,10 +239,10 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                     <text
                       textAnchor="middle"
                       dy="38"
-                      fill="#94a3b8"
-                      fontSize="9"
-                      fontWeight="500"
-                      className="pointer-events-none select-none max-w-[120px]"
+                      fill="#635E6B"
+                      fontSize="10"
+                      fontWeight="600"
+                      className="pointer-events-none select-none max-w-[130px]"
                     >
                       {node.label.slice(0, 22)}...
                     </text>
@@ -235,24 +253,24 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
           </div>
 
           {/* Inspector Panel */}
-          <div className="p-5 rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-md space-y-4">
-            <div className="flex items-start justify-between gap-2 border-b border-slate-800 pb-3">
+          <div className="p-6 rounded-[18px] border border-cream-300 bg-white shadow-apple-card space-y-4">
+            <div className="flex items-start justify-between gap-2 border-b border-cream-200 pb-3.5">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-slate-800 text-slate-300">
+                <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-cream-200 text-ink-secondary font-semibold">
                   {selectedNode.type}
                 </span>
-                <h3 className="text-sm font-bold text-white mt-1.5 leading-snug">
+                <h3 className="text-sm font-bold text-ink mt-1.5 leading-snug">
                   {selectedNode.label}
                 </h3>
               </div>
               {selectedNode.evidence_status && (
                 <span
-                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                  className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border ${
                     selectedNode.evidence_status === "SUPPORTED"
-                      ? "bg-emerald-950 text-emerald-300 border-emerald-500/40"
+                      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
                       : selectedNode.evidence_status === "CONTRADICTED"
-                      ? "bg-rose-950 text-rose-300 border-rose-500/40"
-                      : "bg-amber-950 text-amber-300 border-amber-500/40"
+                      ? "bg-rose-50 text-rose-700 border-rose-200"
+                      : "bg-amber-50 text-amber-700 border-amber-200"
                   }`}
                 >
                   {selectedNode.evidence_status}
@@ -260,50 +278,50 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
               )}
             </div>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-3.5 text-xs">
               {selectedNode.details && (
                 <div>
-                  <span className="text-slate-400 font-semibold block mb-1">Details & Rationale</span>
-                  <p className="text-slate-300 leading-relaxed bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80">
+                  <span className="text-ink-secondary font-semibold block mb-1">Details & Rationale</span>
+                  <p className="text-ink leading-relaxed bg-cream-50 p-3 rounded-[12px] border border-cream-200">
                     {selectedNode.details}
                   </p>
                 </div>
               )}
 
               {selectedNode.agent && (
-                <div className="flex items-center justify-between text-slate-400">
+                <div className="flex items-center justify-between text-ink-secondary py-0.5">
                   <span>Asserting Agent:</span>
-                  <span className="font-semibold text-slate-200">{selectedNode.agent}</span>
+                  <span className="font-semibold text-ink">{selectedNode.agent}</span>
                 </div>
               )}
 
               {selectedNode.authority && (
-                <div className="flex items-center justify-between text-slate-400">
+                <div className="flex items-center justify-between text-ink-secondary py-0.5">
                   <span>Authoritative Body:</span>
-                  <span className="font-semibold text-emerald-400">{selectedNode.authority}</span>
+                  <span className="font-semibold text-emerald-700">{selectedNode.authority}</span>
                 </div>
               )}
 
               {selectedNode.effective_date && (
-                <div className="flex items-center justify-between text-slate-400">
+                <div className="flex items-center justify-between text-ink-secondary py-0.5">
                   <span>Effective Date:</span>
-                  <span className="font-mono text-slate-200">{selectedNode.effective_date}</span>
+                  <span className="font-mono text-ink">{selectedNode.effective_date}</span>
                 </div>
               )}
 
               {selectedNode.digest && (
                 <div>
-                  <span className="text-slate-400 font-semibold block mb-1">Cryptographic Digest</span>
-                  <div className="p-2 rounded bg-slate-950 border border-slate-800 font-mono text-[10px] text-cyan-400 break-all">
+                  <span className="text-ink-secondary font-semibold block mb-1">Cryptographic Digest</span>
+                  <div className="p-2.5 rounded-[12px] bg-cream-100 border border-cream-200 font-mono text-[11px] text-lavender-700 break-all">
                     {selectedNode.digest}
                   </div>
                 </div>
               )}
 
               {/* Connected Relationships */}
-              <div className="pt-2 border-t border-slate-800">
-                <span className="text-slate-400 font-semibold block mb-2">Connected Relationships:</span>
-                <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
+              <div className="pt-3 border-t border-cream-200">
+                <span className="text-ink-secondary font-semibold block mb-2">Connected Relationships:</span>
+                <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
                   {edges
                     .filter((e) => e.source === selectedNode.id || e.target === selectedNode.id)
                     .map((e) => {
@@ -316,17 +334,17 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                         <div
                           key={e.id}
                           onClick={() => setSelectedNodeId(otherId)}
-                          className="p-2 rounded-lg bg-slate-950/50 hover:bg-slate-800/50 border border-slate-800 cursor-pointer flex items-center justify-between text-[11px] group transition-colors"
+                          className="p-2.5 rounded-[12px] bg-cream-50 hover:bg-lavender-50 border border-cream-200 hover:border-lavender-200 cursor-pointer flex items-center justify-between text-xs group transition-colors"
                         >
                           <div className="space-y-0.5">
-                            <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold border ${rel?.badge}`}>
+                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border ${rel?.badge}`}>
                               {rel?.label}
                             </span>
-                            <p className="text-slate-300 line-clamp-1 group-hover:text-white">
+                            <p className="text-ink font-medium line-clamp-1 group-hover:text-lavender-700">
                               {otherNode?.label}
                             </p>
                           </div>
-                          <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-slate-200 shrink-0" />
+                          <ChevronRight className="w-3.5 h-3.5 text-ink-tertiary group-hover:text-lavender-700 shrink-0" />
                         </div>
                       );
                     })}
@@ -337,34 +355,34 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
         </div>
       ) : (
         /* Accessible Table Fallback View (§16.4) */
-        <div className="rounded-2xl border border-slate-800 bg-slate-950/90 overflow-hidden shadow-xl">
-          <div className="p-4 border-b border-slate-800 bg-slate-900/40 flex items-center justify-between">
+        <div className="rounded-[18px] border border-cream-300 bg-white overflow-hidden shadow-apple-card">
+          <div className="p-4 sm:p-5 border-b border-cream-200 bg-cream-50 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h3 className="text-sm font-bold text-white">Argument Claims & Evidence Register</h3>
-              <p className="text-xs text-slate-400">Structured tabular breakdown of all graph entities and dependencies.</p>
+              <h3 className="text-sm font-bold text-ink">Argument Claims & Evidence Register</h3>
+              <p className="text-xs text-ink-secondary">Structured tabular breakdown of all graph entities and dependencies.</p>
             </div>
             <input
               type="text"
               placeholder="Filter claims or evidence..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 w-64"
+              className="px-4 py-2 rounded-full bg-white border border-cream-300 text-xs text-ink placeholder:text-ink-tertiary focus:outline-none focus:border-lavender-600 w-64 shadow-apple-sm"
             />
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-slate-800 bg-slate-900/60 text-slate-400 font-semibold uppercase tracking-wider text-[10px]">
-                  <th className="p-3">Node ID</th>
-                  <th className="p-3">Type</th>
-                  <th className="p-3">Claim / Evidence Text</th>
-                  <th className="p-3">Asserted By</th>
-                  <th className="p-3">Verification State</th>
-                  <th className="p-3">Digest / Reference</th>
+                <tr className="border-b border-cream-200 bg-cream-100 text-ink-secondary font-semibold uppercase tracking-wider text-[10px]">
+                  <th className="p-3.5">Node ID</th>
+                  <th className="p-3.5">Type</th>
+                  <th className="p-3.5">Claim / Evidence Text</th>
+                  <th className="p-3.5">Asserted By</th>
+                  <th className="p-3.5">Verification State</th>
+                  <th className="p-3.5">Digest / Reference</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/80">
+              <tbody className="divide-y divide-cream-200">
                 {filteredNodes.map((node) => (
                   <tr
                     key={node.id}
@@ -372,34 +390,34 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                       setSelectedNodeId(node.id);
                       setViewMode("visual");
                     }}
-                    className="hover:bg-slate-900/40 transition-colors cursor-pointer"
+                    className="hover:bg-cream-50 transition-colors cursor-pointer"
                   >
-                    <td className="p-3 font-mono text-[11px] text-cyan-400">{node.id}</td>
-                    <td className="p-3">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300">
+                    <td className="p-3.5 font-mono text-[11px] text-lavender-700 font-semibold">{node.id}</td>
+                    <td className="p-3.5">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-cream-200 text-ink-secondary border border-cream-300">
                         {node.type}
                       </span>
                     </td>
-                    <td className="p-3 font-medium text-slate-200 max-w-md">{node.label}</td>
-                    <td className="p-3 text-slate-400">{node.agent || node.authority || "Protocol Core"}</td>
-                    <td className="p-3">
+                    <td className="p-3.5 font-medium text-ink max-w-md">{node.label}</td>
+                    <td className="p-3.5 text-ink-secondary">{node.agent || node.authority || "Protocol Core"}</td>
+                    <td className="p-3.5">
                       {node.evidence_status ? (
                         <span
-                          className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${
+                          className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${
                             node.evidence_status === "SUPPORTED"
-                              ? "bg-emerald-950 text-emerald-300 border-emerald-500/40"
+                              ? "bg-emerald-50 text-emerald-700 border-emerald-200"
                               : node.evidence_status === "CONTRADICTED"
-                              ? "bg-rose-950 text-rose-300 border-rose-500/40"
-                              : "bg-amber-950 text-amber-300 border-amber-500/40"
+                              ? "bg-rose-50 text-rose-700 border-rose-200"
+                              : "bg-amber-50 text-amber-700 border-amber-200"
                           }`}
                         >
                           {node.evidence_status}
                         </span>
                       ) : (
-                        <span className="text-slate-500">N/A</span>
+                        <span className="text-ink-tertiary">N/A</span>
                       )}
                     </td>
-                    <td className="p-3 font-mono text-[10px] text-slate-500">
+                    <td className="p-3.5 font-mono text-[11px] text-ink-secondary">
                       {node.digest ? `${node.digest.slice(0, 10)}...` : "Off-chain reference"}
                     </td>
                   </tr>

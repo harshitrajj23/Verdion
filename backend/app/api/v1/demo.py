@@ -5,7 +5,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from backend.app.core.config import settings
 from backend.app.core.crypto import compute_commitment_hash, generate_nonce
 from backend.app.core.database import get_db, init_db
+from backend.app.models.entities import Agent
 from backend.app.schemas.bounty import (
+
     BountyCreateRequest,
     BountySettleRequest,
     EvidenceSubmissionRequest,
@@ -94,24 +96,29 @@ async def seed_demo_workflow(db: AsyncSession = Depends(get_db)) -> Dict[str, An
 
     # Commit phase
     for fd in forecast_data:
+        agent = await db.get(Agent, fd["agent_id"])
+        agent_wallet = agent.wallet_address if agent else None
         c_hash = compute_commitment_hash(
             chain_id=settings.CHAIN_ID,
             market_id=market.id,
             agent_id=fd["agent_id"],
             probability=fd["prob"],
             evidence_digest=fd["digest"],
-            nonce=fd["nonce"]
+            nonce=fd["nonce"],
+            wallet_address=agent_wallet
         )
         fd["commitment_hash"] = c_hash
         await MarketService.commit_forecast(
             db=db,
             market_id=market.id,
-            req=MarketCommitRequest(agent_id=fd["agent_id"], commitment_hash=c_hash),
-            sender_address=f"0x{fd['agent_id'][:10]}"
+            req=MarketCommitRequest(agent_id=fd["agent_id"], commitment_hash=c_hash, wallet_address=agent_wallet),
+            sender_address=agent_wallet or "0xAgent"
         )
 
     # Reveal phase
     for fd in forecast_data:
+        agent = await db.get(Agent, fd["agent_id"])
+        agent_wallet = agent.wallet_address if agent else None
         await MarketService.reveal_forecast(
             db=db,
             market_id=market.id,
@@ -119,9 +126,10 @@ async def seed_demo_workflow(db: AsyncSession = Depends(get_db)) -> Dict[str, An
                 agent_id=fd["agent_id"],
                 probability=fd["prob"],
                 evidence_digest=fd["digest"],
-                nonce=fd["nonce"]
+                nonce=fd["nonce"],
+                wallet_address=agent_wallet
             ),
-            sender_address=f"0x{fd['agent_id'][:10]}"
+            sender_address=agent_wallet or "0xAgent"
         )
 
     # 5. Evidence Bounty (Appendix A.4)

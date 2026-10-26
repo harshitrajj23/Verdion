@@ -48,7 +48,7 @@ export default function PredictionMarketsPage() {
   if (!market) {
     return (
       <EmptyState
-        icon={<TrendingUp className="w-7 h-7 text-cyan-500" />}
+        icon={<TrendingUp className="w-7 h-7 text-lavender-600" />}
         title="No Prediction Markets Available"
         description="No markets have been created for this case yet. Markets are generated when agents commit probability forecasts."
       />
@@ -93,7 +93,6 @@ export default function PredictionMarketsPage() {
     }
   };
 
-  // Determine which deadline to show based on market state
   const activeDeadline =
     market.state === "PUBLISHED" || market.state === "DRAFT"
       ? { deadline: market.commit_deadline, label: "Commit Deadline", accent: "cyan" as const }
@@ -105,50 +104,52 @@ export default function PredictionMarketsPage() {
 
   const stateColor =
     market.state === "SETTLED"
-      ? "bg-emerald-950 text-emerald-300 border-emerald-500/40"
+      ? "bg-lavender-100 text-lavender-800 border-lavender-300"
       : market.state === "VOID"
-      ? "bg-slate-800 text-slate-400 border-slate-700"
+      ? "bg-cream-200 text-ink-muted border-cream-300"
       : market.state === "CHALLENGE"
-      ? "bg-rose-950 text-rose-300 border-rose-500/40"
-      : "bg-cyan-950 text-cyan-300 border-cyan-500/40";
+      ? "bg-rose-50 text-rose-700 border-rose-200"
+      : "bg-lavender-50 text-lavender-700 border-lavender-200";
 
   return (
-    <div className="space-y-6 animate-fade-in-up">
-      {/* Header */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+    <div className="space-y-8 animate-fade-in-up">
+      {/* ── Apple Header Card ── */}
+      <div className="apple-card space-y-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream-200 pb-5">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+              <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-lavender-100 text-lavender-800 border border-lavender-200">
                 §16.5
               </span>
-              <h1 className="text-xl sm:text-2xl font-extrabold text-white">Prediction Market Protocol</h1>
+              <h1 className="text-2xl sm:text-3xl font-semibold text-ink tracking-tight font-appleDisplay">
+                Prediction Market Protocol
+              </h1>
             </div>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-ink-secondary mt-1">
               Commit-reveal probabilistic forecast aggregation over objectively resolvable evaluation outcomes.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-[11px] font-semibold text-amber-300 bg-amber-950/40 border border-amber-800/40 px-3 py-1.5 rounded-xl">
-            <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-            <span>Probabilities are empirical event forecasts, not legal determinations (§16.5)</span>
+          <div className="flex items-center gap-2 text-xs font-medium text-amber-900 bg-amber-50 border border-amber-200 px-3.5 py-1.5 rounded-full">
+            <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+            <span>Empirical event forecasts, not final legal determinations</span>
           </div>
         </div>
 
         {/* Market Selector Tabs */}
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="inline-flex p-1 rounded-full bg-cream-200 border border-cream-300 max-w-full overflow-x-auto scrollbar-none">
           {markets.map((m) => (
             <button
               key={m.market_id}
               onClick={() => setSelectedMarketId(m.market_id)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
+              className={`px-4 py-1.5 rounded-full text-xs font-medium flex items-center gap-2 transition-all duration-150 active:scale-[0.97] ${
                 selectedMarketId === m.market_id
-                  ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-glow-cyan"
-                  : "bg-slate-900/60 text-slate-400 hover:text-white border border-slate-800"
+                  ? "bg-white text-ink shadow-sm border border-cream-300/60"
+                  : "text-ink-secondary hover:text-ink hover:bg-cream-100/60"
               }`}
             >
               <span>{m.market_id}</span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-cream-100 text-ink-muted font-mono">
                 {m.state}
               </span>
             </button>
@@ -174,34 +175,36 @@ export default function PredictionMarketsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left (2 cols): Event Definition & Revealed Forecasts */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="glass-panel p-6 rounded-3xl space-y-4">
-            <div className="flex items-start justify-between gap-3 border-b border-slate-800 pb-3">
+          <div className="apple-card space-y-5">
+            <div className="flex items-start justify-between gap-3 border-b border-cream-200 pb-4">
               <div>
-                <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold">
+                <span className="text-[11px] font-mono text-lavender-700 uppercase font-semibold">
                   {market.market_id} • Case {market.case_id}
                 </span>
-                <h2 className="text-lg font-bold text-white mt-1">{market.question}</h2>
+                <h2 className="text-xl font-semibold text-ink mt-1 font-appleDisplay">{market.question}</h2>
               </div>
-              <span className={`px-3 py-1 rounded-full text-xs font-bold border shrink-0 ${stateColor}`}>
+              <span className={`px-3 py-1 rounded-full text-xs font-semibold border shrink-0 ${stateColor}`}>
                 {market.state}
               </span>
             </div>
 
             {/* Outcome Definition & Resolution Rules (§10.2) */}
             <div className="space-y-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
-                <span className="text-slate-400 font-semibold block">Precise Outcome Definition:</span>
-                <p className="text-slate-200 leading-relaxed">{market.outcome_definition}</p>
+              <div className="p-4 rounded-[14px] bg-cream-200/50 border border-cream-300 space-y-1">
+                <span className="text-ink-muted font-semibold block uppercase tracking-wider text-[10px]">
+                  Precise Outcome Definition:
+                </span>
+                <p className="text-ink leading-relaxed">{market.outcome_definition}</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800 space-y-0.5">
-                  <span className="text-[10px] text-slate-400">Resolution Source:</span>
-                  <p className="font-semibold text-slate-200">{market.resolution_source}</p>
+                <div className="p-3.5 rounded-[12px] bg-cream-50 border border-cream-300 space-y-0.5">
+                  <span className="text-[10px] text-ink-muted font-medium">Resolution Source:</span>
+                  <p className="font-semibold text-ink">{market.resolution_source}</p>
                 </div>
-                <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800 space-y-0.5">
-                  <span className="text-[10px] text-slate-400">Authorized Evaluator:</span>
-                  <p className="font-mono text-cyan-400 truncate">{market.evaluator_address}</p>
+                <div className="p-3.5 rounded-[12px] bg-cream-50 border border-cream-300 space-y-0.5">
+                  <span className="text-[10px] text-ink-muted font-medium">Authorized Evaluator:</span>
+                  <p className="font-mono text-lavender-700 truncate">{market.evaluator_address}</p>
                 </div>
               </div>
             </div>
@@ -216,74 +219,74 @@ export default function PredictionMarketsPage() {
             )}
 
             {/* Aggregate Statistics */}
-            <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 space-y-3">
+            <div className="p-5 rounded-[16px] bg-cream-50 border border-cream-300 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-slate-400">Aggregated Belief Probability:</span>
-                <span className="text-2xl font-extrabold font-mono text-cyan-400">
+                <span className="text-xs font-medium text-ink-secondary">Aggregated Belief Probability:</span>
+                <span className="text-3xl font-bold font-mono text-lavender-700">
                   {(market.aggregate_probability * 100).toFixed(1)}%
                 </span>
               </div>
-              <div className="w-full h-3 rounded-full bg-slate-800 overflow-hidden">
+              <div className="w-full h-2.5 rounded-full bg-cream-200 overflow-hidden border border-cream-300">
                 <div
-                  className="h-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-emerald-400 rounded-full transition-all duration-700 ease-out"
+                  className="h-full bg-lavender-600 rounded-full transition-all duration-700 ease-out"
                   style={{ width: `${market.aggregate_probability * 100}%` }}
                 />
               </div>
-              <div className="flex flex-wrap items-center justify-between text-xs text-slate-400 pt-1">
+              <div className="flex flex-wrap items-center justify-between text-xs text-ink-muted pt-1">
                 <span className="flex items-center gap-1">
-                  <Users className="w-3 h-3 text-cyan-400" />
-                  Sample Size: <strong>N = {market.sample_size} Agents</strong>
+                  <Users className="w-3.5 h-3.5 text-lavender-600" />
+                  Sample Size: <strong className="text-ink font-medium">N = {market.sample_size} Agents</strong>
                 </span>
-                <span>Disagreement Variance: <strong className="font-mono text-slate-200">{market.disagreement_variance}</strong></span>
-                <span>Scoring Rule: <strong>Brier Proper Scoring</strong></span>
+                <span>Disagreement Variance: <strong className="font-mono text-ink font-medium">{market.disagreement_variance}</strong></span>
+                <span>Rule: <strong className="text-ink font-medium">Brier Proper Scoring</strong></span>
               </div>
             </div>
 
             {/* Revealed Forecasts Table */}
             <div className="space-y-3 pt-2">
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+              <h3 className="text-xs font-semibold text-ink-muted uppercase tracking-wider font-appleDisplay">
                 Revealed Forecast Register ({market.revealed_forecasts.length})
               </h3>
               {market.revealed_forecasts.length === 0 ? (
                 <EmptyState
-                  icon={<Lock className="w-6 h-6 text-cyan-500" />}
+                  icon={<Lock className="w-6 h-6 text-lavender-600" />}
                   title="No Forecasts Revealed Yet"
                   description="Forecasts will appear here once the reveal deadline is reached and agents disclose their committed probabilities."
                 />
               ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs border-collapse">
+                <div className="overflow-x-auto rounded-[14px] border border-cream-200">
+                  <table className="w-full text-left text-xs border-collapse bg-white">
                     <thead>
-                      <tr className="border-b border-slate-800 text-slate-400 font-semibold text-[10px] uppercase">
-                        <th className="py-2.5 px-3">Agent</th>
-                        <th className="py-2.5 px-3">Address</th>
-                        <th className="py-2.5 px-3">Probability</th>
-                        <th className="py-2.5 px-3">Evidence Digest</th>
-                        <th className="py-2.5 px-3">Revealed Time</th>
-                        <th className="py-2.5 px-3">Brier Score</th>
+                      <tr className="border-b border-cream-200 bg-cream-50/70 text-ink-muted font-semibold text-[10px] uppercase">
+                        <th className="py-3 px-3.5">Agent</th>
+                        <th className="py-3 px-3.5">Address</th>
+                        <th className="py-3 px-3.5">Probability</th>
+                        <th className="py-3 px-3.5">Evidence Digest</th>
+                        <th className="py-3 px-3.5">Revealed Time</th>
+                        <th className="py-3 px-3.5">Brier Score</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/80">
+                    <tbody className="divide-y divide-cream-200">
                       {market.revealed_forecasts.map((f, i) => (
-                        <tr key={i} className="hover:bg-slate-900/40 transition-colors">
-                          <td className="py-2.5 px-3 font-semibold text-slate-200">{f.agent_id}</td>
-                          <td className="py-2.5 px-3 font-mono text-[10px] text-cyan-400">
+                        <tr key={i} className="hover:bg-cream-50/60 transition-colors">
+                          <td className="py-3 px-3.5 font-semibold text-ink">{f.agent_id}</td>
+                          <td className="py-3 px-3.5 font-mono text-[10px] text-lavender-700">
                             {f.agent_address.slice(0, 8)}...{f.agent_address.slice(-4)}
                           </td>
-                          <td className="py-2.5 px-3 font-mono font-bold text-cyan-400">
+                          <td className="py-3 px-3.5 font-mono font-bold text-lavender-700 text-sm">
                             {(f.probability * 100).toFixed(1)}%
                           </td>
-                          <td className="py-2.5 px-3 font-mono text-[10px] text-slate-400">
+                          <td className="py-3 px-3.5 font-mono text-[10px] text-ink-muted">
                             {f.evidence_digest.slice(0, 10)}...{f.evidence_digest.slice(-6)}
                           </td>
-                          <td className="py-2.5 px-3 text-[11px] text-slate-400">
+                          <td className="py-3 px-3.5 text-[11px] text-ink-secondary">
                             {new Date(f.revealed_at).toLocaleTimeString()}
                           </td>
-                          <td className="py-2.5 px-3 font-mono text-[11px]">
+                          <td className="py-3 px-3.5 font-mono text-[11px]">
                             {f.brier_score !== undefined ? (
-                              <span className="text-emerald-400 font-bold">{f.brier_score.toFixed(4)}</span>
+                              <span className="text-lavender-700 font-semibold">{f.brier_score.toFixed(4)}</span>
                             ) : (
-                              <span className="text-slate-600">—</span>
+                              <span className="text-ink-muted">—</span>
                             )}
                           </td>
                         </tr>
@@ -296,16 +299,16 @@ export default function PredictionMarketsPage() {
 
             {/* Settlement Tx (if settled) */}
             {market.settlement_tx && (
-              <div className="p-3 rounded-xl bg-emerald-950/20 border border-emerald-800/30 flex items-center justify-between text-xs">
+              <div className="p-3.5 rounded-[12px] bg-lavender-50 border border-lavender-200 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  <span className="font-semibold text-emerald-300">Market Settled</span>
+                  <CheckCircle2 className="w-4 h-4 text-lavender-600" />
+                  <span className="font-semibold text-lavender-800">Market Settled On-Chain</span>
                 </div>
                 <a
                   href={`https://sepolia.etherscan.io/tx/${market.settlement_tx}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-[10px] text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
+                  className="font-mono text-[11px] text-lavender-700 hover:underline flex items-center gap-1 font-medium"
                 >
                   <span>{market.settlement_tx.slice(0, 14)}...{market.settlement_tx.slice(-8)}</span>
                   <ExternalLink className="w-3 h-3" />
@@ -317,24 +320,24 @@ export default function PredictionMarketsPage() {
 
         {/* Right (1 col): Interactive Commit & Reveal Form (§10.4) */}
         <div className="space-y-6">
-          {/* Commit / Reveal Interactive Form */}
-          <div className="glass-panel p-6 rounded-3xl space-y-4">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <Lock className="w-4 h-4 text-cyan-400" />
+          {/* Commit / Reveal Terminal Card */}
+          <div className="apple-card space-y-4">
+            <h3 className="text-base font-semibold text-ink flex items-center gap-2 font-appleDisplay">
+              <Lock className="w-4 h-4 text-lavender-600" />
               <span>Commit-Reveal Terminal (§10.4)</span>
             </h3>
 
             {!isLiveChain && (
-              <div className="p-2.5 rounded-lg bg-indigo-950/30 border border-indigo-800/30 text-[10px] text-indigo-300 flex items-center gap-1.5">
-                <AlertCircle className="w-3 h-3 shrink-0" />
-                <span>Sample mode — actions update local state only, not on-chain.</span>
+              <div className="p-2.5 rounded-[10px] bg-cream-200/80 border border-cream-300 text-[11px] text-ink-secondary flex items-center gap-1.5">
+                <AlertCircle className="w-3.5 h-3.5 text-lavender-600 shrink-0" />
+                <span>Sample mode — actions update local store only.</span>
               </div>
             )}
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-3.5 text-xs">
               <div>
-                <label className="text-slate-400 font-semibold block mb-1">
-                  Forecast Probability: <span className="text-cyan-400 font-mono font-bold">{probInput}%</span>
+                <label className="text-ink-secondary font-medium block mb-1">
+                  Forecast Probability: <span className="text-lavender-700 font-mono font-bold text-sm">{probInput}%</span>
                 </label>
                 <input
                   type="range"
@@ -342,16 +345,16 @@ export default function PredictionMarketsPage() {
                   max="100"
                   value={probInput}
                   onChange={(e) => setProbInput(Number(e.target.value))}
-                  className="w-full accent-cyan-500 cursor-pointer"
+                  className="w-full accent-lavender-600 cursor-pointer"
                 />
-                <div className="flex justify-between text-[10px] text-slate-600 mt-0.5">
+                <div className="flex justify-between text-[10px] text-ink-muted mt-0.5">
                   <span>0% (NO)</span>
                   <span>100% (YES)</span>
                 </div>
               </div>
 
               <div>
-                <label className="text-slate-400 font-semibold block mb-1 flex items-center justify-between">
+                <label className="text-ink-secondary font-medium block mb-1 flex items-center justify-between">
                   <span>Secret Nonce (Entropy Salt):</span>
                   <button
                     onClick={() =>
@@ -359,7 +362,7 @@ export default function PredictionMarketsPage() {
                         "0x" + Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")
                       )
                     }
-                    className="text-[10px] text-cyan-400 hover:text-cyan-300"
+                    className="text-[11px] text-lavender-700 hover:underline font-medium"
                   >
                     Generate New
                   </button>
@@ -368,23 +371,23 @@ export default function PredictionMarketsPage() {
                   type="text"
                   value={nonceInput}
                   onChange={(e) => setNonceInput(e.target.value)}
-                  className="w-full p-2 rounded-lg bg-slate-950 border border-slate-800 font-mono text-[10px] text-slate-300 focus:outline-none focus:border-cyan-500 transition-colors"
+                  className="w-full p-2.5 rounded-[10px] bg-cream-50 border border-cream-300 font-mono text-[10px] text-ink focus:outline-none focus:border-lavender-400 transition-colors"
                 />
               </div>
 
-              <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
-                <span className="text-[10px] font-mono text-slate-400 block">Commitment Formula:</span>
-                <p className="font-mono text-[9px] text-slate-400 leading-tight break-all">
+              <div className="p-3 rounded-[10px] bg-cream-200/60 border border-cream-300 space-y-1">
+                <span className="text-[10px] font-mono text-ink-muted block font-semibold">Commitment Formula:</span>
+                <p className="font-mono text-[9px] text-ink-secondary leading-tight break-all">
                   keccak256(chainId, marketId, agent, prob, digest, nonce)
                 </p>
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons: Apple Pills */}
               <div className="pt-2 space-y-2">
                 <button
                   onClick={handleCommit}
                   disabled={isSubmitting || market.state === "SETTLED" || market.state === "VOID"}
-                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-xs shadow-glow-cyan transition-all flex items-center justify-center gap-2"
+                  className="apple-btn-primary w-full py-2.5 justify-center disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
@@ -399,11 +402,11 @@ export default function PredictionMarketsPage() {
                 <button
                   onClick={handleReveal}
                   disabled={isSubmitting || market.state === "SETTLED" || market.state === "VOID"}
-                  className="w-full py-2.5 px-4 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 disabled:opacity-50 disabled:cursor-not-allowed font-bold text-xs transition-all flex items-center justify-center gap-2"
+                  className="apple-btn-secondary w-full py-2.5 justify-center text-lavender-800 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
-                      <span className="spinner w-3.5 h-3.5 text-emerald-400" />
+                      <span className="spinner w-3.5 h-3.5 text-lavender-600" />
                       Verifying...
                     </>
                   ) : (
@@ -415,58 +418,57 @@ export default function PredictionMarketsPage() {
           </div>
 
           {/* Evaluator & Settlement Console */}
-          <div className="glass-panel p-6 rounded-3xl space-y-4">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <div className="apple-card space-y-4">
+            <h3 className="text-base font-semibold text-ink flex items-center gap-2 font-appleDisplay">
+              <ShieldCheck className="w-4 h-4 text-lavender-600" />
               <span>Resolution & Settlement Console</span>
             </h3>
 
-            {/* Challenge Status Display */}
             {market.challenge_status.is_challenged && (
-              <div className="p-3 rounded-xl bg-rose-950/20 border border-rose-800/30 text-xs space-y-1">
-                <div className="flex items-center gap-1.5 text-rose-300 font-bold">
-                  <AlertTriangle className="w-3.5 h-3.5" />
+              <div className="p-3 rounded-[10px] bg-rose-50 border border-rose-200 text-xs space-y-1">
+                <div className="flex items-center gap-1.5 text-rose-800 font-semibold">
+                  <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
                   <span>Resolution Challenged</span>
                 </div>
                 {market.challenge_status.challenger && (
-                  <div className="font-mono text-[10px] text-slate-400">
+                  <div className="font-mono text-[10px] text-ink-muted">
                     By: {market.challenge_status.challenger.slice(0, 10)}...
                   </div>
                 )}
                 {market.challenge_status.reason && (
-                  <p className="text-[11px] text-slate-300">{market.challenge_status.reason}</p>
+                  <p className="text-[11px] text-rose-900">{market.challenge_status.reason}</p>
                 )}
               </div>
             )}
 
             <div className="space-y-3 text-xs">
               <div className="space-y-1">
-                <label className="text-slate-400 font-semibold block">Challenge Reason (if disputing):</label>
+                <label className="text-ink-secondary font-medium block">Dispute / Challenge Reason:</label>
                 <input
                   type="text"
                   placeholder="e.g. Incompatible EDPB interpretation"
                   value={challengeReason}
                   onChange={(e) => setChallengeReason(e.target.value)}
-                  className="w-full p-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-rose-500 transition-colors"
+                  className="w-full p-2.5 rounded-[10px] bg-cream-50 border border-cream-300 text-xs text-ink focus:outline-none focus:border-rose-400 transition-colors"
                 />
               </div>
 
-                <p className="text-[11px] text-amber-400/90 bg-amber-950/20 p-2 rounded-lg border border-amber-900/30">
-                  Note: In this MVP, challenges are resolved by the protocol admin, who is also the evaluator.
-                </p>
+              <p className="text-[11px] text-amber-900 bg-amber-50 p-2.5 rounded-[10px] border border-amber-200">
+                Note: In this MVP, challenges are resolved by the protocol admin evaluator.
+              </p>
 
-                <button
-                  onClick={handleChallenge}
-                  disabled={!challengeReason || isSubmitting || market.state === "SETTLED"}
-                  className="w-full py-2 px-3 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/40 font-bold text-xs disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                >
-                  Submit Resolution Challenge (FR-046)
-                </button>
+              <button
+                onClick={handleChallenge}
+                disabled={!challengeReason || isSubmitting || market.state === "SETTLED"}
+                className="apple-btn-ghost w-full py-2 justify-center border-rose-300 text-rose-700 hover:bg-rose-50 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                Submit Resolution Challenge (FR-046)
+              </button>
 
               <button
                 onClick={handleSettle}
                 disabled={isSubmitting || market.state === "SETTLED"}
-                className="w-full py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="apple-btn-secondary w-full py-2 justify-center disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Execute Proper Scoring Settlement (FR-048)
               </button>
@@ -474,33 +476,33 @@ export default function PredictionMarketsPage() {
           </div>
 
           {/* Deadline Info Panel */}
-          <div className="glass-panel p-5 rounded-3xl space-y-3">
-            <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-slate-400" />
+          <div className="apple-card space-y-3">
+            <h3 className="text-xs font-semibold text-ink-muted uppercase tracking-wider flex items-center gap-1.5 font-appleDisplay">
+              <Clock className="w-3.5 h-3.5 text-lavender-600" />
               Protocol Deadlines
             </h3>
             <div className="space-y-2 text-[11px]">
-              <div className="flex items-center justify-between text-slate-400">
+              <div className="flex items-center justify-between text-ink-secondary">
                 <span>Commit By:</span>
-                <span className="font-mono text-slate-300">
+                <span className="font-mono text-ink">
                   {new Date(market.commit_deadline).toLocaleString()}
                 </span>
               </div>
-              <div className="flex items-center justify-between text-slate-400">
+              <div className="flex items-center justify-between text-ink-secondary">
                 <span>Reveal By:</span>
-                <span className="font-mono text-slate-300">
+                <span className="font-mono text-ink">
                   {new Date(market.reveal_deadline).toLocaleString()}
                 </span>
               </div>
-              <div className="flex items-center justify-between text-slate-400">
+              <div className="flex items-center justify-between text-ink-secondary">
                 <span>Challenge By:</span>
-                <span className="font-mono text-slate-300">
+                <span className="font-mono text-ink">
                   {new Date(market.challenge_deadline).toLocaleString()}
                 </span>
               </div>
-              <div className="flex items-center justify-between text-slate-400 pt-1 border-t border-slate-800/80">
+              <div className="flex items-center justify-between text-ink-secondary pt-1.5 border-t border-cream-200">
                 <span>Reward Pool:</span>
-                <span className="font-mono font-bold text-emerald-400">
+                <span className="font-mono font-bold text-lavender-700">
                   {market.reward_pool_credits} Credits
                 </span>
               </div>
@@ -511,3 +513,4 @@ export default function PredictionMarketsPage() {
     </div>
   );
 }
+

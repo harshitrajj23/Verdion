@@ -29,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="min-h-screen bg-verdion-950 text-slate-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className="min-h-screen bg-cream-100 text-ink antialiased font-sans selection:bg-lavender-200 selection:text-lavender-900">
         <StoreProvider>
           <div className="flex flex-col min-h-screen">
             <AppHeader />
@@ -47,3 +47,4 @@ export default function RootLayout({
     </html>
   );
 }
+
