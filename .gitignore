@@ -21,6 +21,9 @@ __pycache__/
 env/
 venv/
 ENV/
+.venv/
+.pytest_cache/
+veridion.db
 .env
 .env.local
 .env.*.local

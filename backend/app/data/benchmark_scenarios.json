@@ -1,0 +1,376 @@
+[
+  {
+    "id": "scen_01",
+    "title": "Customer Support Audio Training Without Notice",
+    "jurisdiction": "EU",
+    "question": "Does training an AI foundation model on raw customer service call audio comply with GDPR purpose limitation and notice requirements?",
+    "facts": {
+      "data_categories": ["voice recordings", "customer names", "account IDs"],
+      "processing_purpose": "original: customer support resolution; secondary: LLM speech training",
+      "user_notice_provided": false,
+      "user_consent_obtained": false,
+      "retention_policy": "indefinite",
+      "deletion_mechanism": "none",
+      "secondary_ai_training": true
+    },
+    "ground_truth_issues": [
+      "PURPOSE_LIMITATION_BREACH",
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING",
+      "STORAGE_LIMITATION_VIOLATION",
+      "ABSENT_ERASURE_PIPELINE"
+    ],
+    "ground_truth_gap_outcome": 1,
+    "rubric": "Evaluator checks if secondary model training on audio without notice or consent constitutes incompatible purpose under Art 5(1)(b) and Art 13."
+  },
+  {
+    "id": "scen_02",
+    "title": "Fully Consented Analytics with Bounded Retention",
+    "jurisdiction": "EU",
+    "question": "Is pseudonymized usage analytics collection compliant where explicit consent is obtained and data is purged after 30 days?",
+    "facts": {
+      "data_categories": ["pseudonymized device IDs", "clickstream events"],
+      "processing_purpose": "product improvement analytics",
+      "user_notice_provided": true,
+      "user_consent_obtained": true,
+      "retention_policy": "30 days automated purge",
+      "deletion_mechanism": "automated API endpoint and dashboard button",
+      "secondary_ai_training": false
+    },
+    "ground_truth_issues": [],
+    "ground_truth_gap_outcome": 0,
+    "rubric": "Evaluator confirms valid Art 6(1)(a) consent, transparent notice, and strict storage limitation."
+  },
+  {
+    "id": "scen_03",
+    "title": "Automated Loan Scoring Without Human Oversight",
+    "jurisdiction": "EU",
+    "question": "Can an automated machine learning system deny credit applications without human-in-the-loop review?",
+    "facts": {
+      "data_categories": ["financial transactions", "credit history", "employment status"],
+      "processing_purpose": "creditworthiness assessment and underwriting",
+      "user_notice_provided": true,
+      "user_consent_obtained": false,
+      "human_in_the_loop": false,
+      "solely_automated_decision": true,
+      "retention_policy": "5 years statutory"
+    },
+    "ground_truth_issues": [
+      "AUTOMATED_DECISION_MAKING_VIOLATION"
+    ],
+    "ground_truth_gap_outcome": 1,
+    "rubric": "Art 22(1) prohibits decisions based solely on automated processing producing significant legal/financial effects without explicit exception."
+  },
+  {
+    "id": "scen_04",
+    "title": "California Employee Biometric Data Storage Without Erasure",
+    "jurisdiction": "California",
+    "question": "Does collecting biometric access logs without a consumer deletion workflow comply with CPRA?",
+    "facts": {
+      "data_categories": ["fingerprint geometry", "employee ID"],
+      "processing_purpose": "facility security access",
+      "user_notice_provided": true,
+      "deletion_mechanism": "manual refusal",
+      "retention_policy": "indefinite"
+    },
+    "ground_truth_issues": [
+      "ABSENT_ERASURE_PIPELINE",
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "ground_truth_gap_outcome": 1,
+    "rubric": "Cal. Civ. Code § 1798.105 requires accessible consumer deletion mechanisms for personal information."
+  },
+  {
+    "id": "scen_05",
+    "title": "E-Commerce Recommendation Engine with Clear Notice and Opt-Out",
+    "jurisdiction": "EU",
+    "question": "Is recommendation engine personalization lawful under legitimate interest with active opt-out?",
+    "facts": {
+      "data_categories": ["purchase history", "product views"],
+      "processing_purpose": "personalized product recommendations",
+      "user_notice_provided": true,
+      "legal_basis": "legitimate interest (Art 6(1)(f))",
+      "opt_out_mechanism": "one-click toggle in account settings",
+      "retention_policy": "12 months inactivity timeout"
+    },
+    "ground_truth_issues": [],
+    "ground_truth_gap_outcome": 0,
+    "rubric": "Balanced legitimate interest assessment with transparent disclosure and direct right to object (Art 21)."
+  },
+  {
+    "id": "scen_06",
+    "title": "Cross-Context Behavioral Advertising Without CPRA Opt-Out Link",
+    "jurisdiction": "California",
+    "question": "Can an online retailer share browsing history with ad networks without a 'Do Not Sell or Share My Personal Information' link?",
+    "facts": {
+      "data_categories": ["IP address", "browsing history", "device fingerprint"],
+      "processing_purpose": "targeted third-party advertising",
+      "user_notice_provided": false,
+      "opt_out_mechanism": "none",
+      "retention_policy": "unspecified"
+    },
+    "ground_truth_issues": [
+      "MISSING_OPT_OUT_MECHANISM",
+      "INADEQUATE_NOTICE_FOR_SHARING"
+    ],
+    "ground_truth_gap_outcome": 1,
+    "rubric": "Cal. Civ. Code § 1798.120 mandates conspicuous opt-out link for selling or sharing personal info."
+  },
+  {
+    "id": "scen_07",
+    "title": "Healthcare Chatbot Diagnostic Transcription Training",
+    "jurisdiction": "EU",
+    "question": "Can patient symptom chat transcripts be retained and used to train diagnostic AI models without explicit health data consent?",
+    "facts": {
+      "data_categories": ["special category health symptoms", "medication history", "user email"],
+      "processing_purpose": "triage chatbot service; secondary: clinical diagnostic model development",
+      "user_notice_provided": true,
+      "user_consent_obtained": false,
+      "secondary_ai_training": true,
+      "retention_policy": "perpetual"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING",
+      "PURPOSE_LIMITATION_BREACH",
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "ground_truth_gap_outcome": 1,
+    "rubric": "GDPR Art 9 prohibits processing of health data without explicit consent; Art 5(1)(b) limits secondary training."
+  },
+  {
+    "id": "scen_08",
+    "title": "Telemetry Logging for Security Incident Detection",
+    "jurisdiction": "EU",
+    "question": "Is logging server connection IP addresses for 14 days solely for cyber defense compliant?",
+    "facts": {
+      "data_categories": ["source IP address", "timestamp", "HTTP request method"],
+      "processing_purpose": "network and information security incident response",
+      "user_notice_provided": true,
+      "legal_basis": "legitimate interest (Recital 49 GDPR)",
+      "retention_policy": "14 days automated log rotation",
+      "deletion_mechanism": "automated log rotation"
+    },
+    "ground_truth_issues": [],
+    "ground_truth_gap_outcome": 0,
+    "rubric": "Recognized legitimate interest under Recital 49 with strict minimization and bounded retention."
+  },
+  {
+    "id": "scen_09",
+    "title": "Smart Home Voice Assistant Unprompted Audio Snippet Upload",
+    "jurisdiction": "EU",
+    "question": "Does cloud recording and human grading of false-trigger voice clips comply with EU AI Act and GDPR?",
+    "facts": {
+      "data_categories": ["ambient background audio", "transcripts"],
+      "processing_purpose": "acoustic wake-word model accuracy benchmarking",
+      "user_notice_provided": false,
+      "user_consent_obtained": false,
+      "retention_policy": "indefinite",
+      "human_in_the_loop": true
+    },
+    "ground_truth_issues": [
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING",
+      "PURPOSE_LIMITATION_BREACH",
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "ground_truth_gap_outcome": 1,
+    "rubric": "Failure to provide notice at collection and unlawful secondary processing of unprompted recordings."
+  },
+  {
+    "id": "scen_10",
+    "title": "SaaS Platform Customer Contact Export with Full Erasure API",
+    "jurisdiction": "California",
+    "question": "Is a B2B SaaS CRM processing contact emails compliant when full export and delete APIs are supported?",
+    "facts": {
+      "data_categories": ["business contact names", "work emails", "job titles"],
+      "processing_purpose": "contractual enterprise CRM delivery",
+      "user_notice_provided": true,
+      "opt_out_mechanism": "admin portal management",
+      "deletion_mechanism": "instant programmatic REST API",
+      "retention_policy": "duration of contract + 60 days grace period"
+    },
+    "ground_truth_issues": [],
+    "ground_truth_gap_outcome": 0,
+    "rubric": "Compliant data processing with explicit contractual purpose and robust deletion APIs."
+  },
+  {
+    "id": "scen_11",
+    "title": "Recruitment Resume Screening AI with Hidden Demographic Weighting",
+    "jurisdiction": "EU",
+    "question": "Does using an automated scoring algorithm on CVs without disclosing criteria or testing for bias comply with EU AI Act?",
+    "facts": {
+      "data_categories": ["candidate resumes", "education history", "work experience"],
+      "processing_purpose": "pre-employment candidate filtering and ranking",
+      "user_notice_provided": false,
+      "high_risk_ai_system": true,
+      "data_governance_documented": false,
+      "human_in_the_loop": false
+    },
+    "ground_truth_issues": [
+      "AI_ACT_HIGH_RISK_GOVERNANCE_FAILURE",
+      "AUTOMATED_DECISION_MAKING_VIOLATION",
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+    ],
+    "ground_truth_gap_outcome": 1,
+    "rubric": "Employment AI is high-risk under EU AI Act Annex III; requires rigorous data governance (Art 10) and transparency."
+  },
+  {
+    "id": "scen_12",
+    "title": "Internal Employee Payroll Processing via Certified Bank",
+    "jurisdiction": "EU",
+    "question": "Is salary disbursement processing lawful under GDPR contract execution (Art 6(1)(b))?",
+    "facts": {
+      "data_categories": ["IBAN", "employee tax ID", "salary amount"],
+      "processing_purpose": "payroll execution and tax withholding",
+      "user_notice_provided": true,
+      "legal_basis": "performance of employment contract and legal obligation",
+      "retention_policy": "statutory 10-year fiscal audit requirement",
+      "deletion_mechanism": "statutory scheduled retention"
+    },
+    "ground_truth_issues": [],
+    "ground_truth_gap_outcome": 0,
+    "rubric": "Direct legal basis under Art 6(1)(b) and Art 6(1)(c) with defined statutory retention."
+  },
+  {
+    "id": "scen_13",
+    "title": "Student Exam Proctoring Facial Recognition Without Alternative",
+    "jurisdiction": "EU",
+    "question": "Can an educational platform enforce facial biometrics for online exams with no alternative accommodation?",
+    "facts": {
+      "data_categories": ["live video stream", "facial landmarks", "gaze tracking"],
+      "processing_purpose": "cheating prevention during university exam",
+      "user_notice_provided": true,
+      "user_consent_obtained": false,
+      "coerced_consent": true,
+      "retention_policy": "180 days"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING",
+      "UNBALANCED_POWER_RELATION_CONSENT_INVALID"
+    ],
+    "ground_truth_gap_outcome": 1,
+    "rubric": "Consent in educational context where failure to consent bars exam is not freely given under Art 4(11) and Art 7."
+  },
+  {
+    "id": "scen_14",
+    "title": "Opt-In Beta Feature with Instant Revocation",
+    "jurisdiction": "EU",
+    "question": "Does an opt-in beta feature for user feedback satisfy GDPR consent conditions?",
+    "facts": {
+      "data_categories": ["feature click telemetry", "in-app survey responses"],
+      "processing_purpose": "experimental feature usability assessment",
+      "user_notice_provided": true,
+      "user_consent_obtained": true,
+      "withdrawal_mechanism": "instant toggle with data deletion within 24h",
+      "retention_policy": "90 days"
+    },
+    "ground_truth_issues": [],
+    "ground_truth_gap_outcome": 0,
+    "rubric": "Meets freely given, specific, informed consent requirements under Art 7(3) with easy revocation."
+  },
+  {
+    "id": "scen_15",
+    "title": "Fitness Tracker Geolocation Repurposed for Insurance Risk Pricing",
+    "jurisdiction": "California",
+    "question": "Can a fitness app provider sell GPS jogging routes to auto insurers without explicit opt-in?",
+    "facts": {
+      "data_categories": ["precise GPS coordinates", "heart rate telemetry"],
+      "processing_purpose": "collected for run tracking; transferred for insurance underwriting",
+      "user_notice_provided": false,
+      "user_consent_obtained": false,
+      "opt_out_mechanism": "none"
+    },
+    "ground_truth_issues": [
+      "PURPOSE_LIMITATION_BREACH",
+      "MISSING_OPT_OUT_MECHANISM",
+      "INADEQUATE_NOTICE_FOR_SHARING"
+    ],
+    "ground_truth_gap_outcome": 1,
+    "rubric": "Cal. Civ. Code § 1798.100 and § 1798.121 mandate explicit notice and restrictions on sensitive personal information use."
+  },
+  {
+    "id": "scen_16",
+    "title": "Encrypted Password Reset Token Management",
+    "jurisdiction": "EU",
+    "question": "Is retaining hashed password reset tokens for 15 minutes compliant with security and storage limitation?",
+    "facts": {
+      "data_categories": ["cryptographic token hash", "account ID"],
+      "processing_purpose": "user authentication and account recovery",
+      "user_notice_provided": true,
+      "retention_policy": "15 minutes expiration with immediate invalidation upon use",
+      "deletion_mechanism": "automated memory garbage collection"
+    },
+    "ground_truth_issues": [],
+    "ground_truth_gap_outcome": 0,
+    "rubric": "Security best practice adhering strictly to Art 5(1)(e) storage limitation and Art 32 security."
+  },
+  {
+    "id": "scen_17",
+    "title": "AI Customer Support Agent Impersonating Human Without Disclosure",
+    "jurisdiction": "EU",
+    "question": "Does deploying a conversational AI sales agent that actively claims to be a human representative violate the EU AI Act?",
+    "facts": {
+      "data_categories": ["chat transcripts", "customer names"],
+      "processing_purpose": "inbound sales customer support",
+      "ai_disclosed": false,
+      "human_impersonation": true
+    },
+    "ground_truth_issues": [
+      "AI_ACT_TRANSPARENCY_BREACH"
+    ],
+    "ground_truth_gap_outcome": 1,
+    "rubric": "EU AI Act Art 50(1) explicitly requires that individuals be informed when interacting with an AI system."
+  },
+  {
+    "id": "scen_18",
+    "title": "California Retail Loyalty Program with Clear Notice and Equal Service",
+    "jurisdiction": "California",
+    "question": "Is a retail loyalty discount program compliant when clear financial incentive notice is posted?",
+    "facts": {
+      "data_categories": ["name", "email", "purchase frequency"],
+      "processing_purpose": "loyalty reward program discounts",
+      "user_notice_provided": true,
+      "financial_incentive_notice": true,
+      "non_discrimination_respected": true,
+      "deletion_mechanism": "account deletion available anytime"
+    },
+    "ground_truth_issues": [],
+    "ground_truth_gap_outcome": 0,
+    "rubric": "Meets CPRA requirements for financial incentives under Cal. Civ. Code § 1798.125."
+  },
+  {
+    "id": "scen_19",
+    "title": "Medical Imaging Scraping for Generative Diffusion Model Without IRB or Consent",
+    "jurisdiction": "EU",
+    "question": "Can publicly indexable radiology scans be scraped and embedded into a commercial synthetic imaging model?",
+    "facts": {
+      "data_categories": ["radiology MRI scans", "embedded patient metadata"],
+      "processing_purpose": "training commercial generative synthetic imagery model",
+      "user_notice_provided": false,
+      "user_consent_obtained": false,
+      "secondary_ai_training": true,
+      "retention_policy": "permanent model weights"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING",
+      "PURPOSE_LIMITATION_BREACH",
+      "AI_ACT_HIGH_RISK_GOVERNANCE_FAILURE"
+    ],
+    "ground_truth_gap_outcome": 1,
+    "rubric": "Unlawful processing of special category data under GDPR Art 9 and violation of EU AI Act Art 10 training data governance."
+  },
+  {
+    "id": "scen_20",
+    "title": "Open Source Software Bug Reporter with Explicit Public Disclosure",
+    "jurisdiction": "California",
+    "question": "Is accepting open-source crash logs with scrubbed stacks and clear public license notice compliant?",
+    "facts": {
+      "data_categories": ["anonymized stack trace", "operating system version"],
+      "processing_purpose": "software debugging and patch distribution",
+      "user_notice_provided": true,
+      "personal_identifiers_scrubbed": true,
+      "retention_policy": "until issue resolved and published"
+    },
+    "ground_truth_issues": [],
+    "ground_truth_gap_outcome": 0,
+    "rubric": "Proper data minimization and anonymization compliant with Cal. Civ. Code § 1798.140."
+  }
+]

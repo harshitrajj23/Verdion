@@ -1,0 +1,9 @@
+{
+  "network": "sepolia",
+  "chainId": 11155111,
+  "CaseRegistry": "0x9dEEFCa6b93d9812Cf67Dc7b3daCc51b62C6455E",
+  "AgentRegistry": "0x32d5D291e287fF173F803f5ee53Aef75BADb2006",
+  "PredictionMarket": "0xFF5e85547E443e3d50b393E09885c6Eb9671EE27",
+  "EvidenceBounty": "0xF9805f322ccB6f25f1FAD9266DA9420DC2595a46",
+  "ReputationSettlement": "0xb002cd06fC2ce01B38C08787E6C4EaeAf547748c"
+}
