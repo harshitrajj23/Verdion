@@ -4,84 +4,196 @@
 
 @layer base {
   :root {
-    --background: #060913;
-    --foreground: #f8fafc;
-    --font-inter: 'Inter', system-ui, sans-serif;
-    --font-jetbrains: 'JetBrains Mono', monospace;
+    --canvas: #FAF7F2;          /* Cream 70% Base Canvas */
+    --canvas-parchment: #F4EFEA;/* Apple Parchment */
+    --surface-pearl: #FDFCF9;   /* Crisp Pearl White */
+    --surface-card: #FFFFFF;    /* Pure Card Surface */
+    --ink: #1D1B1E;             /* Apple Near-Black Espresso Ink */
+    --ink-secondary: #635E6B;   /* Secondary Body Ink */
+    --ink-muted: #8E8896;       /* Micro & Caption Ink */
+    --border-hairline: #EAE3D8; /* Hairline Border */
+    --border-soft: #F0EAE1;     /* Soft Divider */
+    --lavender-action: #6E50BD; /* Apple Action Lavender */
+    --lavender-hover: #5A3EA2;  /* Pressed / Hover Lavender */
+    --lavender-chip: #F1ECFB;   /* Translucent Lavender Mist */
+    --lavender-border: #DCD0F6; /* Lavender Border */
+    --tile-dark: #191720;       /* Contrast Dark Tile */
+    --tile-dark-surface: #221E2C;
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-inter);
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Inter", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.47;
+    letter-spacing: -0.022em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro", "Inter", system-ui, sans-serif;
+    letter-spacing: -0.025em;
+    color: var(--ink);
   }
 }
 
-/* ── Glassmorphism primitives ── */
+/* ── Apple Glassmorphism & Frosted Panels ── */
+.apple-frosted-nav {
+  background: rgba(250, 247, 242, 0.82);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(234, 227, 216, 0.85);
+}
+
+.apple-frosted-dark {
+  background: rgba(25, 23, 32, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(51, 46, 65, 0.6);
+}
+
 .glass-panel {
-  background: rgba(16, 22, 38, 0.7);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-hairline);
+  box-shadow: 0 1px 3px rgba(35, 25, 50, 0.02), 0 6px 20px -2px rgba(35, 25, 50, 0.03);
 }
 
 .glass-panel-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-panel-hover:hover {
-  background: rgba(21, 30, 52, 0.85);
-  border-color: rgba(255, 255, 255, 0.16);
+  background: #FFFFFF;
+  border-color: #C7B5EE;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 14px rgba(35, 25, 50, 0.04), 0 16px 36px -6px rgba(110, 80, 189, 0.08);
 }
 
-/* ── Custom scrollbars ── */
+/* ── Apple Capsule Pill Buttons & Actions (§design.md) ── */
+.apple-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--lavender-action);
+  color: #FFFFFF;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  padding: 0.625rem 1.375rem;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 2px rgba(110, 80, 189, 0.2), 0 3px 8px -1px rgba(110, 80, 189, 0.25);
+  cursor: pointer;
+}
+
+.apple-btn-primary:hover {
+  background-color: var(--lavender-hover);
+  box-shadow: 0 2px 4px rgba(110, 80, 189, 0.25), 0 6px 14px -1px rgba(110, 80, 189, 0.3);
+}
+
+.apple-btn-primary:active {
+  transform: scale(0.97);
+}
+
+.apple-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--surface-pearl);
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border: 1px solid var(--border-hairline);
+  border-radius: 9999px;
+  padding: 0.625rem 1.375rem;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.apple-btn-secondary:hover {
+  background-color: var(--canvas-parchment);
+  border-color: #DFD6C7;
+}
+
+.apple-btn-secondary:active {
+  transform: scale(0.97);
+}
+
+.apple-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: var(--lavender-action);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border: 1px solid rgba(110, 80, 189, 0.3);
+  border-radius: 9999px;
+  padding: 0.625rem 1.375rem;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.apple-btn-ghost:hover {
+  background-color: var(--lavender-chip);
+  border-color: var(--lavender-action);
+}
+
+.apple-btn-ghost:active {
+  transform: scale(0.97);
+}
+
+/* ── Apple Utility Cards (rounded.lg = 18px) ── */
+.apple-card {
+  background-color: #FFFFFF;
+  border-radius: 18px;
+  border: 1px solid var(--border-hairline);
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(35, 25, 50, 0.02), 0 6px 18px -3px rgba(35, 25, 50, 0.03);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-card:hover {
+  border-color: #C7B5EE;
+}
+
+/* ── Apple Scrollbar ── */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b0f19;
+  background: #FAF7F2;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 3px;
+  background: #DFD6C7;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #C6B9A5;
 }
 
-/* ── Glow effects ── */
-.border-glow-emerald {
-  border-color: rgba(16, 185, 129, 0.5);
-  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.3);
-}
-
+/* ── Glow / Focus Rings ── */
+.border-glow-emerald,
 .border-glow-cyan {
-  border-color: rgba(6, 182, 212, 0.5);
-  box-shadow: 0 0 15px -3px rgba(6, 182, 212, 0.3);
+  border-color: rgba(110, 80, 189, 0.4);
+  box-shadow: 0 0 12px -2px rgba(110, 80, 189, 0.2);
 }
 
 .border-glow-rose {
-  border-color: rgba(244, 63, 94, 0.5);
-  box-shadow: 0 0 15px -3px rgba(244, 63, 94, 0.3);
-}
-
-/* ── Animated gradient backgrounds ── */
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.animated-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 8s ease infinite;
+  border-color: rgba(225, 29, 72, 0.35);
+  box-shadow: 0 0 12px -2px rgba(225, 29, 72, 0.15);
 }
 
 /* ── Shimmer / skeleton loading ── */
@@ -93,7 +205,7 @@
 .skeleton {
   position: relative;
   overflow: hidden;
-  background: rgba(30, 41, 59, 0.5);
+  background: #EAE3D8;
   border-radius: 0.5rem;
 }
 
@@ -104,18 +216,18 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.04) 40%,
-    rgba(255, 255, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0.04) 60%,
+    rgba(255, 255, 255, 0.6) 40%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.6) 60%,
     transparent 100%
   );
   animation: shimmer 1.8s ease-in-out infinite;
 }
 
-/* ── Pulse-dot (used for live indicator, no fake "ping") ── */
+/* ── Pulse-dot ── */
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.9); }
 }
 
 .pulse-dot {
@@ -130,8 +242,8 @@
 
 .spinner {
   animation: spin-smooth 1s linear infinite;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-top-color: currentColor;
+  border: 2px solid rgba(110, 80, 189, 0.2);
+  border-top-color: var(--lavender-action);
   border-radius: 50%;
 }
 
@@ -142,29 +254,29 @@
   gap: 0.375rem;
   padding: 0.25rem 0.625rem;
   border-radius: 9999px;
-  font-size: 0.625rem;
-  font-weight: 700;
-  font-family: var(--font-jetbrains);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  font-family: var(--font-jetbrains), monospace;
   letter-spacing: 0.025em;
   white-space: nowrap;
 }
 
 .tx-chip-pending {
-  background: rgba(245, 158, 11, 0.12);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: #FEF3C7;
+  color: #B45309;
+  border: 1px solid #FCD34D;
 }
 
 .tx-chip-confirmed {
-  background: rgba(16, 185, 129, 0.12);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: #F1ECFB;
+  color: #6E50BD;
+  border: 1px solid #DCD0F6;
 }
 
 .tx-chip-reverted {
-  background: rgba(244, 63, 94, 0.12);
-  color: #fb7185;
-  border: 1px solid rgba(244, 63, 94, 0.3);
+  background: #FFE4E6;
+  color: #BE123C;
+  border: 1px solid #FDA4AF;
 }
 
 /* ── Timeline connector ── */
@@ -180,7 +292,7 @@
   top: 1.25rem;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, #1e293b 0%, transparent 100%);
+  background: linear-gradient(to bottom, #EAE3D8 0%, transparent 100%);
 }
 
 .timeline-dot {
@@ -190,14 +302,14 @@
   width: 0.625rem;
   height: 0.625rem;
   border-radius: 50%;
-  border: 2px solid #060913;
+  border: 2px solid #FAF7F2;
 }
 
-/* ── Fade-in entrance animation ── */
+/* ── Entrance animation ── */
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -206,7 +318,7 @@
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.3s ease-out both;
+  animation: fade-in-up 0.25s ease-out both;
 }
 
 /* ── Countdown timer styles ── */
@@ -219,20 +331,21 @@
 
 .countdown-value {
   font-size: 1.125rem;
-  font-weight: 800;
-  font-family: var(--font-jetbrains);
+  font-weight: 700;
+  font-family: var(--font-jetbrains), monospace;
   line-height: 1;
+  color: var(--ink);
 }
 
 .countdown-label {
   font-size: 0.5625rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #64748b;
+  color: var(--ink-muted);
   margin-top: 0.125rem;
 }
 
-/* ── Print styling for §16.8 final report export ── */
+/* ── Print styling ── */
 @media print {
   body {
     background: white !important;
@@ -244,10 +357,11 @@
   .print-only {
     display: block !important;
   }
-  .glass-panel {
+  .glass-panel, .apple-card {
     background: transparent !important;
     border: 1px solid #ccc !important;
     backdrop-filter: none !important;
     box-shadow: none !important;
   }
 }
+

@@ -10,15 +10,11 @@ export const LiveOrSampleBadge: React.FC = () => {
   return (
     <button
       onClick={toggleLiveChain}
-      className="group relative flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all"
-      style={{
-        background: isLiveChain
-          ? "rgba(16, 185, 129, 0.08)"
-          : "rgba(99, 102, 241, 0.08)",
-        borderColor: isLiveChain
-          ? "rgba(16, 185, 129, 0.3)"
-          : "rgba(99, 102, 241, 0.3)"
-      }}
+      className={`group relative flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-medium transition-all duration-150 active:scale-[0.97] border ${
+        isLiveChain
+          ? "bg-lavender-100 text-lavender-700 border-lavender-300 shadow-sm"
+          : "bg-cream-200 text-ink-secondary border-cream-300 hover:border-cream-400"
+      }`}
       title={
         isLiveChain
           ? "LIVE TESTNET: Interacting with Sepolia contracts. Click to switch to sample data."
@@ -27,26 +23,27 @@ export const LiveOrSampleBadge: React.FC = () => {
     >
       {isLiveChain ? (
         <>
-          <Radio className="w-3.5 h-3.5 text-emerald-400" />
-          <span className="text-emerald-300">Live Testnet</span>
-          <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-dot" />
+          <Radio className="w-3.5 h-3.5 text-lavender-600" />
+          <span className="font-semibold text-lavender-800">Live Testnet</span>
+          <span className="w-2 h-2 rounded-full bg-lavender-600 pulse-dot" />
         </>
       ) : (
         <>
-          <Database className="w-3.5 h-3.5 text-indigo-400" />
-          <span className="text-indigo-300">Sample Data</span>
-          <span className="w-2 h-2 rounded-full bg-indigo-400" />
+          <Database className="w-3.5 h-3.5 text-ink-secondary" />
+          <span className="font-medium">Sample Data</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-cream-500" />
         </>
       )}
 
-      {/* Tooltip */}
-      <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 hidden group-hover:block z-50 pointer-events-none">
-        <div className="px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-[10px] text-slate-300 whitespace-nowrap shadow-xl">
+      {/* Apple Frosted Tooltip */}
+      <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 hidden group-hover:block z-50 pointer-events-none animate-fade-in-up">
+        <div className="px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-cream-300 text-[11px] text-ink whitespace-nowrap shadow-apple">
           {isLiveChain
-            ? "Connected to Sepolia Testnet. Click to view sample data."
-            : "Curated benchmark dataset (§16.1). Click to connect live."}
+            ? "Connected to Sepolia Testnet. Click to switch to benchmark sample."
+            : "Curated benchmark dataset (§16.1). Click to switch to live testnet."}
         </div>
       </div>
     </button>
   );
 };
+

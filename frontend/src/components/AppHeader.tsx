@@ -2,12 +2,37 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useStore } from "@/lib/store";
 import { LiveOrSampleBadge } from "./LiveOrSampleBadge";
 import { NetworkPromptModal } from "./NetworkPromptModal";
-import { Shield, Coins, Wallet, PlusCircle, Network, Menu, X } from "lucide-react";
+import {
+  Shield,
+  Coins,
+  Wallet,
+  PlusCircle,
+  Network,
+  Menu,
+  X,
+  Layers,
+  Sparkles,
+  ChevronRight
+} from "lucide-react";
+
+const subNavTabs = [
+  { href: "/", label: "Overview" },
+  { href: "/cases", label: "Cases" },
+  { href: "/agents", label: "Agents" },
+  { href: "/graph", label: "Argument Graph" },
+  { href: "/markets", label: "Markets" },
+  { href: "/bounties", label: "Bounties" },
+  { href: "/audit", label: "Audit" },
+  { href: "/report", label: "Final Report" },
+  { href: "/benchmark", label: "Benchmark" },
+];
 
 export const AppHeader: React.FC = () => {
+  const pathname = usePathname();
   const {
     walletAddress,
     connectWallet,
@@ -23,7 +48,6 @@ export const AppHeader: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [detectedChainId, setDetectedChainId] = useState<number | undefined>();
 
-  // Listen for chain changes when in live mode
   useEffect(() => {
     if (typeof window !== "undefined" && (window as any).ethereum && isLiveChain) {
       const checkChain = async () => {
@@ -61,119 +85,159 @@ export const AppHeader: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-verdion-950/80 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          {/* Left: Brand */}
-          <div className="flex items-center gap-4 lg:gap-6">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center p-0.5 shadow-glow">
-                <div className="w-full h-full bg-verdion-950 rounded-[10px] flex items-center justify-center">
-                  <Shield className="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" />
-                </div>
+      {/* ── Tier 1: Apple Global Navigation Bar (height: 44px, design.md §global-nav) ── */}
+      <nav className="w-full h-11 bg-tile-dark text-cream-100 border-b border-tile-border/70 z-50 text-[12px] font-normal tracking-[-0.01em]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+          {/* Brand mark & Protocol Identity */}
+          <div className="flex items-center gap-6">
+            <Link href="/" className="flex items-center gap-2 group transition-opacity hover:opacity-85">
+              <div className="w-5 h-5 rounded-full bg-lavender-500/20 border border-lavender-400/40 flex items-center justify-center">
+                <Shield className="w-3 h-3 text-lavender-300" />
               </div>
-              <div className="hidden sm:block">
-                <div className="flex items-center gap-2">
-                  <span className="font-extrabold text-lg tracking-wider text-white">VERIDION</span>
-                  <span className="px-1.5 py-0.5 text-[10px] font-bold tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded">
-                    v1.0 MVP
-                  </span>
-                </div>
-                <p className="text-[11px] font-medium text-slate-400 tracking-tight">Reason. Predict. Verify.</p>
-              </div>
+              <span className="font-semibold tracking-tight text-white">VERIDION</span>
             </Link>
 
-            {/* Sample vs Live Indicator (§16.1) */}
-            <div className="hidden md:block">
-              <LiveOrSampleBadge />
+            <div className="hidden md:flex items-center gap-4 text-cream-400 text-[11px]">
+              <span className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-lavender-400" />
+                EU Legal Intelligence
+              </span>
+              <span>•</span>
+              <span>Corpus v2026.1</span>
+              <span>•</span>
+              <span className="font-mono text-lavender-300">Commit-Reveal v1.0</span>
             </div>
           </div>
 
-          {/* Right: Network, Faucet, Wallet */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Pending Tx Indicator */}
+          {/* Right Global Actions */}
+          <div className="flex items-center gap-3">
+            {/* Pending Txs */}
             {activePendingCount > 0 && (
-              <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-950/40 border border-amber-800/40 text-xs">
-                <span className="spinner w-3 h-3 text-amber-400" />
-                <span className="text-amber-300 font-semibold text-[11px]">
-                  {activePendingCount} Pending
-                </span>
+              <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-950/80 border border-amber-600/50 text-amber-200 text-[11px] font-medium">
+                <span className="spinner w-2.5 h-2.5 text-amber-300" />
+                <span>{activePendingCount} pending</span>
               </div>
             )}
 
-            {/* Network Badge */}
+            {/* Network indicator pill */}
             <button
               onClick={() => isLiveChain && setShowNetworkModal(true)}
-              className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 text-xs text-slate-300 hover:border-slate-700 transition-colors"
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tile-dark2 hover:bg-tile-dark3 border border-tile-border text-cream-300 text-[11px] transition-colors"
             >
-              <Network className="w-3.5 h-3.5 text-cyan-400" />
+              <Network className="w-3 h-3 text-lavender-400" />
               <span>Sepolia</span>
-              <span className={`w-2 h-2 rounded-full ${isLiveChain ? "bg-emerald-400 pulse-dot" : "bg-slate-600"}`} />
+              <span className={`w-1.5 h-1.5 rounded-full ${isLiveChain ? "bg-lavender-400 pulse-dot" : "bg-cream-600"}`} />
             </button>
 
-            {/* Simulated Credit Balance (§10.6, FR-041) */}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-950/40 border border-emerald-800/40 text-xs">
-              <Coins className="w-4 h-4 text-emerald-400" />
-              <span className="font-mono font-bold text-emerald-300">{userCredits}</span>
-              <span className="text-emerald-500/90 text-[10px] font-semibold uppercase hidden lg:inline">Sim Credits</span>
+            {/* Demo Faucet Credits */}
+            <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-lavender-900/40 border border-lavender-700/50 text-cream-100 text-[11px]">
+              <Coins className="w-3 h-3 text-lavender-300" />
+              <span className="font-mono font-semibold text-lavender-200">{userCredits}</span>
+              <span className="text-cream-400 text-[10px] hidden md:inline">Sim</span>
               <button
                 onClick={() => mintDemoCredits(100)}
-                className="text-emerald-400 hover:text-emerald-200 transition-colors ml-0.5 p-0.5"
-                title="Mint +100 Simulated Test Credits via Demo Faucet"
+                className="text-lavender-300 hover:text-white transition-colors ml-0.5"
+                title="Mint +100 Simulated Test Credits"
               >
-                <PlusCircle className="w-3.5 h-3.5" />
+                <PlusCircle className="w-3 h-3" />
               </button>
             </div>
 
-            {/* Wallet Connection (§16.9) */}
+            {/* Wallet Connect Pill */}
             {walletAddress ? (
               <button
                 onClick={disconnectWallet}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-all"
+                className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-tile-dark2 hover:bg-tile-dark3 border border-tile-border text-cream-200 text-[11px] font-mono transition-colors active:scale-[0.97]"
                 title="Click to disconnect"
               >
-                <div className="w-2 h-2 rounded-full bg-emerald-400" />
+                <div className="w-1.5 h-1.5 rounded-full bg-lavender-400" />
                 <span>{walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}</span>
               </button>
             ) : (
               <button
                 onClick={connectWallet}
-                className="flex items-center gap-2 px-4 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-semibold shadow-glow transition-all active:scale-95"
+                className="flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-lavender-600 hover:bg-lavender-500 text-white text-[11px] font-medium shadow-apple-pill transition-all active:scale-[0.97]"
               >
-                <Wallet className="w-3.5 h-3.5" />
+                <Wallet className="w-3 h-3" />
                 <span>Connect</span>
               </button>
             )}
 
-            {/* Mobile menu toggle */}
+            {/* Mobile menu button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden text-slate-400 hover:text-white p-1"
+              className="lg:hidden text-cream-400 hover:text-white p-1 ml-1"
+              aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>
+      </nav>
 
-        {/* Mobile menu bar */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-slate-800/80 bg-verdion-950/95 backdrop-blur-xl p-4 space-y-3">
+      {/* ── Tier 2: Apple Sub-Nav Frosted Glass (height: 52px, design.md §sub-nav-frosted) ── */}
+      <header className="sticky top-0 z-40 w-full apple-frosted-nav">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[52px] flex items-center justify-between gap-4">
+          {/* Section Category Title */}
+          <div className="flex items-center gap-4 shrink-0">
+            <Link href="/" className="font-appleDisplay font-semibold text-lg text-ink tracking-tight hover:opacity-85 transition-opacity">
+              Legal Intelligence
+            </Link>
+          </div>
+
+          {/* Horizontal Apple Pill Navigation Tabs */}
+          <nav className="hidden lg:flex items-center gap-1 overflow-x-auto py-1 scrollbar-none">
+            {subNavTabs.map((tab) => {
+              const isActive = pathname === tab.href;
+              return (
+                <Link
+                  key={tab.href}
+                  href={tab.href}
+                  className={`px-3 py-1.5 rounded-full text-[13px] font-medium tracking-tight transition-all duration-150 active:scale-[0.97] whitespace-nowrap ${
+                    isActive
+                      ? "bg-lavender-600 text-white shadow-apple-pill"
+                      : "text-ink-secondary hover:text-ink hover:bg-cream-200/80"
+                  }`}
+                >
+                  {tab.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Right Action: Live vs Sample Capsule Badge */}
+          <div className="flex items-center gap-2 shrink-0">
             <LiveOrSampleBadge />
-            <div className="flex items-center gap-2">
-              <Coins className="w-4 h-4 text-emerald-400" />
-              <span className="text-xs font-mono font-bold text-emerald-300">{userCredits}</span>
-              <span className="text-emerald-500/90 text-[10px] font-semibold uppercase">Sim Credits</span>
-              <button
-                onClick={() => mintDemoCredits(100)}
-                className="text-emerald-400 hover:text-emerald-200 ml-1"
-              >
-                <PlusCircle className="w-3.5 h-3.5" />
-              </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden border-t border-cream-300 bg-cream-100/98 backdrop-blur-xl p-4 space-y-2 animate-fade-in-up shadow-apple">
+            <div className="grid grid-cols-2 gap-1.5 pb-3 border-b border-cream-300">
+              {subNavTabs.map((tab) => {
+                const isActive = pathname === tab.href;
+                return (
+                  <Link
+                    key={tab.href}
+                    href={tab.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-3 py-2 rounded-xl text-xs font-medium text-center transition-all ${
+                      isActive
+                        ? "bg-lavender-600 text-white shadow-sm"
+                        : "bg-cream-200 text-ink-secondary hover:bg-cream-300 hover:text-ink"
+                    }`}
+                  >
+                    {tab.label}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}
       </header>
 
-      {/* Network Prompt Modal (§16.9) */}
+      {/* Network Prompt Modal */}
       <NetworkPromptModal
         isOpen={showNetworkModal}
         onClose={() => setShowNetworkModal(false)}
@@ -184,3 +248,4 @@ export const AppHeader: React.FC = () => {
     </>
   );
 };
+
