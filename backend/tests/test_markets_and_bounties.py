@@ -333,3 +333,96 @@ async def test_market_settlement_with_stored_receipt_present(test_db):
     assert settle_res["settlements"][0]["tx_hash"] == confirmed_hash
     assert settle_res["settlements"][0]["status"] == "confirmed"
 
+
+@pytest.mark.asyncio
+async def test_market_settlement_with_unrelated_record_not_attached(test_db):
+    now = datetime.now(timezone.utc)
+    case_req = CaseCreateRequest(
+        title="Market Case Unrelated Record",
+        question="Question",
+        jurisdiction="EU",
+        assessment_date="2026-10-19",
+        facts={"data_categories": ["audio"], "processing_purpose": "analytics"}
+    )
+    case = await CaseService.create_case(test_db, case_req)
+
+    m_req = MarketCreateRequest(
+        case_id=case.id,
+        question="Will compliance gap be confirmed?",
+        outcome_definition="1 if gap exists, 0 otherwise",
+        resolution_method="Independent evaluator audit",
+        commit_deadline=now + timedelta(hours=1),
+        reveal_deadline=now + timedelta(hours=2),
+        resolution_deadline=now + timedelta(hours=3),
+        challenge_window_seconds=86400,
+        void_criteria="Void if statute repealed",
+        evaluator_address=settings.EVALUATOR_ADDRESS
+    )
+    market = await MarketService.create_market(test_db, m_req)
+
+    agent_id = "agent_legal_researcher"
+    agent = await test_db.get(Agent, agent_id)
+    prob = 0.75
+    digest = "0x" + "c" * 64
+    nonce = generate_nonce()
+
+    c_hash = compute_commitment_hash(
+        chain_id=settings.CHAIN_ID,
+        market_id=market.id,
+        agent_id=agent_id,
+        probability=prob,
+        evidence_digest=digest,
+        nonce=nonce,
+        wallet_address=agent.wallet_address
+    )
+
+    await MarketService.commit_forecast(
+        test_db,
+        market.id,
+        MarketCommitRequest(agent_id=agent_id, commitment_hash=c_hash, wallet_address=agent.wallet_address)
+    )
+
+    await MarketService.reveal_forecast(
+        test_db,
+        market.id,
+        MarketRevealRequest(
+            agent_id=agent_id,
+            probability=prob,
+            evidence_digest=digest,
+            nonce=nonce,
+            wallet_address=agent.wallet_address
+        )
+    )
+
+    await MarketService.propose_resolution(
+        test_db,
+        market.id,
+        MarketResolveRequest(
+            proposed_outcome=1,
+            resolution_reference="Audit #3",
+            evaluator_address=settings.EVALUATOR_ADDRESS
+        )
+    )
+
+    # Store an unrelated confirmed TransactionRecord on the same case and contract address, but different market_id
+    unrelated_hash = "0x9999999999999999999999999999999999999999999999999999999999999999"
+    unrelated_rec = TransactionRecord(
+        tx_hash=unrelated_hash,
+        contract_address=market.contract_address,
+        event_name="MarketSettled",
+        sender=settings.EVALUATOR_ADDRESS,
+        case_id=market.case_id,
+        status="CONFIRMED",
+        payload={"market_id": "mkt_different_unrelated_id"}
+    )
+    test_db.add(unrelated_rec)
+    await test_db.flush()
+
+    # Settle market and assert unrelated record is NOT attached (tx_hash is None, status is pending)
+    settle_res = await MarketService.settle_market(test_db, market.id, settler_address=settings.EVALUATOR_ADDRESS)
+    assert settle_res["status"] == "SETTLED"
+    assert len(settle_res["settlements"]) == 1
+    assert settle_res["settlements"][0]["tx_hash"] is None
+    assert settle_res["settlements"][0]["status"] == "pending"
+
+

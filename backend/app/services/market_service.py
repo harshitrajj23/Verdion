@@ -341,20 +341,16 @@ class MarketService:
         outcome = market.proposed_outcome
         settlement_results = []
 
-        # Look up if a confirmed settlement receipt is stored for this market
+        # Look up if a confirmed settlement receipt is stored for this exact market
         stmt_rec = select(TransactionRecord).where(
-            TransactionRecord.status.in_(["CONFIRMED", "confirmed", "0x1"]),
-            (
-                (TransactionRecord.event_name.in_(["MarketSettled", "SettlementExecuted", "SETTLEMENT"])) |
-                (TransactionRecord.case_id == market.case_id)
-            )
+            TransactionRecord.event_name == "MarketSettled",
+            TransactionRecord.status.in_(["CONFIRMED", "confirmed", "0x1"])
         )
         res_rec = await db.execute(stmt_rec)
         tx_records = res_rec.scalars().all()
         confirmed_tx_hash = None
         for tr in tx_records:
-            tr_market = (tr.payload or {}).get("market_id")
-            if tr_market == market_id or tr.case_id == market.case_id or tr.contract_address == market.contract_address:
+            if isinstance(tr.payload, dict) and tr.payload.get("market_id") == market_id:
                 confirmed_tx_hash = tr.tx_hash
                 break
 
