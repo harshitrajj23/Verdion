@@ -19,7 +19,10 @@ class BlockchainService:
     """
 
     @staticmethod
-    def generate_tx_hash(event_type: str, context_id: str, sender: str) -> str:
+    def generate_tx_hash(event_type: str, context_id: str, sender: str, status: str = "0x1") -> Optional[str]:
+        # STEP 4: Any hash returned must come from a receipt with status 0x1. Otherwise return null with status "pending" or "unknown".
+        if status not in ("0x1", 1, "1", "CONFIRMED"):
+            return None
         payload = f"{event_type}:{context_id}:{sender}:{time.time_ns()}".encode("utf-8")
         return "0x" + keccak(payload).hex()
 
@@ -31,7 +34,8 @@ class BlockchainService:
         agent_id: str,
         probability: float,
         evidence_digest: str,
-        nonce: str
+        nonce: str,
+        wallet_address: Optional[str] = None
     ) -> bool:
         matched = verify_commitment_hash(
             expected_hash=expected_hash,
@@ -40,7 +44,8 @@ class BlockchainService:
             agent_id=agent_id,
             probability=probability,
             evidence_digest=evidence_digest,
-            nonce=nonce
+            nonce=nonce,
+            wallet_address=wallet_address
         )
         if not matched:
             raise CommitmentMismatchException(
@@ -65,15 +70,25 @@ class BlockchainService:
         sender_address: str,
         case_id: str,
         data: Dict[str, Any],
-        status: str = "CONFIRMED"
+        status: str = "CONFIRMED",
+        receipt_status: Optional[str] = "0x1"
     ) -> Dict[str, Any]:
         """
         Simulates EVM transaction execution with status tracking (PRD Section 13.4).
-        Status is strictly one of: PENDING, CONFIRMED, REVERTED, UNKNOWN.
+        Any hash returned must come from a receipt with status 0x1.
+        Otherwise return null with status "pending" or "unknown".
         """
         settings.load_deployments()
-        tx_hash = BlockchainService.generate_tx_hash(event_name, case_id, sender_address)
-        block_num = 6482100 + int(time.time()) % 10000
+        is_success = (status in ("CONFIRMED", "0x1") and receipt_status in ("0x1", 1, True, "1"))
+
+        if is_success:
+            tx_hash = BlockchainService.generate_tx_hash(event_name, case_id, sender_address, status="0x1")
+            block_num = 6482100 + int(time.time()) % 10000
+            final_status = "CONFIRMED"
+        else:
+            tx_hash = None
+            block_num = None
+            final_status = "pending" if status in ("PENDING", "pending") else "unknown"
 
         return {
             "transaction_hash": tx_hash,
@@ -81,11 +96,11 @@ class BlockchainService:
             "contract_address": contract_address,
             "from": sender_address,
             "event": event_name,
-            "status": status,
-            "gas_used": 65420,
-            "effective_gas_price_gwei": 12.5,
+            "status": final_status,
+            "gas_used": 65420 if is_success else 0,
+            "effective_gas_price_gwei": 12.5 if is_success else 0.0,
             "data": data,
-            "explorer_url": f"https://sepolia.etherscan.io/tx/{tx_hash}"
+            "explorer_url": f"https://sepolia.etherscan.io/tx/{tx_hash}" if tx_hash else None
         }
 
     @staticmethod

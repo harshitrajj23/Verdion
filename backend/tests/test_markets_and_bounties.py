@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 from backend.app.core.config import settings
 from backend.app.core.crypto import compute_commitment_hash, generate_nonce
 from backend.app.core.database import Base
+from backend.app.models.entities import Agent
 from backend.app.core.errors import (
     CommitmentMismatchException,
     InvalidScopeException,
@@ -76,6 +77,8 @@ async def test_prediction_market_commit_reveal_and_settle(test_db):
 
     # 2. Commit Forecast
     agent_id = "agent_legal_researcher"
+    agent = await test_db.get(Agent, agent_id)
+    assert agent is not None and agent.wallet_address.startswith("0x")
     prob = 0.85
     digest = "0x" + "a" * 64
     nonce = generate_nonce()
@@ -86,13 +89,14 @@ async def test_prediction_market_commit_reveal_and_settle(test_db):
         agent_id=agent_id,
         probability=prob,
         evidence_digest=digest,
-        nonce=nonce
+        nonce=nonce,
+        wallet_address=agent.wallet_address
     )
 
     commit_res = await MarketService.commit_forecast(
         test_db,
         market.id,
-        MarketCommitRequest(agent_id=agent_id, commitment_hash=c_hash)
+        MarketCommitRequest(agent_id=agent_id, commitment_hash=c_hash, wallet_address=agent.wallet_address)
     )
     assert commit_res.reveal_status == "COMMITTED"
 
@@ -105,7 +109,8 @@ async def test_prediction_market_commit_reveal_and_settle(test_db):
                 agent_id=agent_id,
                 probability=prob,
                 evidence_digest=digest,
-                nonce=generate_nonce()  # Wrong nonce!
+                nonce=generate_nonce(),  # Wrong nonce!
+                wallet_address=agent.wallet_address
             )
         )
 
@@ -117,7 +122,8 @@ async def test_prediction_market_commit_reveal_and_settle(test_db):
             agent_id=agent_id,
             probability=prob,
             evidence_digest=digest,
-            nonce=nonce
+            nonce=nonce,
+            wallet_address=agent.wallet_address
         )
     )
     assert reveal_res.reveal_status == "REVEALED"
@@ -152,6 +158,8 @@ async def test_prediction_market_commit_reveal_and_settle(test_db):
     assert len(settle_res["settlements"]) == 1
     # Brier score: (0.85 - 1)^2 = 0.0225
     assert round(settle_res["settlements"][0]["brier_score"], 4) == 0.0225
+    assert settle_res["settlements"][0]["tx_hash"] is None
+    assert settle_res["settlements"][0]["status"] == "pending"
 
     # 8. Duplicate settlement fails (FR-052)
     with pytest.raises(SettlementAlreadyDoneException):

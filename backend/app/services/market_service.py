@@ -129,12 +129,16 @@ class MarketService:
             raise InvalidForecastException(f"Agent {req.agent_id} has already committed to market {market_id}.")
 
         forecast_id = f"fc_{uuid.uuid4().hex[:10]}"
+        # Resolve registered agent wallet address
+        agent = await db.get(Agent, req.agent_id)
+        wallet_address = req.wallet_address or (agent.wallet_address if agent else sender_address)
+
         tx_info = BlockchainService.record_simulated_transaction(
             event_name="ForecastCommitted",
             contract_address=market.contract_address,
-            sender_address=sender_address,
+            sender_address=wallet_address,
             case_id=market.case_id,
-            data={"market_id": market_id, "agent_id": req.agent_id, "hash": req.commitment_hash}
+            data={"market_id": market_id, "agent_id": req.agent_id, "wallet_address": wallet_address, "hash": req.commitment_hash}
         )
 
         forecast = Forecast(
@@ -157,6 +161,7 @@ class MarketService:
             payload={
                 "market_id": market_id,
                 "agent_id": req.agent_id,
+                "wallet_address": wallet_address,
                 "commitment_hash": req.commitment_hash
             },
             tx_hash=tx_info["transaction_hash"]
@@ -190,6 +195,13 @@ class MarketService:
         if forecast.reveal_status == "REVEALED":
             raise InvalidForecastException(f"Forecast for agent {req.agent_id} has already been revealed.")
 
+        agent = await db.get(Agent, req.agent_id)
+        wallet_address = (
+            req.wallet_address or
+            (agent.wallet_address if agent else None) or
+            sender_address
+        )
+
         # Cryptographic verification against commitment hash (FR-034)
         BlockchainService.verify_agent_reveal(
             expected_hash=forecast.commitment_hash,
@@ -198,15 +210,16 @@ class MarketService:
             agent_id=req.agent_id,
             probability=req.probability,
             evidence_digest=req.evidence_digest,
-            nonce=req.nonce
+            nonce=req.nonce,
+            wallet_address=wallet_address
         )
 
         tx_info = BlockchainService.record_simulated_transaction(
             event_name="ForecastRevealed",
             contract_address=market.contract_address,
-            sender_address=sender_address,
+            sender_address=wallet_address,
             case_id=market.case_id,
-            data={"market_id": market_id, "agent_id": req.agent_id, "probability": req.probability}
+            data={"market_id": market_id, "agent_id": req.agent_id, "wallet_address": wallet_address, "probability": req.probability}
         )
 
         forecast.probability = req.probability
@@ -369,7 +382,6 @@ class MarketService:
                     )
                     db.add(rep_record)
 
-                tx_hash = BlockchainService.generate_tx_hash("MarketSettled", market_id, fc.agent_id)
                 settlement = Settlement(
                     id=f"stl_{uuid.uuid4().hex[:10]}",
                     reference_type="MARKET",
@@ -378,7 +390,7 @@ class MarketService:
                     score=bs,
                     reward=reward,
                     resolution_reference=market.resolution_reference or "evaluator_benchmark",
-                    tx_hash=tx_hash,
+                    tx_hash=None,
                     created_at=utcnow()
                 )
                 db.add(settlement)
@@ -389,7 +401,8 @@ class MarketService:
                     "outcome": outcome,
                     "brier_score": bs,
                     "reward": reward,
-                    "tx_hash": tx_hash
+                    "tx_hash": None,
+                    "status": "pending"
                 })
 
         market.status = "SETTLED"

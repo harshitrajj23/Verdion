@@ -19,7 +19,8 @@ class MarketCreateRequest(BaseModel):
 
 class MarketCommitRequest(BaseModel):
     agent_id: str
-    commitment_hash: str = Field(..., description="keccak256 hash H(chainId, marketId, agentId, prob, digest, nonce)")
+    commitment_hash: str = Field(..., description="keccak256 hash H(chainId, marketId, agent, prob, digest, nonce)")
+    wallet_address: Optional[str] = Field(default=None, description="Registered Ethereum wallet address in AgentRegistry")
 
 
 class MarketRevealRequest(BaseModel):
@@ -27,6 +28,7 @@ class MarketRevealRequest(BaseModel):
     probability: float = Field(..., ge=0.0, le=1.0)
     evidence_digest: str = Field(..., description="Digest of evidence supporting the forecast")
     nonce: str = Field(..., description="Secret 32-byte hexadecimal nonce")
+    wallet_address: Optional[str] = Field(default=None, description="Registered Ethereum wallet address in AgentRegistry")
 
 
 class MarketResolveRequest(BaseModel):
