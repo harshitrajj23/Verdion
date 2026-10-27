@@ -75,6 +75,12 @@ class CaseService:
         return await db.get(Case, case_id)
 
     @staticmethod
+    async def get_all_cases(db: AsyncSession) -> List[Case]:
+        stmt = select(Case).order_by(Case.created_at.desc())
+        result = await db.execute(stmt)
+        return list(result.scalars().all())
+
+    @staticmethod
     async def update_case(db: AsyncSession, case_id: str, req: CaseUpdateRequest, actor_address: str = "0xUser") -> Case:
         case = await db.get(Case, case_id)
         if not case:

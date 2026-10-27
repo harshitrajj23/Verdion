@@ -102,6 +102,7 @@ class ClaimOutput:
             "UNRESOLVED_APPLICABILITY",
             "ENGINE_CHECKED",
             "MODEL_ESTIMATE",
+            "UNVERIFIABLE",
         }
         if data["evidence_status"] not in valid_statuses:
             raise ValidationError(f"Invalid evidence_status: '{data['evidence_status']}'")
@@ -242,6 +243,39 @@ def split_passage_into_sentences(text: str, version: str = "1.1.0") -> SentenceL
 
     if version == "1.0.0":
         return SentenceList(primary, splitter_version="1.0.0")
+
+    if version == "1.2.0":
+        # Version 1.2.0: Legally conservative statutory segmentation for clauses > 60 words
+        tertiary: List[str] = []
+        for s in primary:
+            # If short sentence without statutory enumeration or semicolon, keep whole
+            if len(s.split()) <= 35 and not any(m in s for m in ["(a)", "(1)", ";"]):
+                tertiary.append(s)
+                continue
+            # Step 1: Semicolon split
+            parts = [p.strip() for p in re.split(r"(?<=;)\s+", s) if p.strip()] if ";" in s else [s]
+            for part in parts:
+                if len(part.split()) <= 35 and not any(m in part for m in ["(a)", "(1)"]):
+                    tertiary.append(part)
+                    continue
+                # Step 2: Split on enumerated statutory markers like (a), (b), (1), (2), (i), (ii)
+                subparts = [sp.strip() for sp in re.split(r"(?<=[,\.:;])\s+(?=\([a-zA-Z0-9]+\))", part) if sp.strip()]
+                if len(subparts) > 1:
+                    tertiary.extend(subparts)
+                    continue
+                # Step 3: Split on colon introducing statutory requirements
+                subparts = [sp.strip() for sp in re.split(r"(?<=:)\s+(?=[A-Z0-9\(\"\'])", part) if sp.strip()]
+                if len(subparts) > 1:
+                    tertiary.extend(subparts)
+                    continue
+                # Step 4: Split on statutory provisos and exceptions
+                subparts = [sp.strip() for sp in re.split(r"(?<=,)\s+(?=(?:provided that|unless|except where|in particular|without prejudice to)\b)", part, flags=re.IGNORECASE) if sp.strip()]
+                if len(subparts) > 1:
+                    tertiary.extend(subparts)
+                    continue
+                # If still unsplit, retain without silent truncation
+                tertiary.append(part)
+        return SentenceList(tertiary, splitter_version="1.2.0")
 
     # Version 1.1.0 (default): secondary split on semicolon for sentences over 60 words
     secondary: List[str] = []
@@ -468,13 +502,16 @@ def verify_claim_quote(
     supporting_passage_id: Optional[str],
     passage_lookup: Dict[str, Dict[str, Any]],
     supporting_sentence_index: Optional[int] = None,
+    max_words: int = 60,
+    splitter_version: str = "1.1.0",
 ) -> tuple[str, Optional[str]]:
     """Verifies quote-span and sentence-index support for a legal claim.
 
-    Rules per Stage 2B-1 Redesign:
+    Rules per Stage 2B-1 Redesign & Phase 2 Enhanced:
+    - UNVERIFIABLE if no supporting_passage_id and no evidence_refs are provided.
     - SUPPORTED only if: every evidence_ref exists in passages.json AND supporting_passage_id is in evidence_refs
       AND supporting_passage_id exists in passages.json AND supporting_sentence_index is in range (if specified)
-      AND supporting_quote is non-empty, contains no fence markers, does not exceed 60 words,
+      AND supporting_quote is non-empty, contains no fence markers, does not exceed max_words,
       and appears verbatim (after whitespace normalization) in the passage named by supporting_passage_id.
     - UNSUPPORTED otherwise, recording reason code from:
       NOT_IN_EVIDENCE_REFS, PASSAGE_NOT_FOUND, INDEX_OUT_OF_RANGE, QUOTE_EMPTY, QUOTE_HAS_FENCE_MARKER,
@@ -484,6 +521,9 @@ def verify_claim_quote(
     SUPPORTED means the cited sentence exists in the named passage.
     It does not establish that the sentence supports the claim. That check is a human review step (PRD §8.4, §17.4).
     """
+    if not supporting_passage_id and not evidence_refs:
+        return "UNVERIFIABLE", "No source evidence provided: claim is unverifiable"
+
     if not supporting_passage_id or supporting_passage_id not in evidence_refs:
         return "UNSUPPORTED", f"supporting_passage_id={supporting_passage_id}, match=false, reason=NOT_IN_EVIDENCE_REFS"
 
@@ -494,7 +534,7 @@ def verify_claim_quote(
     if not named_passage:
         return "UNSUPPORTED", f"supporting_passage_id={supporting_passage_id}, match=false, reason=PASSAGE_NOT_FOUND"
 
-    passage_sentences = split_passage_into_sentences(named_passage.get("content", ""))
+    passage_sentences = split_passage_into_sentences(named_passage.get("content", ""), version=splitter_version)
     if supporting_sentence_index is not None:
         if (
             not isinstance(supporting_sentence_index, int)
@@ -516,8 +556,8 @@ def verify_claim_quote(
     if not norm_quote:
         return "UNSUPPORTED", f"supporting_passage_id={supporting_passage_id}, match=false, reason=QUOTE_EMPTY"
 
-    # Hard limit on sentence length: at most 60 words (Stage 2B-1 Redesign)
-    if len(norm_quote.split()) > 60:
+    # Limit on sentence length: at most max_words (default 60, up to 100 in v1.2.0)
+    if len(norm_quote.split()) > max_words:
         return "UNSUPPORTED", f"supporting_passage_id={supporting_passage_id}, match=false, reason=SENTENCE_TOO_LONG"
 
     passage_content = " ".join(named_passage.get("content", "").split())
@@ -525,3 +565,4 @@ def verify_claim_quote(
         return "SUPPORTED", None
     else:
         return "UNSUPPORTED", f"supporting_passage_id={supporting_passage_id}, match=false, reason=QUOTE_NOT_VERBATIM"
+

@@ -260,7 +260,13 @@ class AgentService:
                     system_prompt="You are an adversarial legal intelligence agent specialized in finding defenses, exceptions, and procedural counterarguments."
                 )
 
-                objection_text = hf_objection or f"Contesting applicability: Controller may assert legitimate interest (Art 6(1)(f)) or research exemption (Art 89(1)) if anonymization is proven."
+                if hf_objection:
+                    objection_text = hf_objection
+                    rationale = f"Fine-tuned model ({getattr(settings, 'HF_MODEL_ID', 'veridion-legal')}) inference"
+                else:
+                    objection_text = "Contesting applicability: Controller may assert legitimate interest (Art 6(1)(f)) or research exemption (Art 89(1)) if anonymization is proven."
+                    rationale = "Deterministic statutory exception analysis (GDPR Art 6(1)(f) & Art 89(1))"
+
                 counterarguments.append(CounterargumentOutput(
                     target_claim_text=claim.claim_text,
                     objection=objection_text,
@@ -273,7 +279,7 @@ class AgentService:
                     claim_type="EXCEPTION",
                     assumptions=["Sanitization techniques render customer identifiers non-re-identifiable"],
                     confidence=0.70,
-                    confidence_rationale="Fine-tuned legal LM or regulatory precedent on statistical anonymization exemptions",
+                    confidence_rationale=rationale,
                     is_supported=False,
                     evidence_refs=[]
                 ))

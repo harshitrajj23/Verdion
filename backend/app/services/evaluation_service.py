@@ -51,7 +51,9 @@ class EvaluationService:
         prob = 0.55 if detected else 0.20
         bs = round((prob - scenario.ground_truth_gap_outcome) ** 2, 4)
 
-        elapsed = round((time.time() - start) * 1000 + 120.0, 2)
+        elapsed = max(0.1, round((time.time() - start) * 1000, 2))
+        citation_val = 0.70 if detected else 1.0
+        unsupported_rate = round(1.0 - citation_val, 3)
         return BaselineRunResult(
             baseline_name="BASELINE_A_SINGLE_AGENT",
             scenario_id=scenario.id,
@@ -59,8 +61,8 @@ class EvaluationService:
             issue_recall=round(recall, 3),
             predicted_probability=prob,
             brier_score=bs,
-            citation_validity=0.72,
-            unsupported_claim_rate=0.28,
+            citation_validity=citation_val,
+            unsupported_claim_rate=unsupported_rate,
             execution_time_ms=elapsed,
             passed=recall >= 0.50
         )
@@ -93,7 +95,9 @@ class EvaluationService:
         prob = 0.75 if detected else 0.12
         bs = round((prob - scenario.ground_truth_gap_outcome) ** 2, 4)
 
-        elapsed = round((time.time() - start) * 1000 + 340.0, 2)
+        elapsed = max(0.1, round((time.time() - start) * 1000, 2))
+        citation_val = 0.88 if detected else 1.0
+        unsupported_rate = round(1.0 - citation_val, 3)
         return BaselineRunResult(
             baseline_name="BASELINE_B_MULTI_AGENT",
             scenario_id=scenario.id,
@@ -101,8 +105,8 @@ class EvaluationService:
             issue_recall=round(recall, 3),
             predicted_probability=prob,
             brier_score=bs,
-            citation_validity=0.88,
-            unsupported_claim_rate=0.12,
+            citation_validity=citation_val,
+            unsupported_claim_rate=unsupported_rate,
             execution_time_ms=elapsed,
             passed=recall >= 0.70
         )
@@ -132,8 +136,13 @@ class EvaluationService:
             "RULE_CPRA_OPT_OUT": "MISSING_OPT_OUT_MECHANISM"
         }
 
+        rules_with_statute = 0
+        total_violations = 0
         for r in rule_evals:
             if r["violation_detected"]:
+                total_violations += 1
+                if r.get("statutory_reference"):
+                    rules_with_statute += 1
                 mapped = rule_to_gt.get(r["rule_id"])
                 if mapped:
                     detected.append(mapped)
@@ -153,7 +162,9 @@ class EvaluationService:
         prob = 0.92 if detected else 0.04
         bs = round((prob - scenario.ground_truth_gap_outcome) ** 2, 4)
 
-        elapsed = round((time.time() - start) * 1000 + 480.0, 2)
+        elapsed = max(0.1, round((time.time() - start) * 1000, 2))
+        citation_val = round(rules_with_statute / max(1, total_violations), 3) if total_violations else 1.0
+        unsupported_rate = round(1.0 - citation_val, 3)
         return BaselineRunResult(
             baseline_name="VERIDION_PROTOCOL",
             scenario_id=scenario.id,
@@ -161,8 +172,8 @@ class EvaluationService:
             issue_recall=round(recall, 3),
             predicted_probability=prob,
             brier_score=bs,
-            citation_validity=0.98,
-            unsupported_claim_rate=0.02,
+            citation_validity=citation_val,
+            unsupported_claim_rate=unsupported_rate,
             execution_time_ms=elapsed,
             passed=recall >= 0.85
         )
@@ -174,10 +185,18 @@ class EvaluationService:
 
         baseline_a_recalls = []
         baseline_a_brier = []
+        baseline_a_cits = []
+        baseline_a_unsupported = []
+
         baseline_b_recalls = []
         baseline_b_brier = []
+        baseline_b_cits = []
+        baseline_b_unsupported = []
+
         veridion_recalls = []
         veridion_brier = []
+        veridion_cits = []
+        veridion_unsupported = []
 
         for scen in scenarios:
             res_a = cls.run_single_agent_baseline(scen)
@@ -188,32 +207,38 @@ class EvaluationService:
 
             baseline_a_recalls.append(res_a.issue_recall)
             baseline_a_brier.append(res_a.brier_score)
+            baseline_a_cits.append(res_a.citation_validity)
+            baseline_a_unsupported.append(res_a.unsupported_claim_rate)
 
             baseline_b_recalls.append(res_b.issue_recall)
             baseline_b_brier.append(res_b.brier_score)
+            baseline_b_cits.append(res_b.citation_validity)
+            baseline_b_unsupported.append(res_b.unsupported_claim_rate)
 
             veridion_recalls.append(res_v.issue_recall)
             veridion_brier.append(res_v.brier_score)
+            veridion_cits.append(res_v.citation_validity)
+            veridion_unsupported.append(res_v.unsupported_claim_rate)
 
         n = len(scenarios) if scenarios else 1
         metrics = {
             "BASELINE_A_SINGLE_AGENT": {
                 "avg_issue_recall": round(sum(baseline_a_recalls) / n, 3),
                 "avg_brier_score": round(sum(baseline_a_brier) / n, 4),
-                "avg_citation_validity": 0.72,
-                "avg_unsupported_claim_rate": 0.28
+                "avg_citation_validity": round(sum(baseline_a_cits) / n, 3),
+                "avg_unsupported_claim_rate": round(sum(baseline_a_unsupported) / n, 3)
             },
             "BASELINE_B_MULTI_AGENT": {
                 "avg_issue_recall": round(sum(baseline_b_recalls) / n, 3),
                 "avg_brier_score": round(sum(baseline_b_brier) / n, 4),
-                "avg_citation_validity": 0.88,
-                "avg_unsupported_claim_rate": 0.12
+                "avg_citation_validity": round(sum(baseline_b_cits) / n, 3),
+                "avg_unsupported_claim_rate": round(sum(baseline_b_unsupported) / n, 3)
             },
             "VERIDION_PROTOCOL": {
                 "avg_issue_recall": round(sum(veridion_recalls) / n, 3),
                 "avg_brier_score": round(sum(veridion_brier) / n, 4),
-                "avg_citation_validity": 0.98,
-                "avg_unsupported_claim_rate": 0.02
+                "avg_citation_validity": round(sum(veridion_cits) / n, 3),
+                "avg_unsupported_claim_rate": round(sum(veridion_unsupported) / n, 3)
             }
         }
 

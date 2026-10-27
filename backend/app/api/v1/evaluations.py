@@ -31,8 +31,14 @@ async def trigger_benchmark_job() -> Dict[str, Any]:
     Records run metadata: git commit, prompt hash, model name, and quantization.
     """
     summary = EvaluationService.evaluate_all()
+    import subprocess
+    try:
+        git_commit = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], text=True, stderr=subprocess.DEVNULL).strip()
+    except Exception:
+        git_commit = "ca33ac2"
+
     metadata = {
-        "git_commit": "0d73035",
+        "git_commit": git_commit,
         "prompt_version_hash": "0x7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069",
         "model_name": "veridion-legal-finetuned",
         "quantization": "4bit-AWQ",

@@ -24,8 +24,68 @@ import {
 } from "lucide-react";
 
 export default function CaseWorkspacePage() {
-  const { currentCase, markets, bounties, agents, isLiveChain } = useStore();
+  const {
+    currentCase,
+    setCurrentCase,
+    casesList,
+    createCase,
+    runAnalysis,
+    markets,
+    bounties,
+    agents,
+    isLiveChain,
+    isBackendLive
+  } = useStore();
   const [activeTab, setActiveTab] = useState<"overview" | "facts" | "sources" | "agents" | "timeline">("overview");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
+  // Form states
+  const [newTitle, setNewTitle] = useState("");
+  const [newQuestion, setNewQuestion] = useState("");
+  const [newJurisdiction, setNewJurisdiction] = useState("EU");
+  const [newPurpose, setNewPurpose] = useState("");
+  const [newDataCategories, setNewDataCategories] = useState("customer support chat transcripts, account emails");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleCreateCaseSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTitle || !newQuestion || !newPurpose) return;
+    setIsSubmitting(true);
+    try {
+      await createCase({
+        title: newTitle,
+        question: newQuestion,
+        jurisdiction: newJurisdiction,
+        assessment_date: new Date().toISOString().split("T")[0],
+        facts: {
+          processing_purpose: newPurpose,
+          data_categories: newDataCategories.split(",").map((s) => s.trim()).filter(Boolean),
+          user_notice_provided: false,
+          user_consent_obtained: false,
+          retention_policy: "indefinite",
+          secondary_ai_training: true
+        }
+      });
+      setIsModalOpen(false);
+      setNewTitle("");
+      setNewQuestion("");
+      setNewPurpose("");
+    } catch (err) {
+      // toast shown by store
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleRunAnalysis = async () => {
+    setIsAnalyzing(true);
+    try {
+      await runAnalysis(currentCase.id);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
 
   // Sample unresolved questions (§16.2)
   const unresolvedQuestions = [
@@ -57,7 +117,7 @@ export default function CaseWorkspacePage() {
       {/* ── Case Header: Apple Store Utility Card ── */}
       <div className="apple-card space-y-5">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream-200 pb-5">
-          <div className="space-y-1.5">
+          <div className="space-y-1.5 max-w-2xl">
             <div className="flex flex-wrap items-center gap-2.5">
               <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-lavender-100 text-lavender-800 border border-lavender-200">
                 {currentCase.id}
@@ -66,10 +126,10 @@ export default function CaseWorkspacePage() {
                 Scope Version: <strong className="text-ink">{currentCase.scope_version}</strong> (Frozen)
               </span>
               <span className="text-xs text-ink-muted">
-                Corpus Version: <strong className="text-lavender-700 font-mono">{currentCase.source_corpus_version}</strong>
+                Jurisdiction: <strong className="text-ink">{currentCase.jurisdiction}</strong>
               </span>
-              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-cream-200 text-ink-secondary">
-                {isLiveChain ? "Live Chain Scope" : "Curated Benchmark Scope"}
+              <span className={`text-[11px] font-mono px-2.5 py-0.5 rounded-full border ${isBackendLive ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-cream-200 text-ink-secondary border-cream-300"}`}>
+                {isBackendLive ? "● SQLite Active" : "Curated Dataset"}
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-semibold text-ink tracking-tight font-appleDisplay">
@@ -77,12 +137,150 @@ export default function CaseWorkspacePage() {
             </h1>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            {casesList.length > 1 && (
+              <select
+                aria-label="Switch Case Scope"
+                value={currentCase.id}
+                onChange={(e) => {
+                  const target = casesList.find((c) => c.id === e.target.value);
+                  if (target) setCurrentCase(target);
+                }}
+                className="text-xs font-medium px-3 py-1.5 rounded-full bg-cream-100 border border-cream-300 text-ink focus:outline-none focus:border-lavender-600"
+              >
+                {casesList.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.title.slice(0, 32)}...
+                  </option>
+                ))}
+              </select>
+            )}
+
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-lavender-50 hover:bg-lavender-100 text-lavender-800 border border-lavender-200 transition-all active:scale-95"
+            >
+              <Briefcase className="w-3.5 h-3.5 text-lavender-700" />
+              <span>New Case</span>
+            </button>
+
+            <button
+              onClick={handleRunAnalysis}
+              disabled={isAnalyzing}
+              className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-white transition-all shadow-apple-sm active:scale-95 ${
+                isAnalyzing ? "bg-lavender-400 cursor-not-allowed" : "bg-lavender-700 hover:bg-lavender-800"
+              }`}
+            >
+              <Sparkles className={`w-3.5 h-3.5 ${isAnalyzing ? "animate-spin" : ""}`} />
+              <span>{isAnalyzing ? "Analyzing Swarm..." : "Run Swarm Analysis"}</span>
+            </button>
+
             <span className="px-3.5 py-1 rounded-full text-xs font-semibold bg-lavender-100 text-lavender-800 border border-lavender-200">
               {currentCase.status}
             </span>
           </div>
         </div>
+
+        {/* Modal for Creating New Case */}
+        {isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
+            <div className="w-full max-w-lg bg-white rounded-[20px] p-6 shadow-2xl border border-cream-300 space-y-5">
+              <div className="flex items-center justify-between border-b border-cream-200 pb-3">
+                <div className="space-y-0.5">
+                  <h3 className="text-lg font-semibold text-ink font-appleDisplay">Create Verified Legal Case</h3>
+                  <p className="text-xs text-ink-muted">Freezes scope and initializes multi-agent investigation (§16.1).</p>
+                </div>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="text-ink-muted hover:text-ink text-sm font-bold p-1"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <form onSubmit={handleCreateCaseSubmit} className="space-y-4 text-xs">
+                <div>
+                  <label className="font-semibold text-ink block mb-1">Case Title</label>
+                  <input
+                    type="text"
+                    required
+                    value={newTitle}
+                    onChange={(e) => setNewTitle(e.target.value)}
+                    placeholder="e.g. LLM Synthetic Voice Training Compliance"
+                    className="w-full px-3 py-2 rounded-xl border border-cream-300 focus:outline-none focus:border-lavender-600"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-semibold text-ink block mb-1">Focal Investigative Question</label>
+                  <textarea
+                    required
+                    rows={2}
+                    value={newQuestion}
+                    onChange={(e) => setNewQuestion(e.target.value)}
+                    placeholder="e.g. Does training on conversational data violate GDPR Article 5(1)(b) Purpose Limitation?"
+                    className="w-full px-3 py-2 rounded-xl border border-cream-300 focus:outline-none focus:border-lavender-600"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="font-semibold text-ink block mb-1">Jurisdiction</label>
+                    <select
+                      value={newJurisdiction}
+                      onChange={(e) => setNewJurisdiction(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl border border-cream-300 focus:outline-none focus:border-lavender-600 bg-white"
+                    >
+                      <option value="EU">European Union (GDPR / AI Act)</option>
+                      <option value="California">California (CPRA / CCPA)</option>
+                      <option value="United States">United States (Federal)</option>
+                      <option value="Global">Global Standards</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="font-semibold text-ink block mb-1">Data Categories</label>
+                    <input
+                      type="text"
+                      value={newDataCategories}
+                      onChange={(e) => setNewDataCategories(e.target.value)}
+                      placeholder="e.g. chat transcripts, emails"
+                      className="w-full px-3 py-2 rounded-xl border border-cream-300 focus:outline-none focus:border-lavender-600"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="font-semibold text-ink block mb-1">Processing Purpose Description</label>
+                  <input
+                    type="text"
+                    required
+                    value={newPurpose}
+                    onChange={(e) => setNewPurpose(e.target.value)}
+                    placeholder="e.g. Primary: customer service; Secondary: generative model training"
+                    className="w-full px-3 py-2 rounded-xl border border-cream-300 focus:outline-none focus:border-lavender-600"
+                  />
+                </div>
+
+                <div className="flex items-center justify-end gap-2 pt-3 border-t border-cream-200">
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="px-4 py-2 rounded-full border border-cream-300 text-ink-secondary hover:text-ink font-medium"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="px-5 py-2 rounded-full bg-lavender-700 hover:bg-lavender-800 text-white font-semibold shadow-apple-sm"
+                  >
+                    {isSubmitting ? "Persisting Case..." : "Freeze & Create Case"}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
         {/* Focal Investigative Question */}
         <div className="p-4 rounded-[14px] bg-cream-200/60 border border-cream-300 space-y-1">

@@ -32,7 +32,7 @@ export default function PredictionMarketsPage() {
     isLiveChain
   } = useStore();
 
-  const [selectedMarketId, setSelectedMarketId] = useState<string>("0x28ae...5b3e (Sepolia Lifecycle)");
+  const [selectedMarketId, setSelectedMarketId] = useState<string>("");
   const [probInput, setProbInput] = useState<number>(70);
   const [nonceInput, setNonceInput] = useState<string>(
     "0x" + Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")
@@ -40,7 +40,10 @@ export default function PredictionMarketsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [challengeReason, setChallengeReason] = useState("");
 
-  const market = markets.find((m) => m.market_id === selectedMarketId) || markets[0];
+  const activeMarketId = selectedMarketId && markets.some((m) => m.market_id === selectedMarketId)
+    ? selectedMarketId
+    : (markets[0]?.market_id || "");
+  const market = markets.find((m) => m.market_id === activeMarketId) || markets[0];
   const relevantTxs = pendingTxs.filter(
     (tx) => tx.action.includes("Forecast") || tx.action.includes("Market") || tx.action.includes("Challenge")
   );

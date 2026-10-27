@@ -163,7 +163,7 @@ class PredictionMarket(Base):
     created_at = Column(DateTime(timezone=True), default=utcnow, nullable=False)
 
     case = relationship("Case", back_populates="markets")
-    forecasts = relationship("Forecast", back_populates="market", cascade="all, delete-orphan")
+    forecasts = relationship("Forecast", back_populates="market", cascade="all, delete-orphan", lazy="selectin")
 
 
 class Forecast(Base):
@@ -204,7 +204,7 @@ class EvidenceBounty(Base):
     created_at = Column(DateTime(timezone=True), default=utcnow, nullable=False)
 
     case = relationship("Case", back_populates="bounties")
-    submissions = relationship("EvidenceSubmission", back_populates="bounty", cascade="all, delete-orphan")
+    submissions = relationship("EvidenceSubmission", back_populates="bounty", cascade="all, delete-orphan", lazy="selectin")
 
 
 class EvidenceSubmission(Base):

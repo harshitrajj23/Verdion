@@ -31,6 +31,12 @@ async def create_case(req: CaseCreateRequest, db: AsyncSession = Depends(get_db)
     }
 
 
+@router.get("", response_model=List[CaseResponse])
+async def list_cases(db: AsyncSession = Depends(get_db)):
+    """Lists all registered legal cases in reverse chronological order."""
+    return await CaseService.get_all_cases(db)
+
+
 @router.get("/{case_id}", response_model=CaseResponse)
 async def get_case(case_id: str, db: AsyncSession = Depends(get_db)):
     """Reads case metadata and lifecycle status."""

@@ -24,13 +24,25 @@ import {
 } from "lucide-react";
 
 export default function DashboardPage() {
-  const { currentCase, markets, bounties, auditRecords, isLiveChain, userCredits } = useStore();
+  const { currentCase, casesList, markets, bounties, auditRecords, isLiveChain, userCredits } = useStore();
 
   const activeMarket = markets[0];
   const activeBounty = bounties[0];
   const settlements = auditRecords.filter(
     (a) => a.event_type === "SETTLEMENT_EXECUTED" || a.event_type === "BOUNTY_SETTLED"
   );
+
+  const brierScores = markets.flatMap((m) =>
+    (m.revealed_forecasts || [])
+      .map((f) => f.brier_score)
+      .filter((b): b is number => typeof b === "number")
+  );
+  const liveBrier = brierScores.length > 0
+    ? (brierScores.reduce((a, b) => a + b, 0) / brierScores.length).toFixed(4)
+    : null;
+  const settledMarkets = markets.filter((m) => m.state === "SETTLED").length;
+  const openMarkets = markets.filter((m) => m.state === "PUBLISHED" || m.state === "REVEAL").length;
+  const openBounties = bounties.filter((b) => b.state === "OPEN" || b.state === "REVIEW").length;
 
   return (
     <div className="space-y-10 animate-fade-in-up">
@@ -119,7 +131,7 @@ export default function DashboardPage() {
             <span>Active Cases</span>
             <Briefcase className="w-4 h-4 text-lavender-600" />
           </div>
-          <div className="text-3xl font-semibold tracking-tight text-ink font-appleDisplay">1</div>
+          <div className="text-3xl font-semibold tracking-tight text-ink font-appleDisplay">{casesList?.length || 1}</div>
           <span className="inline-block text-[11px] font-medium text-lavender-700 bg-lavender-100 px-2 py-0.5 rounded-full">
             Scope v{currentCase.scope_version} Frozen
           </span>
@@ -132,7 +144,7 @@ export default function DashboardPage() {
           </div>
           <div className="text-3xl font-semibold tracking-tight text-ink font-appleDisplay">{markets.length}</div>
           <span className="inline-block text-[11px] font-medium text-lavender-700 bg-lavender-100 px-2 py-0.5 rounded-full">
-            1 Reveal, 1 Settled
+            {settledMarkets} Settled, {openMarkets} Active
           </span>
         </div>
 
@@ -143,7 +155,7 @@ export default function DashboardPage() {
           </div>
           <div className="text-3xl font-semibold tracking-tight text-ink font-appleDisplay">{bounties.length}</div>
           <span className="inline-block text-[11px] font-medium text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
-            Challenge Window
+            {openBounties > 0 ? `${openBounties} Open / Review` : `${bounties.length} Settled`}
           </span>
         </div>
 
@@ -152,9 +164,11 @@ export default function DashboardPage() {
             <span>Brier Score</span>
             <Coins className="w-4 h-4 text-lavender-600" />
           </div>
-          <div className="text-3xl font-semibold tracking-tight text-ink font-mono">0.0210</div>
+          <div className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink font-mono">
+            {liveBrier ? liveBrier : "—"}
+          </div>
           <span className="inline-block text-[11px] font-medium text-lavender-700 bg-lavender-100 px-2 py-0.5 rounded-full">
-            97.9% Calibrated
+            {liveBrier ? `N = ${brierScores.length} Forecasts` : "Awaiting Settlement"}
           </span>
         </div>
 
