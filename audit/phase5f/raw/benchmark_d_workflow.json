@@ -1,0 +1,139 @@
+{
+  "benchmark_id": "BENCHMARK_D_WORKFLOW",
+  "stages_aggregated": {
+    "10_offline_verification": {
+      "max_ms": 0.63,
+      "median_ms": 0.329,
+      "min_ms": 0.258,
+      "p90_ms": 0.63
+    },
+    "1_case_creation": {
+      "max_ms": 0.055,
+      "median_ms": 0.034,
+      "min_ms": 0.02,
+      "p90_ms": 0.055
+    },
+    "2_evidence_binding": {
+      "max_ms": 0.0,
+      "median_ms": 0.0,
+      "min_ms": 0.0,
+      "p90_ms": 0.0
+    },
+    "3_passage_validation": {
+      "max_ms": 0.004,
+      "median_ms": 0.003,
+      "min_ms": 0.002,
+      "p90_ms": 0.004
+    },
+    "4_multi_agent_claims": {
+      "max_ms": 0.001,
+      "median_ms": 0.0,
+      "min_ms": 0.0,
+      "p90_ms": 0.001
+    },
+    "5_canonical_serialization": {
+      "max_ms": 0.036,
+      "median_ms": 0.026,
+      "min_ms": 0.024,
+      "p90_ms": 0.036
+    },
+    "6_decision_verification": {
+      "max_ms": 0.033,
+      "median_ms": 0.023,
+      "min_ms": 0.021,
+      "p90_ms": 0.033
+    },
+    "7_forecast_commitment": {
+      "max_ms": 0.292,
+      "median_ms": 0.119,
+      "min_ms": 0.098,
+      "p90_ms": 0.292
+    },
+    "8_reveal_verification": {
+      "max_ms": 0.144,
+      "median_ms": 0.1,
+      "min_ms": 0.085,
+      "p90_ms": 0.144
+    },
+    "9_package_export": {
+      "max_ms": 0.566,
+      "median_ms": 0.379,
+      "min_ms": 0.331,
+      "p90_ms": 0.566
+    },
+    "total_e2e_ms": {
+      "max_ms": 1.607,
+      "median_ms": 1.164,
+      "min_ms": 0.896,
+      "p90_ms": 1.607
+    }
+  },
+  "trial_records": [
+    {
+      "10_offline_verification": 0.2577000000201224,
+      "1_case_creation": 0.05519999990610813,
+      "2_evidence_binding": 0.0003000000106112566,
+      "3_passage_validation": 0.004099999955542444,
+      "4_multi_agent_claims": 0.0006999999868639861,
+      "5_canonical_serialization": 0.034300000038456346,
+      "6_decision_verification": 0.025299999947492324,
+      "7_forecast_commitment": 0.2921999999898617,
+      "8_reveal_verification": 0.12419999995927355,
+      "9_package_export": 0.37039999995158723,
+      "total_e2e_ms": 1.1643999997659193
+    },
+    {
+      "10_offline_verification": 0.329100000044491,
+      "1_case_creation": 0.02250000000003638,
+      "2_evidence_binding": 0.0003000000106112566,
+      "3_passage_validation": 0.002300000005561742,
+      "4_multi_agent_claims": 0.00039999997625272954,
+      "5_canonical_serialization": 0.02510000001620938,
+      "6_decision_verification": 0.021699999933844083,
+      "7_forecast_commitment": 0.10480000003099121,
+      "8_reveal_verification": 0.08470000000215805,
+      "9_package_export": 0.3790000000662985,
+      "total_e2e_ms": 0.9699000000864544
+    },
+    {
+      "10_offline_verification": 0.26130000003377063,
+      "1_case_creation": 0.03350000008595089,
+      "2_evidence_binding": 0.0001999999312829459,
+      "3_passage_validation": 0.003099999958067201,
+      "4_multi_agent_claims": 0.00040000008993956726,
+      "5_canonical_serialization": 0.026400000024295878,
+      "6_decision_verification": 0.022699999931319326,
+      "7_forecast_commitment": 0.11889999996128608,
+      "8_reveal_verification": 0.09779999993497768,
+      "9_package_export": 0.3314999999020074,
+      "total_e2e_ms": 0.8957999998528976
+    },
+    {
+      "10_offline_verification": 0.43249999998806743,
+      "1_case_creation": 0.020100000028833165,
+      "2_evidence_binding": 0.0001999999312829459,
+      "3_passage_validation": 0.002399999971203215,
+      "4_multi_agent_claims": 0.0003000000106112566,
+      "5_canonical_serialization": 0.02430000006370392,
+      "6_decision_verification": 0.020899999981338624,
+      "7_forecast_commitment": 0.09830000010424556,
+      "8_reveal_verification": 0.09970000007797353,
+      "9_package_export": 0.5141000000321583,
+      "total_e2e_ms": 1.212800000189418
+    },
+    {
+      "10_offline_verification": 0.6295000000591244,
+      "1_case_creation": 0.03530000003593159,
+      "2_evidence_binding": 0.0003000000106112566,
+      "3_passage_validation": 0.0036999999792897142,
+      "4_multi_agent_claims": 0.0006000000212225132,
+      "5_canonical_serialization": 0.036399999999048305,
+      "6_decision_verification": 0.03340000000662258,
+      "7_forecast_commitment": 0.15750000000025466,
+      "8_reveal_verification": 0.14380000004621252,
+      "9_package_export": 0.5659999999352294,
+      "total_e2e_ms": 1.606500000093547
+    }
+  ],
+  "trials": 5
+}

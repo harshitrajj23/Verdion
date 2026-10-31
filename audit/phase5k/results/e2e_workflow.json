@@ -1,0 +1,96 @@
+{
+  "timestamp": "2026-10-31T18:19:44.103658+00:00",
+  "case_id": "CASE-E2E-PHASE5K-ALPHA",
+  "total_pipeline_latency_ms": 0.19,
+  "stages_count": 10,
+  "workflow_stages": [
+    {
+      "stage": 1,
+      "name": "Case Creation",
+      "status": "SUCCESS",
+      "latency_ms": 0.05,
+      "output_digest": "0xb9611816ad0592e8b652a1a691888e3ff42baa8f5262610156119aa3341b6a66"
+    },
+    {
+      "stage": 2,
+      "name": "Statutory Source Retrieval",
+      "status": "SUCCESS",
+      "latency_ms": 0.02,
+      "output_digest": "0x34661a98997fe5009cb51b6213b71e039c6ac576a5731f5622d0d3ed70b6149e",
+      "documents_retrieved": 2
+    },
+    {
+      "stage": 3,
+      "name": "Legal Researcher Agent",
+      "status": "SUCCESS",
+      "latency_ms": 0.01,
+      "output_digest": "0x1f87e8376b1a673fb546d5682a591bbfaa872ed7f9fd8a5db3181b9a9785059e",
+      "confidence_type": "RULE_DERIVED",
+      "calibrated_score": 0.95
+    },
+    {
+      "stage": 4,
+      "name": "Legal Interpreter Agent",
+      "status": "SUCCESS",
+      "latency_ms": 0.01,
+      "output_digest": "0xe70d69b85eca8ca9c8144ccc6c2509d6b976eccb248007dad325eea2910d8c53",
+      "confidence_type": "RULE_DERIVED",
+      "calibrated_score": 0.9
+    },
+    {
+      "stage": 5,
+      "name": "Adversarial Researcher Agent",
+      "status": "SUCCESS",
+      "latency_ms": 0.01,
+      "output_digest": "0xeededdca659506f5735f434b8e5b12066e17c6e8e68a64bf4541de6a16bbb67a",
+      "confidence_type": "MODEL_ESTIMATED",
+      "calibrated_score": 0.65
+    },
+    {
+      "stage": 6,
+      "name": "Evidence Verifier Agent",
+      "status": "SUCCESS",
+      "latency_ms": 0.01,
+      "output_digest": "0x90e00ab524561d2875fb23513ed57454c19452be76c31379dd1d69ea8a9b2e82",
+      "confidence_type": "CRYPTOGRAPHIC_INTEGRITY",
+      "calibrated_score": 1.0
+    },
+    {
+      "stage": 7,
+      "name": "Quantitative Forecaster Agent",
+      "status": "SUCCESS",
+      "latency_ms": 0.01,
+      "output_digest": "0xc54ef9db6cb8b44fcc6c8f880e3b8c0833ca82a0152b209aa6e08496f5d0d9b9",
+      "confidence_type": "EMPIRICALLY_CALIBRATED",
+      "calibrated_score": 0.85
+    },
+    {
+      "stage": 8,
+      "name": "Coordinator Synthesis Agent",
+      "status": "SUCCESS",
+      "latency_ms": 0.01,
+      "output_digest": "0xb4db91bce849b70b52be9bf9e4ae04e5bad5c393c363a19e78652acd0dba4f0d",
+      "confidence_type": "RULE_DERIVED",
+      "calibrated_score": 0.85
+    },
+    {
+      "stage": 9,
+      "name": "Audit Record Sealing",
+      "status": "SUCCESS",
+      "latency_ms": 0.02,
+      "merkle_root": "0xf0b57a9cce625443560dc9cd1d880ed678388ebe968525cdc1c0455de9a5250a",
+      "leaf_count": 8
+    },
+    {
+      "stage": 10,
+      "name": "Independent Verification",
+      "status": "SUCCESS",
+      "latency_ms": 0.02,
+      "root_verified": true,
+      "audit_chain_intact": true
+    }
+  ],
+  "final_merkle_root": "0xf0b57a9cce625443560dc9cd1d880ed678388ebe968525cdc1c0455de9a5250a",
+  "verification_result": "PASS",
+  "verdict": "VERIFIED_10_STAGE_E2E_SUCCESS"
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Loader2, CheckCircle2, XCircle, ExternalLink } from "lucide-react";
+import { Loader2, CheckCircle2, XCircle, ExternalLink, Cpu } from "lucide-react";
 import type { TxState } from "@/lib/store";
 
 interface TransactionStatusProps {
@@ -9,14 +9,25 @@ interface TransactionStatusProps {
   state: TxState;
   action?: string;
   compact?: boolean;
+  isSimulated?: boolean;
 }
 
 export const TransactionStatus: React.FC<TransactionStatusProps> = ({
   txHash,
   state,
   action,
-  compact = false
+  compact = false,
+  isSimulated
 }) => {
+  // Determine if transaction is genuinely on-chain or a local simulation
+  const isActualOnChain =
+    isSimulated === false ||
+    (isSimulated === undefined &&
+      txHash.startsWith("0x") &&
+      txHash.length === 66 &&
+      !txHash.toLowerCase().includes("sim") &&
+      !txHash.toLowerCase().includes("demo"));
+
   const chipClass =
     state === "PENDING"
       ? "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200"
@@ -37,7 +48,9 @@ export const TransactionStatus: React.FC<TransactionStatusProps> = ({
     state === "PENDING"
       ? "Broadcasting..."
       : state === "CONFIRMED"
-      ? "Confirmed"
+      ? isActualOnChain
+        ? "Confirmed On-Chain"
+        : "Persisted (Local Credits)"
       : "Reverted";
 
   if (compact) {
@@ -64,17 +77,27 @@ export const TransactionStatus: React.FC<TransactionStatusProps> = ({
       </div>
       <div className="ml-auto flex items-center gap-2">
         <span className="font-mono text-[11px] text-lavender-700 font-medium">
-          {txHash.slice(0, 10)}...{txHash.slice(-6)}
+          {txHash.length > 18 ? `${txHash.slice(0, 10)}...${txHash.slice(-6)}` : txHash}
         </span>
-        <a
-          href={`https://sepolia.etherscan.io/tx/${txHash}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-ink-tertiary hover:text-lavender-700 transition-colors"
-          aria-label="View on Etherscan"
-        >
-          <ExternalLink className="w-3.5 h-3.5" />
-        </a>
+        {isActualOnChain ? (
+          <a
+            href={`https://sepolia.etherscan.io/tx/${txHash}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-ink-tertiary hover:text-lavender-700 transition-colors inline-flex items-center gap-1"
+            title="View verified transaction on Sepolia Etherscan"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        ) : (
+          <span
+            className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded bg-cream-100 text-ink-secondary border border-cream-300"
+            title="Simulated local execution: No external transaction broadcast"
+          >
+            <Cpu className="w-3 h-3 text-ink-tertiary" />
+            <span>Simulated</span>
+          </span>
+        )}
       </div>
     </div>
   );

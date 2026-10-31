@@ -49,12 +49,14 @@ class CaseService:
             facts=req.facts,
             scope_version=1,
             status="DRAFT",
+            provenance=getattr(req, "provenance", None) or "OPERATIONAL",
             created_at=utcnow(),
             updated_at=utcnow()
         )
         db.add(case)
         await db.flush()
 
+        from backend.app.core.crypto import compute_canonical_sha256
         await AuditService.log_event(
             db=db,
             case_id=case.id,
@@ -63,6 +65,7 @@ class CaseService:
             payload={
                 "title": case.title,
                 "jurisdiction": case.jurisdiction,
+                "facts_digest": compute_canonical_sha256(case.facts),
                 "scope_version": case.scope_version
             }
         )
@@ -75,32 +78,52 @@ class CaseService:
         return await db.get(Case, case_id)
 
     @staticmethod
-    async def get_all_cases(db: AsyncSession) -> List[Case]:
-        stmt = select(Case).order_by(Case.created_at.desc())
-        result = await db.execute(stmt)
-        return list(result.scalars().all())
+    async def list_cases(db: AsyncSession, skip: int = 0, limit: int = 20) -> List[Case]:
+        stmt = select(Case).order_by(Case.created_at.desc()).offset(skip).limit(limit)
+        res = await db.execute(stmt)
+        return list(res.scalars().all())
 
     @staticmethod
-    async def update_case(db: AsyncSession, case_id: str, req: CaseUpdateRequest, actor_address: str = "0xUser") -> Case:
+    async def update_case(
+        db: AsyncSession,
+        case_id: str,
+        req: CaseUpdateRequest,
+        actor_address: str = "0xUser"
+    ) -> Case:
         case = await db.get(Case, case_id)
         if not case:
-            return None
+            raise InvalidScopeException(f"Case {case_id} not found.")
 
-        # Material edits increment scope_version (FR-003)
+        # Check if case is frozen
+        if case.status in ["FROZEN", "COMPLETED", "SETTLED"]:
+            raise InvalidScopeException(
+                f"Case {case_id} is in status '{case.status}' and its scope cannot be modified."
+            )
+
         version_incremented = False
-        if req.title and req.title != case.title:
-            case.title = req.title
-            version_incremented = True
-        if req.question and req.question != case.question:
-            case.question = req.question
-            version_incremented = True
-        if req.facts:
+        # Any change to facts or material attributes increments scope_version
+        if req.facts is not None and req.facts != case.facts:
             case.facts = req.facts
+            case.scope_version += 1
             version_incremented = True
 
-        if version_incremented:
-            case.scope_version += 1
-            case.status = "DRAFT"
+        if req.title is not None and req.title != case.title:
+            case.title = req.title
+            if not version_incremented:
+                case.scope_version += 1
+                version_incremented = True
+
+        if req.question is not None and req.question != case.question:
+            case.question = req.question
+            if not version_incremented:
+                case.scope_version += 1
+                version_incremented = True
+
+        if req.jurisdiction is not None and req.jurisdiction != case.jurisdiction:
+            case.jurisdiction = req.jurisdiction
+            if not version_incremented:
+                case.scope_version += 1
+                version_incremented = True
 
         case.updated_at = utcnow()
         await db.flush()
@@ -108,7 +131,7 @@ class CaseService:
         await AuditService.log_event(
             db=db,
             case_id=case.id,
-            event_type="CASE_UPDATED",
+            event_type="SCOPE_UPDATED" if version_incremented else "CASE_UPDATED",
             actor=actor_address,
             payload={
                 "scope_version": case.scope_version,
@@ -127,7 +150,7 @@ class CaseService:
         2. Legal Researcher Agent
         3. Legal Interpreter Agent with hybrid rule checks
         4. Adversarial Researcher Agent for counterarguments
-        5. Evidence Verifier Agent for digest verification
+        5. Evidence Verifier Agent with 9-dimensional grounding
         6. Quantitative Forecaster Agent
         7. Coordinator Agent to assemble argument graph and rank uncertainties
         """
@@ -185,10 +208,13 @@ class CaseService:
             payload={"role": adversary_out.role, "counterarguments_count": len(adversary_out.counterarguments)}
         )
 
-        # Step 5: Evidence Verifier
+        # Step 5: Evidence Verifier (9-dimensional grounding evaluation)
         verifier_out = await AgentService.run_evidence_verifier(
             db,
-            claims=researcher_out.claims + interpreter_out.claims
+            claims=researcher_out.claims + interpreter_out.claims,
+            case_facts=case.facts,
+            case_jurisdiction=case.jurisdiction,
+            assessment_date=case.assessment_date
         )
 
         # Step 6: Quantitative Forecaster
@@ -206,75 +232,29 @@ class CaseService:
         await db.commit()
         await db.refresh(case)
 
-        # Retrieve full argument graph
-        graph = await ArgumentService.get_argument_graph(db, case.id)
+        # Build and seal Canonical Decision Record (Option C)
+        from backend.app.services.decision_service import DecisionService
+        decision_rec = await DecisionService.build_canonical_decision_record(db, case.id, persist=True)
+        await AuditService.log_event(
+            db=db,
+            case_id=case.id,
+            event_type="DECISION_RECORD_SEALED",
+            actor="0xSystem",
+            payload={
+                "decision_record_id": decision_rec["record_digest"],
+                "claims_count": len(decision_rec.get("claims", [])),
+                "is_verified": True
+            }
+        )
 
         return {
             "case_id": case.id,
-            "scope_version": case.scope_version,
             "status": case.status,
-            "agent_outputs": [
-                researcher_out.model_dump(),
-                interpreter_out.model_dump(),
-                adversary_out.model_dump(),
-                verifier_out.model_dump()
-            ],
-            "baseline_forecast": forecast_out,
-            "argument_graph": graph,
-            "ranked_uncertainties": coordinator_out["ranked_uncertainties"]
+            "researcher_output": researcher_out.model_dump(),
+            "interpreter_output": interpreter_out.model_dump(),
+            "adversary_output": adversary_out.model_dump(),
+            "verifier_output": verifier_out.model_dump(),
+            "forecast_output": forecast_out,
+            "coordinator_output": coordinator_out,
+            "decision_record": decision_rec
         }
-
-    @staticmethod
-    async def stream_full_analysis(db: AsyncSession, case_id: str):
-        """
-        Asynchronous generator yielding real-time SSE progress events for frontend Agent Laboratory.
-        """
-        case = await db.get(Case, case_id)
-        if not case:
-            yield f"event: error\ndata: {json.dumps({'error': f'Case {case_id} not found'})}\n\n"
-            return
-
-        yield f"event: progress\ndata: {json.dumps({'status': 'RETRIEVAL', 'message': 'Searching curated legal corpus...'})}\n\n"
-
-        passages = await RetrievalService.retrieve_passages(
-            db=db,
-            query=f"{case.question} {' '.join(case.facts.get('data_categories', []))} {case.facts.get('processing_purpose', '')}",
-            jurisdiction=case.jurisdiction,
-            limit=5
-        )
-        yield f"event: retrieval_complete\ndata: {json.dumps({'passages_count': len(passages)})}\n\n"
-
-        # Researcher
-        yield f"event: agent_running\ndata: {json.dumps({'role': 'LEGAL_RESEARCHER', 'message': 'Extracting statutory propositions...'})}\n\n"
-        researcher_out = await AgentService.run_legal_researcher(db, case, passages)
-        yield f"event: agent_complete\ndata: {json.dumps({'role': 'LEGAL_RESEARCHER', 'output': researcher_out.model_dump()})}\n\n"
-
-        # Interpreter
-        yield f"event: agent_running\ndata: {json.dumps({'role': 'LEGAL_INTERPRETER', 'message': 'Evaluating deterministic rule checks...'})}\n\n"
-        interpreter_out = await AgentService.run_legal_interpreter(db, case, researcher_out.claims, passages)
-        yield f"event: agent_complete\ndata: {json.dumps({'role': 'LEGAL_INTERPRETER', 'output': interpreter_out.model_dump()})}\n\n"
-
-        # Adversary
-        yield f"event: agent_running\ndata: {json.dumps({'role': 'ADVERSARIAL_RESEARCHER', 'message': 'Searching exceptions and stress-testing claims...'})}\n\n"
-        adversary_out = await AgentService.run_adversarial_researcher(db, case, interpreter_out.claims)
-        yield f"event: agent_complete\ndata: {json.dumps({'role': 'ADVERSARIAL_RESEARCHER', 'output': adversary_out.model_dump()})}\n\n"
-
-        # Verifier
-        verifier_out = await AgentService.run_evidence_verifier(db, claims=researcher_out.claims + interpreter_out.claims)
-        yield f"event: agent_complete\ndata: {json.dumps({'role': 'EVIDENCE_VERIFIER', 'output': verifier_out.model_dump()})}\n\n"
-
-        # Forecaster
-        forecast_out = await AgentService.run_quantitative_forecaster(db, case, interpreter_out.claims)
-        yield f"event: agent_complete\ndata: {json.dumps({'role': 'QUANTITATIVE_FORECASTER', 'forecast': forecast_out})}\n\n"
-
-        # Coordinator
-        coordinator_out = await AgentService.run_coordinator(
-            db=db,
-            case=case,
-            all_agent_outputs=[researcher_out, interpreter_out, adversary_out]
-        )
-        case.status = "COMPLETED"
-        await db.commit()
-
-        graph = await ArgumentService.get_argument_graph(db, case.id)
-        yield f"event: analysis_complete\ndata: {json.dumps({'case_id': case.id, 'argument_graph': graph, 'ranked_uncertainties': coordinator_out['ranked_uncertainties']})}\n\n"

@@ -10,7 +10,14 @@ class BenchmarkScenario(BaseModel):
     facts: Dict[str, Any]
     ground_truth_issues: List[str]
     ground_truth_gap_outcome: int = Field(..., ge=0, le=1)  # 1 if compliance gap exists, 0 if fully compliant
-    rubric: str
+    rubric: str = Field(default="Standard regulatory compliance evaluation rubric")
+    split: Optional[str] = "TEST"
+    legal_instrument: Optional[str] = None
+    legal_provision: Optional[str] = None
+    expected_counterarguments: List[str] = Field(default_factory=list)
+    expected_uncertainty: Optional[float] = None
+    provenance: Optional[str] = None
+    dataset_version: Optional[str] = None
 
 
 class BaselineRunResult(BaseModel):
@@ -29,5 +36,5 @@ class BaselineRunResult(BaseModel):
 class BenchmarkSummary(BaseModel):
     total_scenarios: int
     evaluated_at: str
-    metrics: Dict[str, Dict[str, float]]  # baseline -> {avg_issue_recall, avg_brier_score, avg_citation_validity, avg_latency_ms}
+    metrics: Dict[str, Dict[str, float]]
     results: List[BaselineRunResult]

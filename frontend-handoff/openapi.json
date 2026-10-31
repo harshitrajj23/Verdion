@@ -1,0 +1,6072 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "VERIDION Decentralized Legal Intelligence Protocol",
+    "description": "VERIDION Decentralized Legal Intelligence Protocol - API & Reasoning Backend",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Health Check",
+        "description": "Health status and service availability.",
+        "operationId": "health_check_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Health Check Api V1 Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/system/status": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "System Status",
+        "description": "Operational status across core backend subsystems.",
+        "operationId": "system_status_api_v1_system_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response System Status Api V1 System Status Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/system/capabilities": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "System Capabilities",
+        "description": "Enumeration of active protocol capabilities and supported jurisdictions.",
+        "operationId": "system_capabilities_api_v1_system_capabilities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response System Capabilities Api V1 System Capabilities Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases": {
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Create Case",
+        "description": "Creates a new case with validated scope and freezes scope version 1 (FR-001, FR-002).",
+        "operationId": "create_case_api_v1_cases_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaseCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Create Case Api V1 Cases Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "List Cases",
+        "description": "Lists registered legal cases in reverse chronological order.\nBy default excludes test fixture leakage cases (exclude_test=True).\nCan filter by provenance ('OPERATIONAL', 'DEMO', 'TEST').",
+        "operationId": "list_cases_api_v1_cases_get",
+        "parameters": [
+          {
+            "name": "provenance",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Provenance"
+            }
+          },
+          {
+            "name": "exclude_test",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Exclude Test"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CaseResponse"
+                  },
+                  "title": "Response List Cases Api V1 Cases Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Get Case",
+        "description": "Reads case metadata and lifecycle status.",
+        "operationId": "get_case_api_v1_cases__case_id__get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Update Case",
+        "description": "Updates case facts or scope, creating a new scope version (FR-003).",
+        "operationId": "update_case_api_v1_cases__case_id__patch",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaseUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/analyze": {
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Analyze Case",
+        "description": "Starts multi-agent analysis.\nIf sync=False (default), queues an async background job and returns jobId immediately (\u00a715).\nIf sync=True, executes synchronously and returns full analysis.",
+        "operationId": "analyze_case_api_v1_cases__case_id__analyze_post",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "sync",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Sync"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/jobs/{job_id}": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Get Analysis Job",
+        "description": "Reads status of a queued or running analysis job.",
+        "operationId": "get_analysis_job_api_v1_cases__case_id__jobs__job_id__get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/agents": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Get Case Agents",
+        "description": "Reads role, findings, references, and errors for agents involved in this case (FR-015).",
+        "operationId": "get_case_agents_api_v1_cases__case_id__agents_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/stream": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Stream Case Analysis",
+        "description": "Server-Sent Events (SSE) streaming endpoint for frontend Agent Laboratory.\nStreams real-time agent output tokens, rule checks, and graph updates.",
+        "operationId": "stream_case_analysis_api_v1_cases__case_id__stream_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/analysis": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Get Case Analysis",
+        "description": "Returns claims, argument graph, evidence links, and ranked uncertainties.",
+        "operationId": "get_case_analysis_api_v1_cases__case_id__analysis_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/report": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Get Case Final Report",
+        "description": "Generates the comprehensive 10-section final report (PRD 16.8).\nSupports format='json' (default) or format='markdown'.",
+        "operationId": "get_case_final_report_api_v1_cases__case_id__report_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "json",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/audit": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Get Case Audit",
+        "description": "Returns chronological, cryptographically verified audit events for this case (FR-054).",
+        "operationId": "get_case_audit_api_v1_cases__case_id__audit_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditEventResponse"
+                  },
+                  "title": "Response Get Case Audit Api V1 Cases  Case Id  Audit Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/decision-record": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Get Case Decision Record",
+        "description": "Returns the canonical versioned Decision Record for this case (Option C).",
+        "operationId": "get_case_decision_record_api_v1_cases__case_id__decision_record_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/audit-package": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Get Case Audit Package",
+        "description": "Exports self-contained audit package for independent offline verification (Option C).",
+        "operationId": "get_case_audit_package_api_v1_cases__case_id__audit_package_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/workflow/transition": {
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Transition Case Workflow",
+        "description": "Enforces valid state transition in the Option C regulatory decision lifecycle.",
+        "operationId": "transition_case_workflow_api_v1_cases__case_id__workflow_transition_post",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "target_state",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Target WorkflowState",
+              "title": "Target State"
+            },
+            "description": "Target WorkflowState"
+          },
+          {
+            "name": "actor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Actor triggering state transition",
+              "default": "0xUser",
+              "title": "Actor"
+            },
+            "description": "Actor triggering state transition"
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Reason for transition",
+              "title": "Reason"
+            },
+            "description": "Reason for transition"
+          },
+          {
+            "name": "idempotency_key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Optional idempotency key",
+              "title": "Idempotency Key"
+            },
+            "description": "Optional idempotency key"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/workflow/bind-evidence": {
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Bind Case Evidence",
+        "description": "Stage B \u2014 Retrieves official legal evidence and binds exact passages to case.\nHalts with INSUFFICIENT_EVIDENCE if no matching authoritative sources exist.",
+        "operationId": "bind_case_evidence_api_v1_cases__case_id__workflow_bind_evidence_post",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "query_override",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query Override"
+            }
+          },
+          {
+            "name": "min_passages",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "title": "Min Passages"
+            }
+          },
+          {
+            "name": "actor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "SYSTEM_ORCHESTRATOR",
+              "title": "Actor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/workflow/analyze-and-seal": {
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Analyze And Seal Case",
+        "description": "Stages C & D \u2014 Runs multi-agent legal investigation, creates canonical decision record (VCP-1),\nand verifies the sealed record against zero-trust audit rules.",
+        "operationId": "analyze_and_seal_case_api_v1_cases__case_id__workflow_analyze_and_seal_post",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "actor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "SYSTEM_ORCHESTRATOR",
+              "title": "Actor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/workflow/finalize-audit": {
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Finalize Audit Workflow",
+        "description": "Stage J \u2014 Exports complete audit package and verifies it offline using zero-trust rules.",
+        "operationId": "finalize_audit_workflow_api_v1_cases__case_id__workflow_finalize_audit_post",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "trusted_checkpoint",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Trusted Checkpoint"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/workspace": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Get Unified Case Workspace",
+        "description": "Unified Decision Workspace: returns case facts, bound evidence, canonical decision record,\nforecast status, settlement details, on-chain disclosures, and audit verification report.",
+        "operationId": "get_unified_case_workspace_api_v1_cases__case_id__workspace_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "trusted_checkpoint",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Trusted Checkpoint"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/execution": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Get Case Execution",
+        "description": "Retrieves full multi-agent execution status, start/end timestamps, agent states, and any errors.",
+        "operationId": "get_case_execution_api_v1_cases__case_id__execution_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Case Execution Api V1 Cases  Case Id  Execution Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/evidence": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Get Case Evidence",
+        "description": "Retrieves all evidence passages linked to claims in this case with verification status.",
+        "operationId": "get_case_evidence_api_v1_cases__case_id__evidence_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Get Case Evidence Api V1 Cases  Case Id  Evidence Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/decisions": {
+      "get": {
+        "tags": [
+          "Canonical Decisions"
+        ],
+        "summary": "List Decisions",
+        "description": "Lists all canonical, sealed decision records in reverse chronological order.",
+        "operationId": "list_decisions_api_v1_decisions_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response List Decisions Api V1 Decisions Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Canonical Decisions"
+        ],
+        "summary": "Create Decision",
+        "description": "Builds, seals, and persists a Canonical Decision Record connecting evidence, claims,\nforecast commitments, and audit trail for a case.",
+        "operationId": "create_decision_api_v1_decisions_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecisionCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Create Decision Api V1 Decisions Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/decisions/{decision_id}": {
+      "get": {
+        "tags": [
+          "Canonical Decisions"
+        ],
+        "summary": "Get Decision",
+        "description": "Retrieves a Canonical Decision Record by its decision_id or case_id.",
+        "operationId": "get_decision_api_v1_decisions__decision_id__get",
+        "parameters": [
+          {
+            "name": "decision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Decision Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Decision Api V1 Decisions  Decision Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/decisions/{decision_id}/verify": {
+      "get": {
+        "tags": [
+          "Canonical Decisions"
+        ],
+        "summary": "Verify Decision",
+        "description": "Independently verifies the cryptographic integrity and audit completeness of a Decision Record.\nRecomputes SHA-256 digest, checks Merkle root, and validates passage hashes.",
+        "operationId": "verify_decision_api_v1_decisions__decision_id__verify_get",
+        "parameters": [
+          {
+            "name": "decision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Decision Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Verify Decision Api V1 Decisions  Decision Id  Verify Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/decisions/{decision_id}/provenance": {
+      "get": {
+        "tags": [
+          "Canonical Decisions"
+        ],
+        "summary": "Get Decision Provenance",
+        "description": "Retrieves full end-to-end evidence and agent provenance lineage for a Decision Record.",
+        "operationId": "get_decision_provenance_api_v1_decisions__decision_id__provenance_get",
+        "parameters": [
+          {
+            "name": "decision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Decision Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Decision Provenance Api V1 Decisions  Decision Id  Provenance Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sources": {
+      "get": {
+        "tags": [
+          "Sources & Retrieval"
+        ],
+        "summary": "List Sources",
+        "description": "List all legal source documents with explicit provenance, authority metadata,\ncryptographic digest, and passage count.",
+        "operationId": "list_sources_api_v1_sources_get",
+        "parameters": [
+          {
+            "name": "provenance",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by provenance (e.g. REMOTE_OFFICIAL_SOURCE, BUNDLED_FIXTURE)",
+              "title": "Provenance"
+            },
+            "description": "Filter by provenance (e.g. REMOTE_OFFICIAL_SOURCE, BUNDLED_FIXTURE)"
+          },
+          {
+            "name": "jurisdiction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by jurisdiction, e.g. EU, California",
+              "title": "Jurisdiction"
+            },
+            "description": "Filter by jurisdiction, e.g. EU, California"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response List Sources Api V1 Sources Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sources/passages": {
+      "get": {
+        "tags": [
+          "Sources & Retrieval"
+        ],
+        "summary": "Search Passages",
+        "description": "Search curated legal corpus passages with provenance, authority metadata, and cryptographic digests (FR-008).",
+        "operationId": "search_passages_api_v1_sources_passages_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "description": "Search query or legal keywords",
+              "title": "Q"
+            },
+            "description": "Search query or legal keywords"
+          },
+          {
+            "name": "jurisdiction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by jurisdiction, e.g. EU, California",
+              "title": "Jurisdiction"
+            },
+            "description": "Filter by jurisdiction, e.g. EU, California"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Search Passages Api V1 Sources Passages Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sources/passages/{evidence_id}": {
+      "get": {
+        "tags": [
+          "Sources & Retrieval"
+        ],
+        "summary": "Get Passage",
+        "description": "Reads a single passage by stable identifier with full provenance.",
+        "operationId": "get_passage_api_v1_sources_passages__evidence_id__get",
+        "parameters": [
+          {
+            "name": "evidence_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evidence Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get Passage Api V1 Sources Passages  Evidence Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sources/{source_id}": {
+      "get": {
+        "tags": [
+          "Sources & Retrieval"
+        ],
+        "summary": "Get Source",
+        "description": "Reads a single source document by ID with authority metadata and passage count.",
+        "operationId": "get_source_api_v1_sources__source_id__get",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Source Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Source Api V1 Sources  Source Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sources/{source_id}/passages": {
+      "get": {
+        "tags": [
+          "Sources & Retrieval"
+        ],
+        "summary": "Get Source Passages",
+        "description": "Lists all extracted evidence passages associated with a legal source document.",
+        "operationId": "get_source_passages_api_v1_sources__source_id__passages_get",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Source Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Get Source Passages Api V1 Sources  Source Id  Passages Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sources/search": {
+      "post": {
+        "tags": [
+          "Sources & Retrieval"
+        ],
+        "summary": "Search Sources Post",
+        "description": "Searches legal passages with term matching and cosine ranking.",
+        "operationId": "search_sources_post_api_v1_sources_search_post",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "title": "Query"
+            }
+          },
+          {
+            "name": "jurisdiction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Jurisdiction"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Search Sources Post Api V1 Sources Search Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sources/refresh": {
+      "post": {
+        "tags": [
+          "Sources & Retrieval"
+        ],
+        "summary": "Refresh Sources",
+        "description": "Refreshes official regulatory sources from bundled authoritative gazette definitions.",
+        "operationId": "refresh_sources_api_v1_sources_refresh_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Refresh Sources Api V1 Sources Refresh Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/evidence": {
+      "get": {
+        "tags": [
+          "Evidence & Grounding"
+        ],
+        "summary": "List Evidence",
+        "description": "Lists verified evidence passages with source provenance and cryptographic digests.",
+        "operationId": "list_evidence_api_v1_evidence_get",
+        "parameters": [
+          {
+            "name": "jurisdiction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by jurisdiction (EU, California)",
+              "title": "Jurisdiction"
+            },
+            "description": "Filter by jurisdiction (EU, California)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response List Evidence Api V1 Evidence Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/evidence/{evidence_id}": {
+      "get": {
+        "tags": [
+          "Evidence & Grounding"
+        ],
+        "summary": "Get Evidence",
+        "description": "Retrieves a single evidence passage by ID with full source authority metadata.",
+        "operationId": "get_evidence_api_v1_evidence__evidence_id__get",
+        "parameters": [
+          {
+            "name": "evidence_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evidence Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Evidence Api V1 Evidence  Evidence Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/evidence/verify": {
+      "post": {
+        "tags": [
+          "Evidence & Grounding"
+        ],
+        "summary": "Verify Evidence Grounding",
+        "description": "Evaluates claim evidence grounding across all 9 discrete dimensions (Option C):\nPASSAGE_INTEGRITY, SOURCE_AUTHENTICITY, CITATION_VALIDITY, QUOTATION_ACCURACY,\nSEMANTIC_SUPPORT, LEGAL_ENTAILMENT, FACT_TO_LAW_APPLICABILITY, JURISDICTIONAL_VALIDITY, TEMPORAL_VALIDITY.",
+        "operationId": "verify_evidence_grounding_api_v1_evidence_verify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvidenceVerifyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClaimGroundingResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/agents": {
+      "get": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "List Agents",
+        "description": "Lists all registered protocol agents and their metrics.",
+        "operationId": "list_agents_api_v1_agents_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AgentResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List Agents Api V1 Agents Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/agents/{agent_id}": {
+      "get": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "Get Agent",
+        "description": "Retrieves metadata and status for a single specialized agent.",
+        "operationId": "get_agent_api_v1_agents__agent_id__get",
+        "parameters": [
+          {
+            "name": "agent_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Agent Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/agents/executions/{execution_id}": {
+      "get": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "Get Execution Trace",
+        "description": "Retrieves execution trace, timing, status, and metadata for an agent execution job.",
+        "operationId": "get_execution_trace_api_v1_agents_executions__execution_id__get",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/agents/{agent_id}/reputation": {
+      "get": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "Get Agent Reputation",
+        "description": "Returns empirical agent calibration metrics, Brier score,\nand safeguards against small-sample reputation inflation (FR-047, FR-049).",
+        "operationId": "get_agent_reputation_api_v1_agents__agent_id__reputation_get",
+        "parameters": [
+          {
+            "name": "agent_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Agent Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentReputationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/agents/{agent_id}/reputation/history": {
+      "get": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "Get Agent Reputation History",
+        "description": "Returns the chronological history of reputation updates for an agent.",
+        "operationId": "get_agent_reputation_history_api_v1_agents__agent_id__reputation_history_get",
+        "parameters": [
+          {
+            "name": "agent_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Agent Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReputationRecordResponse"
+                  },
+                  "title": "Response Get Agent Reputation History Api V1 Agents  Agent Id  Reputation History Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/forecasts": {
+      "get": {
+        "tags": [
+          "Forecasting & Commitments"
+        ],
+        "summary": "List Forecasts",
+        "description": "Lists forecasts with commitment hash, reveal status, probability, and Brier score.",
+        "operationId": "list_forecasts_api_v1_forecasts_get",
+        "parameters": [
+          {
+            "name": "market_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Market Id"
+            }
+          },
+          {
+            "name": "agent_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Agent Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response List Forecasts Api V1 Forecasts Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Forecasting & Commitments"
+        ],
+        "summary": "Create Forecast",
+        "description": "Submits a forecast by generating the 6-field commitment hash and recording the commitment.\nkeccak256(abi.encodePacked(chainId, marketId, agent, probBps, evidenceDigest, nonce))",
+        "operationId": "create_forecast_api_v1_forecasts_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForecastCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Create Forecast Api V1 Forecasts Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/forecasts/{forecast_id}": {
+      "get": {
+        "tags": [
+          "Forecasting & Commitments"
+        ],
+        "summary": "Get Forecast",
+        "description": "Retrieves a single forecast record by ID.",
+        "operationId": "get_forecast_api_v1_forecasts__forecast_id__get",
+        "parameters": [
+          {
+            "name": "forecast_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Forecast Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Forecast Api V1 Forecasts  Forecast Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/forecasts/{forecast_id}/metrics": {
+      "get": {
+        "tags": [
+          "Forecasting & Commitments"
+        ],
+        "summary": "Get Forecast Metrics",
+        "description": "Retrieves scoring and proper-scoring evaluation metrics for a forecast.",
+        "operationId": "get_forecast_metrics_api_v1_forecasts__forecast_id__metrics_get",
+        "parameters": [
+          {
+            "name": "forecast_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Forecast Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Forecast Metrics Api V1 Forecasts  Forecast Id  Metrics Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/commitments": {
+      "get": {
+        "tags": [
+          "Forecasting & Commitments"
+        ],
+        "summary": "List Commitments",
+        "description": "Lists on-chain forecast commitments.",
+        "operationId": "list_commitments_api_v1_commitments_get",
+        "parameters": [
+          {
+            "name": "market_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Market Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response List Commitments Api V1 Commitments Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Forecasting & Commitments"
+        ],
+        "summary": "Create Commitment",
+        "description": "Submits a raw keccak256 commitment hash to a prediction market.",
+        "operationId": "create_commitment_api_v1_commitments_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommitmentCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Create Commitment Api V1 Commitments Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/commitments/{commitment_id}": {
+      "get": {
+        "tags": [
+          "Forecasting & Commitments"
+        ],
+        "summary": "Get Commitment",
+        "description": "Reads a commitment by its ID.",
+        "operationId": "get_commitment_api_v1_commitments__commitment_id__get",
+        "parameters": [
+          {
+            "name": "commitment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Commitment Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Commitment Api V1 Commitments  Commitment Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/commitments/{commitment_id}/reveal": {
+      "post": {
+        "tags": [
+          "Forecasting & Commitments"
+        ],
+        "summary": "Reveal Commitment",
+        "description": "Reveals the underlying probability, evidence digest, and nonce for a commitment.\nVerifies 6-field keccak256 parity with Solidity before accepting.",
+        "operationId": "reveal_commitment_api_v1_commitments__commitment_id__reveal_post",
+        "parameters": [
+          {
+            "name": "commitment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Commitment Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommitmentRevealRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Reveal Commitment Api V1 Commitments  Commitment Id  Reveal Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/commitments/{commitment_id}/verify": {
+      "get": {
+        "tags": [
+          "Forecasting & Commitments"
+        ],
+        "summary": "Verify Commitment Record",
+        "description": "Independently verifies that a revealed commitment hash matches its claimed fields.",
+        "operationId": "verify_commitment_record_api_v1_commitments__commitment_id__verify_get",
+        "parameters": [
+          {
+            "name": "commitment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Commitment Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Verify Commitment Record Api V1 Commitments  Commitment Id  Verify Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/markets": {
+      "post": {
+        "tags": [
+          "Prediction Markets"
+        ],
+        "summary": "Create Market",
+        "description": "Creates a new prediction market for an objective benchmark event (FR-031).",
+        "operationId": "create_market_api_v1_markets_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarketCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Prediction Markets"
+        ],
+        "summary": "List Markets",
+        "description": "Lists prediction markets, optionally filtered by case_id.",
+        "operationId": "list_markets_api_v1_markets_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MarketResponse"
+                  },
+                  "title": "Response List Markets Api V1 Markets Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/markets/evaluation": {
+      "get": {
+        "tags": [
+          "Prediction Markets"
+        ],
+        "summary": "Evaluate Forecasting Performance",
+        "description": "Evaluates protocol forecasting performance, Brier scores, log loss,\nExpected Calibration Error (ECE), calibration curve bins, and baseline comparisons (Option C).",
+        "operationId": "evaluate_forecasting_performance_api_v1_markets_evaluation_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Evaluate Forecasting Performance Api V1 Markets Evaluation Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/markets/{market_id}": {
+      "get": {
+        "tags": [
+          "Prediction Markets"
+        ],
+        "summary": "Get Market",
+        "description": "Reads market status, aggregate probability, disagreement variance, and reveals (FR-036).",
+        "operationId": "get_market_api_v1_markets__market_id__get",
+        "parameters": [
+          {
+            "name": "market_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Market Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/markets/{market_id}/commit": {
+      "post": {
+        "tags": [
+          "Prediction Markets"
+        ],
+        "summary": "Commit Forecast",
+        "description": "Submits a commit hash H(chainId, marketId, agentId, prob, digest, nonce) before deadline (FR-033).",
+        "operationId": "commit_forecast_api_v1_markets__market_id__commit_post",
+        "parameters": [
+          {
+            "name": "market_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Market Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarketCommitRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForecastResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/markets/{market_id}/reveal": {
+      "post": {
+        "tags": [
+          "Prediction Markets"
+        ],
+        "summary": "Reveal Forecast",
+        "description": "Reveals secret probability, nonce, and digest, cryptographically verified against commitment (FR-034).",
+        "operationId": "reveal_forecast_api_v1_markets__market_id__reveal_post",
+        "parameters": [
+          {
+            "name": "market_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Market Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarketRevealRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForecastResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/markets/{market_id}/resolve": {
+      "post": {
+        "tags": [
+          "Prediction Markets"
+        ],
+        "summary": "Resolve Market",
+        "description": "Authorized evaluator proposes market outcome and benchmark reference (FR-038).",
+        "operationId": "resolve_market_api_v1_markets__market_id__resolve_post",
+        "parameters": [
+          {
+            "name": "market_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Market Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarketResolveRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/markets/{market_id}/settle": {
+      "post": {
+        "tags": [
+          "Prediction Markets"
+        ],
+        "summary": "Settle Market",
+        "description": "Settles market, computes Brier scores, and distributes simulated credits idempotently (FR-048, FR-052).",
+        "operationId": "settle_market_api_v1_markets__market_id__settle_post",
+        "parameters": [
+          {
+            "name": "market_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Market Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/bounties": {
+      "post": {
+        "tags": [
+          "Evidence Bounties"
+        ],
+        "summary": "Create Bounty",
+        "description": "Creates a targeted evidence research bounty funded with simulated credits (FR-040).",
+        "operationId": "create_bounty_api_v1_bounties_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BountyCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BountyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Evidence Bounties"
+        ],
+        "summary": "List Bounties",
+        "description": "Lists research bounties, optionally filtered by case.",
+        "operationId": "list_bounties_api_v1_bounties_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BountyResponse"
+                  },
+                  "title": "Response List Bounties Api V1 Bounties Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/bounties/{bounty_id}": {
+      "get": {
+        "tags": [
+          "Evidence Bounties"
+        ],
+        "summary": "Get Bounty",
+        "description": "Reads bounty status, criteria, reward, and submissions (FR-043).",
+        "operationId": "get_bounty_api_v1_bounties__bounty_id__get",
+        "parameters": [
+          {
+            "name": "bounty_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Bounty Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BountyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/bounties/{bounty_id}/submissions": {
+      "post": {
+        "tags": [
+          "Evidence Bounties"
+        ],
+        "summary": "Submit Evidence",
+        "description": "Submits evidence with SHA256 digest and checks for duplicate submissions (FR-042, FR-045).",
+        "operationId": "submit_evidence_api_v1_bounties__bounty_id__submissions_post",
+        "parameters": [
+          {
+            "name": "bounty_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Bounty Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvidenceSubmissionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvidenceSubmissionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/submissions/{submission_id}/challenge": {
+      "post": {
+        "tags": [
+          "Evidence Bounties"
+        ],
+        "summary": "Challenge Submission",
+        "description": "Challenges a submission decision within the configured challenge window (FR-046).",
+        "operationId": "challenge_submission_api_v1_submissions__submission_id__challenge_post",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BountyChallengeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvidenceSubmissionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/bounties/{bounty_id}/settle": {
+      "post": {
+        "tags": [
+          "Evidence Bounties"
+        ],
+        "summary": "Settle Bounty",
+        "description": "Authorizes reward release and settles simulated credits idempotently (FR-044, FR-052).",
+        "operationId": "settle_bounty_api_v1_bounties__bounty_id__settle_post",
+        "parameters": [
+          {
+            "name": "bounty_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Bounty Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BountySettleRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit": {
+      "get": {
+        "tags": [
+          "Audit & Provenance"
+        ],
+        "summary": "List Audit Events",
+        "description": "Returns chronologically ordered protocol lifecycle audit events with payload digests and hash chain links (FR-054).",
+        "operationId": "list_audit_events_api_v1_audit_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditEventResponse"
+                  },
+                  "title": "Response List Audit Events Api V1 Audit Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit/chain/{case_id}": {
+      "get": {
+        "tags": [
+          "Audit & Provenance"
+        ],
+        "summary": "Verify Audit Chain",
+        "description": "Verifies the append-only cryptographic event chain for a case.\nChecks sequence continuity, payload digests, previous-digest linkage, and Merkle checkpoint root.",
+        "operationId": "verify_audit_chain_api_v1_audit_chain__case_id__get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Verify Audit Chain Api V1 Audit Chain  Case Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit/decision-record/{case_id}": {
+      "get": {
+        "tags": [
+          "Audit & Provenance"
+        ],
+        "summary": "Get Case Decision Record",
+        "description": "Retrieves or generates the canonical, auditable decision record for a case.",
+        "operationId": "get_case_decision_record_api_v1_audit_decision_record__case_id__get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Case Decision Record Api V1 Audit Decision Record  Case Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit/package/{case_id}": {
+      "get": {
+        "tags": [
+          "Audit & Provenance"
+        ],
+        "summary": "Export Audit Package",
+        "description": "Generates an exportable self-contained JSON audit package for independent offline verification.",
+        "operationId": "export_audit_package_api_v1_audit_package__case_id__get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Export Audit Package Api V1 Audit Package  Case Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit/verify-package": {
+      "post": {
+        "tags": [
+          "Audit & Provenance"
+        ],
+        "summary": "Verify Uploaded Audit Package",
+        "description": "Independent audit verification endpoint.\nValidates any uploaded or exported VERIDION audit package offline.",
+        "operationId": "verify_uploaded_audit_package_api_v1_audit_verify_package_post",
+        "parameters": [
+          {
+            "name": "trusted_checkpoint",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Optional trusted external Merkle root checkpoint",
+              "title": "Trusted Checkpoint"
+            },
+            "description": "Optional trusted external Merkle root checkpoint"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Package Data"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Verify Uploaded Audit Package Api V1 Audit Verify Package Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit/events": {
+      "get": {
+        "tags": [
+          "Audit & Provenance"
+        ],
+        "summary": "List Audit Events Alias",
+        "description": "Alias for /audit listing lifecycle audit events.",
+        "operationId": "list_audit_events_alias_api_v1_audit_events_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditEventResponse"
+                  },
+                  "title": "Response List Audit Events Alias Api V1 Audit Events Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit/verify": {
+      "get": {
+        "tags": [
+          "Audit & Provenance"
+        ],
+        "summary": "Verify Audit Query",
+        "description": "Verifies the append-only cryptographic event chain and Merkle root for a given case.",
+        "operationId": "verify_audit_query_api_v1_audit_verify_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Case ID to verify audit chain for",
+              "title": "Case Id"
+            },
+            "description": "Case ID to verify audit chain for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Verify Audit Query Api V1 Audit Verify Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit/records/{record_id}": {
+      "get": {
+        "tags": [
+          "Audit & Provenance"
+        ],
+        "summary": "Get Audit Record",
+        "description": "Retrieves an individual audit event record by event_id or sequence identifier.",
+        "operationId": "get_audit_record_api_v1_audit_records__record_id__get",
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Audit Record Api V1 Audit Records  Record Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/benchmark/scenarios": {
+      "get": {
+        "tags": [
+          "Benchmarks & Evaluation"
+        ],
+        "summary": "Get Benchmark Scenarios",
+        "description": "Returns the 20 reproducible evaluation scenarios defined in PRD Section 18.3.",
+        "operationId": "get_benchmark_scenarios_api_v1_benchmark_scenarios_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/BenchmarkScenario"
+                  },
+                  "type": "array",
+                  "title": "Response Get Benchmark Scenarios Api V1 Benchmark Scenarios Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/evaluations/scenarios": {
+      "get": {
+        "tags": [
+          "Benchmarks & Evaluation"
+        ],
+        "summary": "Get Benchmark Scenarios",
+        "description": "Returns the 20 reproducible evaluation scenarios defined in PRD Section 18.3.",
+        "operationId": "get_benchmark_scenarios_api_v1_evaluations_scenarios_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/BenchmarkScenario"
+                  },
+                  "type": "array",
+                  "title": "Response Get Benchmark Scenarios Api V1 Evaluations Scenarios Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/benchmark": {
+      "get": {
+        "tags": [
+          "Benchmarks & Evaluation"
+        ],
+        "summary": "Get Benchmark Results",
+        "description": "Returns comparative evaluation metrics across the 20 scenarios:\nBaseline A (Single-agent RAG) vs Baseline B (Multi-agent) vs VERIDION Protocol.",
+        "operationId": "get_benchmark_results_api_v1_benchmark_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BenchmarkSummary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/evaluations/run": {
+      "get": {
+        "tags": [
+          "Benchmarks & Evaluation"
+        ],
+        "summary": "Get Benchmark Results",
+        "description": "Returns comparative evaluation metrics across the 20 scenarios:\nBaseline A (Single-agent RAG) vs Baseline B (Multi-agent) vs VERIDION Protocol.",
+        "operationId": "get_benchmark_results_api_v1_evaluations_run_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BenchmarkSummary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/benchmark/run": {
+      "post": {
+        "tags": [
+          "Benchmarks & Evaluation"
+        ],
+        "summary": "Trigger Benchmark Job",
+        "description": "Admin-only endpoint to trigger a benchmark run as a background task (\u00a718).\nRecords run metadata: git commit, prompt hash, model name, and quantization.",
+        "operationId": "trigger_benchmark_job_api_v1_benchmark_run_post",
+        "parameters": [
+          {
+            "name": "X-Actor-Address",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Actor-Address"
+            }
+          },
+          {
+            "name": "X-Role",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "CASE_OWNER",
+              "title": "X-Role"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Trigger Benchmark Job Api V1 Benchmark Run Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ingestion/trigger": {
+      "post": {
+        "tags": [
+          "Regulatory Ingestion"
+        ],
+        "summary": "Trigger Ingestion",
+        "description": "Triggers an official legal source ingestion run.\nRetrieves live documents from official external publishers (EUR-Lex, CJEU, EDPB),\nvalidates SSRF allowlist, checks cryptographic digests for version changes,\nsegments clauses into verified passages, and records immutable audit events.",
+        "operationId": "trigger_ingestion_api_v1_ingestion_trigger_post",
+        "parameters": [
+          {
+            "name": "adapter",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Source adapter to trigger ('eur_lex', 'cjeu', or 'edpb')",
+              "default": "eur_lex",
+              "title": "Adapter"
+            },
+            "description": "Source adapter to trigger ('eur_lex', 'cjeu', or 'edpb')"
+          },
+          {
+            "name": "identifier",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Optional specific identifier (CELEX, ECLI, or EDPB slug)",
+              "title": "Identifier"
+            },
+            "description": "Optional specific identifier (CELEX, ECLI, or EDPB slug)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Trigger Ingestion Api V1 Ingestion Trigger Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ingestion/jobs": {
+      "get": {
+        "tags": [
+          "Regulatory Ingestion"
+        ],
+        "summary": "List Ingestion Jobs",
+        "description": "Returns historical log and telemetry of all background ingestion jobs.",
+        "operationId": "list_ingestion_jobs_api_v1_ingestion_jobs_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  "type": "array",
+                  "title": "Response List Ingestion Jobs Api V1 Ingestion Jobs Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ingestion/jobs/{job_id}": {
+      "get": {
+        "tags": [
+          "Regulatory Ingestion"
+        ],
+        "summary": "Get Ingestion Job",
+        "description": "Returns telemetry for a specific ingestion job.",
+        "operationId": "get_ingestion_job_api_v1_ingestion_jobs__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Ingestion Job Api V1 Ingestion Jobs  Job Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ingestion/proposals": {
+      "get": {
+        "tags": [
+          "Regulatory Ingestion"
+        ],
+        "summary": "List Reanalysis Proposals",
+        "description": "Returns cases flagged for re-analysis due to newly ingested statutory provisions,\namendments, or CJEU jurisprudence.",
+        "operationId": "list_reanalysis_proposals_api_v1_ingestion_proposals_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  "type": "array",
+                  "title": "Response List Reanalysis Proposals Api V1 Ingestion Proposals Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ingestion/sources": {
+      "get": {
+        "tags": [
+          "Regulatory Ingestion"
+        ],
+        "summary": "List Legal Sources",
+        "description": "Lists all persisted legal sources with their explicit provenance classification,\ncryptographic digest, official identifier, and passage count.",
+        "operationId": "list_legal_sources_api_v1_ingestion_sources_get",
+        "parameters": [
+          {
+            "name": "provenance",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by provenance (e.g. REMOTE_OFFICIAL_SOURCE, BUNDLED_FIXTURE)",
+              "title": "Provenance"
+            },
+            "description": "Filter by provenance (e.g. REMOTE_OFFICIAL_SOURCE, BUNDLED_FIXTURE)"
+          },
+          {
+            "name": "jurisdiction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by jurisdiction (e.g. EU, CA)",
+              "title": "Jurisdiction"
+            },
+            "description": "Filter by jurisdiction (e.g. EU, CA)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response List Legal Sources Api V1 Ingestion Sources Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ingestion/sources/{source_id}": {
+      "get": {
+        "tags": [
+          "Regulatory Ingestion"
+        ],
+        "summary": "Get Legal Source Detail",
+        "description": "Returns detailed legal source metadata, its verbatim content preview, and segmented passages.",
+        "operationId": "get_legal_source_detail_api_v1_ingestion_sources__source_id__get",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Source Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Legal Source Detail Api V1 Ingestion Sources  Source Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/integrations/status": {
+      "get": {
+        "tags": [
+          "External Integrations"
+        ],
+        "summary": "Get Integrations Status",
+        "description": "Returns live connectivity and operational readiness across all external and subsystem integrations.\nClearly distinguishes operational services from unconfigured or fallback implementations.",
+        "operationId": "get_integrations_status_api_v1_integrations_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Get Integrations Status Api V1 Integrations Status Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/integrations/verify-tx": {
+      "get": {
+        "tags": [
+          "External Integrations"
+        ],
+        "summary": "Verify Transaction",
+        "description": "Independently queries Ethereum Sepolia public node for the given transaction hash.\nReturns confirmed receipt status, block number, gas used, and verified explorer URL.",
+        "operationId": "verify_transaction_api_v1_integrations_verify_tx_get",
+        "parameters": [
+          {
+            "name": "tx_hash",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "EVM transaction hash to check on Sepolia",
+              "title": "Tx Hash"
+            },
+            "description": "EVM transaction hash to check on Sepolia"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Verify Transaction Api V1 Integrations Verify Tx Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/integrations/verify-contract": {
+      "get": {
+        "tags": [
+          "External Integrations"
+        ],
+        "summary": "Verify Contract",
+        "description": "Independently queries Ethereum Sepolia public node for contract bytecode.",
+        "operationId": "verify_contract_api_v1_integrations_verify_contract_get",
+        "parameters": [
+          {
+            "name": "contract_address",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "EVM contract address to check",
+              "title": "Contract Address"
+            },
+            "description": "EVM contract address to check"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Verify Contract Api V1 Integrations Verify Contract Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/demo/seed": {
+      "post": {
+        "tags": [
+          "Demo & Simulation"
+        ],
+        "summary": "Seed Demo Workflow",
+        "description": "Executes the complete Appendix A end-to-end benchmark workflow:\n1. Initializes legal corpus & default agents.\n2. Creates Case (A.1 AI-enabled customer analytics).\n3. Runs multi-agent investigation & hybrid verification (A.2).\n4. Creates Prediction Market & commits/reveals forecasts with cryptographic hashes (A.3).\n5. Opens Evidence Bounty, submits verified authority, and settles simulated credits (A.4).\n6. Resolves and settles Prediction Market with Brier scoring.\n7. Generates comprehensive 10-section final report.",
+        "operationId": "seed_demo_workflow_api_v1_demo_seed_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Seed Demo Workflow Api V1 Demo Seed Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Health Check",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Root"
+        ],
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AgentReputationResponse": {
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id"
+          },
+          "wallet_address": {
+            "type": "string",
+            "title": "Wallet Address"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "reputation_score": {
+            "type": "number",
+            "title": "Reputation Score"
+          },
+          "brier_score": {
+            "type": "number",
+            "title": "Brier Score"
+          },
+          "sample_count": {
+            "type": "integer",
+            "title": "Sample Count"
+          },
+          "simulated_credits": {
+            "type": "number",
+            "title": "Simulated Credits"
+          },
+          "scoring_version": {
+            "type": "string",
+            "title": "Scoring Version"
+          },
+          "is_small_sample": {
+            "type": "boolean",
+            "title": "Is Small Sample"
+          },
+          "reputation_weight": {
+            "type": "number",
+            "title": "Reputation Weight"
+          }
+        },
+        "type": "object",
+        "required": [
+          "agent_id",
+          "wallet_address",
+          "role",
+          "reputation_score",
+          "brier_score",
+          "sample_count",
+          "simulated_credits",
+          "scoring_version",
+          "is_small_sample",
+          "reputation_weight"
+        ],
+        "title": "AgentReputationResponse"
+      },
+      "AgentResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "wallet_address": {
+            "type": "string",
+            "title": "Wallet Address"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "model_provider_version": {
+            "type": "string",
+            "title": "Model Provider Version"
+          },
+          "prompt_version": {
+            "type": "string",
+            "title": "Prompt Version"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "reputation_score": {
+            "type": "number",
+            "title": "Reputation Score"
+          },
+          "brier_score": {
+            "type": "number",
+            "title": "Brier Score"
+          },
+          "sample_count": {
+            "type": "integer",
+            "title": "Sample Count"
+          },
+          "simulated_credits": {
+            "type": "number",
+            "title": "Simulated Credits"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "wallet_address",
+          "role",
+          "model_provider_version",
+          "prompt_version",
+          "status",
+          "reputation_score",
+          "brier_score",
+          "sample_count",
+          "simulated_credits",
+          "created_at"
+        ],
+        "title": "AgentResponse"
+      },
+      "AuditEventResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "sequence_number": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sequence Number",
+            "default": 1
+          },
+          "event_type": {
+            "type": "string",
+            "title": "Event Type"
+          },
+          "actor": {
+            "type": "string",
+            "title": "Actor"
+          },
+          "payload_digest": {
+            "type": "string",
+            "title": "Payload Digest"
+          },
+          "payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Payload"
+          },
+          "previous_event_digest": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Event Digest"
+          },
+          "event_digest": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Event Digest"
+          },
+          "tx_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tx Hash"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "case_id",
+          "event_type",
+          "actor",
+          "payload_digest",
+          "payload",
+          "tx_hash",
+          "timestamp"
+        ],
+        "title": "AuditEventResponse"
+      },
+      "BaselineRunResult": {
+        "properties": {
+          "baseline_name": {
+            "type": "string",
+            "title": "Baseline Name"
+          },
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "detected_issues": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Detected Issues"
+          },
+          "issue_recall": {
+            "type": "number",
+            "title": "Issue Recall"
+          },
+          "predicted_probability": {
+            "type": "number",
+            "title": "Predicted Probability"
+          },
+          "brier_score": {
+            "type": "number",
+            "title": "Brier Score"
+          },
+          "citation_validity": {
+            "type": "number",
+            "title": "Citation Validity"
+          },
+          "unsupported_claim_rate": {
+            "type": "number",
+            "title": "Unsupported Claim Rate"
+          },
+          "execution_time_ms": {
+            "type": "number",
+            "title": "Execution Time Ms"
+          },
+          "passed": {
+            "type": "boolean",
+            "title": "Passed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "baseline_name",
+          "scenario_id",
+          "detected_issues",
+          "issue_recall",
+          "predicted_probability",
+          "brier_score",
+          "citation_validity",
+          "unsupported_claim_rate",
+          "execution_time_ms",
+          "passed"
+        ],
+        "title": "BaselineRunResult"
+      },
+      "BenchmarkScenario": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "jurisdiction": {
+            "type": "string",
+            "title": "Jurisdiction"
+          },
+          "question": {
+            "type": "string",
+            "title": "Question"
+          },
+          "facts": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Facts"
+          },
+          "ground_truth_issues": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Ground Truth Issues"
+          },
+          "ground_truth_gap_outcome": {
+            "type": "integer",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Ground Truth Gap Outcome"
+          },
+          "rubric": {
+            "type": "string",
+            "title": "Rubric",
+            "default": "Standard regulatory compliance evaluation rubric"
+          },
+          "split": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Split",
+            "default": "TEST"
+          },
+          "legal_instrument": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Legal Instrument"
+          },
+          "legal_provision": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Legal Provision"
+          },
+          "expected_counterarguments": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Expected Counterarguments"
+          },
+          "expected_uncertainty": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Uncertainty"
+          },
+          "provenance": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provenance"
+          },
+          "dataset_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dataset Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "jurisdiction",
+          "question",
+          "facts",
+          "ground_truth_issues",
+          "ground_truth_gap_outcome"
+        ],
+        "title": "BenchmarkScenario"
+      },
+      "BenchmarkSummary": {
+        "properties": {
+          "total_scenarios": {
+            "type": "integer",
+            "title": "Total Scenarios"
+          },
+          "evaluated_at": {
+            "type": "string",
+            "title": "Evaluated At"
+          },
+          "metrics": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "number"
+              },
+              "type": "object"
+            },
+            "type": "object",
+            "title": "Metrics"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/BaselineRunResult"
+            },
+            "type": "array",
+            "title": "Results"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_scenarios",
+          "evaluated_at",
+          "metrics",
+          "results"
+        ],
+        "title": "BenchmarkSummary"
+      },
+      "BountyChallengeRequest": {
+        "properties": {
+          "challenger_address": {
+            "type": "string",
+            "title": "Challenger Address"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 10,
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "challenger_address",
+          "reason"
+        ],
+        "title": "BountyChallengeRequest"
+      },
+      "BountyCreateRequest": {
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "question": {
+            "type": "string",
+            "title": "Question",
+            "description": "Narrow research question to be resolved"
+          },
+          "acceptance_criteria": {
+            "type": "string",
+            "title": "Acceptance Criteria",
+            "description": "Rubric for evaluating submitted evidence"
+          },
+          "reward_amount": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Reward Amount",
+            "description": "Reward in simulated credits",
+            "default": 100.0
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Deadline"
+          },
+          "challenge_window_seconds": {
+            "type": "integer",
+            "title": "Challenge Window Seconds",
+            "default": 86400
+          },
+          "creator_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Creator Address"
+          }
+        },
+        "type": "object",
+        "required": [
+          "case_id",
+          "question",
+          "acceptance_criteria",
+          "deadline"
+        ],
+        "title": "BountyCreateRequest"
+      },
+      "BountyResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "question": {
+            "type": "string",
+            "title": "Question"
+          },
+          "acceptance_criteria": {
+            "type": "string",
+            "title": "Acceptance Criteria"
+          },
+          "reward_amount": {
+            "type": "number",
+            "title": "Reward Amount"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Deadline"
+          },
+          "challenge_window_seconds": {
+            "type": "integer",
+            "title": "Challenge Window Seconds"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "contract_reference": {
+            "type": "string",
+            "title": "Contract Reference"
+          },
+          "winning_submission_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Winning Submission Id"
+          },
+          "creator_address": {
+            "type": "string",
+            "title": "Creator Address"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "submissions": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceSubmissionResponse"
+            },
+            "type": "array",
+            "title": "Submissions",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "case_id",
+          "question",
+          "acceptance_criteria",
+          "reward_amount",
+          "deadline",
+          "challenge_window_seconds",
+          "status",
+          "contract_reference",
+          "winning_submission_id",
+          "creator_address",
+          "created_at"
+        ],
+        "title": "BountyResponse"
+      },
+      "BountySettleRequest": {
+        "properties": {
+          "winning_submission_id": {
+            "type": "string",
+            "title": "Winning Submission Id"
+          },
+          "reviewer_address": {
+            "type": "string",
+            "title": "Reviewer Address"
+          },
+          "review_reason": {
+            "type": "string",
+            "minLength": 5,
+            "title": "Review Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "winning_submission_id",
+          "reviewer_address",
+          "review_reason"
+        ],
+        "title": "BountySettleRequest"
+      },
+      "CaseCreateRequest": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 3,
+            "title": "Title",
+            "description": "Case title"
+          },
+          "question": {
+            "type": "string",
+            "minLength": 5,
+            "title": "Question",
+            "description": "Legal/compliance question to investigate"
+          },
+          "jurisdiction": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 2,
+            "title": "Jurisdiction",
+            "description": "Applicable legal jurisdiction, e.g. 'EU', 'California'"
+          },
+          "assessment_date": {
+            "type": "string",
+            "title": "Assessment Date",
+            "description": "Assessment date (YYYY-MM-DD) for statutory applicability"
+          },
+          "facts": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Facts",
+            "description": "Structured facts: data_categories, processing_purpose, affected_users, retention, etc."
+          },
+          "document_references": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Document References",
+            "description": "Optional document links or identifiers"
+          },
+          "provenance": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provenance",
+            "description": "Data origin: 'OPERATIONAL', 'DEMO', 'TEST', or 'UNKNOWN'",
+            "default": "OPERATIONAL"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "question",
+          "jurisdiction",
+          "assessment_date",
+          "facts"
+        ],
+        "title": "CaseCreateRequest"
+      },
+      "CaseResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "question": {
+            "type": "string",
+            "title": "Question"
+          },
+          "jurisdiction": {
+            "type": "string",
+            "title": "Jurisdiction"
+          },
+          "assessment_date": {
+            "type": "string",
+            "title": "Assessment Date"
+          },
+          "facts": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Facts"
+          },
+          "scope_version": {
+            "type": "integer",
+            "title": "Scope Version"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "provenance": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provenance",
+            "default": "OPERATIONAL"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "question",
+          "jurisdiction",
+          "assessment_date",
+          "facts",
+          "scope_version",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "CaseResponse"
+      },
+      "CaseUpdateRequest": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "question": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question"
+          },
+          "facts": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Facts"
+          }
+        },
+        "type": "object",
+        "title": "CaseUpdateRequest"
+      },
+      "ClaimGroundingResult": {
+        "properties": {
+          "overall_status": {
+            "type": "string",
+            "title": "Overall Status",
+            "default": "VERIFIED"
+          },
+          "dimension_statuses": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Dimension Statuses"
+          },
+          "dimension_scores": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Dimension Scores"
+          },
+          "dimension_rationales": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Dimension Rationales"
+          },
+          "is_fully_grounded": {
+            "type": "boolean",
+            "title": "Is Fully Grounded",
+            "default": true
+          },
+          "requires_human_review": {
+            "type": "boolean",
+            "title": "Requires Human Review",
+            "default": false
+          },
+          "audit_notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Audit Notes"
+          }
+        },
+        "type": "object",
+        "title": "ClaimGroundingResult"
+      },
+      "CommitmentCreateRequest": {
+        "properties": {
+          "market_id": {
+            "type": "string",
+            "title": "Market Id",
+            "description": "Target prediction market ID"
+          },
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "Agent submitting the commitment"
+          },
+          "commitment_hash": {
+            "type": "string",
+            "title": "Commitment Hash",
+            "description": "6-field keccak256 commitment hash"
+          },
+          "wallet_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wallet Address",
+            "description": "Optional agent wallet address"
+          }
+        },
+        "type": "object",
+        "required": [
+          "market_id",
+          "agent_id",
+          "commitment_hash"
+        ],
+        "title": "CommitmentCreateRequest"
+      },
+      "CommitmentRevealRequest": {
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "Agent revealing the commitment"
+          },
+          "probability": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Probability",
+            "description": "Revealed probability [0.0, 1.0]"
+          },
+          "evidence_digest": {
+            "type": "string",
+            "title": "Evidence Digest",
+            "description": "Revealed evidence digest"
+          },
+          "nonce": {
+            "type": "string",
+            "title": "Nonce",
+            "description": "Revealed secret nonce"
+          },
+          "wallet_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wallet Address",
+            "description": "Optional agent wallet address"
+          }
+        },
+        "type": "object",
+        "required": [
+          "agent_id",
+          "probability",
+          "evidence_digest",
+          "nonce"
+        ],
+        "title": "CommitmentRevealRequest"
+      },
+      "DecisionCreateRequest": {
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "title": "Case Id",
+            "description": "ID of the case to seal into a Canonical Decision Record"
+          },
+          "rebuild": {
+            "type": "boolean",
+            "title": "Rebuild",
+            "description": "Whether to recompute and overwrite existing decision record",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "case_id"
+        ],
+        "title": "DecisionCreateRequest"
+      },
+      "EvidenceRef": {
+        "properties": {
+          "evidence_id": {
+            "type": "string",
+            "title": "Evidence Id",
+            "description": "Stable identifier of evidence passage"
+          },
+          "passage_reference": {
+            "type": "string",
+            "title": "Passage Reference",
+            "description": "Statutory or regulatory article reference"
+          },
+          "digest": {
+            "type": "string",
+            "title": "Digest",
+            "description": "Cryptographic SHA256 digest of passage text"
+          },
+          "relationship": {
+            "type": "string",
+            "title": "Relationship",
+            "description": "SUPPORTS, REFUTES, or QUALIFIES",
+            "default": "SUPPORTS"
+          },
+          "relevance_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Relevance Score",
+            "default": 1.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "evidence_id",
+          "passage_reference",
+          "digest"
+        ],
+        "title": "EvidenceRef"
+      },
+      "EvidenceSubmissionRequest": {
+        "properties": {
+          "contributor_address": {
+            "type": "string",
+            "title": "Contributor Address"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 3,
+            "title": "Title"
+          },
+          "source_reference": {
+            "type": "string",
+            "title": "Source Reference",
+            "description": "Citation or legal authority reference"
+          },
+          "content": {
+            "type": "string",
+            "minLength": 10,
+            "title": "Content",
+            "description": "Verifiable passage or factual evidence"
+          },
+          "provenance": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provenance"
+          }
+        },
+        "type": "object",
+        "required": [
+          "contributor_address",
+          "title",
+          "source_reference",
+          "content"
+        ],
+        "title": "EvidenceSubmissionRequest"
+      },
+      "EvidenceSubmissionResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "bounty_id": {
+            "type": "string",
+            "title": "Bounty Id"
+          },
+          "contributor_address": {
+            "type": "string",
+            "title": "Contributor Address"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "source_reference": {
+            "type": "string",
+            "title": "Source Reference"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "digest": {
+            "type": "string",
+            "title": "Digest"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Provenance"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "review_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Review Reason"
+          },
+          "reviewer_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewer Address"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Submitted At"
+          },
+          "reviewed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewed At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "bounty_id",
+          "contributor_address",
+          "title",
+          "source_reference",
+          "content",
+          "digest",
+          "provenance",
+          "status",
+          "review_reason",
+          "reviewer_address",
+          "submitted_at",
+          "reviewed_at"
+        ],
+        "title": "EvidenceSubmissionResponse"
+      },
+      "EvidenceVerifyRequest": {
+        "properties": {
+          "claim_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Claim Id"
+          },
+          "claim_text": {
+            "type": "string",
+            "title": "Claim Text",
+            "description": "Legal claim proposition to verify"
+          },
+          "evidence_refs": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceRef"
+            },
+            "type": "array",
+            "title": "Evidence Refs",
+            "description": "Cited evidence passages with SHA-256 digests"
+          },
+          "case_facts": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Case Facts",
+            "description": "Facts of the case"
+          },
+          "case_jurisdiction": {
+            "type": "string",
+            "title": "Case Jurisdiction",
+            "description": "Declared jurisdiction of evaluation",
+            "default": "EU"
+          },
+          "assessment_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assessment Date",
+            "description": "ISO date of assessment (e.g. 2026-10-31)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "claim_text",
+          "evidence_refs"
+        ],
+        "title": "EvidenceVerifyRequest"
+      },
+      "ForecastCreateRequest": {
+        "properties": {
+          "market_id": {
+            "type": "string",
+            "title": "Market Id",
+            "description": "Target prediction market ID"
+          },
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "Agent submitting the forecast"
+          },
+          "probability": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Probability",
+            "description": "Predicted probability [0.0, 1.0]"
+          },
+          "evidence_digest": {
+            "type": "string",
+            "title": "Evidence Digest",
+            "description": "SHA-256 digest of supporting evidence"
+          },
+          "nonce": {
+            "type": "string",
+            "title": "Nonce",
+            "description": "Secret 32-byte hexadecimal nonce"
+          },
+          "wallet_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wallet Address",
+            "description": "Optional agent wallet address"
+          }
+        },
+        "type": "object",
+        "required": [
+          "market_id",
+          "agent_id",
+          "probability",
+          "evidence_digest",
+          "nonce"
+        ],
+        "title": "ForecastCreateRequest"
+      },
+      "ForecastResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "market_id": {
+            "type": "string",
+            "title": "Market Id"
+          },
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id"
+          },
+          "commitment_hash": {
+            "type": "string",
+            "title": "Commitment Hash"
+          },
+          "probability": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Probability"
+          },
+          "evidence_digest": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Digest"
+          },
+          "nonce": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nonce"
+          },
+          "reveal_status": {
+            "type": "string",
+            "title": "Reveal Status"
+          },
+          "commit_tx_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Commit Tx Hash"
+          },
+          "reveal_tx_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reveal Tx Hash"
+          },
+          "brier_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brier Score"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "revealed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revealed At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "market_id",
+          "agent_id",
+          "commitment_hash",
+          "probability",
+          "evidence_digest",
+          "nonce",
+          "reveal_status",
+          "commit_tx_hash",
+          "reveal_tx_hash",
+          "brier_score",
+          "created_at",
+          "revealed_at"
+        ],
+        "title": "ForecastResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "MarketCommitRequest": {
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id"
+          },
+          "commitment_hash": {
+            "type": "string",
+            "title": "Commitment Hash",
+            "description": "keccak256 hash H(chainId, marketId, agent, prob, digest, nonce)"
+          },
+          "wallet_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wallet Address",
+            "description": "Registered Ethereum wallet address in AgentRegistry"
+          }
+        },
+        "type": "object",
+        "required": [
+          "agent_id",
+          "commitment_hash"
+        ],
+        "title": "MarketCommitRequest"
+      },
+      "MarketCreateRequest": {
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "question": {
+            "type": "string",
+            "title": "Question",
+            "description": "Binary event question with objective benchmark outcome"
+          },
+          "outcome_definition": {
+            "type": "string",
+            "title": "Outcome Definition",
+            "description": "Exact definition of 1 (YES) and 0 (NO)"
+          },
+          "resolution_method": {
+            "type": "string",
+            "title": "Resolution Method",
+            "description": "Predeclared resolution procedure/rubric"
+          },
+          "rubric_version": {
+            "type": "string",
+            "title": "Rubric Version",
+            "default": "1.0"
+          },
+          "commit_deadline": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Commit Deadline"
+          },
+          "reveal_deadline": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Reveal Deadline"
+          },
+          "resolution_deadline": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Resolution Deadline"
+          },
+          "challenge_window_seconds": {
+            "type": "integer",
+            "title": "Challenge Window Seconds",
+            "default": 86400
+          },
+          "void_criteria": {
+            "type": "string",
+            "title": "Void Criteria",
+            "description": "Conditions under which market is voided/unresolved"
+          },
+          "evaluator_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evaluator Address"
+          }
+        },
+        "type": "object",
+        "required": [
+          "case_id",
+          "question",
+          "outcome_definition",
+          "resolution_method",
+          "commit_deadline",
+          "reveal_deadline",
+          "resolution_deadline",
+          "void_criteria"
+        ],
+        "title": "MarketCreateRequest"
+      },
+      "MarketResolveRequest": {
+        "properties": {
+          "proposed_outcome": {
+            "type": "integer",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Proposed Outcome",
+            "description": "1 for YES, 0 for NO"
+          },
+          "resolution_reference": {
+            "type": "string",
+            "title": "Resolution Reference",
+            "description": "Benchmark evaluation URL or record ID"
+          },
+          "evaluator_address": {
+            "type": "string",
+            "title": "Evaluator Address"
+          }
+        },
+        "type": "object",
+        "required": [
+          "proposed_outcome",
+          "resolution_reference",
+          "evaluator_address"
+        ],
+        "title": "MarketResolveRequest"
+      },
+      "MarketResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "case_version": {
+            "type": "integer",
+            "title": "Case Version"
+          },
+          "question": {
+            "type": "string",
+            "title": "Question"
+          },
+          "outcome_definition": {
+            "type": "string",
+            "title": "Outcome Definition"
+          },
+          "resolution_method": {
+            "type": "string",
+            "title": "Resolution Method"
+          },
+          "rubric_version": {
+            "type": "string",
+            "title": "Rubric Version"
+          },
+          "commit_deadline": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Commit Deadline"
+          },
+          "reveal_deadline": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Reveal Deadline"
+          },
+          "resolution_deadline": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Resolution Deadline"
+          },
+          "challenge_window_seconds": {
+            "type": "integer",
+            "title": "Challenge Window Seconds"
+          },
+          "scoring_version": {
+            "type": "string",
+            "title": "Scoring Version"
+          },
+          "void_criteria": {
+            "type": "string",
+            "title": "Void Criteria"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "contract_address": {
+            "type": "string",
+            "title": "Contract Address"
+          },
+          "proposed_outcome": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Proposed Outcome"
+          },
+          "resolution_reference": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resolution Reference"
+          },
+          "evaluator_address": {
+            "type": "string",
+            "title": "Evaluator Address"
+          },
+          "aggregate_probability": {
+            "type": "number",
+            "title": "Aggregate Probability"
+          },
+          "disagreement_variance": {
+            "type": "number",
+            "title": "Disagreement Variance"
+          },
+          "sample_size": {
+            "type": "integer",
+            "title": "Sample Size"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "forecasts": {
+            "items": {
+              "$ref": "#/components/schemas/ForecastResponse"
+            },
+            "type": "array",
+            "title": "Forecasts",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "case_id",
+          "case_version",
+          "question",
+          "outcome_definition",
+          "resolution_method",
+          "rubric_version",
+          "commit_deadline",
+          "reveal_deadline",
+          "resolution_deadline",
+          "challenge_window_seconds",
+          "scoring_version",
+          "void_criteria",
+          "status",
+          "contract_address",
+          "proposed_outcome",
+          "resolution_reference",
+          "evaluator_address",
+          "aggregate_probability",
+          "disagreement_variance",
+          "sample_size",
+          "created_at"
+        ],
+        "title": "MarketResponse"
+      },
+      "MarketRevealRequest": {
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id"
+          },
+          "probability": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Probability"
+          },
+          "evidence_digest": {
+            "type": "string",
+            "title": "Evidence Digest",
+            "description": "Digest of evidence supporting the forecast"
+          },
+          "nonce": {
+            "type": "string",
+            "title": "Nonce",
+            "description": "Secret 32-byte hexadecimal nonce"
+          },
+          "wallet_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wallet Address",
+            "description": "Registered Ethereum wallet address in AgentRegistry"
+          }
+        },
+        "type": "object",
+        "required": [
+          "agent_id",
+          "probability",
+          "evidence_digest",
+          "nonce"
+        ],
+        "title": "MarketRevealRequest"
+      },
+      "ReputationRecordResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id"
+          },
+          "delta": {
+            "type": "number",
+            "title": "Delta"
+          },
+          "score_before": {
+            "type": "number",
+            "title": "Score Before"
+          },
+          "score_after": {
+            "type": "number",
+            "title": "Score After"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "event_reference": {
+            "type": "string",
+            "title": "Event Reference"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "agent_id",
+          "delta",
+          "score_before",
+          "score_after",
+          "reason",
+          "event_reference",
+          "timestamp"
+        ],
+        "title": "ReputationRecordResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

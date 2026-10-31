@@ -1,0 +1,14 @@
+{
+  "benchmark_execution_timestamp": null,
+  "canonical_protocol_version": "veridion_decision_record_v1.0.0",
+  "machine": "AMD64",
+  "os": "Windows",
+  "os_release": "10",
+  "os_version": "10.0.26200",
+  "processor": "AMD64 Family 25 Model 124 Stepping 0, AuthenticAMD",
+  "python_compiler": "MSC v.1938 64 bit (AMD64)",
+  "python_executable": "C:\\Users\\DIVYANK BHARDWAJ\\Desktop\\Projects\\veridion\\Verdion\\.venv\\Scripts\\python.exe",
+  "python_version": "3.11.9",
+  "sepolia_chain_id": 11155111,
+  "sqlite_version": "3.45.1"
+}

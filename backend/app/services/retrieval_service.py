@@ -63,6 +63,7 @@ class RetrievalService:
                     effective_date=doc_data["effective_date"],
                     digest=doc_digest,
                     version=doc_data.get("version", "1.0"),
+                    provenance="BUNDLED_FIXTURE",
                     raw_content=raw_text
                 )
                 db.add(new_doc)
@@ -77,7 +78,8 @@ class RetrievalService:
                         content_reference=p["content_reference"],
                         text=p["text"],
                         digest=passage_digest,
-                        source_version=doc_data.get("version", "1.0")
+                        source_version=doc_data.get("version", "1.0"),
+                        provenance="BUNDLED_FIXTURE"
                     )
                     db.add(passage)
                     count += 1

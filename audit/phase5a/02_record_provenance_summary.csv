@@ -1,0 +1,174 @@
+entity_id,entity_type,title_or_ref,created_at,provenance_class,verification_status,notes
+case_8c81a6b4b6,Case,AI-Powered Customer Support Analytics,2026-10-26 22:32:18.475288,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_13fb8cae1f,Case,AI-Powered Customer Support Analytics,2026-10-26 22:32:18.970556,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_b8aaa32748,Case,AI-Powered Customer Support Analytics,2026-10-26 22:32:19.465467,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_35e0a777b2,Case,Idempotent Case Creation Test,2026-10-26 22:32:19.791157,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_7cb8308e0b,Case,Async Job Test Case,2026-10-26 22:32:19.921351,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_f3acb70a0a,Case,AI-Powered Customer Support Analytics,2026-10-26 22:34:19.007170,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_4264dec90f,Case,AI-Powered Customer Support Analytics,2026-10-26 22:34:19.546606,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_4fc7ba6d9a,Case,AI-Powered Customer Support Analytics,2026-10-26 22:34:19.937259,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_c4136c2127,Case,Idempotent Case Creation Test,2026-10-26 22:34:20.236234,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_8eb403dcbf,Case,Async Job Test Case,2026-10-26 22:34:20.286393,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_fdbf54271c,Case,AI-Powered Customer Support Analytics,2026-10-26 23:00:50.709468,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_9513ce017b,Case,AI-Powered Customer Support Analytics,2026-10-26 23:01:13.405527,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_4b0b01dcdc,Case,AI-Powered Customer Support Analytics,2026-10-27 00:28:57.937526,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_e735104d3d,Case,AI-Powered Customer Support Analytics,2026-10-27 00:28:58.489453,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_fbb836520d,Case,AI-Powered Customer Support Analytics,2026-10-27 00:28:59.177033,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_82e3e07007,Case,Idempotent Case Creation Test,2026-10-27 00:28:59.745019,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_4fd1d54ab3,Case,Async Job Test Case,2026-10-27 00:28:59.796536,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_aa9cbd685b,Case,AI-Powered Customer Support Analytics,2026-10-27 00:41:26.857741,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_af1fd3e54b,Case,AI-Powered Customer Support Analytics,2026-10-27 00:41:27.287448,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_9f5f014055,Case,AI-Powered Customer Support Analytics,2026-10-27 00:41:27.687846,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_d9d7fdfa40,Case,Idempotent Case Creation Test,2026-10-27 00:41:28.100412,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_570b9f56bf,Case,Async Job Test Case,2026-10-27 00:41:28.132116,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_e94b8fb89b,Case,AI-Powered Customer Support Analytics,2026-10-27 00:53:44.491001,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_5791dae75d,Case,AI-Powered Customer Support Analytics,2026-10-27 00:53:45.071198,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_006a504710,Case,AI-Powered Customer Support Analytics,2026-10-27 00:53:45.709765,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_bf24f98992,Case,Idempotent Case Creation Test,2026-10-27 00:53:46.164779,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_f79cf52328,Case,Async Job Test Case,2026-10-27 00:53:46.209898,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_dbb88dfdac,Case,AI-Powered Customer Support Analytics,2026-10-27 01:07:29.838339,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_276d47de72,Case,AI-Powered Customer Support Analytics,2026-10-27 01:07:30.266176,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_a95d7b569f,Case,AI-Powered Customer Support Analytics,2026-10-27 01:07:30.772611,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_2881403336,Case,Idempotent Case Creation Test,2026-10-27 01:07:31.080198,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_2a921aa2ee,Case,Async Job Test Case,2026-10-27 01:07:31.112845,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_e5e182915d,Case,Reality Engineering E2E Verification Case,2026-10-27 01:08:01.792507,OPERATIONAL_E2E_VERIFICATION,VERIFIED_MANUAL_E2E,Created during Phase 3/4 live E2E verification run
+case_22b82e4408,Case,Reality Engineering E2E Verification Case,2026-10-27 01:09:25.483147,OPERATIONAL_E2E_VERIFICATION,VERIFIED_MANUAL_E2E,Created during Phase 3/4 live E2E verification run
+case_784b5347d2,Case,AI-Powered Customer Support Analytics,2026-10-27 01:09:48.552973,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_7bef881e87,Case,AI-Powered Customer Support Analytics,2026-10-27 01:09:49.006688,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_48d2103533,Case,AI-Powered Customer Support Analytics,2026-10-27 01:09:49.490506,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_ab3824ca2e,Case,Idempotent Case Creation Test,2026-10-27 01:09:49.794659,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_b6739a0dee,Case,Async Job Test Case,2026-10-27 01:09:49.821845,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_029c171d15,Case,AI-Powered Customer Support Analytics,2026-10-27 01:15:39.845336,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_72aca3c413,Case,AI-Powered Customer Support Analytics,2026-10-27 01:15:40.266472,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_4fbdfcfe6f,Case,AI-Powered Customer Support Analytics,2026-10-27 01:15:40.743066,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_0f2e1b9ffb,Case,Idempotent Case Creation Test,2026-10-27 01:15:41.045751,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_621bce8dee,Case,Async Job Test Case,2026-10-27 01:15:41.073424,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_a78dea417b,Case,AI-Powered Customer Support Analytics,2026-10-27 01:22:59.950147,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_c26d8b020f,Case,AI-Powered Customer Support Analytics,2026-10-27 01:23:00.350908,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_5e6bcf7521,Case,AI-Powered Customer Support Analytics,2026-10-27 01:23:00.843723,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_1c7a6e39db,Case,Idempotent Case Creation Test,2026-10-27 01:23:01.142468,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_0686efdac5,Case,Async Job Test Case,2026-10-27 01:23:01.175334,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_fbd4c62d14,Case,AI-Powered Customer Support Analytics,2026-10-27 01:39:13.141162,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_281509e6f5,Case,AI-Powered Customer Support Analytics,2026-10-27 01:39:13.642665,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_e04d155580,Case,AI-Powered Customer Support Analytics,2026-10-27 01:39:14.228235,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_3c38894c1f,Case,Idempotent Case Creation Test,2026-10-27 01:39:14.599506,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_0162622760,Case,Async Job Test Case,2026-10-27 01:39:14.639065,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_1b9b5dab51,Case,AI-Powered Customer Support Analytics,2026-10-27 01:59:10.526149,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_be7dc58d80,Case,AI-Powered Customer Support Analytics,2026-10-27 01:59:11.012860,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_6d0a80cc7b,Case,AI-Powered Customer Support Analytics,2026-10-27 01:59:11.521846,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_af570d8e2c,Case,Idempotent Case Creation Test,2026-10-27 01:59:11.850017,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_48b54223bb,Case,Async Job Test Case,2026-10-27 01:59:11.881308,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_2a4e42f513,Case,AI-Powered Customer Support Analytics,2026-10-27 02:09:06.514463,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_ba792fb1a3,Case,AI-Powered Customer Support Analytics,2026-10-27 02:09:06.965726,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_b03bf03bfb,Case,AI-Powered Customer Support Analytics,2026-10-27 02:09:07.466618,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_9d270f42fb,Case,Idempotent Case Creation Test,2026-10-27 02:09:07.780138,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_9ba8bc2c1c,Case,Async Job Test Case,2026-10-27 02:09:07.807859,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_fc327f4ef2,Case,AI-Powered Customer Support Analytics,2026-10-27 02:13:01.678460,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_83e5b5c7f0,Case,AI-Powered Customer Support Analytics,2026-10-27 02:13:02.121688,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_295609759c,Case,AI-Powered Customer Support Analytics,2026-10-27 02:13:02.608621,DEMO_SEEDED,VERIFIED_DEMO_SEED,Created via /api/v1/demo/seed endpoint
+case_ab0d1e3c4a,Case,Idempotent Case Creation Test,2026-10-27 02:13:02.916351,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+case_7149956bf5,Case,Async Job Test Case,2026-10-27 02:13:02.951039,TEST_FIXTURE_LEAKAGE,UNVERIFIED_TEST_RUN,Created during test_end_to_end.py execution against veridion.db
+mkt_28d07a74ee,PredictionMarket,Market for case_8c81a6b4b6,2026-10-26 22:32:18.631187,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_93f9f6a41e,PredictionMarket,Market for case_13fb8cae1f,2026-10-26 22:32:19.148390,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_4f77631637,PredictionMarket,Market for case_b8aaa32748,2026-10-26 22:32:19.586219,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_98cea65b2c,PredictionMarket,Market for case_f3acb70a0a,2026-10-26 22:34:19.244980,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_25c87a9b06,PredictionMarket,Market for case_4264dec90f,2026-10-26 22:34:19.661206,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_2be7084d40,PredictionMarket,Market for case_4fc7ba6d9a,2026-10-26 22:34:20.057438,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_f16ca3c48b,PredictionMarket,Market for case_fdbf54271c,2026-10-26 23:00:50.863449,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_ccb2750e74,PredictionMarket,Market for case_9513ce017b,2026-10-26 23:01:13.558221,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_6f2fe8a4e6,PredictionMarket,Market for case_4b0b01dcdc,2026-10-27 00:28:58.104961,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_12d4156a56,PredictionMarket,Market for case_e735104d3d,2026-10-27 00:28:58.649014,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_33e73afcbb,PredictionMarket,Market for case_fbb836520d,2026-10-27 00:28:59.454801,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_2522fed9c3,PredictionMarket,Market for case_aa9cbd685b,2026-10-27 00:41:26.987262,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_7cc9f2cdfc,PredictionMarket,Market for case_af1fd3e54b,2026-10-27 00:41:27.416341,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_0451cd0228,PredictionMarket,Market for case_9f5f014055,2026-10-27 00:41:27.871131,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_5dd2cd5817,PredictionMarket,Market for case_e94b8fb89b,2026-10-27 00:53:44.654801,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_8b4dbfce32,PredictionMarket,Market for case_5791dae75d,2026-10-27 00:53:45.242571,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_73e5c6e3fb,PredictionMarket,Market for case_006a504710,2026-10-27 00:53:45.883625,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_2b89da2289,PredictionMarket,Market for case_dbb88dfdac,2026-10-27 01:07:29.963475,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_d4ee177ba8,PredictionMarket,Market for case_276d47de72,2026-10-27 01:07:30.377971,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_e9d604decf,PredictionMarket,Market for case_a95d7b569f,2026-10-27 01:07:30.881085,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_d0d4dd5bb4,PredictionMarket,Market for case_e5e182915d,2026-10-27 01:08:01.917595,OPERATIONAL_E2E_VERIFICATION,SIMULATED_LOCAL_CREDITS,Linked to OPERATIONAL_E2E_VERIFICATION case; local probability aggregate 0.0
+mkt_af5e4eac21,PredictionMarket,Market for case_22b82e4408,2026-10-27 01:09:25.599786,OPERATIONAL_E2E_VERIFICATION,SIMULATED_LOCAL_CREDITS,Linked to OPERATIONAL_E2E_VERIFICATION case; local probability aggregate 0.85
+mkt_288756a7a5,PredictionMarket,Market for case_784b5347d2,2026-10-27 01:09:48.726125,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_6871236685,PredictionMarket,Market for case_7bef881e87,2026-10-27 01:09:49.117732,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_be5c7a2c9a,PredictionMarket,Market for case_48d2103533,2026-10-27 01:09:49.593055,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_1890d161cb,PredictionMarket,Market for case_029c171d15,2026-10-27 01:15:39.971205,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_5a7662026b,PredictionMarket,Market for case_72aca3c413,2026-10-27 01:15:40.371345,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_839480e718,PredictionMarket,Market for case_4fbdfcfe6f,2026-10-27 01:15:40.850656,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_aee635af8e,PredictionMarket,Market for case_a78dea417b,2026-10-27 01:23:00.068325,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_2b6f1a03b2,PredictionMarket,Market for case_c26d8b020f,2026-10-27 01:23:00.462052,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_f1abd64723,PredictionMarket,Market for case_5e6bcf7521,2026-10-27 01:23:00.953139,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_f73b85ff13,PredictionMarket,Market for case_fbd4c62d14,2026-10-27 01:39:13.291793,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_7a02335250,PredictionMarket,Market for case_281509e6f5,2026-10-27 01:39:13.779559,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_f875bdcfb1,PredictionMarket,Market for case_e04d155580,2026-10-27 01:39:14.356853,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_54188dd0e2,PredictionMarket,Market for case_1b9b5dab51,2026-10-27 01:59:10.678888,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_fbf7948fa1,PredictionMarket,Market for case_be7dc58d80,2026-10-27 01:59:11.124858,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_69f6658fc5,PredictionMarket,Market for case_6d0a80cc7b,2026-10-27 01:59:11.646921,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_06ad506c60,PredictionMarket,Market for case_2a4e42f513,2026-10-27 02:09:06.652824,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_a3aad054a1,PredictionMarket,Market for case_ba792fb1a3,2026-10-27 02:09:07.076786,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_43c993e7c1,PredictionMarket,Market for case_b03bf03bfb,2026-10-27 02:09:07.570810,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_e01bd366ca,PredictionMarket,Market for case_fc327f4ef2,2026-10-27 02:13:01.816208,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_57ec9990cd,PredictionMarket,Market for case_83e5b5c7f0,2026-10-27 02:13:02.237100,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+mkt_9a57914f9e,PredictionMarket,Market for case_295609759c,2026-10-27 02:13:02.721340,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Linked to DEMO_SEEDED case; local probability aggregate 0.6333
+bnty_d857a090bf,EvidenceBounty,Bounty for case_8c81a6b4b6,2026-10-26 22:32:18.739030,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_cdc1df6213,EvidenceBounty,Bounty for case_13fb8cae1f,2026-10-26 22:32:19.253419,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_d9d81298d5,EvidenceBounty,Bounty for case_b8aaa32748,2026-10-26 22:32:19.684760,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_fc81709976,EvidenceBounty,Bounty for case_f3acb70a0a,2026-10-26 22:34:19.328675,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_483d01ef9e,EvidenceBounty,Bounty for case_4264dec90f,2026-10-26 22:34:19.751087,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_2f6e6dd480,EvidenceBounty,Bounty for case_4fc7ba6d9a,2026-10-26 22:34:20.132637,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_83ff395da9,EvidenceBounty,Bounty for case_fdbf54271c,2026-10-26 23:00:51.009584,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_c777a44092,EvidenceBounty,Bounty for case_9513ce017b,2026-10-26 23:01:13.702011,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_a5ef9ef895,EvidenceBounty,Bounty for case_4b0b01dcdc,2026-10-27 00:28:58.227235,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_260ed30431,EvidenceBounty,Bounty for case_e735104d3d,2026-10-27 00:28:58.948135,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_74d633a692,EvidenceBounty,Bounty for case_fbb836520d,2026-10-27 00:28:59.575093,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_44f5878f27,EvidenceBounty,Bounty for case_aa9cbd685b,2026-10-27 00:41:27.078492,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_b62f030832,EvidenceBounty,Bounty for case_af1fd3e54b,2026-10-27 00:41:27.507169,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_d0435436e3,EvidenceBounty,Bounty for case_9f5f014055,2026-10-27 00:41:27.963298,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_7e652e9db7,EvidenceBounty,Bounty for case_e94b8fb89b,2026-10-27 00:53:44.783796,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_1c487f432c,EvidenceBounty,Bounty for case_5791dae75d,2026-10-27 00:53:45.362952,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_095f580d55,EvidenceBounty,Bounty for case_006a504710,2026-10-27 00:53:45.999304,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_7d0c1a2af7,EvidenceBounty,Bounty for case_dbb88dfdac,2026-10-27 01:07:30.054011,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_c953e97db4,EvidenceBounty,Bounty for case_276d47de72,2026-10-27 01:07:30.473055,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_96940d7e6f,EvidenceBounty,Bounty for case_a95d7b569f,2026-10-27 01:07:30.970162,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_df41848fbc,EvidenceBounty,Bounty for case_22b82e4408,2026-10-27 01:09:25.667605,OPERATIONAL_E2E_VERIFICATION,SIMULATED_LOCAL_CREDITS,Reward: 150.0 simulated credits
+bnty_75958fab37,EvidenceBounty,Bounty for case_784b5347d2,2026-10-27 01:09:48.816421,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_2fc14fb953,EvidenceBounty,Bounty for case_7bef881e87,2026-10-27 01:09:49.203493,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_0490144a31,EvidenceBounty,Bounty for case_48d2103533,2026-10-27 01:09:49.670181,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_c4a96a2e5a,EvidenceBounty,Bounty for case_029c171d15,2026-10-27 01:15:40.062315,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_e3e2a7e5ad,EvidenceBounty,Bounty for case_72aca3c413,2026-10-27 01:15:40.448578,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_6a121bde12,EvidenceBounty,Bounty for case_4fbdfcfe6f,2026-10-27 01:15:40.929187,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_9970f25266,EvidenceBounty,Bounty for case_a78dea417b,2026-10-27 01:23:00.156237,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_9db4550e25,EvidenceBounty,Bounty for case_c26d8b020f,2026-10-27 01:23:00.546517,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_eb4c473830,EvidenceBounty,Bounty for case_5e6bcf7521,2026-10-27 01:23:01.029634,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_f49036087a,EvidenceBounty,Bounty for case_fbd4c62d14,2026-10-27 01:39:13.403592,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_8d54a4ba11,EvidenceBounty,Bounty for case_281509e6f5,2026-10-27 01:39:13.882565,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_d1c73f7a64,EvidenceBounty,Bounty for case_e04d155580,2026-10-27 01:39:14.459811,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_f9b89ffeee,EvidenceBounty,Bounty for case_1b9b5dab51,2026-10-27 01:59:10.784066,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_dc61c6a98d,EvidenceBounty,Bounty for case_be7dc58d80,2026-10-27 01:59:11.223144,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_835e3b1c56,EvidenceBounty,Bounty for case_6d0a80cc7b,2026-10-27 01:59:11.730259,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_9139771848,EvidenceBounty,Bounty for case_2a4e42f513,2026-10-27 02:09:06.757604,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_fc96799ea9,EvidenceBounty,Bounty for case_ba792fb1a3,2026-10-27 02:09:07.164757,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_d08f7ccba0,EvidenceBounty,Bounty for case_b03bf03bfb,2026-10-27 02:09:07.665060,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_138524f796,EvidenceBounty,Bounty for case_fc327f4ef2,2026-10-27 02:13:01.913489,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_74fe4d0729,EvidenceBounty,Bounty for case_83e5b5c7f0,2026-10-27 02:13:02.320453,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+bnty_b960dc2ff7,EvidenceBounty,Bounty for case_295609759c,2026-10-27 02:13:02.800772,DEMO_SEEDED,SIMULATED_LOCAL_CREDITS,Reward: 100.0 simulated credits
+doc_gdpr_2016_679,SourceDocument,Regulation (EU) 2016/679 (General Data Protection Regulation),2026-10-26 22:32:18.452698,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_PRIMARY_SOURCE_DIGEST,URL: https://eur-lex.europa.eu/eli/reg/2016/679/oj | Publication: 2016-05-04 | Effective: 2018-05-25 | Digest: 0x7f013d16b6df7e...
+doc_eu_ai_act_2024,SourceDocument,Regulation (EU) 2024/1689 (Artificial Intelligence Act),2026-10-26 22:32:18.458388,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_PRIMARY_SOURCE_DIGEST,URL: https://eur-lex.europa.eu/eli/reg/2024/1689/oj | Publication: 2024-07-12 | Effective: 2024-08-01 | Digest: 0x8750b3fed9db9b...
+doc_ccpa_cpra_2020,SourceDocument,California Consumer Privacy Act as amended by CPRA,2026-10-26 22:32:18.458388,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_PRIMARY_SOURCE_DIGEST,URL: https://oag.ca.gov/privacy/ccpa | Publication: 2020-11-03 | Effective: 2023-01-01 | Digest: 0xb4da66011b227d...
+psg_gdpr_art5_1_b,EvidencePassage,doc_gdpr_2016_679 - GDPR Art. 5(1)(b) - Purpose Limitation,2026-10-26 22:32:18,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_SHA256_PASSAGE_DIGEST,Digest: 0x01a581288b0827... | Ref: GDPR Art. 5(1)(b) - Purpose Limitation
+psg_gdpr_art5_1_e,EvidencePassage,doc_gdpr_2016_679 - GDPR Art. 5(1)(e) - Storage Limitation,2026-10-26 22:32:18,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_SHA256_PASSAGE_DIGEST,Digest: 0x0fe0a02729d9e1... | Ref: GDPR Art. 5(1)(e) - Storage Limitation
+psg_gdpr_art6_1,EvidencePassage,doc_gdpr_2016_679 - GDPR Art. 6(1) - Lawfulness of Processing,2026-10-26 22:32:18,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_SHA256_PASSAGE_DIGEST,Digest: 0xe087fdbed5b3fb... | Ref: GDPR Art. 6(1) - Lawfulness of Processing
+psg_gdpr_art13_1_c,EvidencePassage,doc_gdpr_2016_679 - GDPR Art. 13(1)(c) - Notice of Processing Purposes,2026-10-26 22:32:18,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_SHA256_PASSAGE_DIGEST,Digest: 0xee14d8e3244e64... | Ref: GDPR Art. 13(1)(c) - Notice of Processing Purposes
+psg_gdpr_art17_1,EvidencePassage,doc_gdpr_2016_679 - GDPR Art. 17(1) - Right to Erasure,2026-10-26 22:32:18,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_SHA256_PASSAGE_DIGEST,Digest: 0x9e991f80f4b13e... | Ref: GDPR Art. 17(1) - Right to Erasure
+psg_gdpr_art22_1,EvidencePassage,doc_gdpr_2016_679 - GDPR Art. 22(1) - Automated Individual Decision-Making,2026-10-26 22:32:18,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_SHA256_PASSAGE_DIGEST,Digest: 0xbb790f71f3fb93... | Ref: GDPR Art. 22(1) - Automated Individual Decision-Making
+psg_ai_act_art10_2,EvidencePassage,doc_eu_ai_act_2024 - EU AI Act Art. 10(2) - Data Governance for Training,2026-10-26 22:32:18,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_SHA256_PASSAGE_DIGEST,Digest: 0x5f9fd7c57dcaca... | Ref: EU AI Act Art. 10(2) - Data Governance for Training
+psg_ai_act_art50_1,EvidencePassage,doc_eu_ai_act_2024 - EU AI Act Art. 50(1) - Transparency Obligations,2026-10-26 22:32:18,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_SHA256_PASSAGE_DIGEST,Digest: 0xdc4486d36d5328... | Ref: EU AI Act Art. 50(1) - Transparency Obligations
+psg_ccpa_1798_100_a,EvidencePassage,doc_ccpa_cpra_2020 - Cal. Civ. Code § 1798.100(a) - Notice at Collection,2026-10-26 22:32:18,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_SHA256_PASSAGE_DIGEST,Digest: 0x20b46f588d1375... | Ref: Cal. Civ. Code § 1798.100(a) - Notice at Collection
+psg_ccpa_1798_105_a,EvidencePassage,doc_ccpa_cpra_2020 - Cal. Civ. Code § 1798.105(a) - Consumer Right to Delete,2026-10-26 22:32:18,OFFICIAL_LEGAL_SOURCE_FIXTURE,VERIFIED_SHA256_PASSAGE_DIGEST,Digest: 0x649e52e6d9736f... | Ref: Cal. Civ. Code § 1798.105(a) - Consumer Right to Delete
+agent_legal_researcher,Agent,LEGAL_RESEARCHER (0x70997970C51812dc3A010C7d01b50e0d17dc79C8),2026-10-26 22:32:18,SYSTEM_REGISTERED_ROLE,VERIFIED_PROTOCOL_CONFIG,Prompt version 1.0; Local credit score: 100.0
+agent_legal_interpreter,Agent,LEGAL_INTERPRETER (0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC),2026-10-26 22:32:18,SYSTEM_REGISTERED_ROLE,VERIFIED_PROTOCOL_CONFIG,Prompt version 1.0; Local credit score: 100.0
+agent_adversarial_researcher,Agent,ADVERSARIAL_RESEARCHER (0x90F79bf6EB2c4f870365E785982E1f101E93b906),2026-10-26 22:32:18,SYSTEM_REGISTERED_ROLE,VERIFIED_PROTOCOL_CONFIG,Prompt version 1.0; Local credit score: 34.7
+agent_evidence_verifier,Agent,EVIDENCE_VERIFIER (0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65),2026-10-26 22:32:18,SYSTEM_REGISTERED_ROLE,VERIFIED_PROTOCOL_CONFIG,Prompt version 1.0; Local credit score: 99.1
+agent_quantitative_forecaster,Agent,QUANTITATIVE_FORECASTER (0x9965507D1a55bcC2695C58ba16FB37d819B0A4df),2026-10-26 22:32:18,SYSTEM_REGISTERED_ROLE,VERIFIED_PROTOCOL_CONFIG,Prompt version 1.0; Local credit score: 92.8
+agent_coordinator,Agent,COORDINATOR (0x976EA74026E726554dB657fA54763abd0C3a0aa9),2026-10-26 22:32:18,SYSTEM_REGISTERED_ROLE,VERIFIED_PROTOCOL_CONFIG,Prompt version 1.0; Local credit score: 100.0

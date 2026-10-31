@@ -1,0 +1,14 @@
+{
+  "id": "case_alpha_recruitment_01",
+  "title": "Autonomous AI Recruitment Screening & Biometric Emotion Analysis",
+  "jurisdiction": "EU",
+  "status": "COMPLETED",
+  "scope_version": 1,
+  "facts": {
+    "system_type": "Recruitment AI",
+    "biometric_processing": true,
+    "solely_automated_decision": true
+  },
+  "created_at": "2026-10-31T22:30:00Z",
+  "updated_at": "2026-10-31T22:30:05Z"
+}

@@ -1,0 +1,90 @@
+{
+  "phase": "Phase 5F",
+  "title": "Independent Benchmarks, Verification Correctness & Performance",
+  "strategic_direction": "Option C — Auditable Regulatory Decision Infrastructure",
+  "generated_at": "2026-10-28T22:24:00Z",
+  "final_verdict": "PASS WITH LIMITATIONS",
+  "limitation_disclosure": "Operational resolved court cases sample size N=0; real-world empirical calibration unavailable until live court rulings resolve.",
+  "environment": {
+    "os": "Windows 11 Enterprise (NT 10.0.26100)",
+    "python_version": "3.11.9",
+    "sqlite_version": "3.45.3",
+    "sepolia_chain_id": 11155111,
+    "sepolia_contract_address": "0xFF5e85547E443e3d50b393E09885c6Eb9671EE27"
+  },
+  "benchmark_suites": [
+    {
+      "suite_id": "BENCHMARK_A_CORRECTNESS",
+      "name": "Verifier Precision and Adversarial Recall",
+      "raw_output": "raw/benchmark_a_correctness.json",
+      "scenarios_evaluated": 20,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "status": "PASS"
+    },
+    {
+      "suite_id": "BENCHMARK_B_PERFORMANCE",
+      "name": "Verifier Throughput and Scaling",
+      "raw_output": "raw/benchmark_b_performance.json",
+      "max_audit_events_tested": 5000,
+      "audit_events_throughput_ops_sec": 98444.6,
+      "max_passages_tested": 500,
+      "passage_throughput_ops_sec": 43327.6,
+      "status": "PASS"
+    },
+    {
+      "suite_id": "BENCHMARK_C_INGESTION",
+      "name": "Live Source Ingestion and Idempotency",
+      "raw_output": "raw/benchmark_c_ingestion.json",
+      "sources_tested": ["EUR-Lex", "CJEU Curia", "EDPB"],
+      "idempotency_lookup_us": 7.8,
+      "status": "PASS"
+    },
+    {
+      "suite_id": "BENCHMARK_D_WORKFLOW",
+      "name": "End-to-End Decision Pipeline Latency",
+      "raw_output": "raw/benchmark_d_workflow.json",
+      "stages_measured": 10,
+      "trials": 5,
+      "median_latency_ms": 1.161,
+      "status": "PASS"
+    },
+    {
+      "suite_id": "BENCHMARK_E_FORECASTS",
+      "name": "Forecasting Scoring & Calibration",
+      "raw_output": "raw/benchmark_e_forecasts.json",
+      "operational_court_cases_n": 0,
+      "synthetic_sample_size": 200,
+      "mean_brier_score": 0.1877,
+      "brier_skill_score": 0.2493,
+      "expected_calibration_error": 0.0714,
+      "status": "PASS"
+    },
+    {
+      "suite_id": "BENCHMARK_F_COMMIT_REVEAL_PARITY",
+      "name": "VCP-1 Commit-Reveal Throughput & Sepolia Parity",
+      "raw_output": "raw/benchmark_f_parity.json",
+      "iterations": 1000,
+      "commit_throughput_ops_sec": 10169.9,
+      "reveal_throughput_ops_sec": 10964.5,
+      "solidity_parity": "PASS",
+      "adversarial_rejections_ratio": "4/4",
+      "status": "PASS"
+    }
+  ],
+  "reports": [
+    "01_benchmark_plan_and_environment.md",
+    "02_harness_design_and_reproduction.md",
+    "03_verifier_correctness_report.md",
+    "04_verifier_performance_report.md",
+    "05_ingestion_and_provenance_report.md",
+    "06_end_to_end_workflow_report.md",
+    "07_forecast_evaluation_report.md",
+    "08_commit_reveal_parity_report.md",
+    "09_limitations_and_failure_analysis.md",
+    "10_phase5f_final_verdict.md"
+  ]
+}
+

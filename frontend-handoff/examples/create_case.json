@@ -1,0 +1,22 @@
+{
+  "title": "Autonomous AI Recruitment Screening & Biometric Emotion Analysis",
+  "jurisdiction": "EU",
+  "statutes": [
+    "GDPR",
+    "EU_AI_ACT"
+  ],
+  "facts": {
+    "system_type": "Recruitment AI",
+    "biometric_processing": true,
+    "data_categories": [
+      "biometric",
+      "facial_video"
+    ],
+    "user_consent_obtained": false,
+    "user_notice_provided": false,
+    "human_in_the_loop": false,
+    "solely_automated_decision": true,
+    "retention_policy": "indefinite"
+  },
+  "assessment_date": "2026-10-31"
+}

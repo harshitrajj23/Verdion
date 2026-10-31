@@ -106,6 +106,10 @@ def compute_commitment_hash(
     return "0x" + hash_bytes.hex()
 
 
+# Option C and Phase 5E canonical alias
+compute_forecast_commitment = compute_commitment_hash
+
+
 def verify_commitment_hash(
     expected_hash: str,
     chain_id: int,

@@ -1,0 +1,44 @@
+{
+  "models_evaluated": [
+    {
+      "model_id": "deterministic_rule_engine_v1.2",
+      "role": "Core Legal Logic & Factual Mapping",
+      "provider": "Local Pure-Python Rule Engine",
+      "runtime_status": "ONLINE_ACTIVE",
+      "is_genuine_ml": false,
+      "is_deterministic_rules": true,
+      "reproducibility": "100.0% Bitwise Identical",
+      "average_latency_ms": 0.45
+    },
+    {
+      "model_id": "veridion-legal-finetuned",
+      "role": "Adversarial Counterargument Generation",
+      "provider": "Hugging Face Hosted API / Local Endpoint (HF_ENDPOINT_URL)",
+      "runtime_status": "OFFLINE_FALLBACK_ACTIVE",
+      "is_genuine_ml": true,
+      "is_deterministic_rules": false,
+      "fallback_mechanism": "Deterministic Statutory Exception Rules (GDPR Art. 6(1)(f) & 89(1))",
+      "fallback_disclosed": true
+    },
+    {
+      "model_id": "subword_ngram_tfidf_cosine",
+      "role": "Semantic Duplicate & Conflict Detection",
+      "provider": "LightweightSemanticAnalyzer / HybridDeduplicationService",
+      "runtime_status": "ONLINE_ACTIVE",
+      "is_genuine_ml": true,
+      "is_deterministic_rules": false,
+      "reproducibility": "100.0% Deterministic Cosine Vectors",
+      "average_latency_ms": 1.25
+    },
+    {
+      "model_id": "brier_forecaster_heuristic_v1",
+      "role": "Probability Forecasting for Prediction Markets",
+      "provider": "Quantitative Forecaster Heuristic Formula",
+      "runtime_status": "ONLINE_ACTIVE",
+      "is_genuine_ml": false,
+      "is_deterministic_rules": true,
+      "reproducibility": "100.0% Deterministic Function",
+      "average_latency_ms": 0.12
+    }
+  ]
+}

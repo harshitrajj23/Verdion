@@ -1,0 +1,46 @@
+{
+  "test_cases": [
+    {
+      "test": "Prompt Injection Fence (<untrusted_evidence_content> XML encapsulation)",
+      "passed": true,
+      "details": "Prompt injection tokens stripped and ignored"
+    },
+    {
+      "test": "Tampered Evidence Digest Detection",
+      "passed": true,
+      "details": "Evidence Verifier rejects claims with mismatched passage digest"
+    },
+    {
+      "test": "Under-Threshold Evaluator Signature Attack",
+      "passed": true,
+      "details": "ThresholdEvaluator reverts with 'threshold not reached'"
+    },
+    {
+      "test": "Duplicate Signer Sybil Attack",
+      "passed": true,
+      "details": "Ascending address enforcement rejects duplicate signatures"
+    },
+    {
+      "test": "Replay Resolution Attack",
+      "passed": true,
+      "details": "Nonce checking rejects replayed market settlement"
+    },
+    {
+      "test": "Cross-Chain Signature Replay Attack",
+      "passed": true,
+      "details": "Domain separator enforces Sepolia chainId 11155111"
+    },
+    {
+      "test": "Cross-DPA Conflict Contradiction vs Harmony",
+      "passed": true,
+      "details": "Correctly flags real conflicts (1.0 precision) and ignores harmonious citations"
+    },
+    {
+      "test": "Semantic Plagiarism Deduplication",
+      "passed": true,
+      "details": "Catches 0.92+ paraphrased duplicates while preserving distinct jurisdictions"
+    }
+  ],
+  "all_adversarial_tests_passed": true,
+  "adversarial_pass_rate_percentage": 100.0
+}

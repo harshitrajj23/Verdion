@@ -1,0 +1,38 @@
+{
+  "benchmark_id": "BENCHMARK_F_COMMIT_REVEAL_PARITY",
+  "commitment_generation": {
+    "latency_per_commit_us": 98.33,
+    "throughput_commits_per_sec": 10169.9,
+    "total_ms": 98.33
+  },
+  "invalid_input_rejection_tests": [
+    {
+      "rejected": true,
+      "test": "probability_mismatch"
+    },
+    {
+      "rejected": true,
+      "test": "nonce_mismatch"
+    },
+    {
+      "rejected": true,
+      "test": "chain_id_mismatch"
+    },
+    {
+      "rejected": true,
+      "test": "wallet_mismatch"
+    }
+  ],
+  "iterations": 1000,
+  "reveal_verification": {
+    "latency_per_verify_us": 91.2,
+    "throughput_verifications_per_sec": 10964.5,
+    "total_ms": 91.2
+  },
+  "solidity_cross_language_parity": {
+    "chain_id": 11155111,
+    "contract_address_sepolia": "0xFF5e85547E443e3d50b393E09885c6Eb9671EE27",
+    "status": "PASS",
+    "test_vector_hash": "0x45b1f65726d5e21a102cd7438a2cb3fcd3ae223b7666c9024de164d482797196"
+  }
+}

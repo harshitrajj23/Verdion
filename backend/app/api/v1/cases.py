@@ -1,5 +1,5 @@
-from typing import Any, Dict, List
-from fastapi import APIRouter, Depends, HTTPException, status
+from typing import Any, Dict, List, Optional
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from backend.app.core.database import get_db
 from backend.app.schemas.audit import AuditEventResponse
@@ -32,9 +32,17 @@ async def create_case(req: CaseCreateRequest, db: AsyncSession = Depends(get_db)
 
 
 @router.get("", response_model=List[CaseResponse])
-async def list_cases(db: AsyncSession = Depends(get_db)):
-    """Lists all registered legal cases in reverse chronological order."""
-    return await CaseService.get_all_cases(db)
+async def list_cases(
+    provenance: str = None,
+    exclude_test: bool = True,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Lists registered legal cases in reverse chronological order.
+    By default excludes test fixture leakage cases (exclude_test=True).
+    Can filter by provenance ('OPERATIONAL', 'DEMO', 'TEST').
+    """
+    return await CaseService.get_all_cases(db, provenance=provenance, exclude_test=exclude_test)
 
 
 @router.get("/{case_id}", response_model=CaseResponse)
@@ -198,3 +206,204 @@ async def get_case_final_report(
 async def get_case_audit(case_id: str, db: AsyncSession = Depends(get_db)):
     """Returns chronological, cryptographically verified audit events for this case (FR-054)."""
     return await AuditService.get_case_audit_trail(db, case_id)
+
+
+@router.get("/{case_id}/decision-record")
+async def get_case_decision_record(case_id: str, db: AsyncSession = Depends(get_db)):
+    """Returns the canonical versioned Decision Record for this case (Option C)."""
+    from backend.app.services.decision_service import DecisionService
+    try:
+        record = await DecisionService.build_canonical_decision_record(db, case_id, persist=True)
+        return record.model_dump()
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
+@router.get("/{case_id}/audit-package")
+async def get_case_audit_package(case_id: str, db: AsyncSession = Depends(get_db)):
+    """Exports self-contained audit package for independent offline verification (Option C)."""
+    from backend.app.services.decision_service import DecisionService
+    try:
+        package = await DecisionService.generate_audit_package(db, case_id)
+        return package
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
+@router.post("/{case_id}/workflow/transition")
+async def transition_case_workflow(
+    case_id: str,
+    target_state: str = Query(..., description="Target WorkflowState"),
+    actor: str = Query("0xUser", description="Actor triggering state transition"),
+    reason: Optional[str] = Query(None, description="Reason for transition"),
+    idempotency_key: Optional[str] = Query(None, description="Optional idempotency key"),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Enforces valid state transition in the Option C regulatory decision lifecycle.
+    """
+    from backend.app.services.workflow_service import WorkflowService
+    return await WorkflowService.transition_state(
+        db=db,
+        case_id=case_id,
+        to_state=target_state,
+        actor=actor,
+        reason=reason,
+        idempotency_key=idempotency_key
+    )
+
+
+@router.post("/{case_id}/workflow/bind-evidence")
+async def bind_case_evidence(
+    case_id: str,
+    query_override: Optional[str] = Query(None),
+    min_passages: int = Query(1),
+    actor: str = Query("SYSTEM_ORCHESTRATOR"),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Stage B — Retrieves official legal evidence and binds exact passages to case.
+    Halts with INSUFFICIENT_EVIDENCE if no matching authoritative sources exist.
+    """
+    from backend.app.services.workflow_service import WorkflowService
+    return await WorkflowService.bind_evidence_to_case(
+        db=db,
+        case_id=case_id,
+        query_override=query_override,
+        min_passages=min_passages,
+        actor=actor
+    )
+
+
+@router.post("/{case_id}/workflow/analyze-and-seal")
+async def analyze_and_seal_case(
+    case_id: str,
+    actor: str = Query("SYSTEM_ORCHESTRATOR"),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Stages C & D — Runs multi-agent legal investigation, creates canonical decision record (VCP-1),
+    and verifies the sealed record against zero-trust audit rules.
+    """
+    from backend.app.services.workflow_service import WorkflowService
+    return await WorkflowService.record_analysis_and_seal_decision(db=db, case_id=case_id, actor=actor)
+
+
+@router.post("/{case_id}/workflow/finalize-audit")
+async def finalize_audit_workflow(
+    case_id: str,
+    trusted_checkpoint: Optional[str] = Query(None),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Stage J — Exports complete audit package and verifies it offline using zero-trust rules.
+    """
+    from backend.app.services.workflow_service import WorkflowService
+    return await WorkflowService.finalize_and_verify_audit_package(
+        db=db,
+        case_id=case_id,
+        trusted_checkpoint=trusted_checkpoint
+    )
+
+
+@router.get("/{case_id}/workspace")
+async def get_unified_case_workspace(
+    case_id: str,
+    trusted_checkpoint: Optional[str] = Query(None),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Unified Decision Workspace: returns case facts, bound evidence, canonical decision record,
+    forecast status, settlement details, on-chain disclosures, and audit verification report.
+    """
+    from backend.app.services.workflow_service import WorkflowService
+    return await WorkflowService.get_case_unified_workspace(
+        db=db,
+        case_id=case_id,
+        trusted_checkpoint=trusted_checkpoint
+    )
+
+
+
+
+@router.get("/{case_id}/execution", response_model=Dict[str, Any])
+async def get_case_execution(case_id: str, db: AsyncSession = Depends(get_db)):
+    """Retrieves full multi-agent execution status, start/end timestamps, agent states, and any errors."""
+    case = await CaseService.get_case(db, case_id)
+    if not case:
+        raise HTTPException(status_code=404, detail=f"Case {case_id} not found")
+
+    from sqlalchemy import select
+    from backend.app.models.entities import AnalysisJob, AuditEvent
+    jobs_stmt = select(AnalysisJob).where(AnalysisJob.case_id == case_id).order_by(AnalysisJob.created_at.desc())
+    jobs_res = await db.execute(jobs_stmt)
+    jobs = jobs_res.scalars().all()
+
+    audit_stmt = select(AuditEvent).where(AuditEvent.case_id == case_id).order_by(AuditEvent.sequence_number.asc())
+    audit_res = await db.execute(audit_stmt)
+    audit_events = audit_res.scalars().all()
+
+    return {
+        "case_id": case.id,
+        "status": case.status,
+        "scope_version": case.scope_version,
+        "created_at": case.created_at.isoformat() if case.created_at else None,
+        "updated_at": case.updated_at.isoformat() if case.updated_at else None,
+        "jobs": [
+            {
+                "job_id": j.id,
+                "status": j.status,
+                "retries": j.retries,
+                "error_details": j.error_details,
+                "created_at": j.created_at.isoformat() if j.created_at else None
+            }
+            for j in jobs
+        ],
+        "execution_events": [
+            {
+                "sequence": a.sequence_number,
+                "event_type": a.event_type,
+                "actor": a.actor,
+                "timestamp": a.timestamp.isoformat() if a.timestamp else None,
+                "digest": a.event_digest
+            }
+            for a in audit_events
+        ]
+    }
+
+
+@router.get("/{case_id}/evidence", response_model=List[Dict[str, Any]])
+async def get_case_evidence(case_id: str, db: AsyncSession = Depends(get_db)):
+    """Retrieves all evidence passages linked to claims in this case with verification status."""
+    case = await CaseService.get_case(db, case_id)
+    if not case:
+        raise HTTPException(status_code=404, detail=f"Case {case_id} not found")
+
+    from sqlalchemy import select
+    from backend.app.models.entities import Claim, ClaimEvidenceLink, EvidencePassage, SourceDocument
+    stmt = (
+        select(EvidencePassage, SourceDocument)
+        .join(ClaimEvidenceLink, ClaimEvidenceLink.evidence_id == EvidencePassage.id)
+        .join(Claim, Claim.id == ClaimEvidenceLink.claim_id)
+        .outerjoin(SourceDocument, SourceDocument.id == EvidencePassage.document_id)
+        .where(Claim.case_id == case_id)
+        .distinct()
+    )
+    res = await db.execute(stmt)
+    rows = res.all()
+
+    output = []
+    for passage, doc in rows:
+        output.append({
+            "id": passage.id,
+            "evidence_id": passage.id,
+            "passage_reference": passage.passage_reference,
+            "digest": passage.digest,
+            "text": passage.text,
+            "jurisdiction": passage.jurisdiction,
+            "authority": doc.authority if doc else "EU Regulation",
+            "provenance": doc.provenance if doc else "BUNDLED_FIXTURE",
+            "effective_date": doc.effective_date if doc else None,
+            "url": doc.url if doc else None
+        })
+    return output

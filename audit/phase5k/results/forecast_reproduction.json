@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-10-31T18:19:44.068115+00:00",
+  "population_separation_invariant": {
+    "prospective_live_court_cases": {
+      "count": 0,
+      "status": "DISCLOSED_ZERO_RECORDS",
+      "notes": "No prospective operational court cases pending live adjudication. Zero fabricated."
+    },
+    "retrospective_cjeu_landmark_corpus": {
+      "count": 10,
+      "status": "HISTORICAL_GROUND_TRUTH",
+      "notes": "Landmark CJEU precedents (Schrems II, Google Spain, Fashion ID, etc.) for precedent grounding."
+    },
+    "synthetic_prediction_market_evaluations": {
+      "count": 200,
+      "status": "CALIBRATION_FIXTURE",
+      "brier_score": 0.0544,
+      "ece": 0.0382,
+      "notes": "200 synthetic prediction market contracts with 3-tier heuristic (0.15, 0.65, 0.85)."
+    },
+    "independent_100_scenario_benchmark": {
+      "total_count": 100,
+      "dev_split": 30,
+      "val_split": 30,
+      "test_split": 40,
+      "held_out_test_brier": 0.3325,
+      "held_out_test_log_loss": 0.936839,
+      "held_out_test_ece": 0.43,
+      "held_out_test_accuracy": 0.6,
+      "data_leakage_detected": false
+    }
+  },
+  "reproduction_verdict": "VERIFIED_BITWISE_INDEPENDENT"
+}

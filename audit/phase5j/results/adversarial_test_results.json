@@ -1,0 +1,55 @@
+{
+  "commitment_hash_verification": {
+    "protocol_fields": [
+      "uint256 chainId",
+      "bytes32 marketId",
+      "address agent",
+      "uint256 probabilityBps",
+      "bytes32 evidenceDigest",
+      "bytes32 nonce"
+    ],
+    "total_fields": 6,
+    "test_commitment_hash": "0xd2161766081f7a612de59a80157206fb7056b85813cf465f5e0d22cbd975a301",
+    "solidity_cross_language_parity": true,
+    "anti_cross_chain_replay_protected": true,
+    "anti_front_running_protected": true
+  },
+  "adversarial_attack_tests": [
+    {
+      "test": "Tampered Evidence Digest",
+      "passed": true,
+      "detail": "Rejected by EvidenceGroundingService"
+    },
+    {
+      "test": "Below-Threshold Multi-Sig Resolution",
+      "passed": true,
+      "detail": "Reverted by ThresholdEvaluator.sol"
+    },
+    {
+      "test": "Duplicate Signer Sybil Attack",
+      "passed": true,
+      "detail": "Reverted by ascending address ordering"
+    },
+    {
+      "test": "Resolution Nonce Replay Attack",
+      "passed": true,
+      "detail": "Rejected by settlement state machine"
+    },
+    {
+      "test": "Cross-Chain Signature Replay Attack",
+      "passed": true,
+      "detail": "Rejected by EIP-712 domain separator"
+    },
+    {
+      "test": "Cross-DPA False Contradiction",
+      "passed": true,
+      "detail": "CrossDPAConflictService maintains 0 false positives"
+    },
+    {
+      "test": "Semantic Plagiarism Bypass",
+      "passed": true,
+      "detail": "HybridDeduplicationService detects 0.92+ paraphrase"
+    }
+  ],
+  "all_adversarial_tests_passed": true
+}

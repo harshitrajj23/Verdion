@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    name: Run Test Suite & Benchmarks
+    name: Backend Test Suite & Benchmarks
     runs-on: ubuntu-latest
 
     steps:
@@ -34,3 +34,60 @@ jobs:
     - name: Run Reproducible Benchmark Evaluation (20 Scenarios)
       run: |
         python -c "from backend.app.services.evaluation_service import EvaluationService; s = EvaluationService.evaluate_all(); print(f'Evaluated {s.total_scenarios} scenarios successfully. VERIDION Protocol Recall: {s.metrics[\"VERIDION_PROTOCOL\"][\"avg_issue_recall\"]}')"
+
+  foundry-contracts:
+    name: Smart Contract Compilation, Tests & Gas Reporting (PRD-SC-009)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Install Foundry
+      uses: foundry-rs/foundry-toolchain@v1
+      with:
+        version: nightly
+
+    - name: Check Foundry Version
+      working-directory: contracts
+      run: |
+        forge --version
+
+    - name: Build Contracts & Verify Bytecode Sizes (EIP-170)
+      working-directory: contracts
+      run: |
+        forge build --sizes
+
+    - name: Run Foundry Test Suite with Gas Reporting
+      working-directory: contracts
+      run: |
+        forge test -vvv --gas-report
+
+  frontend-check:
+    name: Frontend Build & Typecheck
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js 18
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+    - name: Install Frontend Dependencies
+      working-directory: frontend
+      run: npm ci
+
+    - name: Run Frontend Tests
+      working-directory: frontend
+      run: npx vitest run
+
+    - name: Build Next.js Application
+      working-directory: frontend
+      run: npm run build

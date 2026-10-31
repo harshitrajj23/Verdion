@@ -1,0 +1,50 @@
+{
+  "evaluated_models": [
+    {
+      "model_identifier": "deterministic_rule_engine_v1.2",
+      "role": "Core Legal Logic & Factual Mapping",
+      "execution_mode": "DETERMINISTIC_RULES",
+      "provider": "LOCAL_PURE_PYTHON",
+      "status": "ONLINE_ACTIVE",
+      "is_genuine_ml": false,
+      "is_deterministic": true,
+      "reproducibility": "100.0% Bitwise Identical"
+    },
+    {
+      "model_identifier": "mock-legal-evaluator-v1",
+      "role": "Adversarial Legal Counterargument (Mocked Mode)",
+      "execution_mode": "MOCK_TEST_EXECUTION",
+      "provider": "LOCAL_MOCK_SAFE",
+      "status": "VERIFIED_VIA_MOCK_TRANSPORT",
+      "latency_ms": 0.0,
+      "prompt_tokens": 11,
+      "completion_tokens": 20,
+      "total_tokens": 31
+    },
+    {
+      "model_identifier": "deterministic_statutory_exception_rules_v1.0",
+      "role": "Adversarial Legal Counterargument (Offline Fallback)",
+      "execution_mode": "DETERMINISTIC_FALLBACK",
+      "provider": "LOCAL_STATUTORY_RULE_ENGINE",
+      "status": "OFFLINE_FALLBACK_ACTIVE",
+      "latency_ms": 0.0,
+      "error_disclosure": "Remote inference credentials unset; deterministic fallback invoked."
+    },
+    {
+      "model_identifier": "subword_ngram_tfidf_cosine",
+      "role": "Semantic Deduplication & Regulatory Conflict",
+      "execution_mode": "LOCAL_VECTOR_MATH",
+      "provider": "LOCAL_PURE_PYTHON",
+      "status": "ONLINE_ACTIVE",
+      "reproducibility": "100.0% Bitwise Identical"
+    },
+    {
+      "model_identifier": "brier_forecaster_heuristic_v1.1",
+      "role": "Probability Forecasting for Prediction Markets",
+      "execution_mode": "DETERMINISTIC_PROBABILITY_HEURISTIC",
+      "provider": "CALIBRATED_HEURISTIC",
+      "status": "ONLINE_ACTIVE",
+      "reproducibility": "100.0% Bitwise Identical"
+    }
+  ]
+}

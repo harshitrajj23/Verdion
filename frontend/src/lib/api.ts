@@ -26,6 +26,7 @@ export const api = {
       facts: c.facts || {},
       missing_facts: [],
       source_corpus_version: "2026.10-EU-GDPR",
+      provenance: c.provenance || "OPERATIONAL",
       created_at: c.created_at,
       updated_at: c.updated_at
     }));
@@ -60,6 +61,7 @@ export const api = {
       facts: c.facts || {},
       missing_facts: [],
       source_corpus_version: "2026.10-EU-GDPR",
+      provenance: c.provenance || "OPERATIONAL",
       created_at: c.created_at,
       updated_at: c.updated_at
     };
@@ -253,5 +255,145 @@ export const api = {
       failures: [],
       last_output_summary: `Reputation score: ${ag.reputation_score} | Brier score: ${ag.brier_score}`
     }));
+  },
+
+  async getIntegrationsStatus(): Promise<any> {
+    const res = await fetch(`${API_BASE}/integrations/status`);
+    if (!res.ok) throw new Error("Failed to fetch integrations status");
+    return await res.json();
+  },
+
+  async verifyTransaction(txHash: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/integrations/verify-tx?tx_hash=${encodeURIComponent(txHash)}`);
+    if (!res.ok) throw new Error("Failed to verify transaction on chain");
+    return await res.json();
+  },
+
+  async getIngestionJobs(): Promise<any[]> {
+    const res = await fetch(`${API_BASE}/ingestion/jobs`);
+    if (!res.ok) return [];
+    return await res.json();
+  },
+
+  async triggerIngestion(adapter: string = "eur_lex", identifier?: string): Promise<any> {
+    const url = identifier
+      ? `${API_BASE}/ingestion/trigger?adapter=${encodeURIComponent(adapter)}&identifier=${encodeURIComponent(identifier)}`
+      : `${API_BASE}/ingestion/trigger?adapter=${encodeURIComponent(adapter)}`;
+    const res = await fetch(url, {
+      method: "POST"
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || "Ingestion trigger failed");
+    }
+    return await res.json();
+  },
+
+  async getReanalysisProposals(): Promise<any[]> {
+    const res = await fetch(`${API_BASE}/ingestion/proposals`);
+    if (!res.ok) return [];
+    return await res.json();
+  },
+
+  async getSources(provenance?: string): Promise<any[]> {
+    const url = provenance
+      ? `${API_BASE}/sources?provenance=${encodeURIComponent(provenance)}`
+      : `${API_BASE}/sources`;
+    const res = await fetch(url);
+    if (!res.ok) return [];
+    return await res.json();
+  },
+
+  async getSourceDetail(sourceId: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/ingestion/sources/${encodeURIComponent(sourceId)}`);
+    if (!res.ok) throw new Error(`Failed to fetch source details for ${sourceId}`);
+    return await res.json();
+  },
+
+  async getDecisionRecord(caseId: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/cases/${encodeURIComponent(caseId)}/decision-record`);
+    if (!res.ok) throw new Error("Failed to fetch decision record");
+    return await res.json();
+  },
+
+  async getAuditPackage(caseId: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/cases/${encodeURIComponent(caseId)}/audit-package`);
+    if (!res.ok) throw new Error("Failed to export audit package");
+    return await res.json();
+  },
+
+  async verifyAuditChain(caseId: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/audit/chain/${encodeURIComponent(caseId)}`);
+    if (!res.ok) throw new Error("Failed to verify audit chain");
+    return await res.json();
+  },
+
+  async verifyAuditPackage(packageData: any): Promise<any> {
+    const res = await fetch(`${API_BASE}/audit/verify-package`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(packageData)
+    });
+    if (!res.ok) throw new Error("Failed to verify audit package");
+    return await res.json();
+  },
+
+  async getForecastingEvaluation(): Promise<any> {
+    const res = await fetch(`${API_BASE}/markets/evaluation`);
+    if (!res.ok) throw new Error("Failed to fetch forecasting evaluation");
+    return await res.json();
+  },
+
+  async getCaseWorkspace(caseId: string, trustedCheckpoint?: string): Promise<any> {
+    const url = trustedCheckpoint
+      ? `${API_BASE}/cases/${encodeURIComponent(caseId)}/workspace?trusted_checkpoint=${encodeURIComponent(trustedCheckpoint)}`
+      : `${API_BASE}/cases/${encodeURIComponent(caseId)}/workspace`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Failed to fetch case workspace: ${res.statusText}`);
+    return await res.json();
+  },
+
+  async transitionWorkflow(caseId: string, targetState: string, reason?: string): Promise<any> {
+    const url = `${API_BASE}/cases/${encodeURIComponent(caseId)}/workflow/transition?target_state=${encodeURIComponent(targetState)}${reason ? `&reason=${encodeURIComponent(reason)}` : ""}`;
+    const res = await fetch(url, { method: "POST" });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail?.message || err.detail || `Transition to ${targetState} failed`);
+    }
+    return await res.json();
+  },
+
+  async bindEvidence(caseId: string, queryOverride?: string): Promise<any> {
+    const url = `${API_BASE}/cases/${encodeURIComponent(caseId)}/workflow/bind-evidence${queryOverride ? `?query_override=${encodeURIComponent(queryOverride)}` : ""}`;
+    const res = await fetch(url, { method: "POST" });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail?.message || err.detail || "Failed to bind evidence");
+    }
+    return await res.json();
+  },
+
+  async analyzeAndSealCase(caseId: string): Promise<any> {
+    const url = `${API_BASE}/cases/${encodeURIComponent(caseId)}/workflow/analyze-and-seal`;
+    const res = await fetch(url, { method: "POST" });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail?.message || err.detail || "Failed to analyze and seal case");
+    }
+    return await res.json();
+  },
+
+  async finalizeAuditWorkflow(caseId: string, trustedCheckpoint?: string): Promise<any> {
+    const url = trustedCheckpoint
+      ? `${API_BASE}/cases/${encodeURIComponent(caseId)}/workflow/finalize-audit?trusted_checkpoint=${encodeURIComponent(trustedCheckpoint)}`
+      : `${API_BASE}/cases/${encodeURIComponent(caseId)}/workflow/finalize-audit`;
+    const res = await fetch(url, { method: "POST" });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail?.message || err.detail || "Failed to finalize audit workflow");
+    }
+    return await res.json();
   }
 };
+
+

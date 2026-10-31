@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-10-31T18:19:44.099896+00:00",
+  "solidity_specification": "keccak256(abi.encodePacked(uint256 chainId, bytes32 marketId, address agent, uint256 probabilityBps, bytes32 evidenceDigest, bytes32 nonce))",
+  "python_implementation": "backend.app.core.crypto.compute_commitment_hash",
+  "test_vector": {
+    "chain_id": 31337,
+    "market_id": "0xcc2bc6ccdb19a90f08e7918e1639a76b758898ce07bf6491515a0e750db7f8e6",
+    "agent_address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "probability": 0.85,
+    "probability_bps": 8500,
+    "evidence_digest": "0x965544c38976b96f7fb5a2f55362cee3c23dc97c0117d183cc131a79e0f0e965",
+    "nonce": "0xf0a53bdf57e2b3d9b5c573553ba31cea13f090e48b605a58986fff0d147d0a35",
+    "expected_commitment_hash": "0x8db35ad28963db202cacdffe65721b58d97bea5db5eb81e5a059d7946a3a6882"
+  },
+  "corruption_tests": {
+    "tampered_chain_id": {
+      "rejected": true
+    },
+    "tampered_market_id": {
+      "rejected": true
+    },
+    "tampered_agent_address": {
+      "rejected": true
+    },
+    "tampered_probability": {
+      "rejected": true
+    },
+    "tampered_evidence_digest": {
+      "rejected": true
+    },
+    "tampered_nonce": {
+      "rejected": true
+    }
+  },
+  "verdict": "VERIFIED_SOLIDITY_PARITY_100%"
+}

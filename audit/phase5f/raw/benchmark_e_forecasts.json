@@ -1,0 +1,92 @@
+{
+  "operational_evaluation": {
+    "disclosure": "Honest disclosure: sample size N=0 for genuine real-world court rulings. Internal pipeline test case ('Reality Engineering E2E Verification Case') excluded from operational calibration metrics.",
+    "operational_resolved_court_cases_sample_size": 0,
+    "settled_operational_records_in_db": 1,
+    "status": "UNAVAILABLE",
+    "total_operational_markets": 2
+  },
+  "synthetic_validation": {
+    "brier_skill_score_vs_uniform": 0.2493,
+    "expected_calibration_error_ece": 0.0714,
+    "mean_brier_score": 0.1877,
+    "mean_log_loss": 0.5803,
+    "reliability_diagram": [
+      {
+        "avg_confidence": 0.0378,
+        "bin_range": "[0.0, 0.1)",
+        "empirical_accuracy": 0.0909,
+        "gap": 0.0531,
+        "sample_count": 11
+      },
+      {
+        "avg_confidence": 0.1521,
+        "bin_range": "[0.1, 0.2)",
+        "empirical_accuracy": 0.1667,
+        "gap": 0.0146,
+        "sample_count": 12
+      },
+      {
+        "avg_confidence": 0.2432,
+        "bin_range": "[0.2, 0.3)",
+        "empirical_accuracy": 0.2286,
+        "gap": 0.0146,
+        "sample_count": 35
+      },
+      {
+        "avg_confidence": 0.3481,
+        "bin_range": "[0.3, 0.4)",
+        "empirical_accuracy": 0.2759,
+        "gap": 0.0722,
+        "sample_count": 29
+      },
+      {
+        "avg_confidence": 0.4528,
+        "bin_range": "[0.4, 0.5)",
+        "empirical_accuracy": 0.5,
+        "gap": 0.0472,
+        "sample_count": 20
+      },
+      {
+        "avg_confidence": 0.5469,
+        "bin_range": "[0.5, 0.6)",
+        "empirical_accuracy": 0.55,
+        "gap": 0.0031,
+        "sample_count": 20
+      },
+      {
+        "avg_confidence": 0.6389,
+        "bin_range": "[0.6, 0.7)",
+        "empirical_accuracy": 0.8696,
+        "gap": 0.2307,
+        "sample_count": 23
+      },
+      {
+        "avg_confidence": 0.7525,
+        "bin_range": "[0.7, 0.8)",
+        "empirical_accuracy": 0.76,
+        "gap": 0.0075,
+        "sample_count": 25
+      },
+      {
+        "avg_confidence": 0.841,
+        "bin_range": "[0.8, 0.9)",
+        "empirical_accuracy": 0.9231,
+        "gap": 0.0821,
+        "sample_count": 13
+      },
+      {
+        "avg_confidence": 0.9462,
+        "bin_range": "[0.9, 1.0)",
+        "empirical_accuracy": 0.6667,
+        "gap": 0.2795,
+        "sample_count": 12
+      }
+    ],
+    "sample_size": 200,
+    "seed": 42,
+    "status": "PASS",
+    "uniform_baseline_brier": 0.25,
+    "uniform_baseline_log_loss": 0.6931
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "measurement_boundaries": {
+    "component_latency_ms": {
+      "rule_engine_ast_walk": 0.45,
+      "evidence_hash_check": 0.08,
+      "tfidf_vector_cosine": 1.25,
+      "forecasting_heuristic": 0.12
+    },
+    "agent_latency_ms": {
+      "legal_researcher": 0.15,
+      "legal_interpreter": 0.52,
+      "adversarial_researcher_fallback": 0.18,
+      "adversarial_researcher_mock_llm": 12.4,
+      "evidence_verifier_9_dim": 0.95,
+      "quantitative_forecaster": 0.14,
+      "coordinator_synthesis": 0.65
+    },
+    "retrieval_latency_ms": 2.24,
+    "orchestration_latency_ms": 1.8,
+    "database_persistence_latency_ms": 3.1,
+    "full_local_workflow_latency_ms": 6.85,
+    "full_workflow_with_remote_llm_estimated_ms": 650.0
+  },
+  "hardware_environment": {
+    "cpu": "AMD64 Family 25 Model 124 Stepping 0, AuthenticAMD",
+    "machine": "AMD64",
+    "os": "Windows"
+  }
+}

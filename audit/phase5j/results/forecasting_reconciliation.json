@@ -1,0 +1,47 @@
+{
+  "finding_a_resolution": "The Phase 5I 0.0042 score was computed on the 20 legacy benchmark scenarios using an in-sample binary heuristic p in {0.04, 0.92}, while the 0.0544 score was evaluated on synthetic calibration items (N=200) using the violation-weighted heuristic p in {0.15, 0.65, 0.85}. Operational live court cases have N=0.",
+  "populations": [
+    {
+      "population_name": "Independent 100-Scenario Benchmark",
+      "sample_size": 100,
+      "data_provenance": "EXPERT_CURATED_SYNTHETIC",
+      "probability_model": "Violation-Calibrated Heuristic (0.15, 0.65, 0.85)",
+      "brier_score": 0.3325,
+      "log_loss": 0.936839,
+      "ece": 0.43,
+      "brier_skill_score_vs_uniform_0_25": -0.33,
+      "class_distribution": {
+        "gap_outcome_1": 80,
+        "gap_outcome_0": 20
+      }
+    },
+    {
+      "population_name": "Synthetic Calibration Dataset",
+      "sample_size": 200,
+      "data_provenance": "SYNTHETIC_MARKET_SIMULATION",
+      "probability_model": "Violation-Calibrated Heuristic",
+      "brier_score": 0.0855,
+      "log_loss": 0.316508,
+      "ece": 0.1,
+      "brier_skill_score_vs_uniform_0_25": 0.658,
+      "class_distribution": {
+        "gap_outcome_1": 148,
+        "gap_outcome_0": 52
+      }
+    },
+    {
+      "population_name": "Retrospective Landmark CJEU Corpus",
+      "sample_size": 10,
+      "data_provenance": "HISTORICAL_CJEU_JUDGMENTS",
+      "status": "RETROSPECTIVE_GROUND_TRUTH_ONLY",
+      "anti_leakage_cutoff_enforced": true
+    },
+    {
+      "population_name": "Prospective Operational Live Court Cases",
+      "sample_size": 0,
+      "data_provenance": "LIVE_EUROPEAN_COURTS",
+      "status": "PENDING_LIVE_RULINGS (N=0)",
+      "calibration_status": "AWAITING_JUDICIAL_RESOLUTION"
+    }
+  ]
+}

@@ -63,7 +63,8 @@ async def seed_demo_workflow(db: AsyncSession = Depends(get_db)) -> Dict[str, An
             "secondary_ai_training": True,
             "human_in_the_loop": False,
             "solely_automated_decision": True
-        }
+        },
+        provenance="DEMO"
     )
     case = await CaseService.create_case(db, case_req, creator_address="0xComplianceLead")
 

@@ -75,8 +75,8 @@ export interface StoreContextType {
 
 const StoreContext = createContext<StoreContextType | null>(null);
 
-const generateTxHash = () =>
-  `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;
+const generateSimulatedTxId = (action: string) =>
+  `sim_${action.toLowerCase().replace(/[^a-z0-9]/g, "_")}_${Date.now()}`;
 
 export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isBackendLive, setIsBackendLive] = useState(false);
@@ -135,22 +135,23 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         api.getAgents().catch(() => null)
       ]);
 
-      if (fetchedMarkets && fetchedMarkets.length > 0) {
+      if (fetchedMarkets !== null) {
         setMarkets(fetchedMarkets);
         setIsBackendLive(true);
       }
-      if (fetchedBounties && fetchedBounties.length > 0) {
+      if (fetchedBounties !== null) {
         setBounties(fetchedBounties);
       }
-      if (fetchedAudit && fetchedAudit.length > 0) {
+      if (fetchedAudit !== null) {
         setAuditRecords(fetchedAudit);
       }
-      if (fetchedAgents && fetchedAgents.length > 0) {
+      if (fetchedAgents !== null && fetchedAgents.length > 0) {
         setAgents(fetchedAgents);
       }
-      if (fetchedCases && fetchedCases.length > 0) {
+      if (fetchedCases !== null) {
         setCasesList(fetchedCases);
         setCurrentCase((prev) => {
+          if (!prev || fetchedCases.length === 0) return fetchedCases[0] || initialCase;
           const match = fetchedCases.find((c) => c.id === prev.id);
           return match || fetchedCases[0];
         });
@@ -299,24 +300,24 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const commitForecast = async (marketId: string, probability: number, nonce: string): Promise<string> => {
-    const rawTxHash = generateTxHash();
-    const txId = addPendingTx("Commit Forecast", rawTxHash);
+    const rawTxId = generateSimulatedTxId("commit_forecast");
+    const txId = addPendingTx("Commit Forecast", rawTxId);
 
     addToast({
       type: "info",
-      title: "Broadcasting Commitment",
-      message: "Submitting forecast secret commitment to protocol...",
-      txHash: rawTxHash
+      title: "Submitting Forecast Commitment",
+      message: "Committing forecast secret proof to protocol ledger...",
+      txHash: rawTxId
     });
 
     try {
       const backendRes = await api.commitForecast(marketId, {
         agent_id: "agent_legal_researcher",
-        commitment_hash: rawTxHash,
+        commitment_hash: rawTxId,
         wallet_address: walletAddress || undefined
       });
 
-      const actualTxHash = backendRes.commit_tx_hash || rawTxHash;
+      const actualTxHash = backendRes.commit_tx_hash || rawTxId;
       updateTxState(txId, "CONFIRMED");
 
       addToast({
@@ -329,27 +330,26 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       await refreshData();
       return actualTxHash;
     } catch (err: any) {
-      console.warn("Backend commit failed, using client simulation:", err);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      updateTxState(txId, "CONFIRMED");
+      updateTxState(txId, "REVERTED");
       addToast({
-        type: "warning",
-        title: "Offline Commitment Recorded",
-        message: `Commitment updated in local session: ${err.message || "Backend offline"}`
+        type: "error",
+        title: "Commitment Failed",
+        message: err.message || "Failed to commit forecast to backend ledger.",
+        txHash: rawTxId
       });
-      return rawTxHash;
+      throw err;
     }
   };
 
   const revealForecast = async (marketId: string, probability: number, nonce: string): Promise<string> => {
-    const rawTxHash = generateTxHash();
-    const txId = addPendingTx("Reveal Forecast", rawTxHash);
+    const rawTxId = generateSimulatedTxId("reveal_forecast");
+    const txId = addPendingTx("Reveal Forecast", rawTxId);
 
     addToast({
       type: "info",
       title: "Verifying & Revealing Forecast",
       message: "Submitting probability and secret nonce to verify commitment proof...",
-      txHash: rawTxHash
+      txHash: rawTxId
     });
 
     try {
@@ -361,7 +361,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         wallet_address: walletAddress || undefined
       });
 
-      const actualTxHash = backendRes.reveal_tx_hash || rawTxHash;
+      const actualTxHash = backendRes.reveal_tx_hash || rawTxId;
       updateTxState(txId, "CONFIRMED");
 
       addToast({
@@ -374,15 +374,14 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       await refreshData();
       return actualTxHash;
     } catch (err: any) {
-      console.warn("Backend reveal failed, using local simulation:", err);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      updateTxState(txId, "CONFIRMED");
+      updateTxState(txId, "REVERTED");
       addToast({
-        type: "warning",
-        title: "Offline Reveal Recorded",
-        message: `Forecast revealed in local session: ${err.message || "Backend offline"}`
+        type: "error",
+        title: "Reveal Verification Failed",
+        message: err.message || "Commitment verification failed on backend.",
+        txHash: rawTxId
       });
-      return rawTxHash;
+      throw err;
     }
   };
 
@@ -392,14 +391,14 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     passageRef: string,
     quote: string
   ): Promise<string> => {
-    const rawTxHash = generateTxHash();
-    const txId = addPendingTx("Submit Evidence", rawTxHash);
+    const rawTxId = generateSimulatedTxId("submit_evidence");
+    const txId = addPendingTx("Submit Evidence", rawTxId);
 
     addToast({
       type: "info",
       title: "Submitting Evidence",
       message: "Computing canonical evidence digest and registering submission...",
-      txHash: rawTxHash
+      txHash: rawTxId
     });
 
     try {
@@ -410,34 +409,33 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         content: quote
       });
 
-      const actualDigest = backendRes.digest || rawTxHash;
+      const actualDigest = backendRes.digest || rawTxId;
       updateTxState(txId, "CONFIRMED");
 
       addToast({
         type: "success",
         title: "Evidence Registered & Persisted",
         message: `Submission registered with SHA-256 digest ${actualDigest.slice(0, 10)}... Review window open.`,
-        txHash: rawTxHash
+        txHash: rawTxId
       });
 
       await refreshData();
-      return rawTxHash;
+      return rawTxId;
     } catch (err: any) {
-      console.warn("Backend evidence submit failed, using local simulation:", err);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      updateTxState(txId, "CONFIRMED");
+      updateTxState(txId, "REVERTED");
       addToast({
-        type: "warning",
-        title: "Offline Submission Recorded",
-        message: `Evidence stored in local session: ${err.message || "Backend offline"}`
+        type: "error",
+        title: "Evidence Submission Failed",
+        message: err.message || "Failed to persist evidence submission.",
+        txHash: rawTxId
       });
-      return rawTxHash;
+      throw err;
     }
   };
 
   const challengeResolution = async (marketId: string, reason: string): Promise<string> => {
-    const txHash = generateTxHash();
-    const txId = addPendingTx("Challenge Resolution", txHash);
+    const rawTxId = generateSimulatedTxId("challenge_resolution");
+    const txId = addPendingTx("Challenge Resolution", rawTxId);
 
     await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -464,26 +462,26 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       type: "warning",
       title: "Challenge Window Triggered",
       message: `Resolution disputed. Evidence submitted for evaluator review.`,
-      txHash
+      txHash: rawTxId
     });
 
-    return txHash;
+    return rawTxId;
   };
 
   const settleMarket = async (marketId: string): Promise<string> => {
-    const rawTxHash = generateTxHash();
-    const txId = addPendingTx("Settle Market", rawTxHash);
+    const rawTxId = generateSimulatedTxId("settle_market");
+    const txId = addPendingTx("Settle Market", rawTxId);
 
     addToast({
       type: "info",
       title: "Settling Prediction Market",
       message: "Executing Brier score calculations and distributing simulated credits...",
-      txHash: rawTxHash
+      txHash: rawTxId
     });
 
     try {
       const backendRes = await api.settleMarket(marketId);
-      const actualTx = backendRes.settlement_tx_hash || rawTxHash;
+      const actualTx = backendRes.settlement_tx_hash || rawTxId;
 
       setUserCredits((prev) => prev + 150);
       updateTxState(txId, "CONFIRMED");
@@ -498,31 +496,26 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       await refreshData();
       return actualTx;
     } catch (err: any) {
-      console.warn("Backend settle market failed, using local simulation:", err);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setMarkets((prev) =>
-        prev.map((m) => (m.market_id === marketId ? { ...m, state: "SETTLED", settlement_tx: rawTxHash } : m))
-      );
-      setUserCredits((prev) => prev + 150);
-      updateTxState(txId, "CONFIRMED");
+      updateTxState(txId, "REVERTED");
       addToast({
-        type: "warning",
-        title: "Offline Settlement Recorded",
-        message: `Settled in local session: ${err.message || "Backend offline"}`
+        type: "error",
+        title: "Market Settlement Failed",
+        message: err.message || "Settlement failed on backend.",
+        txHash: rawTxId
       });
-      return rawTxHash;
+      throw err;
     }
   };
 
   const settleBounty = async (bountyId: string): Promise<string> => {
-    const rawTxHash = generateTxHash();
-    const txId = addPendingTx("Settle Bounty", rawTxHash);
+    const rawTxId = generateSimulatedTxId("settle_bounty");
+    const txId = addPendingTx("Settle Bounty", rawTxId);
 
     addToast({
       type: "info",
       title: "Settling Evidence Bounty",
       message: "Releasing bounty reward pool to winning contributor...",
-      txHash: rawTxHash
+      txHash: rawTxId
     });
 
     try {
@@ -530,7 +523,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       const winningSubId = targetBounty?.submissions?.[0]?.submission_id || "sub_default";
       const backendRes = await api.settleBounty(bountyId, winningSubId, "Satisfies EDPB guidance criteria and verifies passage digest.");
 
-      const actualTx = backendRes.settlement_tx_hash || rawTxHash;
+      const actualTx = backendRes.settlement_tx_hash || rawTxId;
       setUserCredits((prev) => prev + 100);
       updateTxState(txId, "CONFIRMED");
 
@@ -544,19 +537,14 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       await refreshData();
       return actualTx;
     } catch (err: any) {
-      console.warn("Backend bounty settle failed, using local simulation:", err);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setBounties((prev) =>
-        prev.map((b) => (b.bounty_id === bountyId ? { ...b, state: "SETTLED", settlement_tx: rawTxHash } : b))
-      );
-      setUserCredits((prev) => prev + 100);
-      updateTxState(txId, "CONFIRMED");
+      updateTxState(txId, "REVERTED");
       addToast({
-        type: "warning",
-        title: "Offline Bounty Settlement Recorded",
-        message: `Bounty settled in local session: ${err.message || "Backend offline"}`
+        type: "error",
+        title: "Bounty Settlement Failed",
+        message: err.message || "Bounty settlement failed on backend.",
+        txHash: rawTxId
       });
-      return rawTxHash;
+      throw err;
     }
   };
 

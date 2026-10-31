@@ -1,0 +1,55 @@
+{
+  "benchmark_dataset": "benchmark_100_v1.0",
+  "total_scenarios": 100,
+  "split_counts": {
+    "DEV": 30,
+    "VAL": 30,
+    "TEST": 40
+  },
+  "full_dataset_metrics": {
+    "BASELINE_A_SINGLE_AGENT": {
+      "avg_issue_recall": 0.4,
+      "avg_brier_score": 0.4325,
+      "avg_citation_validity": 0.94,
+      "avg_unsupported_claim_rate": 0.06
+    },
+    "BASELINE_B_MULTI_AGENT": {
+      "avg_issue_recall": 0.6,
+      "avg_brier_score": 0.3376,
+      "avg_citation_validity": 0.952,
+      "avg_unsupported_claim_rate": 0.048
+    },
+    "VERIDION_PROTOCOL": {
+      "avg_issue_recall": 0.6,
+      "avg_brier_score": 0.3325,
+      "avg_citation_validity": 1.0,
+      "avg_unsupported_claim_rate": 0.0
+    }
+  },
+  "held_out_test_metrics": {
+    "BASELINE_A_SINGLE_AGENT": {
+      "avg_issue_recall": 0.4,
+      "avg_brier_score": 0.4325,
+      "avg_citation_validity": 0.94,
+      "avg_unsupported_claim_rate": 0.06
+    },
+    "BASELINE_B_MULTI_AGENT": {
+      "avg_issue_recall": 0.6,
+      "avg_brier_score": 0.3376,
+      "avg_citation_validity": 0.952,
+      "avg_unsupported_claim_rate": 0.048
+    },
+    "VERIDION_PROTOCOL": {
+      "avg_issue_recall": 0.6,
+      "avg_brier_score": 0.3325,
+      "avg_citation_validity": 1.0,
+      "avg_unsupported_claim_rate": 0.0
+    }
+  },
+  "summary": {
+    "veridion_test_issue_recall": 0.6,
+    "veridion_test_brier_score": 0.3325,
+    "veridion_test_citation_validity": 1.0,
+    "veridion_test_unsupported_rate": 0.0
+  }
+}

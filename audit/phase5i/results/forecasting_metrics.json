@@ -1,0 +1,15 @@
+{
+  "forecasting_pipeline_architecture": "Rule-Weighted Risk Probability with Commit-Reveal Staking",
+  "dataset_separation": {
+    "retrospective_historical_cjeu_cases": 10,
+    "synthetic_validation_scenarios": 200,
+    "prospective_operational_live_resolved": 0
+  },
+  "synthetic_evaluation_brier_score": 0.0544,
+  "random_baseline_brier_score": 0.25,
+  "expected_calibration_error_ece": 0.0382,
+  "commit_reveal_pre_image_security_bits": 256,
+  "front_running_vulnerability": false,
+  "operational_court_cases_resolved_sample_size": 0,
+  "operational_calibration_status": "PENDING_LIVE_COURT_RULINGS"
+}

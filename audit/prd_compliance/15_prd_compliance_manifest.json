@@ -1,0 +1,95 @@
+{
+  "manifest_metadata": {
+    "project": "VERIDION",
+    "strategic_direction": "Option C \u2014 Auditable Regulatory Decision Infrastructure",
+    "baseline_document": "VERIDION_Product_Requirements_Document_v1.0.pdf",
+    "timestamp": "2026-10-31T19:54:00Z",
+    "auditor": "Principal Systems Architect & Independent Evaluation Lead"
+  },
+  "deliverables": [
+    {
+      "file_name": "01_prd_extraction.md",
+      "description": "Complete PRD requirements inventory (all 139 requirements extracted with exact text)",
+      "size_bytes": 26129,
+      "sha256": "6add6cebae99147ff0426e5fa2820307da2eb16536bc1acac5b1867eb75a0859"
+    },
+    {
+      "file_name": "02_repository_architecture_inventory.md",
+      "description": "Detailed repository component architecture, data models, routes, and dead-code analysis",
+      "size_bytes": 18111,
+      "sha256": "27a942d1c94d57d8db104fbaa0d2e9d5870c30ab9865d265c3b813866ee59fdc"
+    },
+    {
+      "file_name": "03_requirement_traceability_matrix.md",
+      "description": "Full 139-requirement traceability matrix mapping backend, frontend, DB, contracts, and tests",
+      "size_bytes": 49172,
+      "sha256": "e572116f6397ff29a52899dd0c4f82399455aca393fd51b257ce7b75bd2282f6"
+    },
+    {
+      "file_name": "04_functional_compliance_report.md",
+      "description": "Functional requirements verification report (FR-001 through FR-058 across Groups 1-7)",
+      "size_bytes": 26158,
+      "sha256": "920e65e536c9396c208f348bd26165138e44f507c4719709430af3d8e15e75f0"
+    },
+    {
+      "file_name": "05_nonfunctional_compliance_report.md",
+      "description": "Non-functional and data architecture compliance report (NFR-001 to NFR-012, DATA-001 to DATA-015)",
+      "size_bytes": 13722,
+      "sha256": "9ef93fbb51c26aaa5079efb4ea740f6e29a3473280a3bb0544f459c664aac410"
+    },
+    {
+      "file_name": "06_security_and_trust_compliance.md",
+      "description": "Security, cryptographic verification, trust boundaries, and commit-reveal integrity report (SEC-001 to SEC-018)",
+      "size_bytes": 9790,
+      "sha256": "fb93d81963b8c85c2933b92dce8a7a1b0cac3bf958cdf4f7ed12290bb6aa690a"
+    },
+    {
+      "file_name": "07_agent_and_ai_compliance.md",
+      "description": "AI agent architecture, specialist roles, Pydantic schemas, Brier scoring, and calibration report (AGENT-001 to AGENT-015)",
+      "size_bytes": 8575,
+      "sha256": "041cf28561efb9211c23b53e34cb076ad32982d5c70c5e1c24a4cdb277fbac83"
+    },
+    {
+      "file_name": "08_smart_contract_compliance.md",
+      "description": "Smart contract architecture, Sepolia deployments, event logs, and EVM gas optimization report (SC-001 to SC-010)",
+      "size_bytes": 7035,
+      "sha256": "77a1788475d7de0412828a16eca1a0d5d654dbcf25632cb036519f8e2ecc6ff8"
+    },
+    {
+      "file_name": "09_frontend_and_user_workflow_compliance.md",
+      "description": "Next.js 14 frontend, 6-area Decision Workspace, build results, and Vitest reports (UI-001 to UI-010)",
+      "size_bytes": 7638,
+      "sha256": "51534574b07d414931fad4bea46697868652822e8836e56cd4ea5abb3c30684a"
+    },
+    {
+      "file_name": "10_historical_phase_reconciliation.md",
+      "description": "Historical phase reconciliation, Option C evolution, and past claim debunking report (Phases 1-5F)",
+      "size_bytes": 7724,
+      "sha256": "7bc38a8095e0551ac9d79510d43981e93b458f88c1ddb3a14fa355bfeef832c8"
+    },
+    {
+      "file_name": "11_compliance_metrics.json",
+      "description": "Machine-readable compliance metrics, status counts, benchmark numbers, and DB row counts",
+      "size_bytes": 3539,
+      "sha256": "b9fc7b5a1c4e2ec93e0cdb1b7fdc302783bd10cac268bf9b3301f3cc34d67b32"
+    },
+    {
+      "file_name": "12_complete_gap_register.md",
+      "description": "Complete gap register, root causes, severity ratings, remediation designs, and acceptance criteria for all partials",
+      "size_bytes": 9890,
+      "sha256": "3e888f9dbe80a0dad9e86214f159c289849cc34a46efbc34ca80279275cc7597"
+    },
+    {
+      "file_name": "13_prd_acceptance_test_matrix.md",
+      "description": "PRD acceptance test matrix and Definition of Done verification report (DOD-001 to DOD-011)",
+      "size_bytes": 6388,
+      "sha256": "9ed07e0302bf4d346dba823892f00eb2d898745535f0875b8b5d17ac35386593"
+    },
+    {
+      "file_name": "14_final_prd_compliance_verdict.md",
+      "description": "Final PRD compliance verdict, executive summary, answers to the 10 PRD questions, and sign-off",
+      "size_bytes": 7621,
+      "sha256": "285f355bbb46f0a51d9729b952aa553102e352f37855ee3e6df907908663a583"
+    }
+  ]
+}
