@@ -25,7 +25,8 @@ import {
   Check,
   Search,
   Layers,
-  ArrowRight
+  ArrowRight,
+  LucideIcon
 } from "lucide-react";
 
 interface ArgumentGraphProps {
@@ -36,7 +37,7 @@ interface ArgumentGraphProps {
 interface AgentVisualMeta {
   roleTitle: string;
   agentLabel: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: LucideIcon;
   primaryColor: string;
   strokeColor: string;
   glowColor: string;
