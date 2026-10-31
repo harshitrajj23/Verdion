@@ -1,0 +1,41 @@
+{
+  "verified_at": "2026-10-31T23:10:41.270609Z",
+  "network": "Ethereum Sepolia Testnet",
+  "chain_id": 11155111,
+  "is_chain_id_verified": true,
+  "latest_block_number": 12037017,
+  "rpc_provider": "Alchemy Sepolia HTTPS Gateway",
+  "deployer_address": "0xF733bB7fe878B3830c2B1a1E13837494D28c50E2",
+  "contracts": {
+    "CaseRegistry": {
+      "address": "0x9dEEFCa6b93d9812Cf67Dc7b3daCc51b62C6455E",
+      "is_deployed": true,
+      "bytecode_bytes": 2798,
+      "code_sample": "0x6040608081526004803610156100..."
+    },
+    "AgentRegistry": {
+      "address": "0x32d5D291e287fF173F803f5ee53Aef75BADb2006",
+      "is_deployed": true,
+      "bytecode_bytes": 1956,
+      "code_sample": "0x6080604090808252600490813610..."
+    },
+    "PredictionMarket": {
+      "address": "0xFF5e85547E443e3d50b393E09885c6Eb9671EE27",
+      "is_deployed": true,
+      "bytecode_bytes": 9754,
+      "code_sample": "0x6101006040526004361015610012..."
+    },
+    "EvidenceBounty": {
+      "address": "0xF9805f322ccB6f25f1FAD9266DA9420DC2595a46",
+      "is_deployed": true,
+      "bytecode_bytes": 5310,
+      "code_sample": "0x6080604052600436101561001157..."
+    },
+    "ReputationSettlement": {
+      "address": "0xb002cd06fC2ce01B38C08787E6C4EaeAf547748c",
+      "is_deployed": true,
+      "bytecode_bytes": 3233,
+      "code_sample": "0x6080604090808252600480361015..."
+    }
+  }
+}

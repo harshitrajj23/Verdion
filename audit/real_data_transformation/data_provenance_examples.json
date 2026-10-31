@@ -1,0 +1,28 @@
+{
+  "example_evidence_passage": {
+    "passage_id": "ep_gdpr_art6_4",
+    "source_type": "STATUTE",
+    "source_system": "EUR-Lex",
+    "source_identifier": "CELEX:32016R0679",
+    "source_url": "https://publications.europa.eu/resource/celex/32016R0679",
+    "statutory_reference": "GDPR Article 6(4)",
+    "text": "Where the processing for a purpose other than that for which the personal data have been collected is not based on the data subject's consent or on a Union or Member State law...",
+    "content_hash": "0x616bc2f9eb6ae5eff99ee3e7ff7c1de20ffff38b33983d4d0b259a17098ec454",
+    "retrieved_at": "2026-10-19T08:00:00Z",
+    "published_at": "2016-05-04T00:00:00Z",
+    "is_synthetic": false,
+    "is_test_data": false,
+    "verification_status": "SUPPORTED"
+  },
+  "example_forecasting_commitment": {
+    "market_id": "0x6c6966656379636c655f6d61726b65745f303031000000000000000000000000",
+    "agent_id": "agent_deployer",
+    "chain_id": 11155111,
+    "probability": 0.65,
+    "evidence_digest": "0x8fa12b9c3f4e8891d09e7284cb9124a919248bb82948019a827401bbac901842",
+    "nonce": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    "commitment_hash": "0x4fe6f2e83fb90f6c77bb326e65cfca9b2512f5b4515286524fa93d4847e09873",
+    "revealed_on_chain": true,
+    "tx_hash": "0x220d460591302025e7f12d621399e2ab15724979678b4aed92ec2d2970e989e4"
+  }
+}

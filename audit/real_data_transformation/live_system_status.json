@@ -1,0 +1,38 @@
+{
+  "system_name": "VERDION Regulatory Intelligence Protocol",
+  "version": "1.0.0",
+  "status": "HEALTHY",
+  "branch": "Divyank",
+  "timestamp": "2026-10-31T23:10:41.273116Z",
+  "subsystems": {
+    "fastapi_backend": {
+      "status": "ONLINE",
+      "host": "127.0.0.1:8000"
+    },
+    "nextjs_frontend": {
+      "status": "ONLINE",
+      "host": "localhost:3001"
+    },
+    "ethereum_sepolia": {
+      "status": "CONNECTED",
+      "chain_id": 11155111,
+      "block": 12037017
+    },
+    "database": {
+      "status": "CONNECTED",
+      "provider": "Neon PostgreSQL / SQLite"
+    },
+    "agent_node_cluster": {
+      "status": "ACTIVE",
+      "nodes": 6
+    },
+    "legal_adapters": {
+      "status": "READY",
+      "sources": [
+        "EUR-Lex",
+        "CJEU",
+        "EDPB"
+      ]
+    }
+  }
+}

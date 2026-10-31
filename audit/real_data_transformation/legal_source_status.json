@@ -1,0 +1,46 @@
+{
+  "verified_at": "2026-10-31T23:10:41.270609Z",
+  "adapters": {
+    "eur_lex": {
+      "name": "EURLexAdapter",
+      "jurisdiction": "EU",
+      "base_url": "https://publications.europa.eu/resource/celex",
+      "protocol": "Cellar Linked Data REST Notice & XHTML Manifestation",
+      "operating_state": "CONNECTED",
+      "features": [
+        "Canonical CELEX parsing",
+        "Notice XML metadata extraction",
+        "SHA-256 content digest"
+      ]
+    },
+    "cjeu": {
+      "name": "CJEUAdapter",
+      "jurisdiction": "EU",
+      "base_url": "https://publications.europa.eu/resource/celex",
+      "protocol": "Cellar Curia Judgments & Operative Rulings",
+      "operating_state": "CONNECTED",
+      "features": [
+        "CELEX & ECLI resolution",
+        "Landmark case mapping (C-487/21, C-131/12)",
+        "Temporal cutoff guard"
+      ]
+    },
+    "edpb": {
+      "name": "EDPBAdapter",
+      "jurisdiction": "EU",
+      "base_url": "https://www.edpb.europa.eu",
+      "protocol": "Official Guidelines & Public Consultations",
+      "operating_state": "CONNECTED",
+      "features": [
+        "Adopted guidelines discovery",
+        "Section chunking",
+        "Cryptographic passage digest"
+      ]
+    }
+  },
+  "provenance_enforcement": {
+    "canonical_hashing": "SHA-256",
+    "temporal_cutoffs": "Enforced per case assessment date",
+    "cache_transparency": "Cached records retain retrieval timestamp and original URL"
+  }
+}

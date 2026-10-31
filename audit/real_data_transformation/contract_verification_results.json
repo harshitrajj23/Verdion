@@ -1,0 +1,38 @@
+{
+  "contracts_verified_count": 5,
+  "contracts": {
+    "CaseRegistry": {
+      "address": "0x9dEEFCa6b93d9812Cf67Dc7b3daCc51b62C6455E",
+      "bytecode_bytes": 2798,
+      "admin_address": "0x34867b3ad7b4353ba08bd74664e8bf27836e2888",
+      "read_verified": true,
+      "paused_state": false
+    },
+    "AgentRegistry": {
+      "address": "0x32d5D291e287fF173F803f5ee53Aef75BADb2006",
+      "bytecode_bytes": 1956,
+      "admin_address": "0x34867b3ad7b4353ba08bd74664e8bf27836e2888",
+      "read_verified": true
+    },
+    "PredictionMarket": {
+      "address": "0xFF5e85547E443e3d50b393E09885c6Eb9671EE27",
+      "bytecode_bytes": 9754,
+      "admin_address": "0x34867b3ad7b4353ba08bd74664e8bf27836e2888",
+      "read_verified": true
+    },
+    "EvidenceBounty": {
+      "address": "0xF9805f322ccB6f25f1FAD9266DA9420DC2595a46",
+      "bytecode_bytes": 5310,
+      "admin_address": "0x34867b3ad7b4353ba08bd74664e8bf27836e2888",
+      "read_verified": true
+    },
+    "ReputationSettlement": {
+      "address": "0xb002cd06fC2ce01B38C08787E6C4EaeAf547748c",
+      "bytecode_bytes": 3233,
+      "admin_address": "0x34867b3ad7b4353ba08bd74664e8bf27836e2888",
+      "read_verified": true
+    }
+  },
+  "verified_at": "2026-10-31T23:15:53.047398Z",
+  "status": "ALL_CONTRACTS_ACTIVE_ON_CHAIN"
+}

@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-10-31T23:10:41.268607Z",
+  "total_routes": 2,
+  "routes": [
+    {
+      "path": "/health",
+      "methods": [
+        "GET"
+      ],
+      "name": "health_check",
+      "tags": [
+        "Health"
+      ],
+      "classification": "OPERATIONAL_REAL",
+      "summary": ""
+    },
+    {
+      "path": "/",
+      "methods": [
+        "GET"
+      ],
+      "name": "root",
+      "tags": [
+        "Root"
+      ],
+      "classification": "OPERATIONAL_REAL",
+      "summary": ""
+    }
+  ]
+}

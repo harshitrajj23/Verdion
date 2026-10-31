@@ -1,19 +1,12 @@
 import sqlite3
 
-def inspect_db():
-    conn = sqlite3.connect("Verdion/veridion.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';")
-    tables = [r[0] for r in cursor.fetchall()]
-    print(f"Total tables: {len(tables)}")
-    table_counts = {}
-    for t in tables:
-        cursor.execute(f"SELECT count(*) FROM {t};")
-        cnt = cursor.fetchone()[0]
-        table_counts[t] = cnt
-        print(f"  {t}: {cnt} rows")
-    conn.close()
-    return table_counts
+conn = sqlite3.connect(r'c:\Users\DIVYANK BHARDWAJ\Desktop\Projects\veridion\Verdion\veridion.db')
+c = conn.cursor()
+tables = [r[0] for r in c.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()]
+print(f"Total tables: {len(tables)}")
+print("Tables:", tables)
 
-if __name__ == "__main__":
-    inspect_db()
+for t in ['cases', 'agents', 'prediction_markets', 'evidence_bounties', 'audit_records', 'source_documents', 'evidence_passages', 'canonical_decision_records']:
+    if t in tables:
+        cnt = c.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
+        print(f"  {t}: {cnt} rows")

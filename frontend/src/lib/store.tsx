@@ -133,15 +133,150 @@ const initialGraphNodes: GraphNode[] = [
     id: "n_claim_purpose",
     type: "CLAIM",
     label: "Customer Support vs AI Fine-Tuning Purpose Compatibility",
-    agent: "agent_deployer",
+    agent: "agent_legal_researcher",
     evidence_status: "CONTRADICTED",
     digest: "0x8fa12b9c3f4e8891d09e7284cb9124a919248bb82948019a827401bbac901842",
     authority: "GDPR Art 6(4)",
-    details: "Evaluator determination on Sepolia testnet"
+    details: "Secondary processing of conversational customer service audio recordings for proprietary LLM fine-tuning lacks compatible legal basis under the four-factor compatibility test.",
+    effective_date: "2026-10-19"
+  },
+  {
+    id: "n_claim_legit_interest",
+    type: "CLAIM",
+    label: "Legitimate Interest (Art 6(1)(f)) Overrides User Fundamental Rights",
+    agent: "agent_legal_interpreter",
+    evidence_status: "CONTRADICTED",
+    digest: "0x3a4b91f0c29388147d9284cb9124a919248bb82948019a827401bbac901842",
+    authority: "GDPR Art 6(1)(f)",
+    details: "Balancing test fails because data subjects could not reasonably expect commercial voice biometrics retention without explicit opt-in consent at collection time.",
+    effective_date: "2026-10-19"
+  },
+  {
+    id: "n_claim_retention_gap",
+    type: "CLAIM",
+    label: "Indefinite Audio & Transcript Retention Violates Storage Limitation",
+    agent: "agent_adversarial_researcher",
+    evidence_status: "CONTRADICTED",
+    digest: "0x4b7c19a0e1928374d9284cb9124a919248bb82948019a827401bbac901842",
+    authority: "GDPR Art 5(1)(e)",
+    details: "No automated purging schedule exists for raw customer voice transcripts. Storing training corpus indefinitely breaches proportionality.",
+    effective_date: "2026-10-19"
+  },
+  {
+    id: "n_evi_art6_4",
+    type: "EVIDENCE",
+    label: "GDPR Article 6(4) Statutory Compatibility Assessment Criteria",
+    agent: "agent_evidence_verifier",
+    evidence_status: "SUPPORTED",
+    digest: "0x5d8e20f1a2938475c9284cb9124a919248bb82948019a827401bbac901842",
+    authority: "EUR-Lex (CELEX 32016R0679)",
+    details: "Mandates link between collection context and intended further processing, nature of personal data, and existence of appropriate safeguards.",
+    effective_date: "2018-05-25"
+  },
+  {
+    id: "n_evi_edpb_stmt",
+    type: "EVIDENCE",
+    label: "EDPB Guidelines 05/2021 on AI Foundation Model Training",
+    agent: "agent_evidence_verifier",
+    evidence_status: "SUPPORTED",
+    digest: "0x9e1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a",
+    authority: "European Data Protection Board",
+    details: "Affirms that training generative models on collected user support interactions constitutes new processing requiring independent legal basis.",
+    effective_date: "2021-04-13"
+  },
+  {
+    id: "n_evi_cjeu_c300",
+    type: "EVIDENCE",
+    label: "CJEU C-300/21 Processing Context & Non-Material Damage Precedent",
+    agent: "agent_evidence_verifier",
+    evidence_status: "SUPPORTED",
+    digest: "0x7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a",
+    authority: "Court of Justice of the European Union",
+    details: "Strict evidentiary bar for controller burden of proof in demonstrating lawful secondary purpose conformity.",
+    effective_date: "2023-05-04"
+  },
+  {
+    id: "n_claim_research_exemption",
+    type: "CLAIM",
+    label: "Scientific & Statistical Research Exemption (Art 89(1)) Defense",
+    agent: "agent_legal_researcher",
+    evidence_status: "QUALIFIED",
+    digest: "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
+    authority: "GDPR Art 89(1)",
+    details: "Commercial AI model deployment disqualifies purely academic research exemptions unless differential privacy guarantees are formally audited.",
+    effective_date: "2026-10-19"
+  },
+  {
+    id: "n_assumption_unredacted",
+    type: "ASSUMPTION",
+    label: "Cryptographic Anonymization Scrubbing Applied Pre-Tokenization",
+    agent: "agent_coordinator",
+    evidence_status: "QUALIFIED",
+    digest: "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
+    authority: "Internal Controller Compliance Memo v2.1",
+    details: "Operational assumption that all direct identifiers, customer names, and account numbers are sanitized prior to training loop ingestion.",
+    effective_date: "2026-09-01"
   }
 ];
 
-const initialGraphEdges: GraphEdge[] = [];
+const initialGraphEdges: GraphEdge[] = [
+  {
+    id: "e1",
+    source: "n_evi_art6_4",
+    target: "n_claim_purpose",
+    relationship: "SUPPORT",
+    reason: "Article 6(4) provides the statutory benchmark for secondary purpose compatibility"
+  },
+  {
+    id: "e2",
+    source: "n_evi_edpb_stmt",
+    target: "n_claim_purpose",
+    relationship: "CONTRADICTION",
+    reason: "EDPB 05/2021 explicitly prohibits repurposing support dialogues without fresh consent"
+  },
+  {
+    id: "e3",
+    source: "n_claim_legit_interest",
+    target: "n_claim_purpose",
+    relationship: "CONTRADICTION",
+    reason: "Legitimate interest defense rejected due to lack of reasonable user expectation"
+  },
+  {
+    id: "e4",
+    source: "n_claim_research_exemption",
+    target: "n_claim_legit_interest",
+    relationship: "QUALIFY",
+    reason: "Scientific research exemption only qualifies if internal R&D is ring-fenced from commercial API"
+  },
+  {
+    id: "e5",
+    source: "n_claim_retention_gap",
+    target: "n_claim_purpose",
+    relationship: "CONTRADICTION",
+    reason: "Indefinite storage of audio transcripts breaches data minimization"
+  },
+  {
+    id: "e6",
+    source: "n_evi_cjeu_c300",
+    target: "n_claim_retention_gap",
+    relationship: "SUPPORT",
+    reason: "CJEU C-300/21 establishes strict burden of proof for retention necessity"
+  },
+  {
+    id: "e7",
+    source: "n_assumption_unredacted",
+    target: "n_claim_research_exemption",
+    relationship: "DEPEND_ON",
+    reason: "Research defense requires zero identifiable PII in training sets"
+  },
+  {
+    id: "e8",
+    source: "n_evi_edpb_stmt",
+    target: "n_claim_research_exemption",
+    relationship: "SUPERSEDE",
+    reason: "Binding EDPB guidance supersedes corporate internal assumptions"
+  }
+];
 const initialBounties: BountyData[] = [];
 
 export interface ToastMessage {
