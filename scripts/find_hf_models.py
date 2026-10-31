@@ -20,3 +20,4 @@ try:
             print(f"  - {m.get('id')}")
 except Exception as e:
     print("Error querying warm models:", e)
+
