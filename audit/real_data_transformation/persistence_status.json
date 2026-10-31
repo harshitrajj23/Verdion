@@ -1,0 +1,27 @@
+{
+  "verified_at": "2026-10-31T23:10:41.273116Z",
+  "primary_database": "Neon Serverless PostgreSQL (ep-billowing-sunset-azje04un-pooler)",
+  "fallback_database": "SQLite (veridion.db)",
+  "tables_count": 17,
+  "tables": [
+    "cases",
+    "source_documents",
+    "agents",
+    "settlements",
+    "transaction_records",
+    "evidence_passages",
+    "claims",
+    "prediction_markets",
+    "evidence_bounties",
+    "audit_events",
+    "decision_records",
+    "analysis_jobs",
+    "reputation_records",
+    "claim_evidence_links",
+    "argument_edges",
+    "forecasts",
+    "evidence_submissions"
+  ],
+  "non_mutation_verified": true,
+  "audit_chain_anchoring": "SHA-256 Hash Chain with Merkle Root"
+}

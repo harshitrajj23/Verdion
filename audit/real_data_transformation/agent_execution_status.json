@@ -1,0 +1,54 @@
+{
+  "verified_at": "2026-10-31T23:10:41.271608Z",
+  "total_agents": 6,
+  "agents": [
+    {
+      "id": "agent_legal_researcher",
+      "role": "LEGAL_RESEARCHER",
+      "wallet": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "operating_state": "OPERATIONAL_REAL",
+      "engine": "Deterministic Statutory Rule Engine & Curated Gazette Index",
+      "sybil_defense": "Unique ECDSA Keypair Verified"
+    },
+    {
+      "id": "agent_legal_interpreter",
+      "role": "LEGAL_INTERPRETER",
+      "wallet": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "operating_state": "OPERATIONAL_REAL",
+      "engine": "Factual Mapping & Multi-Factor Compatibility Test",
+      "sybil_defense": "Unique ECDSA Keypair Verified"
+    },
+    {
+      "id": "agent_adversarial_researcher",
+      "role": "ADVERSARIAL_RESEARCHER",
+      "wallet": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "operating_state": "OPERATIONAL_REAL",
+      "engine": "Counter-Argument Generation & Disagreement Maximizer",
+      "sybil_defense": "Unique ECDSA Keypair Verified"
+    },
+    {
+      "id": "agent_evidence_verifier",
+      "role": "EVIDENCE_VERIFIER",
+      "wallet": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "operating_state": "OPERATIONAL_REAL",
+      "engine": "Mechanical Citation Matcher & Cryptographic Digest Validator",
+      "sybil_defense": "Unique ECDSA Keypair Verified"
+    },
+    {
+      "id": "agent_quantitative_forecaster",
+      "role": "QUANTITATIVE_FORECASTER",
+      "wallet": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4df",
+      "operating_state": "OPERATIONAL_REAL",
+      "engine": "Brier-Scored Calibrated Ensemble & Uncertainty Priority Router",
+      "sybil_defense": "Unique ECDSA Keypair Verified"
+    },
+    {
+      "id": "agent_coordinator",
+      "role": "COORDINATOR",
+      "wallet": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "operating_state": "OPERATIONAL_REAL",
+      "engine": "Canonical Decision Synthesizer & Merkle Tree Root Anchor",
+      "sybil_defense": "Unique ECDSA Keypair Verified"
+    }
+  ]
+}

@@ -10,17 +10,20 @@ import {
   Table as TableIcon,
   Network,
   ShieldCheck,
+  Scale,
+  Swords,
+  Sparkles,
+  TrendingUp,
+  Cpu,
+  BookOpen,
   ExternalLink,
   ChevronRight,
   ZoomIn,
   ZoomOut,
-  Maximize2,
   RotateCcw,
   Copy,
   Check,
   Search,
-  Filter,
-  Sparkles,
   Layers,
   ArrowRight
 } from "lucide-react";
@@ -28,6 +31,18 @@ import {
 interface ArgumentGraphProps {
   nodes: GraphNode[];
   edges: GraphEdge[];
+}
+
+interface AgentVisualMeta {
+  roleTitle: string;
+  agentLabel: string;
+  icon: React.ComponentType<{ className?: string }>;
+  primaryColor: string;
+  strokeColor: string;
+  glowColor: string;
+  badgeBg: string;
+  badgeText: string;
+  tag: string;
 }
 
 export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) => {
@@ -50,27 +65,99 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
     };
   }, [nodes, selectedNodeId]);
 
-  // Layout node coordinates: fixed canonical positions for primary nodes + organic radial distribution for dynamic nodes
+  // Agent visual configuration resolver
+  const getAgentVisual = (node: GraphNode): AgentVisualMeta => {
+    if (node.type === "EVIDENCE" || node.agent?.includes("evidence") || node.id.startsWith("n_evi")) {
+      return {
+        roleTitle: "Evidence Verifier",
+        agentLabel: "Authoritative Corpus Agent",
+        icon: ShieldCheck,
+        primaryColor: "#059669",
+        strokeColor: "#10B981",
+        glowColor: "rgba(16, 185, 129, 0.25)",
+        badgeBg: "bg-emerald-50 border-emerald-200",
+        badgeText: "text-emerald-700",
+        tag: "EVIDENCE"
+      };
+    }
+    if (
+      node.agent?.includes("adversarial") ||
+      node.id.includes("retention") ||
+      node.label.toLowerCase().includes("retention") ||
+      node.label.toLowerCase().includes("violate")
+    ) {
+      return {
+        roleTitle: "Adversarial Researcher",
+        agentLabel: "Counter-Argument Agent",
+        icon: Swords,
+        primaryColor: "#E11D48",
+        strokeColor: "#F43F5E",
+        glowColor: "rgba(244, 63, 94, 0.25)",
+        badgeBg: "bg-rose-50 border-rose-200",
+        badgeText: "text-rose-700",
+        tag: "ADVERSARY"
+      };
+    }
+    if (node.type === "ASSUMPTION" || node.id.includes("assumption")) {
+      return {
+        roleTitle: "Dialectic Coordinator",
+        agentLabel: "Systemic Assumption Agent",
+        icon: Sparkles,
+        primaryColor: "#D97706",
+        strokeColor: "#F59E0B",
+        glowColor: "rgba(245, 158, 11, 0.25)",
+        badgeBg: "bg-amber-50 border-amber-200",
+        badgeText: "text-amber-700",
+        tag: "ASSUMPTION"
+      };
+    }
+    if (node.id === "n_claim_purpose") {
+      return {
+        roleTitle: "Lead Legal Interpreter",
+        agentLabel: "Dialectic Core Synthesis",
+        icon: Scale,
+        primaryColor: "#BE185D",
+        strokeColor: "#FF5388",
+        glowColor: "rgba(255, 83, 136, 0.35)",
+        badgeBg: "bg-bubblegum-soft border-hairline",
+        badgeText: "text-bubblegum-deep",
+        tag: "CORE SYNTHESIS"
+      };
+    }
+    return {
+      roleTitle: "Legal Researcher",
+      agentLabel: "Statutory Analysis Agent",
+      icon: BookOpen,
+      primaryColor: "#7C3AED",
+      strokeColor: "#8B5CF6",
+      glowColor: "rgba(139, 92, 246, 0.25)",
+      badgeBg: "bg-purple-50 border-purple-200",
+      badgeText: "text-purple-700",
+      tag: "LEGAL CLAIM"
+    };
+  };
+
+  // Spacious, harmonic, non-intersecting radial coordinates (940 x 580)
   const nodePositions = useMemo(() => {
     const posMap: Record<string, { x: number; y: number }> = {
-      n_claim_purpose: { x: 420, y: 250 },
-      n_claim_legit_interest: { x: 200, y: 390 },
-      n_claim_retention_gap: { x: 640, y: 380 },
-      n_evi_art6_4: { x: 230, y: 105 },
-      n_evi_edpb_stmt: { x: 420, y: 75 },
-      n_evi_cjeu_c300: { x: 650, y: 120 },
-      n_claim_research_exemption: { x: 130, y: 240 },
-      n_assumption_unredacted: { x: 420, y: 440 }
+      n_claim_purpose: { x: 470, y: 280 }, // Center Hub
+      n_evi_art6_4: { x: 230, y: 110 }, // Top-Left Evidence
+      n_evi_edpb_stmt: { x: 470, y: 85 }, // Top-Center Evidence
+      n_evi_cjeu_c300: { x: 710, y: 110 }, // Top-Right Evidence
+      n_claim_research_exemption: { x: 150, y: 310 }, // Left-Flank Claim
+      n_claim_retention_gap: { x: 790, y: 320 }, // Right-Flank Adversary
+      n_claim_legit_interest: { x: 270, y: 475 }, // Bottom-Left Defense
+      n_assumption_unredacted: { x: 470, y: 505 } // Bottom-Center Foundation
     };
 
     // Calculate dynamic layout for any nodes that don't have hardcoded coordinates
     nodes.forEach((node, index) => {
       if (!posMap[node.id]) {
         const angle = (index / Math.max(1, nodes.length)) * 2 * Math.PI - Math.PI / 2;
-        const radius = node.type === "CLAIM" ? 180 : node.type === "EVIDENCE" ? 270 : 330;
+        const radius = node.type === "CLAIM" ? 220 : node.type === "EVIDENCE" ? 310 : 360;
         posMap[node.id] = {
-          x: Math.round(420 + Math.cos(angle) * radius),
-          y: Math.round(260 + Math.sin(angle) * radius * 0.72)
+          x: Math.round(470 + Math.cos(angle) * radius),
+          y: Math.round(280 + Math.sin(angle) * radius * 0.72)
         };
       }
     });
@@ -156,7 +243,7 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
               }`}
             >
               <Network className={`w-3.5 h-3.5 ${viewMode === "visual" ? "text-white" : "text-bubblegum"}`} />
-              <span>Visual Graph</span>
+              <span>Dialectic Graph</span>
             </button>
             <button
               onClick={() => setViewMode("table")}
@@ -165,78 +252,65 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                   ? "bg-bubblegum text-white shadow-soft font-semibold"
                   : "text-muted hover:text-ink font-medium"
               }`}
-              title="Full screen-reader accessible text & table fallback (§16.4)"
             >
               <TableIcon className={`w-3.5 h-3.5 ${viewMode === "table" ? "text-white" : "text-bubblegum"}`} />
               <span>Accessible Table Fallback (§16.4)</span>
             </button>
           </div>
 
-          {/* Quick Search */}
           <div className="relative">
             <Search className="w-3.5 h-3.5 text-muted absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search claims, evidence, authority..."
+              placeholder="Search claims, legal basis, digests..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8 pr-3 py-1.5 text-xs rounded-full bg-cloud border border-hairline text-ink placeholder:text-muted focus:outline-none focus:border-bubblegum w-56 transition-all"
+              className="pl-8 pr-4 py-1.5 rounded-full bg-cloud border border-hairline text-xs text-ink placeholder:text-muted focus:outline-none focus:border-bubblegum w-56 sm:w-64 transition-all"
             />
           </div>
         </div>
 
         {/* Right: Category Filter Pills */}
-        <div className="flex flex-wrap items-center gap-1.5 text-xs">
+        <div className="flex flex-wrap items-center gap-1.5">
           <button
             onClick={() => setTypeFilter("ALL")}
-            className={`px-3 py-1 rounded-full font-medium transition-all ${
+            className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${
               typeFilter === "ALL"
-                ? "bg-ink text-white shadow-sm"
-                : "bg-cloud text-muted hover:text-ink border border-hairline"
+                ? "bg-ink text-white border-ink shadow-xs"
+                : "bg-white text-muted border-hairline hover:border-bubblegum"
             }`}
           >
-            All ({nodes.length})
+            All Nodes ({nodes.length})
           </button>
           <button
             onClick={() => setTypeFilter("CLAIM")}
-            className={`px-3 py-1 rounded-full font-medium transition-all ${
+            className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${
               typeFilter === "CLAIM"
-                ? "bg-bubblegum text-white shadow-sm"
-                : "bg-bubblegum-soft text-bubblegum-deep border border-hairline hover:bg-bubblegum-hover hover:text-white"
+                ? "bg-bubblegum text-white border-bubblegum shadow-xs"
+                : "bg-white text-muted border-hairline hover:border-bubblegum"
             }`}
           >
             Claims ({nodes.filter((n) => n.type === "CLAIM").length})
           </button>
           <button
             onClick={() => setTypeFilter("EVIDENCE")}
-            className={`px-3 py-1 rounded-full font-medium transition-all ${
+            className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${
               typeFilter === "EVIDENCE"
-                ? "bg-emerald-600 text-white shadow-sm"
-                : "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
+                ? "bg-emerald-600 text-white border-emerald-600 shadow-xs"
+                : "bg-white text-muted border-hairline hover:border-emerald-500"
             }`}
           >
             Evidence ({nodes.filter((n) => n.type === "EVIDENCE").length})
           </button>
-          <button
-            onClick={() => setTypeFilter("ASSUMPTION")}
-            className={`px-3 py-1 rounded-full font-medium transition-all ${
-              typeFilter === "ASSUMPTION"
-                ? "bg-amber-500 text-white shadow-sm"
-                : "bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100"
-            }`}
-          >
-            Assumptions ({nodes.filter((n) => n.type === "ASSUMPTION").length})
-          </button>
           {contradictionCount > 0 && (
             <button
               onClick={() => setTypeFilter("CONTRADICTIONS")}
-              className={`px-3 py-1 rounded-full font-medium transition-all flex items-center gap-1 ${
+              className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all ${
                 typeFilter === "CONTRADICTIONS"
-                  ? "bg-rose-600 text-white shadow-sm"
-                  : "bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100"
+                  ? "bg-rose-600 text-white border-rose-600 shadow-xs"
+                  : "bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100"
               }`}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
               Contradictions ({contradictionCount})
             </button>
           )}
@@ -246,9 +320,9 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
       {viewMode === "visual" ? (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
           {/* Main Visual SVG Canvas (8 cols) */}
-          <div className="lg:col-span-8 relative rounded-[22px] border border-hairline bg-gradient-to-b from-[#FFFDFB] to-[#FFF6F9] overflow-hidden shadow-soft">
+          <div className="lg:col-span-8 relative rounded-[22px] border border-hairline bg-gradient-to-b from-[#FFFDFB] via-[#FFF9FB] to-[#FFF4F8] overflow-hidden shadow-soft">
             {/* Canvas Action Bar */}
-            <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-white/90 backdrop-blur-md p-1.5 rounded-full border border-hairline shadow-soft">
+            <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-white/95 backdrop-blur-md p-1.5 rounded-full border border-hairline shadow-soft">
               <button
                 onClick={() => setZoom((z) => Math.min(1.8, z + 0.15))}
                 title="Zoom In"
@@ -270,12 +344,12 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                 className="px-2.5 h-7 flex items-center gap-1 rounded-full hover:bg-cloud text-[11px] font-medium text-ink transition-colors"
               >
                 <RotateCcw className="w-3 h-3 text-muted" />
-                <span>Fit</span>
+                <span>Reset</span>
               </button>
             </div>
 
             {/* Bottom Status & Legend Overlay */}
-            <div className="absolute bottom-3 left-3 z-10 flex flex-wrap items-center gap-2 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-hairline shadow-soft text-[11px] text-muted">
+            <div className="absolute bottom-3 left-3 z-10 flex flex-wrap items-center gap-2 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-hairline shadow-soft text-[11px] text-muted">
               <span className="flex items-center gap-1.5 font-medium text-ink">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Support
               </span>
@@ -291,10 +365,10 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
             </div>
 
             {/* Interactive SVG Canvas */}
-            <div className="w-full h-[540px] flex items-center justify-center select-none overflow-hidden cursor-grab active:cursor-grabbing">
+            <div className="w-full h-[560px] flex items-center justify-center select-none overflow-hidden cursor-grab active:cursor-grabbing">
               <svg
                 className="w-full h-full transition-transform duration-300"
-                viewBox="0 0 840 540"
+                viewBox="0 0 940 580"
                 style={{ transform: `scale(${zoom})` }}
               >
                 <defs>
@@ -307,7 +381,7 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                   <marker
                     id="arrow-SUPPORT"
                     viewBox="0 0 10 10"
-                    refX="24"
+                    refX="26"
                     refY="5"
                     markerWidth="6"
                     markerHeight="6"
@@ -318,7 +392,7 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                   <marker
                     id="arrow-CONTRADICTION"
                     viewBox="0 0 10 10"
-                    refX="24"
+                    refX="26"
                     refY="5"
                     markerWidth="6"
                     markerHeight="6"
@@ -329,7 +403,7 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                   <marker
                     id="arrow-QUALIFY"
                     viewBox="0 0 10 10"
-                    refX="24"
+                    refX="26"
                     refY="5"
                     markerWidth="6"
                     markerHeight="6"
@@ -340,7 +414,7 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                   <marker
                     id="arrow-DEPEND_ON"
                     viewBox="0 0 10 10"
-                    refX="24"
+                    refX="26"
                     refY="5"
                     markerWidth="6"
                     markerHeight="6"
@@ -351,7 +425,7 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                   <marker
                     id="arrow-SUPERSEDE"
                     viewBox="0 0 10 10"
-                    refX="24"
+                    refX="26"
                     refY="5"
                     markerWidth="6"
                     markerHeight="6"
@@ -361,31 +435,39 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                   </marker>
 
                   {/* Gradient Node Fills */}
-                  <linearGradient id="grad-claim" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <linearGradient id="grad-core" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#FFF1F5" />
-                    <stop offset="100%" stopColor="#FFE4EE" />
+                    <stop offset="100%" stopColor="#FFE0EB" />
                   </linearGradient>
                   <linearGradient id="grad-evidence" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#F0FDF4" />
                     <stop offset="100%" stopColor="#DCFCE7" />
                   </linearGradient>
+                  <linearGradient id="grad-adversary" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FFF1F2" />
+                    <stop offset="100%" stopColor="#FFE4E6" />
+                  </linearGradient>
                   <linearGradient id="grad-assumption" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#FFFBEB" />
                     <stop offset="100%" stopColor="#FEF3C7" />
                   </linearGradient>
+                  <linearGradient id="grad-claim" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FAF5FF" />
+                    <stop offset="100%" stopColor="#F3E8FF" />
+                  </linearGradient>
                 </defs>
 
                 {/* Background Grid */}
-                <rect width="840" height="540" fill="url(#dot-grid)" />
+                <rect width="940" height="580" fill="url(#dot-grid)" />
 
                 {/* Central Protocol Shield Watermark */}
-                <circle cx="420" cy="270" r="160" fill="none" stroke="#F5DCE6" strokeWidth="1" strokeDasharray="4 6" opacity="0.4" />
-                <circle cx="420" cy="270" r="280" fill="none" stroke="#F5DCE6" strokeWidth="1" strokeDasharray="4 6" opacity="0.25" />
+                <circle cx="470" cy="280" r="160" fill="none" stroke="#F5DCE6" strokeWidth="1" strokeDasharray="4 6" opacity="0.4" />
+                <circle cx="470" cy="280" r="290" fill="none" stroke="#F5DCE6" strokeWidth="1" strokeDasharray="4 6" opacity="0.25" />
 
                 {/* Draw Edges */}
                 {edges.map((edge) => {
                   const src = nodePositions[edge.source] || { x: 200, y: 200 };
-                  const tgt = nodePositions[edge.target] || { x: 420, y: 260 };
+                  const tgt = nodePositions[edge.target] || { x: 470, y: 280 };
                   const isHighlighted =
                     selectedNodeId === edge.source ||
                     selectedNodeId === edge.target ||
@@ -399,15 +481,31 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                     bg: "#94a3b8"
                   };
 
-                  // Calculate smooth curved cubic bezier
+                  // Calculate smart Bezier control points to avoid crossing the center node
                   const dx = tgt.x - src.x;
                   const dy = tgt.y - src.y;
-                  const midX = (src.x + tgt.x) / 2;
-                  const midY = (src.y + tgt.y) / 2;
-                  // Curvature offset perpendicular to slope
-                  const curvature = 0.12;
-                  const ctrlX = midX - dy * curvature;
-                  const ctrlY = midY + dx * curvature;
+                  let ctrlX = (src.x + tgt.x) / 2;
+                  let ctrlY = (src.y + tgt.y) / 2;
+
+                  // Outward curve adjustments for peripheral edges
+                  if (edge.source === "n_assumption_unredacted" && edge.target === "n_claim_research_exemption") {
+                    ctrlX = 290;
+                    ctrlY = 530; // curve low away from center
+                  } else if (edge.source === "n_evi_edpb_stmt" && edge.target === "n_claim_research_exemption") {
+                    ctrlX = 270;
+                    ctrlY = 170; // curve high away from center
+                  } else if (edge.source === "n_evi_cjeu_c300" && edge.target === "n_claim_retention_gap") {
+                    ctrlX = 780;
+                    ctrlY = 200; // curve right away from center
+                  } else if (edge.source === "n_claim_research_exemption" && edge.target === "n_claim_legit_interest") {
+                    ctrlX = 170;
+                    ctrlY = 410; // curve left away from center
+                  } else {
+                    // Gentle orthogonal curvature
+                    const curvature = 0.08;
+                    ctrlX -= dy * curvature;
+                    ctrlY += dx * curvature;
+                  }
 
                   return (
                     <g key={edge.id} className="cursor-pointer group">
@@ -418,7 +516,7 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                           fill="none"
                           stroke={colorInfo.stroke}
                           strokeWidth="6"
-                          opacity="0.3"
+                          opacity="0.35"
                           className="transition-all"
                         />
                       )}
@@ -443,9 +541,9 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                       {/* Edge Midpoint Relationship Label Badge */}
                       <g transform={`translate(${ctrlX}, ${ctrlY})`}>
                         <rect
-                          x="-32"
+                          x="-34"
                           y="-9"
-                          width="64"
+                          width="68"
                           height="18"
                           rx="9"
                           fill="#FFFFFF"
@@ -468,32 +566,27 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                   );
                 })}
 
-                {/* Draw Nodes */}
+                {/* Draw Nodes with Agent Logos and Roles */}
                 {nodes.map((node) => {
-                  const pos = nodePositions[node.id] || { x: 420, y: 260 };
+                  const pos = nodePositions[node.id] || { x: 470, y: 280 };
                   const isSelected = selectedNodeId === node.id;
                   const isHovered = hoveredNodeId === node.id;
+                  const isCore = node.id === "n_claim_purpose";
 
-                  // Visual stylings based on node type
-                  const isEvidence = node.type === "EVIDENCE";
-                  const isAssumption = node.type === "ASSUMPTION";
+                  const visual = getAgentVisual(node);
+                  const Icon = visual.icon;
 
-                  const fillGrad = isEvidence
+                  const radius = isCore ? (isSelected ? 34 : 30) : isSelected ? 27 : 24;
+
+                  const fillGrad = isCore
+                    ? "url(#grad-core)"
+                    : visual.tag === "EVIDENCE"
                     ? "url(#grad-evidence)"
-                    : isAssumption
+                    : visual.tag === "ADVERSARY"
+                    ? "url(#grad-adversary)"
+                    : visual.tag === "ASSUMPTION"
                     ? "url(#grad-assumption)"
                     : "url(#grad-claim)";
-
-                  const strokeColor = isSelected
-                    ? "#E8567F"
-                    : isEvidence
-                    ? "#10B981"
-                    : isAssumption
-                    ? "#F59E0B"
-                    : "#FF8FB1";
-
-                  const badgeText = isEvidence ? "EVI" : isAssumption ? "ASM" : "CLM";
-                  const textFill = isEvidence ? "#047857" : isAssumption ? "#B45309" : "#BE185D";
 
                   return (
                     <g
@@ -504,35 +597,42 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                       onMouseLeave={() => setHoveredNodeId(null)}
                       className="cursor-pointer transition-transform duration-200"
                     >
-                      {/* Selection Aura */}
+                      {/* Selection Pulse Ring */}
                       {isSelected && (
                         <circle
-                          r="36"
+                          r={radius + 12}
                           fill="none"
-                          stroke="#FF8FB1"
+                          stroke={visual.strokeColor}
                           strokeWidth="2"
                           strokeDasharray="4 4"
                           className="animate-spin"
-                          style={{ animationDuration: "14s" }}
-                          opacity="0.8"
+                          style={{ animationDuration: "12s" }}
+                          opacity="0.85"
                         />
                       )}
 
+                      {/* Soft ambient aura */}
+                      <circle
+                        r={radius + 6}
+                        fill={visual.glowColor}
+                        className="transition-all"
+                      />
+
                       {/* Main Node Bubble */}
                       <circle
-                        r={isSelected ? "26" : "23"}
+                        r={radius}
                         fill={fillGrad}
-                        stroke={strokeColor}
-                        strokeWidth={isSelected ? "3" : "2"}
+                        stroke={visual.strokeColor}
+                        strokeWidth={isSelected ? "3" : isCore ? "2.5" : "2"}
                         className="transition-all drop-shadow-sm group-hover:drop-shadow-md"
                       />
 
                       {/* Status indicator dot */}
                       {node.evidence_status && (
                         <circle
-                          cx="16"
-                          cy="-16"
-                          r="5"
+                          cx={radius * 0.72}
+                          cy={-radius * 0.72}
+                          r="5.5"
                           fill={
                             node.evidence_status === "SUPPORTED"
                               ? "#10B981"
@@ -545,41 +645,73 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
                         />
                       )}
 
-                      {/* Type Acronym Icon */}
-                      <text
-                        textAnchor="middle"
-                        dy="4"
-                        fill={textFill}
-                        fontSize="10"
-                        fontWeight="800"
-                        className="pointer-events-none select-none tracking-tight font-mono"
+                      {/* Agent Logo / Symbol Icon rendered via foreignObject */}
+                      <foreignObject
+                        x="-14"
+                        y="-14"
+                        width="28"
+                        height="28"
+                        className="pointer-events-none select-none"
                       >
-                        {badgeText}
-                      </text>
-
-                      {/* Node Label Card */}
-                      <g transform="translate(0, 36)">
-                        <rect
-                          x="-65"
-                          y="-8"
-                          width="130"
-                          height="20"
-                          rx="10"
-                          fill={isSelected ? "#2A1F26" : "#FFFFFF"}
-                          stroke={isSelected ? "#E8567F" : "#F5DCE6"}
-                          strokeWidth="1"
-                          className="drop-shadow-xs"
-                        />
-                        <text
-                          textAnchor="middle"
-                          dy="5"
-                          fill={isSelected ? "#FFFFFF" : "#2A1F26"}
-                          fontSize="9.5"
-                          fontWeight="600"
-                          className="pointer-events-none select-none"
+                        <div
+                          className="w-full h-full flex items-center justify-center"
+                          style={{ color: visual.primaryColor }}
                         >
-                          {node.label.length > 22 ? `${node.label.slice(0, 20)}...` : node.label}
-                        </text>
+                          <Icon className={isCore ? "w-6 h-6" : "w-5 h-5"} />
+                        </div>
+                      </foreignObject>
+
+                      {/* Node Label Card with Agent Tag */}
+                      <g transform={`translate(0, ${radius + 12})`}>
+                        {/* Upper Agent Role Badge */}
+                        <g transform="translate(0, -6)">
+                          <rect
+                            x="-48"
+                            y="-6"
+                            width="96"
+                            height="13"
+                            rx="6.5"
+                            fill="#FFFFFF"
+                            stroke={visual.strokeColor}
+                            strokeWidth="1"
+                            className="drop-shadow-xs"
+                          />
+                          <text
+                            textAnchor="middle"
+                            dy="4"
+                            fill={visual.primaryColor}
+                            fontSize="7.5"
+                            fontWeight="800"
+                            className="pointer-events-none select-none uppercase tracking-wider"
+                          >
+                            {visual.roleTitle}
+                          </text>
+                        </g>
+
+                        {/* Lower Main Title Pill */}
+                        <g transform="translate(0, 14)">
+                          <rect
+                            x="-72"
+                            y="-9"
+                            width="144"
+                            height="20"
+                            rx="10"
+                            fill={isSelected ? "#2A1F26" : "#FFFFFF"}
+                            stroke={isSelected ? "#E8567F" : "#F5DCE6"}
+                            strokeWidth="1"
+                            className="drop-shadow-xs"
+                          />
+                          <text
+                            textAnchor="middle"
+                            dy="5"
+                            fill={isSelected ? "#FFFFFF" : "#2A1F26"}
+                            fontSize="9"
+                            fontWeight="600"
+                            className="pointer-events-none select-none"
+                          >
+                            {node.label.length > 24 ? `${node.label.slice(0, 22)}...` : node.label}
+                          </text>
+                        </g>
                       </g>
                     </g>
                   );
@@ -590,12 +722,21 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
 
           {/* Right Inspector Drawer (4 cols) */}
           <div className="lg:col-span-4 rounded-[22px] border border-hairline bg-white p-5 shadow-soft space-y-4">
-            {/* Inspector Header */}
+            {/* Inspector Header with Agent Badge */}
             <div className="border-b border-hairline pb-4">
               <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cloud text-ink border border-hairline">
-                  {selectedNode.type}
-                </span>
+                {(() => {
+                  const vis = getAgentVisual(selectedNode);
+                  const Icon = vis.icon;
+                  return (
+                    <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-cloud border border-hairline">
+                      <Icon className="w-3.5 h-3.5" style={{ color: vis.primaryColor }} />
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-ink">
+                        {vis.roleTitle}
+                      </span>
+                    </div>
+                  );
+                })()}
 
                 {selectedNode.evidence_status && (
                   <span
@@ -756,53 +897,64 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
               <thead>
                 <tr className="border-b border-hairline bg-cloud/50 text-muted font-semibold uppercase tracking-wider text-[10px]">
                   <th className="p-3.5">Node ID</th>
+                  <th className="p-3.5">Agent Role</th>
                   <th className="p-3.5">Type</th>
                   <th className="p-3.5">Claim / Evidence Text</th>
-                  <th className="p-3.5">Asserted By / Authority</th>
+                  <th className="p-3.5">Authority / Citation</th>
                   <th className="p-3.5">Verification Status</th>
                   <th className="p-3.5">Canonical Digest</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-hairline">
-                {filteredNodes.map((node) => (
-                  <tr
-                    key={node.id}
-                    onClick={() => {
-                      setSelectedNodeId(node.id);
-                      setViewMode("visual");
-                    }}
-                    className="hover:bg-cloud/60 transition-colors cursor-pointer"
-                  >
-                    <td className="p-3.5 font-mono text-[11px] text-bubblegum-deep font-semibold">{node.id}</td>
-                    <td className="p-3.5">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-cloud text-ink border border-hairline">
-                        {node.type}
-                      </span>
-                    </td>
-                    <td className="p-3.5 font-medium text-ink max-w-md">{node.label}</td>
-                    <td className="p-3.5 text-muted font-medium">{node.authority || node.agent || "Protocol Engine"}</td>
-                    <td className="p-3.5">
-                      {node.evidence_status ? (
-                        <span
-                          className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${
-                            node.evidence_status === "SUPPORTED"
-                              ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                              : node.evidence_status === "CONTRADICTED"
-                              ? "bg-rose-50 text-rose-700 border-rose-200"
-                              : "bg-amber-50 text-amber-700 border-amber-200"
-                          }`}
-                        >
-                          {node.evidence_status}
+                {filteredNodes.map((node) => {
+                  const vis = getAgentVisual(node);
+                  const Icon = vis.icon;
+                  return (
+                    <tr
+                      key={node.id}
+                      onClick={() => {
+                        setSelectedNodeId(node.id);
+                        setViewMode("visual");
+                      }}
+                      className="hover:bg-cloud/60 transition-colors cursor-pointer"
+                    >
+                      <td className="p-3.5 font-mono text-[11px] text-bubblegum-deep font-semibold">{node.id}</td>
+                      <td className="p-3.5">
+                        <div className="flex items-center gap-1.5 font-medium text-ink">
+                          <Icon className="w-3.5 h-3.5" style={{ color: vis.primaryColor }} />
+                          <span>{vis.roleTitle}</span>
+                        </div>
+                      </td>
+                      <td className="p-3.5">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-cloud text-ink border border-hairline">
+                          {node.type}
                         </span>
-                      ) : (
-                        <span className="text-muted">N/A</span>
-                      )}
-                    </td>
-                    <td className="p-3.5 font-mono text-[11px] text-muted">
-                      {node.digest ? `${node.digest.slice(0, 14)}...` : "Off-chain reference"}
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td className="p-3.5 font-medium text-ink max-w-md">{node.label}</td>
+                      <td className="p-3.5 text-muted font-medium">{node.authority || node.agent || "Protocol Engine"}</td>
+                      <td className="p-3.5">
+                        {node.evidence_status ? (
+                          <span
+                            className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${
+                              node.evidence_status === "SUPPORTED"
+                                ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                                : node.evidence_status === "CONTRADICTED"
+                                ? "bg-rose-50 text-rose-700 border-rose-200"
+                                : "bg-amber-50 text-amber-700 border-amber-200"
+                            }`}
+                          >
+                            {node.evidence_status}
+                          </span>
+                        ) : (
+                          <span className="text-muted">N/A</span>
+                        )}
+                      </td>
+                      <td className="p-3.5 font-mono text-[11px] text-muted">
+                        {node.digest ? `${node.digest.slice(0, 14)}...` : "Off-chain reference"}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
