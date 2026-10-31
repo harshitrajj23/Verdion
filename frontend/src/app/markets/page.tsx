@@ -20,6 +20,8 @@ import {
   Users
 } from "lucide-react";
 
+import { api } from "@/lib/api";
+
 export default function PredictionMarketsPage() {
   const {
     markets,
@@ -32,15 +34,25 @@ export default function PredictionMarketsPage() {
     isLiveChain
   } = useStore();
 
-  const [selectedMarketId, setSelectedMarketId] = useState<string>("0x28ae...5b3e (Sepolia Lifecycle)");
+  const [selectedMarketId, setSelectedMarketId] = useState<string>("");
   const [probInput, setProbInput] = useState<number>(70);
   const [nonceInput, setNonceInput] = useState<string>(
     "0x" + Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [challengeReason, setChallengeReason] = useState("");
+  const [evalMetrics, setEvalMetrics] = useState<any | null>(null);
 
-  const market = markets.find((m) => m.market_id === selectedMarketId) || markets[0];
+  React.useEffect(() => {
+    api.getForecastingEvaluation().then((res) => {
+      setEvalMetrics(res);
+    }).catch(() => {});
+  }, []);
+
+  const activeMarketId = selectedMarketId && markets.some((m) => m.market_id === selectedMarketId)
+    ? selectedMarketId
+    : (markets[0]?.market_id || "");
+  const market = markets.find((m) => m.market_id === activeMarketId) || markets[0];
   const relevantTxs = pendingTxs.filter(
     (tx) => tx.action.includes("Forecast") || tx.action.includes("Market") || tx.action.includes("Challenge")
   );
@@ -187,6 +199,78 @@ export default function PredictionMarketsPage() {
             </p>
           </div>
         </div>
+
+        {/* Option C Empirical Forecasting Calibration & Proper Scoring Card */}
+        {evalMetrics && (
+          <div className="pt-4 border-t border-cream-200 space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-lavender-100 text-lavender-700 border border-lavender-200">
+                  Option C Benchmark
+                </span>
+                <h3 className="text-sm font-bold text-ink">Empirical Forecasting Evaluation & Calibration</h3>
+              </div>
+              <span className="text-[11px] text-ink-muted font-mono">
+                {evalMetrics.total_resolved_forecasts} Resolved Forecasts Across {evalMetrics.resolved_markets_count} Markets
+              </span>
+            </div>
+
+            {/* Score Metrics */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div className="p-3 rounded-[12px] bg-cream-50 border border-cream-200 space-y-0.5">
+                <span className="text-[10px] text-ink-muted">Brier Score:</span>
+                <div className="font-mono font-bold text-base text-lavender-700">
+                  {evalMetrics.protocol_metrics?.brier_score ?? 0.25}
+                </div>
+                <span className="text-[9px] text-ink-tertiary">vs 0.25 (Uniform Baseline)</span>
+              </div>
+              <div className="p-3 rounded-[12px] bg-cream-50 border border-cream-200 space-y-0.5">
+                <span className="text-[10px] text-ink-muted">Binary Log Loss:</span>
+                <div className="font-mono font-bold text-base text-ink">
+                  {evalMetrics.protocol_metrics?.log_loss ?? 0.6931}
+                </div>
+                <span className="text-[9px] text-ink-tertiary">Cross-entropy clipping</span>
+              </div>
+              <div className="p-3 rounded-[12px] bg-cream-50 border border-cream-200 space-y-0.5">
+                <span className="text-[10px] text-ink-muted">Calibration Error (ECE):</span>
+                <div className="font-mono font-bold text-base text-emerald-700">
+                  {evalMetrics.protocol_metrics?.expected_calibration_error ?? 0.0}
+                </div>
+                <span className="text-[9px] text-ink-tertiary">Across 5 probability bins</span>
+              </div>
+              <div className="p-3 rounded-[12px] bg-cream-50 border border-cream-200 space-y-0.5">
+                <span className="text-[10px] text-ink-muted">Historical Base Rate:</span>
+                <div className="font-mono font-bold text-base text-ink">
+                  {((evalMetrics.historical_base_rate ?? 0.5) * 100).toFixed(1)}%
+                </div>
+                <span className="text-[9px] text-ink-tertiary">Observed positive frequency</span>
+              </div>
+            </div>
+
+            {/* Calibration Bins Breakdown */}
+            {evalMetrics.calibration_curve && evalMetrics.calibration_curve.length > 0 && (
+              <div className="p-3 rounded-[12px] bg-cream-50 border border-cream-200 space-y-2">
+                <span className="text-[11px] font-semibold text-ink block">Reliability Diagram (Calibration by Bin):</span>
+                <div className="grid grid-cols-5 gap-2 text-center text-[10px]">
+                  {evalMetrics.calibration_curve.map((bin: any, idx: number) => (
+                    <div key={idx} className="p-2 rounded-lg bg-white border border-cream-300 space-y-1">
+                      <span className="font-mono font-semibold text-lavender-700 block">{bin.bin_range}</span>
+                      <div className="text-ink-muted">Count: <strong>{bin.count}</strong></div>
+                      <div className="text-[9px] text-ink-secondary">
+                        Obs: {(bin.observed_frequency * 100).toFixed(0)}%
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Statistical Warning */}
+            <p className="text-[10px] text-ink-muted leading-relaxed italic">
+              {evalMetrics.statistical_disclosure}
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Pending Transactions Feed */}

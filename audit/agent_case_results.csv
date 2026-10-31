@@ -1,0 +1,85 @@
+scenario_id,agent_id,role,model_version,pass_fail,latency_ms,prompt_tokens,completion_tokens,error_category,reproducibility
+scen_01,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_01,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_01,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_01,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_01,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,42514.66,843,221,NONE,Stability 3-run spread=0.0
+scen_01,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_02,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_02,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_02,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_02,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_02,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,42909.8,876,251,NONE,Stability 3-run spread=0.0
+scen_02,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_03,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_03,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_03,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_03,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_03,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,47584.63,847,276,NONE,Stability 3-run spread=0.0
+scen_03,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_04,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_04,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_04,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_04,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_04,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,33872.83,699,243,NONE,Stability 3-run spread=0.0
+scen_04,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_05,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_05,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_05,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_05,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_05,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,32916.18,847,258,NONE,Stability 3-run spread=0.0
+scen_05,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_06,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_06,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_06,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_06,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_06,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,35729.48,824,241,NONE,Stability 3-run spread=0.0
+scen_06,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_07,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_07,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_07,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_07,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_07,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,46157.06,986,308,NONE,Stability 3-run spread=0.0
+scen_07,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_08,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_08,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_08,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_08,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_08,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,44096.4,939,251,NONE,Stability 3-run spread=0.0
+scen_08,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_09,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_09,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_09,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_09,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_09,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,66223.7,854,334,NONE,Stability 3-run spread=0.0
+scen_09,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_10,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_10,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_10,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_10,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_10,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,56992.28,1104,295,NONE,Stability 3-run spread=0.0
+scen_10,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_11,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_11,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_11,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_11,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_11,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,56166.7,717,278,NONE,Stability 3-run spread=0.0
+scen_11,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_12,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_12,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_12,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_12,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_12,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,53018.99,784,257,NONE,Stability 3-run spread=0.0
+scen_12,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_13,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_13,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_13,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_13,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_13,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,64248.75,842,294,NONE,Stability 3-run spread=0.0
+scen_13,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization
+scen_14,agent_legal_researcher,LEGAL_RESEARCHER,qwen2.5:7b-instruct,PASS,46515.0,985,504,NONE,Verified with sentence splitter v1.2.0 snapshot
+scen_14,agent_legal_interpreter,LEGAL_INTERPRETER,qwen2.5:7b-instruct,PASS,64200.0,1215,850,NONE,Pydantic schema validation with retry on malformed JSON
+scen_14,agent_adversarial_researcher,ADVERSARIAL_RESEARCHER,qwen2.5:7b-instruct,PASS,58100.0,995,722,NONE,Contradiction claims injected into argument graph
+scen_14,agent_evidence_verifier,EVIDENCE_VERIFIER,deterministic_v1,PASS,0.45,0,0,NONE,Zero false acceptances on injected corrupted quotes
+scen_14,agent_quantitative_forecaster,QUANTITATIVE_FORECASTER,qwen2.5:7b-instruct,PASS,52085.33,877,236,NONE,Stability 3-run spread=0.0
+scen_14,agent_coordinator,COORDINATOR,deterministic_v1,PASS,0.08,0,0,NONE,Deterministic graph analysis and uncertainty prioritization

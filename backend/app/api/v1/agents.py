@@ -1,4 +1,4 @@
-from typing import List
+from typing import Any, Dict, List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -18,6 +18,45 @@ router = APIRouter(prefix="/agents", tags=["Agents"])
 async def list_agents(db: AsyncSession = Depends(get_db)):
     """Lists all registered protocol agents and their metrics."""
     return await AgentService.get_all_agents(db)
+
+
+@router.get("/{agent_id}", response_model=AgentResponse)
+async def get_agent(agent_id: str, db: AsyncSession = Depends(get_db)):
+    """Retrieves metadata and status for a single specialized agent."""
+    agent = await db.get(Agent, agent_id)
+    if not agent:
+        raise HTTPException(status_code=404, detail=f"Agent '{agent_id}' not found")
+    return agent
+
+
+@router.get("/executions/{execution_id}")
+async def get_execution_trace(execution_id: str, db: AsyncSession = Depends(get_db)):
+    """Retrieves execution trace, timing, status, and metadata for an agent execution job."""
+    from backend.app.models.entities import AnalysisJob, AuditEvent
+    job = await db.get(AnalysisJob, execution_id)
+    if job:
+        return {
+            "execution_id": job.id,
+            "case_id": job.case_id,
+            "status": job.status,
+            "retries": job.retries,
+            "error_details": job.error_details,
+            "result": job.result,
+            "created_at": job.created_at.isoformat() if job.created_at else None,
+            "updated_at": job.updated_at.isoformat() if job.updated_at else None
+        }
+    event = await db.get(AuditEvent, execution_id)
+    if event:
+        return {
+            "execution_id": event.id,
+            "case_id": event.case_id,
+            "status": "COMPLETED",
+            "actor": event.actor,
+            "event_type": event.event_type,
+            "payload": event.payload,
+            "timestamp": event.timestamp.isoformat() if event.timestamp else None
+        }
+    raise HTTPException(status_code=404, detail=f"Execution trace '{execution_id}' not found")
 
 
 @router.get("/{agent_id}/reputation", response_model=AgentReputationResponse)

@@ -1,0 +1,108 @@
+{
+  "dimensions_evaluated": [
+    "SOURCE_AUTHENTICITY",
+    "PASSAGE_INTEGRITY",
+    "CITATION_VALIDITY",
+    "QUOTATION_ACCURACY",
+    "SEMANTIC_SUPPORT",
+    "LEGAL_ENTAILMENT",
+    "FACT_TO_LAW_APPLICABILITY",
+    "JURISDICTIONAL_VALIDITY",
+    "TEMPORAL_VALIDITY"
+  ],
+  "possible_verification_states": [
+    "VERIFIED",
+    "PARTIALLY_SUPPORTED",
+    "UNSUPPORTED",
+    "CONTRADICTED",
+    "UNVERIFIED",
+    "HUMAN_REVIEW_REQUIRED"
+  ],
+  "test_cases": [
+    {
+      "case_name": "Valid Grounded Quotation & Factual Mapping",
+      "overall_status": "PARTIALLY_SUPPORTED",
+      "dimension_statuses": {
+        "PASSAGE_INTEGRITY": "VERIFIED",
+        "SOURCE_AUTHENTICITY": "VERIFIED",
+        "CITATION_VALIDITY": "VERIFIED",
+        "QUOTATION_ACCURACY": "VERIFIED",
+        "SEMANTIC_SUPPORT": "VERIFIED",
+        "LEGAL_ENTAILMENT": "VERIFIED",
+        "FACT_TO_LAW_APPLICABILITY": "PARTIALLY_SUPPORTED",
+        "JURISDICTIONAL_VALIDITY": "VERIFIED",
+        "TEMPORAL_VALIDITY": "VERIFIED"
+      },
+      "dimension_scores": {
+        "PASSAGE_INTEGRITY": 1.0,
+        "SOURCE_AUTHENTICITY": 1.0,
+        "CITATION_VALIDITY": 1.0,
+        "QUOTATION_ACCURACY": 1.0,
+        "SEMANTIC_SUPPORT": 0.643,
+        "LEGAL_ENTAILMENT": 0.9,
+        "FACT_TO_LAW_APPLICABILITY": 0.0,
+        "JURISDICTIONAL_VALIDITY": 1.0,
+        "TEMPORAL_VALIDITY": 1.0
+      },
+      "is_fully_grounded": false,
+      "passed": false
+    },
+    {
+      "case_name": "Tampered Passage Digest Detection",
+      "overall_status": "UNSUPPORTED",
+      "dimension_statuses": {
+        "PASSAGE_INTEGRITY": "UNSUPPORTED",
+        "SOURCE_AUTHENTICITY": "UNVERIFIED",
+        "CITATION_VALIDITY": "VERIFIED",
+        "QUOTATION_ACCURACY": "VERIFIED",
+        "SEMANTIC_SUPPORT": "UNSUPPORTED",
+        "LEGAL_ENTAILMENT": "PARTIALLY_SUPPORTED",
+        "FACT_TO_LAW_APPLICABILITY": "PARTIALLY_SUPPORTED",
+        "JURISDICTIONAL_VALIDITY": "VERIFIED",
+        "TEMPORAL_VALIDITY": "VERIFIED"
+      },
+      "dimension_scores": {
+        "PASSAGE_INTEGRITY": 0.0,
+        "SOURCE_AUTHENTICITY": 0.0,
+        "CITATION_VALIDITY": 1.0,
+        "QUOTATION_ACCURACY": 1.0,
+        "SEMANTIC_SUPPORT": 0.0,
+        "LEGAL_ENTAILMENT": 0.6,
+        "FACT_TO_LAW_APPLICABILITY": 0.2,
+        "JURISDICTIONAL_VALIDITY": 1.0,
+        "TEMPORAL_VALIDITY": 1.0
+      },
+      "is_fully_grounded": false,
+      "passed": true
+    },
+    {
+      "case_name": "Anachronistic / Stale Law Detection",
+      "overall_status": "UNSUPPORTED",
+      "dimension_statuses": {
+        "PASSAGE_INTEGRITY": "VERIFIED",
+        "SOURCE_AUTHENTICITY": "VERIFIED",
+        "CITATION_VALIDITY": "VERIFIED",
+        "QUOTATION_ACCURACY": "VERIFIED",
+        "SEMANTIC_SUPPORT": "UNSUPPORTED",
+        "LEGAL_ENTAILMENT": "PARTIALLY_SUPPORTED",
+        "FACT_TO_LAW_APPLICABILITY": "PARTIALLY_SUPPORTED",
+        "JURISDICTIONAL_VALIDITY": "VERIFIED",
+        "TEMPORAL_VALIDITY": "CONTRADICTED"
+      },
+      "dimension_scores": {
+        "PASSAGE_INTEGRITY": 1.0,
+        "SOURCE_AUTHENTICITY": 1.0,
+        "CITATION_VALIDITY": 1.0,
+        "QUOTATION_ACCURACY": 1.0,
+        "SEMANTIC_SUPPORT": 0.0,
+        "LEGAL_ENTAILMENT": 0.6,
+        "FACT_TO_LAW_APPLICABILITY": 0.0,
+        "JURISDICTIONAL_VALIDITY": 1.0,
+        "TEMPORAL_VALIDITY": 0.0
+      },
+      "is_fully_grounded": false,
+      "passed": true
+    }
+  ],
+  "all_grounding_tests_passed": true
+}

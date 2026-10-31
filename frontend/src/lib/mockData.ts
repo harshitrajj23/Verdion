@@ -5,7 +5,31 @@ export interface CaseData {
   assessment_date: string;
   question: string;
   scope_version: number;
-  status: "DRAFT" | "RETRIEVAL" | "ANALYSIS" | "INVESTIGATION" | "REVIEW" | "COMPLETED" | "FAILED";
+  status:
+    | "DRAFT"
+    | "RETRIEVAL"
+    | "ANALYSIS"
+    | "INVESTIGATION"
+    | "REVIEW"
+    | "COMPLETED"
+    | "FAILED"
+    | "CASE_CREATED"
+    | "EVIDENCE_BOUND"
+    | "INSUFFICIENT_EVIDENCE"
+    | "ANALYSIS_RECORDED"
+    | "DECISION_VERIFIED"
+    | "PARTIALLY_VERIFIED"
+    | "FORECAST_OPEN"
+    | "FORECAST_COMMITTED"
+    | "FORECAST_REVEALED"
+    | "REVEAL_EXPIRED"
+    | "RESOLUTION_PENDING"
+    | "RESOLVED"
+    | "DISPUTED"
+    | "SCORED"
+    | "AUDIT_PACKAGE_VERIFIED"
+    | "CANCELLED"
+    | string;
   facts: {
     processing_purpose: string;
     data_categories: string[];
@@ -17,6 +41,7 @@ export interface CaseData {
   };
   missing_facts: string[];
   source_corpus_version: string;
+  provenance?: string;
   created_at: string;
   updated_at: string;
 }

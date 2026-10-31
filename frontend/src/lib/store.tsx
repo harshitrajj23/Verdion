@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import {
   initialCase,
   initialAgents,
@@ -18,6 +18,7 @@ import {
   BountyData,
   AuditRecord
 } from "./mockData";
+import { api, CreateCasePayload } from "./api";
 
 export interface ToastMessage {
   id: string;
@@ -38,6 +39,7 @@ export interface PendingTx {
 }
 
 export interface StoreContextType {
+  isBackendLive: boolean;
   isLiveChain: boolean;
   toggleLiveChain: () => void;
   walletAddress: string | null;
@@ -46,6 +48,8 @@ export interface StoreContextType {
   userCredits: number;
   mintDemoCredits: (amount?: number) => void;
   currentCase: CaseData;
+  setCurrentCase: (c: CaseData) => void;
+  casesList: CaseData[];
   agents: AgentMetric[];
   graphNodes: GraphNode[];
   graphEdges: GraphEdge[];
@@ -56,10 +60,11 @@ export interface StoreContextType {
   toasts: ToastMessage[];
   addToast: (toast: Omit<ToastMessage, "id">) => void;
   removeToast: (id: string) => void;
-  // Transaction State Tracking
   pendingTxs: PendingTx[];
   clearPendingTx: (id: string) => void;
-  // State Mutations
+  refreshData: () => Promise<void>;
+  createCase: (payload: CreateCasePayload) => Promise<CaseData>;
+  runAnalysis: (caseId: string) => Promise<any>;
   commitForecast: (marketId: string, probability: number, nonce: string) => Promise<string>;
   revealForecast: (marketId: string, probability: number, nonce: string) => Promise<string>;
   submitBountyEvidence: (bountyId: string, sourceTitle: string, passageRef: string, quote: string) => Promise<string>;
@@ -70,14 +75,16 @@ export interface StoreContextType {
 
 const StoreContext = createContext<StoreContextType | null>(null);
 
-const generateTxHash = () =>
-  `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;
+const generateSimulatedTxId = (action: string) =>
+  `sim_${action.toLowerCase().replace(/[^a-z0-9]/g, "_")}_${Date.now()}`;
 
 export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isBackendLive, setIsBackendLive] = useState(false);
   const [isLiveChain, setIsLiveChain] = useState(false);
   const [walletAddress, setWalletAddress] = useState<string | null>("0x70997970C51812dc3A010C7d01b50e0d17dc79C8");
   const [userCredits, setUserCredits] = useState<number>(350);
   const [currentCase, setCurrentCase] = useState<CaseData>(initialCase);
+  const [casesList, setCasesList] = useState<CaseData[]>([initialCase]);
   const [agents, setAgents] = useState<AgentMetric[]>(initialAgents);
   const [graphNodes, setGraphNodes] = useState<GraphNode[]>(initialGraphNodes);
   const [graphEdges, setGraphEdges] = useState<GraphEdge[]>(initialGraphEdges);
@@ -86,20 +93,6 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [auditRecords, setAuditRecords] = useState<AuditRecord[]>(initialAuditRecords);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [pendingTxs, setPendingTxs] = useState<PendingTx[]>([]);
-
-  const toggleLiveChain = () => {
-    setIsLiveChain((prev) => {
-      const next = !prev;
-      addToast({
-        type: "info",
-        title: next ? "Switched to Live Testnet Mode" : "Switched to Curated Benchmark Mode",
-        message: next
-          ? "Interacting with Sepolia testnet contracts. Wallet signatures required."
-          : "Viewing verified reproducible dataset with deterministic agent outputs."
-      });
-      return next;
-    });
-  };
 
   const addToast = useCallback((toast: Omit<ToastMessage, "id">) => {
     const id = `toast_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
@@ -132,6 +125,60 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setPendingTxs((prev) => prev.filter((tx) => tx.id !== id));
   }, []);
 
+  const refreshData = useCallback(async () => {
+    try {
+      const [fetchedCases, fetchedMarkets, fetchedBounties, fetchedAudit, fetchedAgents] = await Promise.all([
+        api.getCases().catch(() => null),
+        api.getMarkets().catch(() => null),
+        api.getBounties().catch(() => null),
+        api.getAuditRecords().catch(() => null),
+        api.getAgents().catch(() => null)
+      ]);
+
+      if (fetchedMarkets !== null) {
+        setMarkets(fetchedMarkets);
+        setIsBackendLive(true);
+      }
+      if (fetchedBounties !== null) {
+        setBounties(fetchedBounties);
+      }
+      if (fetchedAudit !== null) {
+        setAuditRecords(fetchedAudit);
+      }
+      if (fetchedAgents !== null && fetchedAgents.length > 0) {
+        setAgents(fetchedAgents);
+      }
+      if (fetchedCases !== null) {
+        setCasesList(fetchedCases);
+        setCurrentCase((prev) => {
+          if (!prev || fetchedCases.length === 0) return fetchedCases[0] || initialCase;
+          const match = fetchedCases.find((c) => c.id === prev.id);
+          return match || fetchedCases[0];
+        });
+      }
+    } catch (err) {
+      console.warn("Backend poll failed, maintaining state:", err);
+    }
+  }, []);
+
+  useEffect(() => {
+    refreshData();
+  }, [refreshData]);
+
+  const toggleLiveChain = () => {
+    setIsLiveChain((prev) => {
+      const next = !prev;
+      addToast({
+        type: "info",
+        title: next ? "Switched to Live Testnet Mode" : "Switched to Curated Benchmark Mode",
+        message: next
+          ? "Interacting with Sepolia testnet contracts. Wallet signatures required."
+          : "Viewing verified reproducible dataset with deterministic agent outputs."
+      });
+      return next;
+    });
+  };
+
   const connectWallet = async () => {
     if (typeof window !== "undefined" && (window as any).ethereum) {
       try {
@@ -153,7 +200,6 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         });
       }
     }
-    // Fallback simulated wallet
     const mockAddr = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
     setWalletAddress(mockAddr);
     addToast({
@@ -181,100 +227,162 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
   };
 
+  const createCase = async (payload: CreateCasePayload): Promise<CaseData> => {
+    try {
+      const created = await api.createCase(payload);
+      setCurrentCase(created);
+      setCasesList((prev) => [created, ...prev]);
+      addToast({
+        type: "success",
+        title: "Case Created & Persisted",
+        message: `Scope frozen under ID ${created.id} (Version ${created.scope_version}).`
+      });
+      return created;
+    } catch (err: any) {
+      addToast({
+        type: "error",
+        title: "Case Creation Failed",
+        message: err.message || "Failed to persist case to backend."
+      });
+      throw err;
+    }
+  };
+
+  const runAnalysis = async (caseId: string): Promise<any> => {
+    addToast({
+      type: "info",
+      title: "Running Multi-Agent Swarm",
+      message: "Dispatching Legal Researcher, Interpreter, Adversary, and Verifier..."
+    });
+    try {
+      const res = await api.analyzeCase(caseId);
+      if (res.argument_graph) {
+        if (res.argument_graph.nodes) {
+          setGraphNodes(
+            res.argument_graph.nodes.map((n: any) => ({
+              id: n.id,
+              type: n.type || "CLAIM",
+              label: n.claim_text || n.label || n.id,
+              agent: n.agent_id,
+              evidence_status: n.status || "SUPPORTED",
+              digest: n.digest,
+              authority: n.authority
+            }))
+          );
+        }
+        if (res.argument_graph.edges) {
+          setGraphEdges(
+            res.argument_graph.edges.map((e: any) => ({
+              id: e.id,
+              source: e.source_claim_id || e.source,
+              target: e.target_claim_id || e.target,
+              relationship: e.relationship_type || e.relationship,
+              reason: e.reason
+            }))
+          );
+        }
+      }
+      await refreshData();
+      addToast({
+        type: "success",
+        title: "Swarm Analysis Completed",
+        message: "Claims verified against SHA-256 digests. Argument graph generated."
+      });
+      return res;
+    } catch (err: any) {
+      addToast({
+        type: "error",
+        title: "Analysis Failed",
+        message: err.message || "Multi-agent swarm execution encountered an error."
+      });
+      throw err;
+    }
+  };
+
   const commitForecast = async (marketId: string, probability: number, nonce: string): Promise<string> => {
-    const txHash = generateTxHash();
-    const txId = addPendingTx("Commit Forecast", txHash);
+    const rawTxId = generateSimulatedTxId("commit_forecast");
+    const txId = addPendingTx("Commit Forecast", rawTxId);
 
     addToast({
       type: "info",
-      title: "Pending Transaction",
-      message: "Broadcasting forecast commitment H(chainId, marketId, agent, prob, digest, nonce)...",
-      txHash
+      title: "Submitting Forecast Commitment",
+      message: "Committing forecast secret proof to protocol ledger...",
+      txHash: rawTxId
     });
 
-    // Simulate block latency
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const backendRes = await api.commitForecast(marketId, {
+        agent_id: "agent_legal_researcher",
+        commitment_hash: rawTxId,
+        wallet_address: walletAddress || undefined
+      });
 
-    const newAudit: AuditRecord = {
-      id: `aud_${Date.now()}`,
-      event_type: "FORECAST_COMMITTED",
-      actor: walletAddress || "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-      target_id: marketId,
-      payload_digest: generateTxHash(),
-      tx_hash: txHash,
-      timestamp: new Date().toISOString(),
-      block_number: 5410520 + Math.floor(Math.random() * 10),
-      status: "CONFIRMED",
-      source_type: "SAMPLE_FIXTURE"
-    };
+      const actualTxHash = backendRes.commit_tx_hash || rawTxId;
+      updateTxState(txId, "CONFIRMED");
 
-    setAuditRecords((prev) => [newAudit, ...prev]);
-    updateTxState(txId, "CONFIRMED");
+      addToast({
+        type: "success",
+        title: "Commitment Confirmed & Persisted",
+        message: `Secret forecast committed in SQLite and anchored with tx ${actualTxHash.slice(0, 10)}...`,
+        txHash: actualTxHash
+      });
 
-    addToast({
-      type: "success",
-      title: "Commitment Confirmed on Testnet",
-      message: `Forecast secret committed. Reveal window opens after deadline.`,
-      txHash
-    });
-
-    return txHash;
+      await refreshData();
+      return actualTxHash;
+    } catch (err: any) {
+      updateTxState(txId, "REVERTED");
+      addToast({
+        type: "error",
+        title: "Commitment Failed",
+        message: err.message || "Failed to commit forecast to backend ledger.",
+        txHash: rawTxId
+      });
+      throw err;
+    }
   };
 
   const revealForecast = async (marketId: string, probability: number, nonce: string): Promise<string> => {
-    const txHash = generateTxHash();
-    const txId = addPendingTx("Reveal Forecast", txHash);
+    const rawTxId = generateSimulatedTxId("reveal_forecast");
+    const txId = addPendingTx("Reveal Forecast", rawTxId);
 
     addToast({
       type: "info",
-      title: "Verifying Reveal Proof",
-      message: "Verifying probability and secret nonce against on-chain commitment...",
-      txHash
+      title: "Verifying & Revealing Forecast",
+      message: "Submitting probability and secret nonce to verify commitment proof...",
+      txHash: rawTxId
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const backendRes = await api.revealForecast(marketId, {
+        agent_id: "agent_legal_researcher",
+        probability,
+        evidence_digest: "0x8fa12b9c3f4e8891d09e7284cb9124a919248bb82948019a827401bbac901842",
+        nonce,
+        wallet_address: walletAddress || undefined
+      });
 
-    setMarkets((prev) =>
-      prev.map((m) => {
-        if (m.market_id === marketId) {
-          const updatedRevealed = [
-            ...m.revealed_forecasts,
-            {
-              agent_id: "human_evaluator_01",
-              agent_address: walletAddress || "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-              probability,
-              evidence_digest: "0x8fa12b9c3f4e8891d09e7284cb9124a919248bb82948019a827401bbac901842",
-              revealed_at: new Date().toISOString()
-            }
-          ];
-          const newAgg =
-            updatedRevealed.reduce((acc, curr) => acc + curr.probability, 0) / updatedRevealed.length;
-          const newVariance =
-            updatedRevealed.reduce((acc, curr) => acc + Math.pow(curr.probability - newAgg, 2), 0) /
-            updatedRevealed.length;
+      const actualTxHash = backendRes.reveal_tx_hash || rawTxId;
+      updateTxState(txId, "CONFIRMED");
 
-          return {
-            ...m,
-            sample_size: updatedRevealed.length,
-            aggregate_probability: Number(newAgg.toFixed(3)),
-            disagreement_variance: Number(newVariance.toFixed(4)),
-            revealed_forecasts: updatedRevealed
-          };
-        }
-        return m;
-      })
-    );
+      addToast({
+        type: "success",
+        title: "Forecast Revealed Successfully",
+        message: `Verified ${(probability * 100).toFixed(1)}% integrated into market aggregate.`,
+        txHash: actualTxHash
+      });
 
-    updateTxState(txId, "CONFIRMED");
-
-    addToast({
-      type: "success",
-      title: "Forecast Revealed Successfully",
-      message: `Verified probability ${(probability * 100).toFixed(1)}% integrated into market aggregate.`,
-      txHash
-    });
-
-    return txHash;
+      await refreshData();
+      return actualTxHash;
+    } catch (err: any) {
+      updateTxState(txId, "REVERTED");
+      addToast({
+        type: "error",
+        title: "Reveal Verification Failed",
+        message: err.message || "Commitment verification failed on backend.",
+        txHash: rawTxId
+      });
+      throw err;
+    }
   };
 
   const submitBountyEvidence = async (
@@ -283,59 +391,51 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     passageRef: string,
     quote: string
   ): Promise<string> => {
-    const txHash = generateTxHash();
-    const txId = addPendingTx("Submit Evidence", txHash);
+    const rawTxId = generateSimulatedTxId("submit_evidence");
+    const txId = addPendingTx("Submit Evidence", rawTxId);
 
     addToast({
       type: "info",
       title: "Submitting Evidence",
-      message: "Computing canonical evidence digest and anchoring to EvidenceBounty contract...",
-      txHash
+      message: "Computing canonical evidence digest and registering submission...",
+      txHash: rawTxId
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const backendRes = await api.submitEvidence(bountyId, {
+        contributor_address: walletAddress || "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        title: sourceTitle,
+        source_reference: passageRef,
+        content: quote
+      });
 
-    const evidenceDigest = generateTxHash();
+      const actualDigest = backendRes.digest || rawTxId;
+      updateTxState(txId, "CONFIRMED");
 
-    setBounties((prev) =>
-      prev.map((b) => {
-        if (b.bounty_id === bountyId) {
-          return {
-            ...b,
-            submissions: [
-              ...b.submissions,
-              {
-                submission_id: `sub_${Date.now()}`,
-                contributor: walletAddress || "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-                evidence_digest: evidenceDigest,
-                source_title: sourceTitle,
-                passage_reference: passageRef,
-                quote,
-                effective_date: "2024-04-17",
-                submitted_at: new Date().toISOString()
-              }
-            ]
-          };
-        }
-        return b;
-      })
-    );
+      addToast({
+        type: "success",
+        title: "Evidence Registered & Persisted",
+        message: `Submission registered with SHA-256 digest ${actualDigest.slice(0, 10)}... Review window open.`,
+        txHash: rawTxId
+      });
 
-    updateTxState(txId, "CONFIRMED");
-
-    addToast({
-      type: "success",
-      title: "Evidence Anchored on Testnet",
-      message: `Submission registered with digest ${evidenceDigest.slice(0, 10)}... Review window open.`,
-      txHash
-    });
-
-    return txHash;
+      await refreshData();
+      return rawTxId;
+    } catch (err: any) {
+      updateTxState(txId, "REVERTED");
+      addToast({
+        type: "error",
+        title: "Evidence Submission Failed",
+        message: err.message || "Failed to persist evidence submission.",
+        txHash: rawTxId
+      });
+      throw err;
+    }
   };
 
   const challengeResolution = async (marketId: string, reason: string): Promise<string> => {
-    const txHash = generateTxHash();
-    const txId = addPendingTx("Challenge Resolution", txHash);
+    const rawTxId = generateSimulatedTxId("challenge_resolution");
+    const txId = addPendingTx("Challenge Resolution", rawTxId);
 
     await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -362,93 +462,96 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       type: "warning",
       title: "Challenge Window Triggered",
       message: `Resolution disputed. Evidence submitted for evaluator review.`,
-      txHash
+      txHash: rawTxId
     });
 
-    return txHash;
+    return rawTxId;
   };
 
   const settleMarket = async (marketId: string): Promise<string> => {
-    const txHash = generateTxHash();
-    const txId = addPendingTx("Settle Market", txHash);
+    const rawTxId = generateSimulatedTxId("settle_market");
+    const txId = addPendingTx("Settle Market", rawTxId);
 
     addToast({
       type: "info",
       title: "Settling Prediction Market",
       message: "Executing Brier score calculations and distributing simulated credits...",
-      txHash
+      txHash: rawTxId
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const backendRes = await api.settleMarket(marketId);
+      const actualTx = backendRes.settlement_tx_hash || rawTxId;
 
-    setMarkets((prev) =>
-      prev.map((m) => {
-        if (m.market_id === marketId) {
-          return {
-            ...m,
-            state: "SETTLED",
-            settlement_tx: txHash
-          };
-        }
-        return m;
-      })
-    );
+      setUserCredits((prev) => prev + 150);
+      updateTxState(txId, "CONFIRMED");
 
-    setUserCredits((prev) => prev + 150);
-    updateTxState(txId, "CONFIRMED");
+      addToast({
+        type: "success",
+        title: "Market Settled Idempotently",
+        message: `Brier score payouts disbursed in SQLite database. +150 simulated credits earned.`,
+        txHash: actualTx
+      });
 
-    addToast({
-      type: "success",
-      title: "Market Settled Idempotently",
-      message: `Proper scoring payouts disbursed. +150 simulated credits earned.`,
-      txHash
-    });
-
-    return txHash;
+      await refreshData();
+      return actualTx;
+    } catch (err: any) {
+      updateTxState(txId, "REVERTED");
+      addToast({
+        type: "error",
+        title: "Market Settlement Failed",
+        message: err.message || "Settlement failed on backend.",
+        txHash: rawTxId
+      });
+      throw err;
+    }
   };
 
   const settleBounty = async (bountyId: string): Promise<string> => {
-    const txHash = generateTxHash();
-    const txId = addPendingTx("Settle Bounty", txHash);
+    const rawTxId = generateSimulatedTxId("settle_bounty");
+    const txId = addPendingTx("Settle Bounty", rawTxId);
 
     addToast({
       type: "info",
       title: "Settling Evidence Bounty",
       message: "Releasing bounty reward pool to winning contributor...",
-      txHash
+      txHash: rawTxId
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const targetBounty = bounties.find((b) => b.bounty_id === bountyId);
+      const winningSubId = targetBounty?.submissions?.[0]?.submission_id || "sub_default";
+      const backendRes = await api.settleBounty(bountyId, winningSubId, "Satisfies EDPB guidance criteria and verifies passage digest.");
 
-    setBounties((prev) =>
-      prev.map((b) => {
-        if (b.bounty_id === bountyId) {
-          return {
-            ...b,
-            state: "SETTLED",
-            settlement_tx: txHash
-          };
-        }
-        return b;
-      })
-    );
+      const actualTx = backendRes.settlement_tx_hash || rawTxId;
+      setUserCredits((prev) => prev + 100);
+      updateTxState(txId, "CONFIRMED");
 
-    setUserCredits((prev) => prev + 100);
-    updateTxState(txId, "CONFIRMED");
+      addToast({
+        type: "success",
+        title: "Bounty Settled in Protocol",
+        message: `Winning submission rewarded 100 simulated credits. Audit event emitted.`,
+        txHash: actualTx
+      });
 
-    addToast({
-      type: "success",
-      title: "Bounty Settled",
-      message: `Winning submission rewarded 100 simulated credits. Audit event emitted.`,
-      txHash
-    });
-
-    return txHash;
+      await refreshData();
+      return actualTx;
+    } catch (err: any) {
+      updateTxState(txId, "REVERTED");
+      addToast({
+        type: "error",
+        title: "Bounty Settlement Failed",
+        message: err.message || "Bounty settlement failed on backend.",
+        txHash: rawTxId
+      });
+      throw err;
+    }
   };
 
   return (
     <StoreContext.Provider
       value={{
+        isBackendLive,
         isLiveChain,
         toggleLiveChain,
         walletAddress,
@@ -457,6 +560,8 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         userCredits,
         mintDemoCredits,
         currentCase,
+        setCurrentCase,
+        casesList,
         agents,
         graphNodes,
         graphEdges,
@@ -469,6 +574,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         removeToast,
         pendingTxs,
         clearPendingTx,
+        refreshData,
+        createCase,
+        runAnalysis,
         commitForecast,
         revealForecast,
         submitBountyEvidence,

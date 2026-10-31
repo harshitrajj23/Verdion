@@ -1,0 +1,205 @@
+{
+  "timestamp": "2026-10-31T18:19:44.108611+00:00",
+  "total_attacks_executed": 28,
+  "attacks_defended": 28,
+  "defense_success_rate": 1.0,
+  "attacks": [
+    {
+      "attack_id": 1,
+      "category": "EVIDENCE",
+      "name": "Modified passage text (digest mismatch)",
+      "defended": true,
+      "notes": "Passage integrity check failed closed."
+    },
+    {
+      "attack_id": 2,
+      "category": "EVIDENCE",
+      "name": "Invalid citation reference format",
+      "defended": true,
+      "notes": "Non-statutory citation syntax rejected."
+    },
+    {
+      "attack_id": 3,
+      "category": "EVIDENCE",
+      "name": "Unsupported synthetic claim (hallucination)",
+      "defended": true,
+      "notes": "Zero lexical/semantic overlap rejected."
+    },
+    {
+      "attack_id": 4,
+      "category": "EVIDENCE",
+      "name": "Stale / future repealed authority (temporal mismatch)",
+      "defended": true,
+      "notes": "Authority effective after assessment date rejected."
+    },
+    {
+      "attack_id": 5,
+      "category": "EVIDENCE",
+      "name": "Extra-jurisdictional legal authority",
+      "defended": true,
+      "notes": "California authority applied to EU case rejected."
+    },
+    {
+      "attack_id": 6,
+      "category": "EVIDENCE",
+      "name": "Fabricated direct quotation marks",
+      "defended": true,
+      "notes": "Quotation accuracy contradiction rejected."
+    },
+    {
+      "attack_id": 7,
+      "category": "EVIDENCE",
+      "name": "Unauthenticated source document",
+      "defended": true,
+      "notes": "Unverified provenance rejected."
+    },
+    {
+      "attack_id": 8,
+      "category": "EVIDENCE",
+      "name": "Invalid deontic legal entailment",
+      "defended": true,
+      "notes": "Deontic ambiguity flagged for human review."
+    },
+    {
+      "attack_id": 9,
+      "category": "AGENT",
+      "name": "Model provider timeout / offline handling",
+      "defended": true,
+      "notes": "Handled safely via deterministic offline fallback."
+    },
+    {
+      "attack_id": 10,
+      "category": "AGENT",
+      "name": "Provider rate limit HTTP 429",
+      "defended": true,
+      "notes": "Recovered gracefully without uncaught exception."
+    },
+    {
+      "attack_id": 11,
+      "category": "AGENT",
+      "name": "Malformed JSON from provider",
+      "defended": true,
+      "notes": "Captured raw text without crashing parser."
+    },
+    {
+      "attack_id": 12,
+      "category": "AGENT",
+      "name": "Offline fallback safety under network outage",
+      "defended": true,
+      "notes": "Clean fallback mode enabled."
+    },
+    {
+      "attack_id": 13,
+      "category": "AGENT",
+      "name": "Direct agent contradiction handling",
+      "defended": true,
+      "notes": "Disagreement identified and recorded (0.30 delta)."
+    },
+    {
+      "attack_id": 14,
+      "category": "AGENT",
+      "name": "Duplicate evidence injection (citation stuffing)",
+      "defended": true,
+      "notes": "Duplicate passage deduplicated cleanly."
+    },
+    {
+      "attack_id": 15,
+      "category": "AGENT",
+      "name": "Prompt injection in case facts",
+      "defended": true,
+      "notes": "Deterministic rule analysis ignored prompt injection payload and detected violation."
+    },
+    {
+      "attack_id": 16,
+      "category": "AGENT",
+      "name": "Out-of-bounds agent confidence score (>1.0)",
+      "defended": true,
+      "notes": "Pydantic validator rejected score > 1.0."
+    },
+    {
+      "attack_id": 17,
+      "category": "FORECAST",
+      "name": "Forecast probability < 0.0",
+      "defended": true,
+      "notes": "Negative probability rejected."
+    },
+    {
+      "attack_id": 18,
+      "category": "FORECAST",
+      "name": "Forecast probability > 1.0",
+      "defended": true,
+      "notes": "Probability > 1.0 rejected."
+    },
+    {
+      "attack_id": 19,
+      "category": "FORECAST",
+      "name": "Missing ground truth label at settlement",
+      "defended": true,
+      "notes": "Empty ground truth set rejected."
+    },
+    {
+      "attack_id": 20,
+      "category": "FORECAST",
+      "name": "Split data leakage between DEV and TEST",
+      "defended": true,
+      "notes": "0 shared scenario IDs confirmed."
+    },
+    {
+      "attack_id": 21,
+      "category": "COMMITMENT",
+      "name": "Commitment reveal with altered chain ID",
+      "defended": true,
+      "notes": "Reconstructed hash mismatch rejected."
+    },
+    {
+      "attack_id": 22,
+      "category": "COMMITMENT",
+      "name": "Commitment reveal with altered market ID",
+      "defended": true,
+      "notes": "Market ID mismatch rejected."
+    },
+    {
+      "attack_id": 23,
+      "category": "COMMITMENT",
+      "name": "Commitment reveal with altered agent address",
+      "defended": true,
+      "notes": "Caller address mismatch rejected."
+    },
+    {
+      "attack_id": 24,
+      "category": "COMMITMENT",
+      "name": "Commitment reveal with altered probability",
+      "defended": true,
+      "notes": "Probability mismatch rejected."
+    },
+    {
+      "attack_id": 25,
+      "category": "COMMITMENT",
+      "name": "Commitment reveal with altered evidence digest",
+      "defended": true,
+      "notes": "Digest mismatch rejected."
+    },
+    {
+      "attack_id": 26,
+      "category": "COMMITMENT",
+      "name": "Commitment reveal with altered nonce",
+      "defended": true,
+      "notes": "Nonce mismatch rejected."
+    },
+    {
+      "attack_id": 27,
+      "category": "COMMITMENT",
+      "name": "Cross-market commitment replay attack",
+      "defended": true,
+      "notes": "Replay into different market ID rejected."
+    },
+    {
+      "attack_id": 28,
+      "category": "COMMITMENT",
+      "name": "Malformed non-hex digest rejection",
+      "defended": true,
+      "notes": "Malformed non-hex digest rejected with ValueError."
+    }
+  ],
+  "verdict": "VERIFIED_100%_DEFENSE_RATE"
+}

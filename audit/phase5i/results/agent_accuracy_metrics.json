@@ -1,0 +1,27 @@
+{
+  "total_scenarios_evaluated": 20,
+  "veridion_protocol": {
+    "avg_issue_recall": 0.823,
+    "avg_brier_score": 0.0042,
+    "avg_citation_validity": 1.0,
+    "avg_unsupported_claim_rate": 0.0,
+    "pass_rate_percentage": 65.0,
+    "avg_execution_time_ms": 0.1
+  },
+  "baseline_b_multi_agent": {
+    "avg_issue_recall": 0.662,
+    "avg_brier_score": 0.112,
+    "avg_citation_validity": 0.946,
+    "avg_unsupported_claim_rate": 0.054,
+    "pass_rate_percentage": 55.0,
+    "avg_execution_time_ms": 0.1
+  },
+  "baseline_a_single_agent": {
+    "avg_issue_recall": 0.567,
+    "avg_brier_score": 0.195,
+    "avg_citation_validity": 0.88,
+    "avg_unsupported_claim_rate": 0.12,
+    "pass_rate_percentage": 60.0,
+    "avg_execution_time_ms": 0.1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "citation_precision": 1.0,
+  "citation_recall": 0.985,
+  "claim_to_passage_support_rate": 1.0,
+  "unsupported_claim_rate": 0.0,
+  "mechanical_digest_verification_rate": 1.0,
+  "tamper_evident_detection_rate": 1.0,
+  "statutory_reference_coverage": 1.0,
+  "legal_entailment_disclosure_present": true
+}

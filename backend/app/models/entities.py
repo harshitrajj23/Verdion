@@ -30,6 +30,7 @@ class Case(Base):
     facts = Column(JSON, nullable=False, default=dict)
     scope_version = Column(Integer, default=1, nullable=False)
     status = Column(String(32), default="DRAFT", nullable=False, index=True)
+    provenance = Column(String(32), default="OPERATIONAL", nullable=True, index=True)  # OPERATIONAL, DEMO, TEST, UNKNOWN
     created_at = Column(DateTime(timezone=True), default=utcnow, nullable=False)
     updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow, nullable=False)
 
@@ -53,6 +54,7 @@ class SourceDocument(Base):
     retrieved_at = Column(DateTime(timezone=True), default=utcnow, nullable=False)
     digest = Column(String(66), nullable=False)
     version = Column(String(32), nullable=False, default="1.0")
+    provenance = Column(String(32), default="BUNDLED_FIXTURE", nullable=True, index=True)  # REMOTE_OFFICIAL_SOURCE, BUNDLED_FIXTURE, USER_SUBMITTED, DEMO, TEST
     raw_content = Column(Text, nullable=False)
 
     passages = relationship("EvidencePassage", back_populates="document", cascade="all, delete-orphan")
@@ -68,6 +70,7 @@ class EvidencePassage(Base):
     text = Column(Text, nullable=False)
     digest = Column(String(66), nullable=False)
     source_version = Column(String(32), nullable=False, default="1.0")
+    provenance = Column(String(32), default="BUNDLED_FIXTURE", nullable=True, index=True)
 
     document = relationship("SourceDocument", back_populates="passages")
     claim_links = relationship("ClaimEvidenceLink", back_populates="evidence")
@@ -163,7 +166,7 @@ class PredictionMarket(Base):
     created_at = Column(DateTime(timezone=True), default=utcnow, nullable=False)
 
     case = relationship("Case", back_populates="markets")
-    forecasts = relationship("Forecast", back_populates="market", cascade="all, delete-orphan")
+    forecasts = relationship("Forecast", back_populates="market", cascade="all, delete-orphan", lazy="selectin")
 
 
 class Forecast(Base):
@@ -204,7 +207,7 @@ class EvidenceBounty(Base):
     created_at = Column(DateTime(timezone=True), default=utcnow, nullable=False)
 
     case = relationship("Case", back_populates="bounties")
-    submissions = relationship("EvidenceSubmission", back_populates="bounty", cascade="all, delete-orphan")
+    submissions = relationship("EvidenceSubmission", back_populates="bounty", cascade="all, delete-orphan", lazy="selectin")
 
 
 class EvidenceSubmission(Base):
@@ -246,14 +249,30 @@ class AuditEvent(Base):
 
     id = Column(String(64), primary_key=True, index=True)
     case_id = Column(String(64), ForeignKey("cases.id"), nullable=False, index=True)
+    sequence_number = Column(Integer, default=1, nullable=False, index=True)
     event_type = Column(String(64), nullable=False, index=True)  # CASE_CREATED, ANALYSIS_STARTED, AGENT_OUTPUT, MARKET_CREATED, COMMITMENT_SUBMITTED, REVEAL_RECORDED, RESOLUTION_PROPOSED, BOUNTY_SETTLED, etc.
     actor = Column(String(64), nullable=False)
     payload_digest = Column(String(66), nullable=False)
     payload = Column(JSON, nullable=False, default=dict)
+    previous_event_digest = Column(String(66), nullable=True)
+    event_digest = Column(String(66), nullable=True, index=True)
     tx_hash = Column(String(66), nullable=True)
     timestamp = Column(DateTime(timezone=True), default=utcnow, nullable=False, index=True)
 
     case = relationship("Case", back_populates="audit_events")
+
+
+class DecisionRecordEntity(Base):
+    __tablename__ = "decision_records"
+
+    id = Column(String(64), primary_key=True, index=True)
+    case_id = Column(String(64), ForeignKey("cases.id"), nullable=False, index=True)
+    case_version = Column(Integer, default=1, nullable=False)
+    orchestration_version = Column(String(64), nullable=False)
+    software_version = Column(String(64), nullable=False)
+    record_digest = Column(String(66), nullable=False, index=True)
+    canonical_data = Column(JSON, nullable=False)
+    created_at = Column(DateTime(timezone=True), default=utcnow, nullable=False)
 
 
 class AnalysisJob(Base):

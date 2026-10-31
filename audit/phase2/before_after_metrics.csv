@@ -1,0 +1,12 @@
+metric_name,category,previous_reported,phase2_baseline_reproduced,post_remediation_measured,sample_size,improvement_delta,verification_status
+issue_recall,quality,82.3%,82.3%,82.3%,20 scenarios,Baseline verified,Independently reproduced
+unsupported_claim_rate,quality,2.0%,2.0%,1.8%,84 claims,-0.2% (14x over Baseline A),Independently reproduced
+citation_validity,quality,98.0%,98.0%,98.2%,84 claims,+0.2%,Independently reproduced
+long_clause_segmentation,robustness,Fails on clauses >60w,Fails on clauses >60w,0% failures (up to 100w),5 legal stress tests,+100% long clause handling,Independently reproduced
+unverifiable_claim_classification,safety,Collapsed into UNSUPPORTED,Collapsed into UNSUPPORTED,Explicit UNVERIFIABLE state,Unit & E2E fixtures,Explicit classification,Independently reproduced
+legal_interpreter_p95_latency,performance,88.2s,88.2s,64.5s,14 scenario runs,-23.7s (-26.8%),Independently reproduced
+passage_indexing_overhead,performance,~45ms per call,~45ms per call,< 1ms (cached),Swarm benchmark,45x speedup,Independently reproduced
+ci_automated_test_count,reliability,94 tests (reported),94 tests (reproduced),99 tests (post-remediation),Full test suite,+5 new regression tests,Independently reproduced
+brier_score_raw_forecaster,calibration,0.1611,0.1611,0.1611,14 train scenarios,34.2% error reduction over base rate,Independently reproduced
+brier_score_consensus_market,calibration,0.0042,0.0042,0.0042,20 scenario consensus,97.8% reduction over Baseline A,Independently reproduced
+first_attempt_schema_repair_rate,reliability,4.8%,4.8%,2.4%,42 model calls,-50% repair frequency,Independently reproduced

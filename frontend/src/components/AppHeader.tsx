@@ -22,6 +22,7 @@ import {
 const subNavTabs = [
   { href: "/", label: "Overview" },
   { href: "/cases", label: "Cases" },
+  { href: "/sources", label: "Legal Sources" },
   { href: "/agents", label: "Agents" },
   { href: "/graph", label: "Argument Graph" },
   { href: "/markets", label: "Markets" },

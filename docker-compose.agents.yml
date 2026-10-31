@@ -1,0 +1,152 @@
+version: '3.8'
+
+# VERIDION Multi-Agent Node Isolation Architecture (PRD-SEC-004)
+# Option C: Auditable Regulatory Decision Infrastructure
+# Deploys the 6 specialist agents into isolated container environments with
+# dedicated cryptographic identities, bounded resource limits, and network isolation.
+
+networks:
+  agent_isolated_net:
+    driver: bridge
+    internal: true # Disallow external internet routing except via proxy gateway
+  gateway_net:
+    driver: bridge
+
+services:
+  agent-legal-scholar:
+    image: veridion-agent:latest
+    container_name: veridion_agent_legal_scholar
+    environment:
+      - AGENT_ID=agent_legal_scholar
+      - AGENT_ROLE=LEGAL_SCHOLAR
+      - PORT=8001
+      - KEY_PATH=/secrets/agent_key.hex
+    networks:
+      - agent_isolated_net
+      - gateway_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    restart: on-failure
+
+  agent-compliance-auditor:
+    image: veridion-agent:latest
+    container_name: veridion_agent_compliance_auditor
+    environment:
+      - AGENT_ID=agent_compliance_auditor
+      - AGENT_ROLE=COMPLIANCE_AUDITOR
+      - PORT=8002
+      - KEY_PATH=/secrets/agent_key.hex
+    networks:
+      - agent_isolated_net
+      - gateway_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    restart: on-failure
+
+  agent-enforcement-analyst:
+    image: veridion-agent:latest
+    container_name: veridion_agent_enforcement_analyst
+    environment:
+      - AGENT_ID=agent_enforcement_analyst
+      - AGENT_ROLE=ENFORCEMENT_ANALYST
+      - PORT=8003
+      - KEY_PATH=/secrets/agent_key.hex
+    networks:
+      - agent_isolated_net
+      - gateway_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    restart: on-failure
+
+  agent-industry-risk-assessor:
+    image: veridion-agent:latest
+    container_name: veridion_agent_risk_assessor
+    environment:
+      - AGENT_ID=agent_industry_risk_assessor
+      - AGENT_ROLE=INDUSTRY_RISK_ASSESSOR
+      - PORT=8004
+      - KEY_PATH=/secrets/agent_key.hex
+    networks:
+      - agent_isolated_net
+      - gateway_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8004/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    restart: on-failure
+
+  agent-precedent-researcher:
+    image: veridion-agent:latest
+    container_name: veridion_agent_precedent_researcher
+    environment:
+      - AGENT_ID=agent_precedent_researcher
+      - AGENT_ROLE=PRECEDENT_RESEARCHER
+      - PORT=8005
+      - KEY_PATH=/secrets/agent_key.hex
+    networks:
+      - agent_isolated_net
+      - gateway_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8005/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    restart: on-failure
+
+  agent-economic-specialist:
+    image: veridion-agent:latest
+    container_name: veridion_agent_economic_specialist
+    environment:
+      - AGENT_ID=agent_economic_impact
+      - AGENT_ROLE=ECONOMIC_SPECIALIST
+      - PORT=8006
+      - KEY_PATH=/secrets/agent_key.hex
+    networks:
+      - agent_isolated_net
+      - gateway_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8006/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    restart: on-failure

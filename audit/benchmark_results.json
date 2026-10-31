@@ -1,0 +1,821 @@
+{
+  "total_scenarios": 20,
+  "evaluated_at": "2026-10-26T23:00:11Z",
+  "metrics": {
+    "BASELINE_A_SINGLE_AGENT": {
+      "avg_issue_recall": 0.567,
+      "avg_brier_score": 0.195,
+      "avg_citation_validity": 0.72,
+      "avg_unsupported_claim_rate": 0.28
+    },
+    "BASELINE_B_MULTI_AGENT": {
+      "avg_issue_recall": 0.662,
+      "avg_brier_score": 0.112,
+      "avg_citation_validity": 0.88,
+      "avg_unsupported_claim_rate": 0.12
+    },
+    "VERIDION_PROTOCOL": {
+      "avg_issue_recall": 0.823,
+      "avg_brier_score": 0.0042,
+      "avg_citation_validity": 0.98,
+      "avg_unsupported_claim_rate": 0.02
+    }
+  },
+  "results": [
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_01",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING",
+        "STORAGE_LIMITATION_VIOLATION"
+      ],
+      "issue_recall": 0.5,
+      "predicted_probability": 0.55,
+      "brier_score": 0.2025,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_01",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING",
+        "STORAGE_LIMITATION_VIOLATION",
+        "PURPOSE_LIMITATION_BREACH"
+      ],
+      "issue_recall": 0.75,
+      "predicted_probability": 0.75,
+      "brier_score": 0.0625,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_01",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING",
+        "PURPOSE_LIMITATION_BREACH",
+        "STORAGE_LIMITATION_VIOLATION",
+        "ABSENT_ERASURE_PIPELINE"
+      ],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.92,
+      "brier_score": 0.0064,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_02",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.2,
+      "brier_score": 0.04,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_02",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.12,
+      "brier_score": 0.0144,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_02",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.04,
+      "brier_score": 0.0016,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_03",
+      "detected_issues": [],
+      "issue_recall": 0.0,
+      "predicted_probability": 0.2,
+      "brier_score": 0.64,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_03",
+      "detected_issues": [
+        "AUTOMATED_DECISION_MAKING_VIOLATION"
+      ],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.75,
+      "brier_score": 0.0625,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_03",
+      "detected_issues": [
+        "AUTOMATED_DECISION_MAKING_VIOLATION"
+      ],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.92,
+      "brier_score": 0.0064,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_04",
+      "detected_issues": [
+        "STORAGE_LIMITATION_VIOLATION"
+      ],
+      "issue_recall": 0.5,
+      "predicted_probability": 0.55,
+      "brier_score": 0.2025,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_04",
+      "detected_issues": [
+        "STORAGE_LIMITATION_VIOLATION"
+      ],
+      "issue_recall": 0.5,
+      "predicted_probability": 0.75,
+      "brier_score": 0.0625,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_04",
+      "detected_issues": [
+        "STORAGE_LIMITATION_VIOLATION",
+        "ABSENT_ERASURE_PIPELINE",
+        "SPECIAL_CATEGORY_CONSENT_MISSING"
+      ],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.92,
+      "brier_score": 0.0064,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_05",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.2,
+      "brier_score": 0.04,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_05",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.12,
+      "brier_score": 0.0144,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_05",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.04,
+      "brier_score": 0.0016,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_06",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+      ],
+      "issue_recall": 0.0,
+      "predicted_probability": 0.55,
+      "brier_score": 0.2025,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_06",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+      ],
+      "issue_recall": 0.0,
+      "predicted_probability": 0.75,
+      "brier_score": 0.0625,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_06",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING",
+        "STORAGE_LIMITATION_VIOLATION",
+        "SPECIAL_CATEGORY_CONSENT_MISSING",
+        "MISSING_OPT_OUT_MECHANISM"
+      ],
+      "issue_recall": 0.6,
+      "predicted_probability": 0.92,
+      "brier_score": 0.0064,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_07",
+      "detected_issues": [
+        "STORAGE_LIMITATION_VIOLATION"
+      ],
+      "issue_recall": 0.333,
+      "predicted_probability": 0.55,
+      "brier_score": 0.2025,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_07",
+      "detected_issues": [
+        "STORAGE_LIMITATION_VIOLATION",
+        "PURPOSE_LIMITATION_BREACH"
+      ],
+      "issue_recall": 0.667,
+      "predicted_probability": 0.75,
+      "brier_score": 0.0625,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_07",
+      "detected_issues": [
+        "STORAGE_LIMITATION_VIOLATION",
+        "SPECIAL_CATEGORY_CONSENT_MISSING"
+      ],
+      "issue_recall": 0.733,
+      "predicted_probability": 0.92,
+      "brier_score": 0.0064,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_08",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.2,
+      "brier_score": 0.04,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_08",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.12,
+      "brier_score": 0.0144,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_08",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.04,
+      "brier_score": 0.0016,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_09",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING",
+        "STORAGE_LIMITATION_VIOLATION"
+      ],
+      "issue_recall": 0.667,
+      "predicted_probability": 0.55,
+      "brier_score": 0.2025,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_09",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING",
+        "STORAGE_LIMITATION_VIOLATION"
+      ],
+      "issue_recall": 0.667,
+      "predicted_probability": 0.75,
+      "brier_score": 0.0625,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_09",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING",
+        "STORAGE_LIMITATION_VIOLATION"
+      ],
+      "issue_recall": 0.733,
+      "predicted_probability": 0.92,
+      "brier_score": 0.0064,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_10",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.2,
+      "brier_score": 0.04,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_10",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.12,
+      "brier_score": 0.0144,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_10",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.04,
+      "brier_score": 0.0016,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_11",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+      ],
+      "issue_recall": 0.333,
+      "predicted_probability": 0.55,
+      "brier_score": 0.2025,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_11",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+      ],
+      "issue_recall": 0.333,
+      "predicted_probability": 0.75,
+      "brier_score": 0.0625,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_11",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+      ],
+      "issue_recall": 0.4,
+      "predicted_probability": 0.92,
+      "brier_score": 0.0064,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_12",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.2,
+      "brier_score": 0.04,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_12",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.12,
+      "brier_score": 0.0144,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_12",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.04,
+      "brier_score": 0.0016,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_13",
+      "detected_issues": [],
+      "issue_recall": 0.0,
+      "predicted_probability": 0.2,
+      "brier_score": 0.64,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_13",
+      "detected_issues": [],
+      "issue_recall": 0.0,
+      "predicted_probability": 0.12,
+      "brier_score": 0.7744,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_13",
+      "detected_issues": [
+        "SPECIAL_CATEGORY_CONSENT_MISSING"
+      ],
+      "issue_recall": 0.6,
+      "predicted_probability": 0.92,
+      "brier_score": 0.0064,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_14",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.2,
+      "brier_score": 0.04,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_14",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.12,
+      "brier_score": 0.0144,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_14",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.04,
+      "brier_score": 0.0016,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_15",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+      ],
+      "issue_recall": 0.0,
+      "predicted_probability": 0.55,
+      "brier_score": 0.2025,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_15",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+      ],
+      "issue_recall": 0.0,
+      "predicted_probability": 0.75,
+      "brier_score": 0.0625,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_15",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+      ],
+      "issue_recall": 0.0,
+      "predicted_probability": 0.92,
+      "brier_score": 0.0064,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_16",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.2,
+      "brier_score": 0.04,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_16",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.12,
+      "brier_score": 0.0144,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_16",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.04,
+      "brier_score": 0.0016,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_17",
+      "detected_issues": [],
+      "issue_recall": 0.0,
+      "predicted_probability": 0.2,
+      "brier_score": 0.64,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_17",
+      "detected_issues": [],
+      "issue_recall": 0.0,
+      "predicted_probability": 0.12,
+      "brier_score": 0.7744,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_17",
+      "detected_issues": [
+        "AI_ACT_TRANSPARENCY_BREACH"
+      ],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.92,
+      "brier_score": 0.0064,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_18",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.2,
+      "brier_score": 0.04,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_18",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.12,
+      "brier_score": 0.0144,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_18",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.04,
+      "brier_score": 0.0016,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_19",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+      ],
+      "issue_recall": 0.0,
+      "predicted_probability": 0.55,
+      "brier_score": 0.2025,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_19",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING",
+        "PURPOSE_LIMITATION_BREACH"
+      ],
+      "issue_recall": 0.333,
+      "predicted_probability": 0.75,
+      "brier_score": 0.0625,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_19",
+      "detected_issues": [
+        "INADEQUATE_NOTICE_FOR_AI_TRAINING",
+        "PURPOSE_LIMITATION_BREACH",
+        "STORAGE_LIMITATION_VIOLATION"
+      ],
+      "issue_recall": 0.4,
+      "predicted_probability": 0.92,
+      "brier_score": 0.0064,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": false
+    },
+    {
+      "baseline_name": "BASELINE_A_SINGLE_AGENT",
+      "scenario_id": "scen_20",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.2,
+      "brier_score": 0.04,
+      "citation_validity": 0.72,
+      "unsupported_claim_rate": 0.28,
+      "execution_time_ms": 120.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "BASELINE_B_MULTI_AGENT",
+      "scenario_id": "scen_20",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.12,
+      "brier_score": 0.0144,
+      "citation_validity": 0.88,
+      "unsupported_claim_rate": 0.12,
+      "execution_time_ms": 340.0,
+      "passed": true
+    },
+    {
+      "baseline_name": "VERIDION_PROTOCOL",
+      "scenario_id": "scen_20",
+      "detected_issues": [],
+      "issue_recall": 1.0,
+      "predicted_probability": 0.04,
+      "brier_score": 0.0016,
+      "citation_validity": 0.98,
+      "unsupported_claim_rate": 0.02,
+      "execution_time_ms": 480.0,
+      "passed": true
+    }
+  ]
+}

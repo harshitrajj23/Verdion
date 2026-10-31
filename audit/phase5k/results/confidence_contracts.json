@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-10-31T18:19:44.072208+00:00",
+  "schema_version": "1.0.0",
+  "enforced_types": [
+    "HEURISTIC",
+    "MODEL_ESTIMATED",
+    "RULE_DERIVED",
+    "CRYPTOGRAPHIC_INTEGRITY",
+    "EMPIRICALLY_CALIBRATED",
+    "UNCALIBRATED"
+  ],
+  "agent_evaluations": {
+    "LEGAL_RESEARCHER": {
+      "agent_name": "Legal Researcher Agent",
+      "confidence_type": "RULE_DERIVED",
+      "raw_confidence": 0.95,
+      "calibrated_confidence": 0.95,
+      "uncertainty_score": 0.05,
+      "calibration_status": "HEURISTIC_BOUNDED",
+      "inference_mode": "DETERMINISTIC_RULES",
+      "model_identifier": "deterministic_rule_engine_v1.2",
+      "reputation_conflation_detected": false
+    },
+    "LEGAL_INTERPRETER": {
+      "agent_name": "Legal Interpreter Agent",
+      "confidence_type": "RULE_DERIVED",
+      "raw_confidence": 0.9,
+      "calibrated_confidence": 0.9,
+      "uncertainty_score": 0.1,
+      "calibration_status": "HEURISTIC_BOUNDED",
+      "inference_mode": "DETERMINISTIC_RULES",
+      "model_identifier": "deterministic_rule_engine_v1.2",
+      "reputation_conflation_detected": false
+    },
+    "ADVERSARIAL_RESEARCHER": {
+      "agent_name": "Adversarial Researcher Agent",
+      "confidence_type": "MODEL_ESTIMATED",
+      "raw_confidence": 0.7,
+      "calibrated_confidence": 0.65,
+      "uncertainty_score": 0.45,
+      "calibration_status": "UNCALIBRATED",
+      "inference_mode": "OFFLINE_FALLBACK",
+      "model_identifier": "mistralai/Mistral-7B-Instruct-v0.2",
+      "reputation_conflation_detected": false
+    },
+    "EVIDENCE_VERIFIER": {
+      "agent_name": "Evidence Verifier Agent",
+      "confidence_type": "CRYPTOGRAPHIC_INTEGRITY",
+      "raw_confidence": 1.0,
+      "calibrated_confidence": 1.0,
+      "uncertainty_score": 0.0,
+      "calibration_status": "EMPIRICALLY_CALIBRATED",
+      "inference_mode": "CRYPTOGRAPHIC_VERIFICATION",
+      "model_identifier": "sha256_merkle_evaluator_v1.0",
+      "reputation_conflation_detected": false
+    },
+    "QUANTITATIVE_FORECASTER": {
+      "agent_name": "Quantitative Forecaster Agent",
+      "confidence_type": "EMPIRICALLY_CALIBRATED",
+      "raw_confidence": 0.85,
+      "calibrated_confidence": 0.85,
+      "uncertainty_score": 0.15,
+      "calibration_status": "EMPIRICALLY_CALIBRATED",
+      "inference_mode": "CALIBRATED_HEURISTIC",
+      "model_identifier": "brier_forecaster_heuristic_v1.1",
+      "reputation_conflation_detected": false
+    },
+    "COORDINATOR_SYNTHESIS": {
+      "agent_name": "Coordinator Synthesis Agent",
+      "confidence_type": "RULE_DERIVED",
+      "raw_confidence": 0.85,
+      "calibrated_confidence": 0.85,
+      "uncertainty_score": 0.15,
+      "calibration_status": "HEURISTIC_BOUNDED",
+      "inference_mode": "DIALECTIC_GRAPH_SYNTHESIS",
+      "model_identifier": "deterministic_rule_engine_v1.2",
+      "reputation_conflation_detected": false
+    }
+  },
+  "anti_conflation_invariant": {
+    "status": "ENFORCED",
+    "description": "Agent historical reputation scores are strictly separated from per-inference ConfidenceContract."
+  },
+  "verdict": "VERIFIED_ALL_6_AGENTS_COMPLIANT"
+}

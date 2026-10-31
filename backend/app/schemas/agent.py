@@ -1,6 +1,60 @@
 from datetime import datetime
+from enum import Enum
 from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, ConfigDict, Field
+
+
+class ConfidenceType(str, Enum):
+    HEURISTIC = "HEURISTIC"
+    MODEL_ESTIMATED = "MODEL_ESTIMATED"
+    RULE_DERIVED = "RULE_DERIVED"
+    CRYPTOGRAPHIC_INTEGRITY = "CRYPTOGRAPHIC_INTEGRITY"
+    EMPIRICALLY_CALIBRATED = "EMPIRICALLY_CALIBRATED"
+    UNCALIBRATED = "UNCALIBRATED"
+
+
+class ConfidenceContract(BaseModel):
+    raw_confidence: float = Field(..., ge=0.0, le=1.0)
+    calibrated_confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    confidence_type: str = Field(default=ConfidenceType.RULE_DERIVED.value)
+    calibration_status: str = Field(default="HEURISTIC_BOUNDED")  # UNCALIBRATED, HEURISTIC_BOUNDED, EMPIRICALLY_CALIBRATED
+    uncertainty_score: float = Field(default=0.0, ge=0.0, le=1.0)
+    supporting_evidence_count: int = Field(default=0, ge=0)
+    contradicting_evidence_count: int = Field(default=0, ge=0)
+    inference_mode: str = Field(default="DETERMINISTIC_RULES")
+    model_identifier: str = Field(default="deterministic_rule_engine_v1.2")
+    evaluation_dataset_version: Optional[str] = Field(default="benchmark_100_v1.0")
+
+
+class GroundingDimension(str, Enum):
+    SOURCE_AUTHENTICITY = "SOURCE_AUTHENTICITY"
+    PASSAGE_INTEGRITY = "PASSAGE_INTEGRITY"
+    CITATION_VALIDITY = "CITATION_VALIDITY"
+    QUOTATION_ACCURACY = "QUOTATION_ACCURACY"
+    SEMANTIC_SUPPORT = "SEMANTIC_SUPPORT"
+    LEGAL_ENTAILMENT = "LEGAL_ENTAILMENT"
+    FACT_TO_LAW_APPLICABILITY = "FACT_TO_LAW_APPLICABILITY"
+    JURISDICTIONAL_VALIDITY = "JURISDICTIONAL_VALIDITY"
+    TEMPORAL_VALIDITY = "TEMPORAL_VALIDITY"
+
+
+class GroundingStatus(str, Enum):
+    VERIFIED = "VERIFIED"
+    PARTIALLY_SUPPORTED = "PARTIALLY_SUPPORTED"
+    UNSUPPORTED = "UNSUPPORTED"
+    CONTRADICTED = "CONTRADICTED"
+    UNVERIFIED = "UNVERIFIED"
+    HUMAN_REVIEW_REQUIRED = "HUMAN_REVIEW_REQUIRED"
+
+
+class ClaimGroundingResult(BaseModel):
+    overall_status: str = Field(default=GroundingStatus.VERIFIED.value)
+    dimension_statuses: Dict[str, str] = Field(default_factory=dict)
+    dimension_scores: Dict[str, float] = Field(default_factory=dict)
+    dimension_rationales: Dict[str, str] = Field(default_factory=dict)
+    is_fully_grounded: bool = Field(default=True)
+    requires_human_review: bool = Field(default=False)
+    audit_notes: List[str] = Field(default_factory=list)
 
 
 class EvidenceRef(BaseModel):
@@ -20,6 +74,16 @@ class ClaimOutput(BaseModel):
     confidence_rationale: str = Field(..., description="Empirical basis for confidence separate from LLM self-belief")
     is_supported: bool = Field(default=True)
     evidence_refs: List[EvidenceRef] = Field(default_factory=list)
+    source_document_ids: List[str] = Field(default_factory=list, description="IDs of source documents underpinning this claim")
+    analysis_engine: str = Field(default="deterministic_rule_engine_v1.2", description="Engine used to derive or verify claim")
+    execution_mode: str = Field(default="DETERMINISTIC_RULES", description="LIVE_MODEL, DETERMINISTIC_RULES, or CACHE")
+    verification_mode: str = Field(default="MECHANICAL_CITATION_MATCH", description="MECHANICAL_CITATION_MATCH, SEMANTIC_LLM_ASSESSMENT, or UNVERIFIED")
+    entailment_disclosure: str = Field(
+        default="Mechanical citation and digest verification confirms textual match; does not constitute proof of semantic legal entailment.",
+        description="Explicit disclosure that mechanical matching is not legal entailment proof"
+    )
+    confidence_contract: Optional[ConfidenceContract] = None
+    grounding_result: Optional[ClaimGroundingResult] = None
 
 
 class CounterargumentOutput(BaseModel):
@@ -57,6 +121,7 @@ class AgentExecutionOutput(BaseModel):
     status: str = Field(default="SUCCESS")  # SUCCESS, PARTIAL, ABSTAINED, FAILED
     error_details: Optional[str] = None
     execution_time_ms: Optional[float] = None
+    confidence_contract: Optional[ConfidenceContract] = None
 
 
 class AgentResponse(BaseModel):

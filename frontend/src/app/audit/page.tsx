@@ -18,6 +18,8 @@ import {
   ChevronRight
 } from "lucide-react";
 
+import { api } from "@/lib/api";
+
 export default function AuditExplorerPage() {
   const { auditRecords, contractAddresses, isLiveChain } = useStore();
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
@@ -27,6 +29,31 @@ export default function AuditExplorerPage() {
   const [sourceFilter, setSourceFilter] = useState<string>("ALL");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
+
+  // Option C Independent Verifier State
+  const [isVerifierOpen, setIsVerifierOpen] = useState(false);
+  const [packageJsonInput, setPackageJsonInput] = useState("");
+  const [verificationResult, setVerificationResult] = useState<any | null>(null);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [verifierError, setVerifierError] = useState<string | null>(null);
+
+  const handleVerifyPackage = async () => {
+    if (!packageJsonInput.trim()) {
+      setVerifierError("Please paste an audit package JSON.");
+      return;
+    }
+    setVerifierError(null);
+    setIsVerifying(true);
+    try {
+      const parsed = JSON.parse(packageJsonInput);
+      const res = await api.verifyAuditPackage(parsed);
+      setVerificationResult(res);
+    } catch (e: any) {
+      setVerifierError(`Verification error: ${e.message}`);
+    } finally {
+      setIsVerifying(false);
+    }
+  };
 
   const copyToClipboard = (key: string, text: string) => {
     navigator.clipboard.writeText(text);
@@ -153,6 +180,101 @@ export default function AuditExplorerPage() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Option C Independent Audit Verifier Panel */}
+      <div className="apple-card p-6 sm:p-8 rounded-[18px] bg-white border border-cream-300 shadow-apple-card space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream-200 pb-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-lavender-100 text-lavender-700 border border-lavender-200">
+                Option C Offline Verifier
+              </span>
+              <h3 className="text-xl font-bold text-ink">Independent Audit Package Verifier</h3>
+            </div>
+            <p className="text-xs text-ink-secondary mt-1">
+              Verify any exported VERIDION Audit Package offline. Recomputes canonical decision digests, Merkle root checkpoints, commit-reveal keccak256 hashes, and Brier proper scoring without trusting the server.
+            </p>
+          </div>
+
+          <button
+            onClick={() => setIsVerifierOpen(!isVerifierOpen)}
+            className="apple-btn-secondary text-xs py-1.5 px-3 flex items-center gap-1.5"
+          >
+            <ShieldCheck className="w-4 h-4 text-lavender-700" />
+            <span>{isVerifierOpen ? "Hide Verifier Console" : "Open Verifier Console"}</span>
+          </button>
+        </div>
+
+        {isVerifierOpen && (
+          <div className="space-y-4 pt-2">
+            <div>
+              <label className="text-xs font-semibold text-ink block mb-1.5">
+                Paste Audit Package JSON or Decision Record:
+              </label>
+              <textarea
+                value={packageJsonInput}
+                onChange={(e) => setPackageJsonInput(e.target.value)}
+                placeholder='{"manifest": {...}, "decision_record": {...}, "checksums": {...}}'
+                rows={6}
+                className="w-full font-mono text-xs p-3.5 rounded-[14px] bg-cream-50 border border-cream-300 text-ink focus:outline-none focus:border-lavender-400 focus:ring-1 focus:ring-lavender-300"
+              />
+            </div>
+
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-[11px] text-ink-muted">
+                Zero server-trust required: all digests and cryptographic chains verified deterministically.
+              </span>
+              <button
+                onClick={handleVerifyPackage}
+                disabled={isVerifying}
+                className="apple-btn-primary text-xs py-2 px-4 flex items-center gap-1.5 shadow-sm shrink-0"
+              >
+                <ShieldCheck className="w-4 h-4" />
+                <span>{isVerifying ? "Verifying..." : "Run Cryptographic Verification"}</span>
+              </button>
+            </div>
+
+            {verifierError && (
+              <div className="p-3 rounded-[12px] bg-rose-50 border border-rose-200 text-xs text-rose-800">
+                {verifierError}
+              </div>
+            )}
+
+            {verificationResult && (
+              <div className="p-5 rounded-[14px] bg-cream-50 border border-cream-300 space-y-3">
+                <div className="flex items-center justify-between border-b border-cream-200 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-lavender-700" />
+                    <span className="text-xs font-bold text-ink">Verification Report Verdict:</span>
+                  </div>
+                  <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold font-mono ${
+                    verificationResult.overall_status === "VERIFIED"
+                      ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                      : "bg-rose-100 text-rose-800 border border-rose-200"
+                  }`}>
+                    {verificationResult.overall_status}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs">
+                  {Object.entries(verificationResult.checks || {}).map(([key, check]: [string, any]) => (
+                    <div key={key} className="p-2.5 rounded-lg bg-white border border-cream-200 space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-ink capitalize text-[11px]">{key.replace(/_/g, " ")}:</span>
+                        <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-cream-100 text-ink">
+                          {check.status}
+                        </span>
+                      </div>
+                      {check.digest && <div className="text-[10px] font-mono text-ink-muted truncate">Digest: {check.digest}</div>}
+                      {check.merkle_checkpoint_root && <div className="text-[10px] font-mono text-ink-muted truncate">Merkle: {check.merkle_checkpoint_root}</div>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Audit Log Table */}

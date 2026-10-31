@@ -22,7 +22,7 @@ import {
 
 export default function EvidenceBountiesPage() {
   const { bounties, submitBountyEvidence, settleBounty, userCredits, pendingTxs, isLiveChain } = useStore();
-  const [selectedBountyId, setSelectedBountyId] = useState<string>("bounty_edpb_001");
+  const [selectedBountyId, setSelectedBountyId] = useState<string>("");
 
   // Form states
   const [sourceTitle, setSourceTitle] = useState("");
@@ -30,7 +30,10 @@ export default function EvidenceBountiesPage() {
   const [quote, setQuote] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const bounty = bounties.find((b) => b.bounty_id === selectedBountyId) || bounties[0];
+  const activeBountyId = selectedBountyId && bounties.some((b) => b.bounty_id === selectedBountyId)
+    ? selectedBountyId
+    : (bounties[0]?.bounty_id || "");
+  const bounty = bounties.find((b) => b.bounty_id === activeBountyId) || bounties[0];
   const relevantTxs = pendingTxs.filter(
     (tx) => tx.action.includes("Evidence") || tx.action.includes("Bounty")
   );

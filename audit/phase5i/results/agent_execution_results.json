@@ -1,0 +1,65 @@
+[
+  {
+    "agent_id": "agent_legal_researcher",
+    "role": "LEGAL_RESEARCHER",
+    "status": "SUCCESS",
+    "claims_count": 2,
+    "evidence_refs_count": 2,
+    "uncertainty": 0.15,
+    "latency_ms": 0.0,
+    "inference_mode": "DETERMINISTIC_RULES",
+    "sample_output_claim": "Statutory authority GDPR Art. 5(1)(b) mandates: Personal data shall be collected for specified, explicit and legitimate purposes and not further processed in a manner t..."
+  },
+  {
+    "agent_id": "agent_legal_interpreter",
+    "role": "LEGAL_INTERPRETER",
+    "status": "SUCCESS",
+    "claims_count": 4,
+    "uncertainties_flagged": 3,
+    "uncertainty": 0.35,
+    "latency_ms": 0.0,
+    "inference_mode": "DETERMINISTIC_RULES",
+    "violations_detected": 3
+  },
+  {
+    "agent_id": "agent_adversarial_researcher",
+    "role": "ADVERSARIAL_RESEARCHER",
+    "status": "SUCCESS",
+    "counterarguments_count": 3,
+    "exception_claims_count": 3,
+    "uncertainty": 0.45,
+    "latency_ms": 0.0,
+    "inference_mode": "DETERMINISTIC_FALLBACK (HF Offline)",
+    "objection_severity": "HIGH"
+  },
+  {
+    "agent_id": "agent_evidence_verifier",
+    "role": "EVIDENCE_VERIFIER",
+    "status": "SUCCESS",
+    "verified_claims_count": 6,
+    "verified_refs_count": 10,
+    "uncertainty": 0.05,
+    "latency_ms": 0.0,
+    "inference_mode": "CRYPTOGRAPHIC_SHA256_VERIFICATION",
+    "all_supported": true
+  },
+  {
+    "agent_id": "agent_quantitative_forecaster",
+    "role": "QUANTITATIVE_FORECASTER",
+    "predicted_probability": 0.85,
+    "evidence_digest": "0xb469347633f3304955a735ab775f43a973d3356b748f88d5556cd5511a313d0d",
+    "latency_ms": 0.0,
+    "inference_mode": "DETERMINISTIC_PROBABILITY_HEURISTIC",
+    "event_definition": "Independent evaluator finds material compliance gap"
+  },
+  {
+    "agent_id": "agent_coordinator",
+    "role": "COORDINATOR",
+    "claims_synthesized": 9,
+    "edges_generated": 9,
+    "ranked_uncertainties_count": 3,
+    "top_uncertainty_priority": 0.405,
+    "latency_ms": 0.51,
+    "inference_mode": "GRAPH_SYNTHESIS_AND_UNCERTAINTY_RANKING"
+  }
+]

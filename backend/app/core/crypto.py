@@ -24,6 +24,11 @@ def compute_sha256_digest(content: Union[str, bytes, Dict, List]) -> str:
     return "0x" + hashlib.sha256(payload).hexdigest()
 
 
+def compute_canonical_sha256(content: Union[str, bytes, Dict, List]) -> str:
+    """Canonical alias for compute_sha256_digest."""
+    return compute_sha256_digest(content)
+
+
 def generate_nonce() -> str:
     """Generates a secure 32-byte hexadecimal nonce prefixed with 0x."""
     return "0x" + secrets.token_hex(32)
@@ -104,6 +109,10 @@ def compute_commitment_hash(
     )
     hash_bytes = keccak(encoded)
     return "0x" + hash_bytes.hex()
+
+
+# Option C and Phase 5E canonical alias
+compute_forecast_commitment = compute_commitment_hash
 
 
 def verify_commitment_hash(

@@ -1,0 +1,301 @@
+{
+  "accuracy": 1.0,
+  "benchmark_id": "BENCHMARK_A_CORRECTNESS",
+  "f1_score": 1.0,
+  "false_negatives": 0,
+  "false_positives": 0,
+  "mean_latency_ms": 0.26,
+  "precision": 1.0,
+  "recall": 1.0,
+  "scenarios": [
+    {
+      "actual_status": "EXTERNALLY_ANCHORED_VERIFIED",
+      "attack_class": "BENIGN",
+      "correct_decision": true,
+      "errors": [],
+      "expected_status": "EXTERNALLY_ANCHORED_VERIFIED",
+      "is_anchored": true,
+      "is_valid": true,
+      "latency_ms": 0.501,
+      "name": "Untampered valid, anchored package",
+      "scenario_id": "scenario_01"
+    },
+    {
+      "actual_status": "VERIFIED",
+      "attack_class": "UNANCHORED_BASELINE",
+      "correct_decision": true,
+      "errors": [],
+      "expected_status": "VERIFIED",
+      "is_anchored": false,
+      "is_valid": true,
+      "latency_ms": 0.32,
+      "name": "Untampered but unanchored local package",
+      "scenario_id": "scenario_02"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "RECORD_TAMPERING",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected)."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": true,
+      "is_valid": false,
+      "latency_ms": 0.285,
+      "name": "Modified decision-record field",
+      "scenario_id": "scenario_03"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "RECORD_TAMPERING",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected)."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": true,
+      "is_valid": false,
+      "latency_ms": 0.249,
+      "name": "Modified claim text",
+      "scenario_id": "scenario_04"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "EVIDENCE_TAMPERING",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected)."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": true,
+      "is_valid": false,
+      "latency_ms": 0.232,
+      "name": "Modified evidence passage text",
+      "scenario_id": "scenario_05"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "EVIDENCE_TAMPERING",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected)."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": true,
+      "is_valid": false,
+      "latency_ms": 0.239,
+      "name": "Invalid source digest",
+      "scenario_id": "scenario_06"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "EVIDENCE_TAMPERING",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected)."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": true,
+      "is_valid": false,
+      "latency_ms": 0.223,
+      "name": "Incorrect passage offsets",
+      "scenario_id": "scenario_07"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "AUDIT_CHAIN_CORRUPTION",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected).",
+        "Audit chain sequence jump at idx 0: expected 1, found 2"
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": false,
+      "is_valid": false,
+      "latency_ms": 0.226,
+      "name": "Reordered audit events",
+      "scenario_id": "scenario_08"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "AUDIT_CHAIN_CORRUPTION",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected).",
+        "Audit chain sequence jump at idx 1: expected 2, found 3"
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": false,
+      "is_valid": false,
+      "latency_ms": 0.218,
+      "name": "Deleted audit event",
+      "scenario_id": "scenario_09"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "AUDIT_CHAIN_CORRUPTION",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected).",
+        "Audit chain link break at seq 2: expected 0x1111111111111111111111111111111111111111111111111111111111111111, found 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": true,
+      "is_valid": false,
+      "latency_ms": 0.226,
+      "name": "Altered previous-event digest",
+      "scenario_id": "scenario_10"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "MERKLE_TREE_ATTACK",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected).",
+        "Audit chain link break at seq 4: expected 0x3333333333333333333333333333333333333333333333333333333333333333, found 0x0000000000000000000000000000000000000000000000000000000000000000"
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": false,
+      "is_valid": false,
+      "latency_ms": 0.234,
+      "name": "Duplicate Merkle leaf / sequence breach",
+      "scenario_id": "scenario_11"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "MERKLE_TREE_ATTACK",
+      "correct_decision": true,
+      "errors": [
+        "Merkle checkpoint root mismatch: manifest=0x8888888888888888888888888888888888888888888888888888888888888888, computed=0xe046522f24b39f1a9a2cf96bebcd386df477f282d7ac9b61d0ca59d8fe8f81b6",
+        "Computed Merkle root fails external trusted checkpoint."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": false,
+      "is_valid": false,
+      "latency_ms": 0.228,
+      "name": "Altered Merkle root in manifest",
+      "scenario_id": "scenario_12"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "ANCHOR_ATTACK",
+      "correct_decision": true,
+      "errors": [
+        "Computed Merkle root fails external trusted checkpoint."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": false,
+      "is_valid": false,
+      "latency_ms": 0.212,
+      "name": "Invalid or mismatched trusted checkpoint",
+      "scenario_id": "scenario_13"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "SCHEMA_VIOLATION",
+      "correct_decision": true,
+      "errors": [
+        "Invalid or missing manifest specification version (expected 'VERIDION_AUDIT_SPEC_V1')."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": true,
+      "is_valid": false,
+      "latency_ms": 0.206,
+      "name": "Malformed package manifest",
+      "scenario_id": "scenario_14"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "COMMIT_REVEAL_TAMPERING",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected).",
+        "Commit-reveal mismatch for forecast fc_01: Commitment hash mismatch between revealed parameters and original commitment."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": true,
+      "is_valid": false,
+      "latency_ms": 0.205,
+      "name": "Invalid commit-reveal preimage (probability mismatch)",
+      "scenario_id": "scenario_15"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "COMMIT_REVEAL_TAMPERING",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected).",
+        "Commit-reveal mismatch for forecast fc_01: Commitment hash mismatch between revealed parameters and original commitment."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": true,
+      "is_valid": false,
+      "latency_ms": 0.204,
+      "name": "Incorrect chain ID (cross-chain replay)",
+      "scenario_id": "scenario_16"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "COMMIT_REVEAL_TAMPERING",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected).",
+        "Commit-reveal mismatch for forecast fc_01: Commitment hash mismatch between revealed parameters and original commitment."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": true,
+      "is_valid": false,
+      "latency_ms": 0.205,
+      "name": "Incorrect market domain / contract identifier",
+      "scenario_id": "scenario_17"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "PROVENANCE_VIOLATION",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected).",
+        "Source eurlex_32016R0679 missing ID or content digest."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": true,
+      "is_valid": false,
+      "latency_ms": 0.207,
+      "name": "Missing source digest / provenance info",
+      "scenario_id": "scenario_18"
+    },
+    {
+      "actual_status": "FAILED",
+      "attack_class": "PROVENANCE_VIOLATION",
+      "correct_decision": true,
+      "errors": [
+        "Decision record canonical digest mismatch (tampering detected).",
+        "Synthetic passage 'passage_gdpr_art5_1b' found in OPERATIONAL decision record."
+      ],
+      "expected_status": "FAILED",
+      "is_anchored": true,
+      "is_valid": false,
+      "latency_ms": 0.5,
+      "name": "Synthetic data mislabeled as operational",
+      "scenario_id": "scenario_19"
+    },
+    {
+      "actual_status": "EXTERNALLY_ANCHORED_VERIFIED",
+      "attack_class": "BENIGN",
+      "correct_decision": true,
+      "errors": [],
+      "expected_status": "EXTERNALLY_ANCHORED_VERIFIED",
+      "is_anchored": true,
+      "is_valid": true,
+      "latency_ms": 0.278,
+      "name": "Valid package with optional forecast omitted",
+      "scenario_id": "scenario_20"
+    }
+  ],
+  "specificity": 1.0,
+  "total_duration_ms": 5.198,
+  "total_scenarios": 20,
+  "true_negatives": 3,
+  "true_positives": 17
+}

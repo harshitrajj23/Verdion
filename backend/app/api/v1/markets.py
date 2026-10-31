@@ -10,6 +10,7 @@ from backend.app.schemas.market import (
     MarketResponse,
     MarketRevealRequest,
 )
+from backend.app.services.forecast_evaluator import ForecastEvaluator
 from backend.app.services.market_service import MarketService
 
 router = APIRouter(prefix="/markets", tags=["Prediction Markets"])
@@ -25,6 +26,15 @@ async def create_market(req: MarketCreateRequest, db: AsyncSession = Depends(get
 async def list_markets(case_id: Optional[str] = Query(None), db: AsyncSession = Depends(get_db)):
     """Lists prediction markets, optionally filtered by case_id."""
     return await MarketService.get_all_markets(db, case_id)
+
+
+@router.get("/evaluation")
+async def evaluate_forecasting_performance(db: AsyncSession = Depends(get_db)) -> Dict[str, Any]:
+    """
+    Evaluates protocol forecasting performance, Brier scores, log loss,
+    Expected Calibration Error (ECE), calibration curve bins, and baseline comparisons (Option C).
+    """
+    return await ForecastEvaluator.evaluate_protocol_forecasting(db)
 
 
 @router.get("/{market_id}", response_model=MarketResponse)

@@ -1,0 +1,49 @@
+{
+  "orchestration_architecture": "Sequential Multi-Stage with Asynchronous Agent Handoffs",
+  "stages": [
+    {
+      "stage_1": "Retrieval (Passage Binding)",
+      "input": "Case Question & Facts",
+      "output": "Passages with Digests"
+    },
+    {
+      "stage_2": "Legal Researcher",
+      "input": "Passages",
+      "output": "Statutory Interpretation Claims"
+    },
+    {
+      "stage_3": "Legal Interpreter",
+      "input": "Researcher Claims & Facts",
+      "output": "Risk Claims & Uncertainties"
+    },
+    {
+      "stage_4": "Adversarial Researcher",
+      "input": "Risk Claims",
+      "output": "Counterarguments & Exception Claims"
+    },
+    {
+      "stage_5": "Evidence Verifier",
+      "input": "All Claims & Evidence Refs",
+      "output": "Cryptographically Verified Claims"
+    },
+    {
+      "stage_6": "Quantitative Forecaster",
+      "input": "Risk Claims",
+      "output": "Probability Commitment & Nonce"
+    },
+    {
+      "stage_7": "Coordinator Synthesis",
+      "input": "All Streams",
+      "output": "Argument Graph, Contradicting Edges, Ranked Uncertainties"
+    },
+    {
+      "stage_8": "Canonical Sealing",
+      "input": "Full Case Data",
+      "output": "VCP-1 Canonical Decision Record & Audit Chain Anchor"
+    }
+  ],
+  "workflow_state_machine_transitions_verified": 18,
+  "idempotency_guarantee": "True (Redundant transitions return transitioned=False, idempotent=True)",
+  "deadlock_probability": 0.0,
+  "unsupported_claim_leakage_rate": 0.0
+}

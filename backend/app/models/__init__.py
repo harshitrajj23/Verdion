@@ -15,6 +15,7 @@ from backend.app.models.entities import (
     AnalysisJob,
     ReputationRecord,
     TransactionRecord,
+    DecisionRecordEntity,
 )
 
 __all__ = [
@@ -34,4 +35,5 @@ __all__ = [
     "AnalysisJob",
     "ReputationRecord",
     "TransactionRecord",
+    "DecisionRecordEntity",
 ]

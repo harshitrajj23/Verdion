@@ -1,0 +1,14 @@
+{
+  "corpus_passages_count": 137,
+  "corpus_documents_count": 9,
+  "indexing_method": "Inverted Term Index + Subword N-Gram TF-IDF Cosine Match",
+  "held_out_queries_count": 10,
+  "recall_at_1": 0.8,
+  "recall_at_3": 0.9,
+  "recall_at_5": 1.0,
+  "mean_reciprocal_rank_mrr": 0.883,
+  "ndcg_at_5": 0.918,
+  "average_query_latency_ms": 2.24,
+  "prompt_injection_filtration_passed": true,
+  "paraphrasing_resilience_passed": true
+}

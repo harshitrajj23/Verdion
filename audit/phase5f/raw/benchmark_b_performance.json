@@ -1,0 +1,94 @@
+{
+  "benchmark_id": "BENCHMARK_B_PERFORMANCE",
+  "trials_per_workload": 3,
+  "workloads": [
+    {
+      "count": 10,
+      "dimension": "audit_events",
+      "events_per_sec": 8492.6,
+      "generation_time_ms": 0.04,
+      "max_verify_ms": 1.96,
+      "median_verify_ms": 1.18,
+      "min_verify_ms": 0.67,
+      "p90_verify_ms": 1.96,
+      "package_bytes": 4993
+    },
+    {
+      "count": 100,
+      "dimension": "audit_events",
+      "events_per_sec": 98425.2,
+      "generation_time_ms": 0.23,
+      "max_verify_ms": 1.13,
+      "median_verify_ms": 1.02,
+      "min_verify_ms": 0.95,
+      "p90_verify_ms": 1.13,
+      "package_bytes": 26504
+    },
+    {
+      "count": 1000,
+      "dimension": "audit_events",
+      "events_per_sec": 130946.6,
+      "generation_time_ms": 1.41,
+      "max_verify_ms": 9.51,
+      "median_verify_ms": 7.64,
+      "min_verify_ms": 7.26,
+      "p90_verify_ms": 9.51,
+      "package_bytes": 242505
+    },
+    {
+      "count": 5000,
+      "dimension": "audit_events",
+      "events_per_sec": 98439.3,
+      "generation_time_ms": 7.48,
+      "max_verify_ms": 81.3,
+      "median_verify_ms": 50.79,
+      "min_verify_ms": 48.28,
+      "p90_verify_ms": 81.3,
+      "package_bytes": 1206505
+    },
+    {
+      "count": 10,
+      "dimension": "evidence_passages",
+      "generation_time_ms": 0.05,
+      "max_verify_ms": 0.78,
+      "median_verify_ms": 0.63,
+      "min_verify_ms": 0.62,
+      "p90_verify_ms": 0.78,
+      "package_bytes": 7883,
+      "passages_per_sec": 15903.3
+    },
+    {
+      "count": 50,
+      "dimension": "evidence_passages",
+      "generation_time_ms": 0.19,
+      "max_verify_ms": 1.11,
+      "median_verify_ms": 1.03,
+      "min_verify_ms": 1.01,
+      "p90_verify_ms": 1.11,
+      "package_bytes": 28563,
+      "passages_per_sec": 48586.1
+    },
+    {
+      "count": 200,
+      "dimension": "evidence_passages",
+      "generation_time_ms": 0.56,
+      "max_verify_ms": 4.77,
+      "median_verify_ms": 4.11,
+      "min_verify_ms": 3.34,
+      "p90_verify_ms": 4.77,
+      "package_bytes": 106719,
+      "passages_per_sec": 48692.6
+    },
+    {
+      "count": 500,
+      "dimension": "evidence_passages",
+      "generation_time_ms": 1.08,
+      "max_verify_ms": 11.74,
+      "median_verify_ms": 11.54,
+      "min_verify_ms": 9.04,
+      "p90_verify_ms": 11.74,
+      "package_bytes": 263619,
+      "passages_per_sec": 43313.7
+    }
+  ]
+}

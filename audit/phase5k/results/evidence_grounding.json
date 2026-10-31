@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-10-31T18:19:44.071200+00:00",
+  "dimensions_evaluated": [
+    "SOURCE_AUTHENTICITY",
+    "PASSAGE_INTEGRITY",
+    "CITATION_VALIDITY",
+    "QUOTATION_ACCURACY",
+    "SEMANTIC_SUPPORT",
+    "LEGAL_ENTAILMENT",
+    "FACT_TO_LAW_APPLICABILITY",
+    "JURISDICTIONAL_VALIDITY",
+    "TEMPORAL_VALIDITY"
+  ],
+  "evaluator_class": "EvidenceGroundingService",
+  "test_results": {
+    "valid_grounded_claim": {
+      "overall_status": "VERIFIED",
+      "is_fully_grounded": true,
+      "dimension_scores": {
+        "PASSAGE_INTEGRITY": 1.0,
+        "SOURCE_AUTHENTICITY": 1.0,
+        "CITATION_VALIDITY": 1.0,
+        "QUOTATION_ACCURACY": 1.0,
+        "SEMANTIC_SUPPORT": 0.652,
+        "LEGAL_ENTAILMENT": 0.9,
+        "FACT_TO_LAW_APPLICABILITY": 0.6,
+        "JURISDICTIONAL_VALIDITY": 1.0,
+        "TEMPORAL_VALIDITY": 1.0
+      },
+      "passed": true
+    },
+    "tampered_digest_attack": {
+      "passage_integrity_status": "UNSUPPORTED",
+      "is_fully_grounded": false,
+      "defended": true
+    },
+    "jurisdiction_mismatch_attack": {
+      "jurisdictional_validity_status": "CONTRADICTED",
+      "is_fully_grounded": false,
+      "defended": true
+    },
+    "temporal_effective_date_attack": {
+      "temporal_validity_status": "CONTRADICTED",
+      "is_fully_grounded": false,
+      "defended": true
+    }
+  },
+  "verdict": "VERIFIED_FAIL_CLOSED_CORRECTNESS"
+}

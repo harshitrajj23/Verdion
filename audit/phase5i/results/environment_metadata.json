@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-10-31T15:40:03.548232+00:00",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "python_version": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "os_name": "nt",
+  "machine": "AMD64",
+  "processor": "AMD64 Family 25 Model 124 Stepping 0, AuthenticAMD",
+  "operational_db_hash": "C634F38C6C91627DD3AF97C5DF4D30FA3D3D545B2F6D4D45B9BBB634F79BEB1E",
+  "active_git_commit": "a12d626b4778f9d12d78da61c1dae978944feda9",
+  "strategic_principle": "Option C \u2014 Auditable Regulatory Decision Infrastructure",
+  "llm_inference_mode": "HYBRID_DETERMINISTIC_RULES_WITH_HF_FALLBACK",
+  "hf_endpoint_configured": false,
+  "hf_model_id": "veridion-legal-finetuned (Offline/Rule Fallback Active)"
+}

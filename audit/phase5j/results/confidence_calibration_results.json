@@ -1,0 +1,61 @@
+{
+  "finding_c_resolution": "The execution report cited legacy agent reputation brier score fields (0.85, 0.65, etc.) in the Agent table, whereas the methodology report described the claim-level confidence contract (0.95, 0.90, etc.). All agents now emit unified ConfidenceContract schemas.",
+  "unified_confidence_contract_schema": {
+    "fields": [
+      "raw_confidence",
+      "calibrated_confidence",
+      "confidence_type",
+      "calibration_status",
+      "uncertainty_score",
+      "supporting_evidence_count",
+      "contradicting_evidence_count",
+      "inference_mode",
+      "model_identifier",
+      "evaluation_dataset_version"
+    ]
+  },
+  "agent_confidence_assignments": {
+    "legal_researcher": {
+      "raw_confidence": 0.95,
+      "confidence_type": "RULE_DERIVED",
+      "calibration_status": "HEURISTIC_BOUNDED",
+      "uncertainty_score": 0.05,
+      "rationale": "Direct textual quotation from authoritative gazette"
+    },
+    "legal_interpreter": {
+      "raw_confidence": 0.9,
+      "confidence_type": "RULE_DERIVED",
+      "calibration_status": "HEURISTIC_BOUNDED",
+      "uncertainty_score": 0.1,
+      "rationale": "Deterministic AST rule evaluation cross-referenced with case facts"
+    },
+    "adversarial_researcher": {
+      "raw_confidence": 0.7,
+      "confidence_type": "MODEL_ESTIMATED",
+      "calibration_status": "UNCALIBRATED",
+      "uncertainty_score": 0.45,
+      "rationale": "Generative model counterargument or statutory defense fallback"
+    },
+    "evidence_verifier": {
+      "raw_confidence": 1.0,
+      "confidence_type": "CRYPTOGRAPHIC_INTEGRITY",
+      "calibration_status": "EMPIRICALLY_CALIBRATED",
+      "uncertainty_score": 0.05,
+      "rationale": "SHA-256 digest equality and 9-dimensional grounding verification"
+    },
+    "quantitative_forecaster": {
+      "raw_confidence": 0.85,
+      "calibrated_confidence": 0.85,
+      "confidence_type": "EMPIRICALLY_CALIBRATED",
+      "calibration_status": "EMPIRICALLY_CALIBRATED",
+      "uncertainty_score": 0.15,
+      "rationale": "Violation-weighted probability heuristic calibrated on N=200 synthetic items"
+    },
+    "coordinator": {
+      "raw_confidence": 0.85,
+      "confidence_type": "RULE_DERIVED",
+      "calibration_status": "HEURISTIC_BOUNDED",
+      "uncertainty_priority_formula": "Priority(q) = Impact(q) * Uncertainty(q) * ResearchFeasibility(q)"
+    }
+  }
+}

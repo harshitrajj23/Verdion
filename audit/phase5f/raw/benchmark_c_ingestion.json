@@ -1,0 +1,46 @@
+{
+  "fixture_ingestion": {
+    "documents_parsed": 3,
+    "parse_duration_ms": 1.1,
+    "passages_parsed": 10,
+    "status": "PASS"
+  },
+  "idempotency_verification": {
+    "calculation_time_us": 7.8,
+    "digest": "0xb66e16cdf3348834b4e300979b794a474c6fdee3f423529a7dda5f4d90e5ccc3",
+    "digest_match": true,
+    "status": "PASS"
+  },
+  "live_adapters": [
+    {
+      "adapter": "EUR-Lex Adapter",
+      "documents_fetched": 2,
+      "fetch_latency_ms": 13074.49,
+      "first_doc_digest": "0x0271c68c620b0b1e2aaabc57dbff103e45dbe136fe7d6d4af1fbe458e6580b6c",
+      "first_doc_title": "Regulation (EU) No\u00a0168/2013 of the European Parliament and o",
+      "passages_segmented": 123,
+      "segment_latency_ms": 25.83,
+      "status": "PASS"
+    },
+    {
+      "adapter": "CJEU Curia Adapter",
+      "documents_fetched": 1,
+      "fetch_latency_ms": 4395.14,
+      "first_doc_digest": "0x294c8e49a0b5093d1777e0844c801adcf112f9b0f562ad440b8478f467a16dcd",
+      "first_doc_title": "Judgment of the Court (First Chamber) of 4 May 2023. - F.F. ",
+      "passages_segmented": 7,
+      "segment_latency_ms": 5.09,
+      "status": "PASS"
+    },
+    {
+      "adapter": "EDPB Guidelines Adapter",
+      "documents_fetched": 1,
+      "fetch_latency_ms": 4366.28,
+      "first_doc_digest": "0x1b852f74f858bf1d878561410d0975f648cfd748e9d1c260974e82e722326cda",
+      "first_doc_title": "EDPB /Public Consultations/Guidelines 022026 On Anonymisatio",
+      "passages_segmented": 2,
+      "segment_latency_ms": 0.1,
+      "status": "PASS"
+    }
+  ]
+}

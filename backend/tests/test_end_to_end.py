@@ -1,13 +1,45 @@
 import asyncio
 import pytest
+import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
-from backend.app.core.database import init_db
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from backend.app.core.database import Base, get_db
 from backend.app.main import app
+from backend.app.services.agent_service import AgentService
+from backend.app.services.retrieval_service import RetrievalService
+
+
+@pytest_asyncio.fixture(autouse=True)
+async def isolated_test_env():
+    """Ensures test_end_to_end runs in an isolated in-memory DB and never leaks records into veridion.db."""
+    test_engine = create_async_engine("sqlite+aiosqlite:///:memory:", echo=False)
+    async with test_engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
+    test_session_maker = async_sessionmaker(bind=test_engine, class_=AsyncSession, expire_on_commit=False)
+
+    async def override_get_db():
+        async with test_session_maker() as session:
+            try:
+                yield session
+            finally:
+                await session.close()
+
+    app.dependency_overrides[get_db] = override_get_db
+
+    # Pre-populate base corpus and agents in in-memory test db
+    async with test_session_maker() as session:
+        await RetrievalService.initialize_corpus(session)
+        await AgentService.initialize_agents(session)
+
+    yield
+
+    app.dependency_overrides.clear()
+    await test_engine.dispose()
 
 
 @pytest.mark.asyncio
 async def test_health_and_root():
-    await init_db()
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         res = await client.get("/health")
         assert res.status_code == 200
@@ -20,7 +52,6 @@ async def test_health_and_root():
 
 @pytest.mark.asyncio
 async def test_full_demo_seed_and_markdown_export():
-    await init_db()
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         seed_res = await client.post("/api/v1/demo/seed")
         assert seed_res.status_code == 200
@@ -64,7 +95,6 @@ async def test_full_demo_seed_and_markdown_export():
 
 @pytest.mark.asyncio
 async def test_case_agents_and_passages():
-    await init_db()
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         # Seed demo data
         seed_res = await client.post("/api/v1/demo/seed")
@@ -95,7 +125,6 @@ async def test_case_agents_and_passages():
 
 @pytest.mark.asyncio
 async def test_benchmark_endpoints():
-    await init_db()
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         # Scenarios
         scenarios_res = await client.get("/api/v1/benchmark/scenarios")
@@ -123,7 +152,6 @@ async def test_benchmark_endpoints():
 
 @pytest.mark.asyncio
 async def test_agent_reputation_and_history():
-    await init_db()
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         # Seed demo data which settles markets and bounties
         await client.post("/api/v1/demo/seed")
@@ -159,7 +187,6 @@ async def test_agent_reputation_and_history():
 
 @pytest.mark.asyncio
 async def test_idempotency_middleware_replay():
-    await init_db()
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         payload = {
             "title": "Idempotent Case Creation Test",
@@ -184,7 +211,6 @@ async def test_idempotency_middleware_replay():
 
 @pytest.mark.asyncio
 async def test_async_job_queueing_and_polling():
-    await init_db()
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         case_res = await client.post("/api/v1/cases", json={
             "title": "Async Job Test Case",

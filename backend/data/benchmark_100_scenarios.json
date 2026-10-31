@@ -1,0 +1,3062 @@
+[
+  {
+    "id": "scen_100_001",
+    "split": "DEV",
+    "title": "Fintech GDPR Compliance Assessment 1",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(b)",
+    "question": "Does the fintech system comply with GDPR Art. 5(1)(b) regarding secondary AI model improvement?",
+    "facts": {
+      "data_categories": [
+        "customer chat transcripts"
+      ],
+      "processing_purpose": "secondary AI model improvement",
+      "user_consent_obtained": false,
+      "secondary_ai_training": true,
+      "industry_domain": "fintech",
+      "system_name": "FintechCore_v1",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "PURPOSE_LIMITATION_BREACH"
+    ],
+    "expected_counterarguments": [
+      "LEGITIMATE_INTEREST_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(b) compliance for fintech processing operations."
+  },
+  {
+    "id": "scen_100_002",
+    "split": "DEV",
+    "title": "Fintech GDPR Compliance Assessment 2",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(e)",
+    "question": "Does the fintech system comply with GDPR Art. 5(1)(e) regarding security telemetry?",
+    "facts": {
+      "data_categories": [
+        "server access logs"
+      ],
+      "processing_purpose": "security telemetry",
+      "retention_policy": "indefinite",
+      "deletion_mechanism": "none",
+      "industry_domain": "fintech",
+      "system_name": "FintechCore_v1",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "LEGAL_OBLIGATION_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(e) compliance for fintech processing operations."
+  },
+  {
+    "id": "scen_100_003",
+    "split": "DEV",
+    "title": "Fintech GDPR Compliance Assessment 3",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 9(1)",
+    "question": "Does the fintech system comply with GDPR Art. 9(1) regarding wellness classification?",
+    "facts": {
+      "data_categories": [
+        "biometric face embeddings",
+        "health survey records"
+      ],
+      "processing_purpose": "wellness classification",
+      "special_category_data": true,
+      "explicit_consent_obtained": false,
+      "industry_domain": "fintech",
+      "system_name": "FintechCore_v1",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING"
+    ],
+    "expected_counterarguments": [
+      "PUBLIC_HEALTH_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 9(1) compliance for fintech processing operations."
+  },
+  {
+    "id": "scen_100_004",
+    "split": "DEV",
+    "title": "Fintech GDPR Compliance Assessment 4",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 22",
+    "question": "Does the fintech system comply with GDPR Art. 22 regarding credit scoring?",
+    "facts": {
+      "data_categories": [
+        "loan repayment history"
+      ],
+      "processing_purpose": "credit scoring",
+      "solely_automated_decision": true,
+      "human_in_the_loop": false,
+      "industry_domain": "fintech",
+      "system_name": "FintechCore_v1",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AUTOMATED_DECISION_MAKING_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "CONTRACT_NECESSITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 22 compliance for fintech processing operations."
+  },
+  {
+    "id": "scen_100_005",
+    "split": "DEV",
+    "title": "Fintech GDPR Compliance Assessment 5",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 13",
+    "question": "Does the fintech system comply with GDPR Art. 13 regarding quality assurance?",
+    "facts": {
+      "data_categories": [
+        "support audio clips"
+      ],
+      "processing_purpose": "quality assurance",
+      "user_notice_provided": false,
+      "industry_domain": "fintech",
+      "system_name": "FintechCore_v1",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+    ],
+    "expected_counterarguments": [
+      "PROPORTIONALITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 13 compliance for fintech processing operations."
+  },
+  {
+    "id": "scen_100_006",
+    "split": "DEV",
+    "title": "Fintech GDPR Compliance Assessment 6",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 17",
+    "question": "Does the fintech system comply with GDPR Art. 17 regarding account management?",
+    "facts": {
+      "data_categories": [
+        "user profile records"
+      ],
+      "processing_purpose": "account management",
+      "erasure_pipeline_implemented": false,
+      "deletion_mechanism": "manual_ticket",
+      "industry_domain": "fintech",
+      "system_name": "FintechCore_v1",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "ABSENT_ERASURE_PIPELINE"
+    ],
+    "expected_counterarguments": [
+      "FREEDOM_OF_EXPRESSION_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 17 compliance for fintech processing operations."
+  },
+  {
+    "id": "scen_100_007",
+    "split": "DEV",
+    "title": "Fintech EU_AI_ACT Compliance Assessment 7",
+    "jurisdiction": "EU",
+    "legal_instrument": "EU_AI_ACT",
+    "legal_provision": "EU AI Act Art. 50",
+    "question": "Does the fintech system comply with EU AI Act Art. 50 regarding customer avatar synthesis?",
+    "facts": {
+      "data_categories": [
+        "synthetic conversational audio"
+      ],
+      "processing_purpose": "customer avatar synthesis",
+      "ai_watermark_present": false,
+      "ai_transparency_notice": false,
+      "industry_domain": "fintech",
+      "system_name": "FintechCore_v1",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AI_ACT_TRANSPARENCY_BREACH"
+    ],
+    "expected_counterarguments": [
+      "ARTISTIC_FREEDOM_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.35,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of EU_AI_ACT EU AI Act Art. 50 compliance for fintech processing operations."
+  },
+  {
+    "id": "scen_100_008",
+    "split": "DEV",
+    "title": "Fintech CPRA Compliance Assessment 8",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.120",
+    "question": "Does the fintech system comply with CPRA \u00a71798.120 regarding targeted ad bidding?",
+    "facts": {
+      "data_categories": [
+        "browsing telemetry",
+        "device identifiers"
+      ],
+      "processing_purpose": "targeted ad bidding",
+      "opt_out_link_present": false,
+      "sale_of_data": true,
+      "industry_domain": "fintech",
+      "system_name": "FintechCore_v1",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "MISSING_OPT_OUT_MECHANISM"
+    ],
+    "expected_counterarguments": [
+      "SERVICE_PROVIDER_SAFE_HARBOR"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.120 compliance for fintech processing operations."
+  },
+  {
+    "id": "scen_100_009",
+    "split": "DEV",
+    "title": "Fintech GDPR Compliance Assessment 9",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 6(1)(a)",
+    "question": "Does the fintech system comply with GDPR Art. 6(1)(a) regarding feature enhancement?",
+    "facts": {
+      "data_categories": [
+        "user feedback"
+      ],
+      "processing_purpose": "feature enhancement",
+      "user_consent_obtained": true,
+      "user_notice_provided": true,
+      "retention_policy": "90 days",
+      "deletion_mechanism": "automated_ttl",
+      "industry_domain": "fintech",
+      "system_name": "FintechCore_v1",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 6(1)(a) compliance for fintech processing operations."
+  },
+  {
+    "id": "scen_100_010",
+    "split": "DEV",
+    "title": "Fintech CPRA Compliance Assessment 10",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.100",
+    "question": "Does the fintech system comply with CPRA \u00a71798.100 regarding fulfillment?",
+    "facts": {
+      "data_categories": [
+        "order history"
+      ],
+      "processing_purpose": "fulfillment",
+      "opt_out_link_present": true,
+      "user_notice_provided": true,
+      "retention_policy": "1 year",
+      "industry_domain": "fintech",
+      "system_name": "FintechCore_v1",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.100 compliance for fintech processing operations."
+  },
+  {
+    "id": "scen_100_011",
+    "split": "DEV",
+    "title": "Healthcare GDPR Compliance Assessment 1",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(b)",
+    "question": "Does the healthcare system comply with GDPR Art. 5(1)(b) regarding secondary AI model improvement?",
+    "facts": {
+      "data_categories": [
+        "customer chat transcripts"
+      ],
+      "processing_purpose": "secondary AI model improvement",
+      "user_consent_obtained": false,
+      "secondary_ai_training": true,
+      "industry_domain": "healthcare",
+      "system_name": "HealthcareCore_v2",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "PURPOSE_LIMITATION_BREACH"
+    ],
+    "expected_counterarguments": [
+      "LEGITIMATE_INTEREST_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(b) compliance for healthcare processing operations."
+  },
+  {
+    "id": "scen_100_012",
+    "split": "DEV",
+    "title": "Healthcare GDPR Compliance Assessment 2",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(e)",
+    "question": "Does the healthcare system comply with GDPR Art. 5(1)(e) regarding security telemetry?",
+    "facts": {
+      "data_categories": [
+        "server access logs"
+      ],
+      "processing_purpose": "security telemetry",
+      "retention_policy": "indefinite",
+      "deletion_mechanism": "none",
+      "industry_domain": "healthcare",
+      "system_name": "HealthcareCore_v2",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "LEGAL_OBLIGATION_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(e) compliance for healthcare processing operations."
+  },
+  {
+    "id": "scen_100_013",
+    "split": "DEV",
+    "title": "Healthcare GDPR Compliance Assessment 3",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 9(1)",
+    "question": "Does the healthcare system comply with GDPR Art. 9(1) regarding wellness classification?",
+    "facts": {
+      "data_categories": [
+        "biometric face embeddings",
+        "health survey records"
+      ],
+      "processing_purpose": "wellness classification",
+      "special_category_data": true,
+      "explicit_consent_obtained": false,
+      "industry_domain": "healthcare",
+      "system_name": "HealthcareCore_v2",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING"
+    ],
+    "expected_counterarguments": [
+      "PUBLIC_HEALTH_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 9(1) compliance for healthcare processing operations."
+  },
+  {
+    "id": "scen_100_014",
+    "split": "DEV",
+    "title": "Healthcare GDPR Compliance Assessment 4",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 22",
+    "question": "Does the healthcare system comply with GDPR Art. 22 regarding credit scoring?",
+    "facts": {
+      "data_categories": [
+        "loan repayment history"
+      ],
+      "processing_purpose": "credit scoring",
+      "solely_automated_decision": true,
+      "human_in_the_loop": false,
+      "industry_domain": "healthcare",
+      "system_name": "HealthcareCore_v2",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AUTOMATED_DECISION_MAKING_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "CONTRACT_NECESSITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 22 compliance for healthcare processing operations."
+  },
+  {
+    "id": "scen_100_015",
+    "split": "DEV",
+    "title": "Healthcare GDPR Compliance Assessment 5",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 13",
+    "question": "Does the healthcare system comply with GDPR Art. 13 regarding quality assurance?",
+    "facts": {
+      "data_categories": [
+        "support audio clips"
+      ],
+      "processing_purpose": "quality assurance",
+      "user_notice_provided": false,
+      "industry_domain": "healthcare",
+      "system_name": "HealthcareCore_v2",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+    ],
+    "expected_counterarguments": [
+      "PROPORTIONALITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 13 compliance for healthcare processing operations."
+  },
+  {
+    "id": "scen_100_016",
+    "split": "DEV",
+    "title": "Healthcare GDPR Compliance Assessment 6",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 17",
+    "question": "Does the healthcare system comply with GDPR Art. 17 regarding account management?",
+    "facts": {
+      "data_categories": [
+        "user profile records"
+      ],
+      "processing_purpose": "account management",
+      "erasure_pipeline_implemented": false,
+      "deletion_mechanism": "manual_ticket",
+      "industry_domain": "healthcare",
+      "system_name": "HealthcareCore_v2",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "ABSENT_ERASURE_PIPELINE"
+    ],
+    "expected_counterarguments": [
+      "FREEDOM_OF_EXPRESSION_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 17 compliance for healthcare processing operations."
+  },
+  {
+    "id": "scen_100_017",
+    "split": "DEV",
+    "title": "Healthcare EU_AI_ACT Compliance Assessment 7",
+    "jurisdiction": "EU",
+    "legal_instrument": "EU_AI_ACT",
+    "legal_provision": "EU AI Act Art. 50",
+    "question": "Does the healthcare system comply with EU AI Act Art. 50 regarding customer avatar synthesis?",
+    "facts": {
+      "data_categories": [
+        "synthetic conversational audio"
+      ],
+      "processing_purpose": "customer avatar synthesis",
+      "ai_watermark_present": false,
+      "ai_transparency_notice": false,
+      "industry_domain": "healthcare",
+      "system_name": "HealthcareCore_v2",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AI_ACT_TRANSPARENCY_BREACH"
+    ],
+    "expected_counterarguments": [
+      "ARTISTIC_FREEDOM_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.35,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of EU_AI_ACT EU AI Act Art. 50 compliance for healthcare processing operations."
+  },
+  {
+    "id": "scen_100_018",
+    "split": "DEV",
+    "title": "Healthcare CPRA Compliance Assessment 8",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.120",
+    "question": "Does the healthcare system comply with CPRA \u00a71798.120 regarding targeted ad bidding?",
+    "facts": {
+      "data_categories": [
+        "browsing telemetry",
+        "device identifiers"
+      ],
+      "processing_purpose": "targeted ad bidding",
+      "opt_out_link_present": false,
+      "sale_of_data": true,
+      "industry_domain": "healthcare",
+      "system_name": "HealthcareCore_v2",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "MISSING_OPT_OUT_MECHANISM"
+    ],
+    "expected_counterarguments": [
+      "SERVICE_PROVIDER_SAFE_HARBOR"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.120 compliance for healthcare processing operations."
+  },
+  {
+    "id": "scen_100_019",
+    "split": "DEV",
+    "title": "Healthcare GDPR Compliance Assessment 9",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 6(1)(a)",
+    "question": "Does the healthcare system comply with GDPR Art. 6(1)(a) regarding feature enhancement?",
+    "facts": {
+      "data_categories": [
+        "user feedback"
+      ],
+      "processing_purpose": "feature enhancement",
+      "user_consent_obtained": true,
+      "user_notice_provided": true,
+      "retention_policy": "90 days",
+      "deletion_mechanism": "automated_ttl",
+      "industry_domain": "healthcare",
+      "system_name": "HealthcareCore_v2",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 6(1)(a) compliance for healthcare processing operations."
+  },
+  {
+    "id": "scen_100_020",
+    "split": "DEV",
+    "title": "Healthcare CPRA Compliance Assessment 10",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.100",
+    "question": "Does the healthcare system comply with CPRA \u00a71798.100 regarding fulfillment?",
+    "facts": {
+      "data_categories": [
+        "order history"
+      ],
+      "processing_purpose": "fulfillment",
+      "opt_out_link_present": true,
+      "user_notice_provided": true,
+      "retention_policy": "1 year",
+      "industry_domain": "healthcare",
+      "system_name": "HealthcareCore_v2",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.100 compliance for healthcare processing operations."
+  },
+  {
+    "id": "scen_100_021",
+    "split": "DEV",
+    "title": "E-commerce GDPR Compliance Assessment 1",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(b)",
+    "question": "Does the e-commerce system comply with GDPR Art. 5(1)(b) regarding secondary AI model improvement?",
+    "facts": {
+      "data_categories": [
+        "customer chat transcripts"
+      ],
+      "processing_purpose": "secondary AI model improvement",
+      "user_consent_obtained": false,
+      "secondary_ai_training": true,
+      "industry_domain": "e-commerce",
+      "system_name": "E-commerceCore_v3",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "PURPOSE_LIMITATION_BREACH"
+    ],
+    "expected_counterarguments": [
+      "LEGITIMATE_INTEREST_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(b) compliance for e-commerce processing operations."
+  },
+  {
+    "id": "scen_100_022",
+    "split": "DEV",
+    "title": "E-commerce GDPR Compliance Assessment 2",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(e)",
+    "question": "Does the e-commerce system comply with GDPR Art. 5(1)(e) regarding security telemetry?",
+    "facts": {
+      "data_categories": [
+        "server access logs"
+      ],
+      "processing_purpose": "security telemetry",
+      "retention_policy": "indefinite",
+      "deletion_mechanism": "none",
+      "industry_domain": "e-commerce",
+      "system_name": "E-commerceCore_v3",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "LEGAL_OBLIGATION_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(e) compliance for e-commerce processing operations."
+  },
+  {
+    "id": "scen_100_023",
+    "split": "DEV",
+    "title": "E-commerce GDPR Compliance Assessment 3",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 9(1)",
+    "question": "Does the e-commerce system comply with GDPR Art. 9(1) regarding wellness classification?",
+    "facts": {
+      "data_categories": [
+        "biometric face embeddings",
+        "health survey records"
+      ],
+      "processing_purpose": "wellness classification",
+      "special_category_data": true,
+      "explicit_consent_obtained": false,
+      "industry_domain": "e-commerce",
+      "system_name": "E-commerceCore_v3",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING"
+    ],
+    "expected_counterarguments": [
+      "PUBLIC_HEALTH_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 9(1) compliance for e-commerce processing operations."
+  },
+  {
+    "id": "scen_100_024",
+    "split": "DEV",
+    "title": "E-commerce GDPR Compliance Assessment 4",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 22",
+    "question": "Does the e-commerce system comply with GDPR Art. 22 regarding credit scoring?",
+    "facts": {
+      "data_categories": [
+        "loan repayment history"
+      ],
+      "processing_purpose": "credit scoring",
+      "solely_automated_decision": true,
+      "human_in_the_loop": false,
+      "industry_domain": "e-commerce",
+      "system_name": "E-commerceCore_v3",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AUTOMATED_DECISION_MAKING_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "CONTRACT_NECESSITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 22 compliance for e-commerce processing operations."
+  },
+  {
+    "id": "scen_100_025",
+    "split": "DEV",
+    "title": "E-commerce GDPR Compliance Assessment 5",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 13",
+    "question": "Does the e-commerce system comply with GDPR Art. 13 regarding quality assurance?",
+    "facts": {
+      "data_categories": [
+        "support audio clips"
+      ],
+      "processing_purpose": "quality assurance",
+      "user_notice_provided": false,
+      "industry_domain": "e-commerce",
+      "system_name": "E-commerceCore_v3",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+    ],
+    "expected_counterarguments": [
+      "PROPORTIONALITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 13 compliance for e-commerce processing operations."
+  },
+  {
+    "id": "scen_100_026",
+    "split": "DEV",
+    "title": "E-commerce GDPR Compliance Assessment 6",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 17",
+    "question": "Does the e-commerce system comply with GDPR Art. 17 regarding account management?",
+    "facts": {
+      "data_categories": [
+        "user profile records"
+      ],
+      "processing_purpose": "account management",
+      "erasure_pipeline_implemented": false,
+      "deletion_mechanism": "manual_ticket",
+      "industry_domain": "e-commerce",
+      "system_name": "E-commerceCore_v3",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "ABSENT_ERASURE_PIPELINE"
+    ],
+    "expected_counterarguments": [
+      "FREEDOM_OF_EXPRESSION_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 17 compliance for e-commerce processing operations."
+  },
+  {
+    "id": "scen_100_027",
+    "split": "DEV",
+    "title": "E-commerce EU_AI_ACT Compliance Assessment 7",
+    "jurisdiction": "EU",
+    "legal_instrument": "EU_AI_ACT",
+    "legal_provision": "EU AI Act Art. 50",
+    "question": "Does the e-commerce system comply with EU AI Act Art. 50 regarding customer avatar synthesis?",
+    "facts": {
+      "data_categories": [
+        "synthetic conversational audio"
+      ],
+      "processing_purpose": "customer avatar synthesis",
+      "ai_watermark_present": false,
+      "ai_transparency_notice": false,
+      "industry_domain": "e-commerce",
+      "system_name": "E-commerceCore_v3",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AI_ACT_TRANSPARENCY_BREACH"
+    ],
+    "expected_counterarguments": [
+      "ARTISTIC_FREEDOM_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.35,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of EU_AI_ACT EU AI Act Art. 50 compliance for e-commerce processing operations."
+  },
+  {
+    "id": "scen_100_028",
+    "split": "DEV",
+    "title": "E-commerce CPRA Compliance Assessment 8",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.120",
+    "question": "Does the e-commerce system comply with CPRA \u00a71798.120 regarding targeted ad bidding?",
+    "facts": {
+      "data_categories": [
+        "browsing telemetry",
+        "device identifiers"
+      ],
+      "processing_purpose": "targeted ad bidding",
+      "opt_out_link_present": false,
+      "sale_of_data": true,
+      "industry_domain": "e-commerce",
+      "system_name": "E-commerceCore_v3",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "MISSING_OPT_OUT_MECHANISM"
+    ],
+    "expected_counterarguments": [
+      "SERVICE_PROVIDER_SAFE_HARBOR"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.120 compliance for e-commerce processing operations."
+  },
+  {
+    "id": "scen_100_029",
+    "split": "DEV",
+    "title": "E-commerce GDPR Compliance Assessment 9",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 6(1)(a)",
+    "question": "Does the e-commerce system comply with GDPR Art. 6(1)(a) regarding feature enhancement?",
+    "facts": {
+      "data_categories": [
+        "user feedback"
+      ],
+      "processing_purpose": "feature enhancement",
+      "user_consent_obtained": true,
+      "user_notice_provided": true,
+      "retention_policy": "90 days",
+      "deletion_mechanism": "automated_ttl",
+      "industry_domain": "e-commerce",
+      "system_name": "E-commerceCore_v3",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 6(1)(a) compliance for e-commerce processing operations."
+  },
+  {
+    "id": "scen_100_030",
+    "split": "DEV",
+    "title": "E-commerce CPRA Compliance Assessment 10",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.100",
+    "question": "Does the e-commerce system comply with CPRA \u00a71798.100 regarding fulfillment?",
+    "facts": {
+      "data_categories": [
+        "order history"
+      ],
+      "processing_purpose": "fulfillment",
+      "opt_out_link_present": true,
+      "user_notice_provided": true,
+      "retention_policy": "1 year",
+      "industry_domain": "e-commerce",
+      "system_name": "E-commerceCore_v3",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.100 compliance for e-commerce processing operations."
+  },
+  {
+    "id": "scen_100_031",
+    "split": "VAL",
+    "title": "Telecom GDPR Compliance Assessment 1",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(b)",
+    "question": "Does the telecom system comply with GDPR Art. 5(1)(b) regarding secondary AI model improvement?",
+    "facts": {
+      "data_categories": [
+        "customer chat transcripts"
+      ],
+      "processing_purpose": "secondary AI model improvement",
+      "user_consent_obtained": false,
+      "secondary_ai_training": true,
+      "industry_domain": "telecom",
+      "system_name": "TelecomCore_v4",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "PURPOSE_LIMITATION_BREACH"
+    ],
+    "expected_counterarguments": [
+      "LEGITIMATE_INTEREST_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(b) compliance for telecom processing operations."
+  },
+  {
+    "id": "scen_100_032",
+    "split": "VAL",
+    "title": "Telecom GDPR Compliance Assessment 2",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(e)",
+    "question": "Does the telecom system comply with GDPR Art. 5(1)(e) regarding security telemetry?",
+    "facts": {
+      "data_categories": [
+        "server access logs"
+      ],
+      "processing_purpose": "security telemetry",
+      "retention_policy": "indefinite",
+      "deletion_mechanism": "none",
+      "industry_domain": "telecom",
+      "system_name": "TelecomCore_v4",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "LEGAL_OBLIGATION_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(e) compliance for telecom processing operations."
+  },
+  {
+    "id": "scen_100_033",
+    "split": "VAL",
+    "title": "Telecom GDPR Compliance Assessment 3",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 9(1)",
+    "question": "Does the telecom system comply with GDPR Art. 9(1) regarding wellness classification?",
+    "facts": {
+      "data_categories": [
+        "biometric face embeddings",
+        "health survey records"
+      ],
+      "processing_purpose": "wellness classification",
+      "special_category_data": true,
+      "explicit_consent_obtained": false,
+      "industry_domain": "telecom",
+      "system_name": "TelecomCore_v4",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING"
+    ],
+    "expected_counterarguments": [
+      "PUBLIC_HEALTH_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 9(1) compliance for telecom processing operations."
+  },
+  {
+    "id": "scen_100_034",
+    "split": "VAL",
+    "title": "Telecom GDPR Compliance Assessment 4",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 22",
+    "question": "Does the telecom system comply with GDPR Art. 22 regarding credit scoring?",
+    "facts": {
+      "data_categories": [
+        "loan repayment history"
+      ],
+      "processing_purpose": "credit scoring",
+      "solely_automated_decision": true,
+      "human_in_the_loop": false,
+      "industry_domain": "telecom",
+      "system_name": "TelecomCore_v4",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AUTOMATED_DECISION_MAKING_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "CONTRACT_NECESSITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 22 compliance for telecom processing operations."
+  },
+  {
+    "id": "scen_100_035",
+    "split": "VAL",
+    "title": "Telecom GDPR Compliance Assessment 5",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 13",
+    "question": "Does the telecom system comply with GDPR Art. 13 regarding quality assurance?",
+    "facts": {
+      "data_categories": [
+        "support audio clips"
+      ],
+      "processing_purpose": "quality assurance",
+      "user_notice_provided": false,
+      "industry_domain": "telecom",
+      "system_name": "TelecomCore_v4",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+    ],
+    "expected_counterarguments": [
+      "PROPORTIONALITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 13 compliance for telecom processing operations."
+  },
+  {
+    "id": "scen_100_036",
+    "split": "VAL",
+    "title": "Telecom GDPR Compliance Assessment 6",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 17",
+    "question": "Does the telecom system comply with GDPR Art. 17 regarding account management?",
+    "facts": {
+      "data_categories": [
+        "user profile records"
+      ],
+      "processing_purpose": "account management",
+      "erasure_pipeline_implemented": false,
+      "deletion_mechanism": "manual_ticket",
+      "industry_domain": "telecom",
+      "system_name": "TelecomCore_v4",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "ABSENT_ERASURE_PIPELINE"
+    ],
+    "expected_counterarguments": [
+      "FREEDOM_OF_EXPRESSION_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 17 compliance for telecom processing operations."
+  },
+  {
+    "id": "scen_100_037",
+    "split": "VAL",
+    "title": "Telecom EU_AI_ACT Compliance Assessment 7",
+    "jurisdiction": "EU",
+    "legal_instrument": "EU_AI_ACT",
+    "legal_provision": "EU AI Act Art. 50",
+    "question": "Does the telecom system comply with EU AI Act Art. 50 regarding customer avatar synthesis?",
+    "facts": {
+      "data_categories": [
+        "synthetic conversational audio"
+      ],
+      "processing_purpose": "customer avatar synthesis",
+      "ai_watermark_present": false,
+      "ai_transparency_notice": false,
+      "industry_domain": "telecom",
+      "system_name": "TelecomCore_v4",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AI_ACT_TRANSPARENCY_BREACH"
+    ],
+    "expected_counterarguments": [
+      "ARTISTIC_FREEDOM_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.35,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of EU_AI_ACT EU AI Act Art. 50 compliance for telecom processing operations."
+  },
+  {
+    "id": "scen_100_038",
+    "split": "VAL",
+    "title": "Telecom CPRA Compliance Assessment 8",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.120",
+    "question": "Does the telecom system comply with CPRA \u00a71798.120 regarding targeted ad bidding?",
+    "facts": {
+      "data_categories": [
+        "browsing telemetry",
+        "device identifiers"
+      ],
+      "processing_purpose": "targeted ad bidding",
+      "opt_out_link_present": false,
+      "sale_of_data": true,
+      "industry_domain": "telecom",
+      "system_name": "TelecomCore_v4",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "MISSING_OPT_OUT_MECHANISM"
+    ],
+    "expected_counterarguments": [
+      "SERVICE_PROVIDER_SAFE_HARBOR"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.120 compliance for telecom processing operations."
+  },
+  {
+    "id": "scen_100_039",
+    "split": "VAL",
+    "title": "Telecom GDPR Compliance Assessment 9",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 6(1)(a)",
+    "question": "Does the telecom system comply with GDPR Art. 6(1)(a) regarding feature enhancement?",
+    "facts": {
+      "data_categories": [
+        "user feedback"
+      ],
+      "processing_purpose": "feature enhancement",
+      "user_consent_obtained": true,
+      "user_notice_provided": true,
+      "retention_policy": "90 days",
+      "deletion_mechanism": "automated_ttl",
+      "industry_domain": "telecom",
+      "system_name": "TelecomCore_v4",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 6(1)(a) compliance for telecom processing operations."
+  },
+  {
+    "id": "scen_100_040",
+    "split": "VAL",
+    "title": "Telecom CPRA Compliance Assessment 10",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.100",
+    "question": "Does the telecom system comply with CPRA \u00a71798.100 regarding fulfillment?",
+    "facts": {
+      "data_categories": [
+        "order history"
+      ],
+      "processing_purpose": "fulfillment",
+      "opt_out_link_present": true,
+      "user_notice_provided": true,
+      "retention_policy": "1 year",
+      "industry_domain": "telecom",
+      "system_name": "TelecomCore_v4",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.100 compliance for telecom processing operations."
+  },
+  {
+    "id": "scen_100_041",
+    "split": "VAL",
+    "title": "Automotive GDPR Compliance Assessment 1",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(b)",
+    "question": "Does the automotive system comply with GDPR Art. 5(1)(b) regarding secondary AI model improvement?",
+    "facts": {
+      "data_categories": [
+        "customer chat transcripts"
+      ],
+      "processing_purpose": "secondary AI model improvement",
+      "user_consent_obtained": false,
+      "secondary_ai_training": true,
+      "industry_domain": "automotive",
+      "system_name": "AutomotiveCore_v5",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "PURPOSE_LIMITATION_BREACH"
+    ],
+    "expected_counterarguments": [
+      "LEGITIMATE_INTEREST_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(b) compliance for automotive processing operations."
+  },
+  {
+    "id": "scen_100_042",
+    "split": "VAL",
+    "title": "Automotive GDPR Compliance Assessment 2",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(e)",
+    "question": "Does the automotive system comply with GDPR Art. 5(1)(e) regarding security telemetry?",
+    "facts": {
+      "data_categories": [
+        "server access logs"
+      ],
+      "processing_purpose": "security telemetry",
+      "retention_policy": "indefinite",
+      "deletion_mechanism": "none",
+      "industry_domain": "automotive",
+      "system_name": "AutomotiveCore_v5",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "LEGAL_OBLIGATION_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(e) compliance for automotive processing operations."
+  },
+  {
+    "id": "scen_100_043",
+    "split": "VAL",
+    "title": "Automotive GDPR Compliance Assessment 3",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 9(1)",
+    "question": "Does the automotive system comply with GDPR Art. 9(1) regarding wellness classification?",
+    "facts": {
+      "data_categories": [
+        "biometric face embeddings",
+        "health survey records"
+      ],
+      "processing_purpose": "wellness classification",
+      "special_category_data": true,
+      "explicit_consent_obtained": false,
+      "industry_domain": "automotive",
+      "system_name": "AutomotiveCore_v5",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING"
+    ],
+    "expected_counterarguments": [
+      "PUBLIC_HEALTH_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 9(1) compliance for automotive processing operations."
+  },
+  {
+    "id": "scen_100_044",
+    "split": "VAL",
+    "title": "Automotive GDPR Compliance Assessment 4",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 22",
+    "question": "Does the automotive system comply with GDPR Art. 22 regarding credit scoring?",
+    "facts": {
+      "data_categories": [
+        "loan repayment history"
+      ],
+      "processing_purpose": "credit scoring",
+      "solely_automated_decision": true,
+      "human_in_the_loop": false,
+      "industry_domain": "automotive",
+      "system_name": "AutomotiveCore_v5",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AUTOMATED_DECISION_MAKING_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "CONTRACT_NECESSITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 22 compliance for automotive processing operations."
+  },
+  {
+    "id": "scen_100_045",
+    "split": "VAL",
+    "title": "Automotive GDPR Compliance Assessment 5",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 13",
+    "question": "Does the automotive system comply with GDPR Art. 13 regarding quality assurance?",
+    "facts": {
+      "data_categories": [
+        "support audio clips"
+      ],
+      "processing_purpose": "quality assurance",
+      "user_notice_provided": false,
+      "industry_domain": "automotive",
+      "system_name": "AutomotiveCore_v5",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+    ],
+    "expected_counterarguments": [
+      "PROPORTIONALITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 13 compliance for automotive processing operations."
+  },
+  {
+    "id": "scen_100_046",
+    "split": "VAL",
+    "title": "Automotive GDPR Compliance Assessment 6",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 17",
+    "question": "Does the automotive system comply with GDPR Art. 17 regarding account management?",
+    "facts": {
+      "data_categories": [
+        "user profile records"
+      ],
+      "processing_purpose": "account management",
+      "erasure_pipeline_implemented": false,
+      "deletion_mechanism": "manual_ticket",
+      "industry_domain": "automotive",
+      "system_name": "AutomotiveCore_v5",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "ABSENT_ERASURE_PIPELINE"
+    ],
+    "expected_counterarguments": [
+      "FREEDOM_OF_EXPRESSION_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 17 compliance for automotive processing operations."
+  },
+  {
+    "id": "scen_100_047",
+    "split": "VAL",
+    "title": "Automotive EU_AI_ACT Compliance Assessment 7",
+    "jurisdiction": "EU",
+    "legal_instrument": "EU_AI_ACT",
+    "legal_provision": "EU AI Act Art. 50",
+    "question": "Does the automotive system comply with EU AI Act Art. 50 regarding customer avatar synthesis?",
+    "facts": {
+      "data_categories": [
+        "synthetic conversational audio"
+      ],
+      "processing_purpose": "customer avatar synthesis",
+      "ai_watermark_present": false,
+      "ai_transparency_notice": false,
+      "industry_domain": "automotive",
+      "system_name": "AutomotiveCore_v5",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AI_ACT_TRANSPARENCY_BREACH"
+    ],
+    "expected_counterarguments": [
+      "ARTISTIC_FREEDOM_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.35,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of EU_AI_ACT EU AI Act Art. 50 compliance for automotive processing operations."
+  },
+  {
+    "id": "scen_100_048",
+    "split": "VAL",
+    "title": "Automotive CPRA Compliance Assessment 8",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.120",
+    "question": "Does the automotive system comply with CPRA \u00a71798.120 regarding targeted ad bidding?",
+    "facts": {
+      "data_categories": [
+        "browsing telemetry",
+        "device identifiers"
+      ],
+      "processing_purpose": "targeted ad bidding",
+      "opt_out_link_present": false,
+      "sale_of_data": true,
+      "industry_domain": "automotive",
+      "system_name": "AutomotiveCore_v5",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "MISSING_OPT_OUT_MECHANISM"
+    ],
+    "expected_counterarguments": [
+      "SERVICE_PROVIDER_SAFE_HARBOR"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.120 compliance for automotive processing operations."
+  },
+  {
+    "id": "scen_100_049",
+    "split": "VAL",
+    "title": "Automotive GDPR Compliance Assessment 9",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 6(1)(a)",
+    "question": "Does the automotive system comply with GDPR Art. 6(1)(a) regarding feature enhancement?",
+    "facts": {
+      "data_categories": [
+        "user feedback"
+      ],
+      "processing_purpose": "feature enhancement",
+      "user_consent_obtained": true,
+      "user_notice_provided": true,
+      "retention_policy": "90 days",
+      "deletion_mechanism": "automated_ttl",
+      "industry_domain": "automotive",
+      "system_name": "AutomotiveCore_v5",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 6(1)(a) compliance for automotive processing operations."
+  },
+  {
+    "id": "scen_100_050",
+    "split": "VAL",
+    "title": "Automotive CPRA Compliance Assessment 10",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.100",
+    "question": "Does the automotive system comply with CPRA \u00a71798.100 regarding fulfillment?",
+    "facts": {
+      "data_categories": [
+        "order history"
+      ],
+      "processing_purpose": "fulfillment",
+      "opt_out_link_present": true,
+      "user_notice_provided": true,
+      "retention_policy": "1 year",
+      "industry_domain": "automotive",
+      "system_name": "AutomotiveCore_v5",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.100 compliance for automotive processing operations."
+  },
+  {
+    "id": "scen_100_051",
+    "split": "VAL",
+    "title": "Gaming GDPR Compliance Assessment 1",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(b)",
+    "question": "Does the gaming system comply with GDPR Art. 5(1)(b) regarding secondary AI model improvement?",
+    "facts": {
+      "data_categories": [
+        "customer chat transcripts"
+      ],
+      "processing_purpose": "secondary AI model improvement",
+      "user_consent_obtained": false,
+      "secondary_ai_training": true,
+      "industry_domain": "gaming",
+      "system_name": "GamingCore_v6",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "PURPOSE_LIMITATION_BREACH"
+    ],
+    "expected_counterarguments": [
+      "LEGITIMATE_INTEREST_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(b) compliance for gaming processing operations."
+  },
+  {
+    "id": "scen_100_052",
+    "split": "VAL",
+    "title": "Gaming GDPR Compliance Assessment 2",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(e)",
+    "question": "Does the gaming system comply with GDPR Art. 5(1)(e) regarding security telemetry?",
+    "facts": {
+      "data_categories": [
+        "server access logs"
+      ],
+      "processing_purpose": "security telemetry",
+      "retention_policy": "indefinite",
+      "deletion_mechanism": "none",
+      "industry_domain": "gaming",
+      "system_name": "GamingCore_v6",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "LEGAL_OBLIGATION_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(e) compliance for gaming processing operations."
+  },
+  {
+    "id": "scen_100_053",
+    "split": "VAL",
+    "title": "Gaming GDPR Compliance Assessment 3",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 9(1)",
+    "question": "Does the gaming system comply with GDPR Art. 9(1) regarding wellness classification?",
+    "facts": {
+      "data_categories": [
+        "biometric face embeddings",
+        "health survey records"
+      ],
+      "processing_purpose": "wellness classification",
+      "special_category_data": true,
+      "explicit_consent_obtained": false,
+      "industry_domain": "gaming",
+      "system_name": "GamingCore_v6",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING"
+    ],
+    "expected_counterarguments": [
+      "PUBLIC_HEALTH_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 9(1) compliance for gaming processing operations."
+  },
+  {
+    "id": "scen_100_054",
+    "split": "VAL",
+    "title": "Gaming GDPR Compliance Assessment 4",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 22",
+    "question": "Does the gaming system comply with GDPR Art. 22 regarding credit scoring?",
+    "facts": {
+      "data_categories": [
+        "loan repayment history"
+      ],
+      "processing_purpose": "credit scoring",
+      "solely_automated_decision": true,
+      "human_in_the_loop": false,
+      "industry_domain": "gaming",
+      "system_name": "GamingCore_v6",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AUTOMATED_DECISION_MAKING_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "CONTRACT_NECESSITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 22 compliance for gaming processing operations."
+  },
+  {
+    "id": "scen_100_055",
+    "split": "VAL",
+    "title": "Gaming GDPR Compliance Assessment 5",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 13",
+    "question": "Does the gaming system comply with GDPR Art. 13 regarding quality assurance?",
+    "facts": {
+      "data_categories": [
+        "support audio clips"
+      ],
+      "processing_purpose": "quality assurance",
+      "user_notice_provided": false,
+      "industry_domain": "gaming",
+      "system_name": "GamingCore_v6",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+    ],
+    "expected_counterarguments": [
+      "PROPORTIONALITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 13 compliance for gaming processing operations."
+  },
+  {
+    "id": "scen_100_056",
+    "split": "VAL",
+    "title": "Gaming GDPR Compliance Assessment 6",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 17",
+    "question": "Does the gaming system comply with GDPR Art. 17 regarding account management?",
+    "facts": {
+      "data_categories": [
+        "user profile records"
+      ],
+      "processing_purpose": "account management",
+      "erasure_pipeline_implemented": false,
+      "deletion_mechanism": "manual_ticket",
+      "industry_domain": "gaming",
+      "system_name": "GamingCore_v6",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "ABSENT_ERASURE_PIPELINE"
+    ],
+    "expected_counterarguments": [
+      "FREEDOM_OF_EXPRESSION_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 17 compliance for gaming processing operations."
+  },
+  {
+    "id": "scen_100_057",
+    "split": "VAL",
+    "title": "Gaming EU_AI_ACT Compliance Assessment 7",
+    "jurisdiction": "EU",
+    "legal_instrument": "EU_AI_ACT",
+    "legal_provision": "EU AI Act Art. 50",
+    "question": "Does the gaming system comply with EU AI Act Art. 50 regarding customer avatar synthesis?",
+    "facts": {
+      "data_categories": [
+        "synthetic conversational audio"
+      ],
+      "processing_purpose": "customer avatar synthesis",
+      "ai_watermark_present": false,
+      "ai_transparency_notice": false,
+      "industry_domain": "gaming",
+      "system_name": "GamingCore_v6",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AI_ACT_TRANSPARENCY_BREACH"
+    ],
+    "expected_counterarguments": [
+      "ARTISTIC_FREEDOM_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.35,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of EU_AI_ACT EU AI Act Art. 50 compliance for gaming processing operations."
+  },
+  {
+    "id": "scen_100_058",
+    "split": "VAL",
+    "title": "Gaming CPRA Compliance Assessment 8",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.120",
+    "question": "Does the gaming system comply with CPRA \u00a71798.120 regarding targeted ad bidding?",
+    "facts": {
+      "data_categories": [
+        "browsing telemetry",
+        "device identifiers"
+      ],
+      "processing_purpose": "targeted ad bidding",
+      "opt_out_link_present": false,
+      "sale_of_data": true,
+      "industry_domain": "gaming",
+      "system_name": "GamingCore_v6",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "MISSING_OPT_OUT_MECHANISM"
+    ],
+    "expected_counterarguments": [
+      "SERVICE_PROVIDER_SAFE_HARBOR"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.120 compliance for gaming processing operations."
+  },
+  {
+    "id": "scen_100_059",
+    "split": "VAL",
+    "title": "Gaming GDPR Compliance Assessment 9",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 6(1)(a)",
+    "question": "Does the gaming system comply with GDPR Art. 6(1)(a) regarding feature enhancement?",
+    "facts": {
+      "data_categories": [
+        "user feedback"
+      ],
+      "processing_purpose": "feature enhancement",
+      "user_consent_obtained": true,
+      "user_notice_provided": true,
+      "retention_policy": "90 days",
+      "deletion_mechanism": "automated_ttl",
+      "industry_domain": "gaming",
+      "system_name": "GamingCore_v6",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 6(1)(a) compliance for gaming processing operations."
+  },
+  {
+    "id": "scen_100_060",
+    "split": "VAL",
+    "title": "Gaming CPRA Compliance Assessment 10",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.100",
+    "question": "Does the gaming system comply with CPRA \u00a71798.100 regarding fulfillment?",
+    "facts": {
+      "data_categories": [
+        "order history"
+      ],
+      "processing_purpose": "fulfillment",
+      "opt_out_link_present": true,
+      "user_notice_provided": true,
+      "retention_policy": "1 year",
+      "industry_domain": "gaming",
+      "system_name": "GamingCore_v6",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.100 compliance for gaming processing operations."
+  },
+  {
+    "id": "scen_100_061",
+    "split": "TEST",
+    "title": "Edtech GDPR Compliance Assessment 1",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(b)",
+    "question": "Does the edtech system comply with GDPR Art. 5(1)(b) regarding secondary AI model improvement?",
+    "facts": {
+      "data_categories": [
+        "customer chat transcripts"
+      ],
+      "processing_purpose": "secondary AI model improvement",
+      "user_consent_obtained": false,
+      "secondary_ai_training": true,
+      "industry_domain": "edtech",
+      "system_name": "EdtechCore_v7",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "PURPOSE_LIMITATION_BREACH"
+    ],
+    "expected_counterarguments": [
+      "LEGITIMATE_INTEREST_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(b) compliance for edtech processing operations."
+  },
+  {
+    "id": "scen_100_062",
+    "split": "TEST",
+    "title": "Edtech GDPR Compliance Assessment 2",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(e)",
+    "question": "Does the edtech system comply with GDPR Art. 5(1)(e) regarding security telemetry?",
+    "facts": {
+      "data_categories": [
+        "server access logs"
+      ],
+      "processing_purpose": "security telemetry",
+      "retention_policy": "indefinite",
+      "deletion_mechanism": "none",
+      "industry_domain": "edtech",
+      "system_name": "EdtechCore_v7",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "LEGAL_OBLIGATION_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(e) compliance for edtech processing operations."
+  },
+  {
+    "id": "scen_100_063",
+    "split": "TEST",
+    "title": "Edtech GDPR Compliance Assessment 3",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 9(1)",
+    "question": "Does the edtech system comply with GDPR Art. 9(1) regarding wellness classification?",
+    "facts": {
+      "data_categories": [
+        "biometric face embeddings",
+        "health survey records"
+      ],
+      "processing_purpose": "wellness classification",
+      "special_category_data": true,
+      "explicit_consent_obtained": false,
+      "industry_domain": "edtech",
+      "system_name": "EdtechCore_v7",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING"
+    ],
+    "expected_counterarguments": [
+      "PUBLIC_HEALTH_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 9(1) compliance for edtech processing operations."
+  },
+  {
+    "id": "scen_100_064",
+    "split": "TEST",
+    "title": "Edtech GDPR Compliance Assessment 4",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 22",
+    "question": "Does the edtech system comply with GDPR Art. 22 regarding credit scoring?",
+    "facts": {
+      "data_categories": [
+        "loan repayment history"
+      ],
+      "processing_purpose": "credit scoring",
+      "solely_automated_decision": true,
+      "human_in_the_loop": false,
+      "industry_domain": "edtech",
+      "system_name": "EdtechCore_v7",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AUTOMATED_DECISION_MAKING_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "CONTRACT_NECESSITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 22 compliance for edtech processing operations."
+  },
+  {
+    "id": "scen_100_065",
+    "split": "TEST",
+    "title": "Edtech GDPR Compliance Assessment 5",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 13",
+    "question": "Does the edtech system comply with GDPR Art. 13 regarding quality assurance?",
+    "facts": {
+      "data_categories": [
+        "support audio clips"
+      ],
+      "processing_purpose": "quality assurance",
+      "user_notice_provided": false,
+      "industry_domain": "edtech",
+      "system_name": "EdtechCore_v7",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+    ],
+    "expected_counterarguments": [
+      "PROPORTIONALITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 13 compliance for edtech processing operations."
+  },
+  {
+    "id": "scen_100_066",
+    "split": "TEST",
+    "title": "Edtech GDPR Compliance Assessment 6",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 17",
+    "question": "Does the edtech system comply with GDPR Art. 17 regarding account management?",
+    "facts": {
+      "data_categories": [
+        "user profile records"
+      ],
+      "processing_purpose": "account management",
+      "erasure_pipeline_implemented": false,
+      "deletion_mechanism": "manual_ticket",
+      "industry_domain": "edtech",
+      "system_name": "EdtechCore_v7",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "ABSENT_ERASURE_PIPELINE"
+    ],
+    "expected_counterarguments": [
+      "FREEDOM_OF_EXPRESSION_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 17 compliance for edtech processing operations."
+  },
+  {
+    "id": "scen_100_067",
+    "split": "TEST",
+    "title": "Edtech EU_AI_ACT Compliance Assessment 7",
+    "jurisdiction": "EU",
+    "legal_instrument": "EU_AI_ACT",
+    "legal_provision": "EU AI Act Art. 50",
+    "question": "Does the edtech system comply with EU AI Act Art. 50 regarding customer avatar synthesis?",
+    "facts": {
+      "data_categories": [
+        "synthetic conversational audio"
+      ],
+      "processing_purpose": "customer avatar synthesis",
+      "ai_watermark_present": false,
+      "ai_transparency_notice": false,
+      "industry_domain": "edtech",
+      "system_name": "EdtechCore_v7",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AI_ACT_TRANSPARENCY_BREACH"
+    ],
+    "expected_counterarguments": [
+      "ARTISTIC_FREEDOM_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.35,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of EU_AI_ACT EU AI Act Art. 50 compliance for edtech processing operations."
+  },
+  {
+    "id": "scen_100_068",
+    "split": "TEST",
+    "title": "Edtech CPRA Compliance Assessment 8",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.120",
+    "question": "Does the edtech system comply with CPRA \u00a71798.120 regarding targeted ad bidding?",
+    "facts": {
+      "data_categories": [
+        "browsing telemetry",
+        "device identifiers"
+      ],
+      "processing_purpose": "targeted ad bidding",
+      "opt_out_link_present": false,
+      "sale_of_data": true,
+      "industry_domain": "edtech",
+      "system_name": "EdtechCore_v7",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "MISSING_OPT_OUT_MECHANISM"
+    ],
+    "expected_counterarguments": [
+      "SERVICE_PROVIDER_SAFE_HARBOR"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.120 compliance for edtech processing operations."
+  },
+  {
+    "id": "scen_100_069",
+    "split": "TEST",
+    "title": "Edtech GDPR Compliance Assessment 9",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 6(1)(a)",
+    "question": "Does the edtech system comply with GDPR Art. 6(1)(a) regarding feature enhancement?",
+    "facts": {
+      "data_categories": [
+        "user feedback"
+      ],
+      "processing_purpose": "feature enhancement",
+      "user_consent_obtained": true,
+      "user_notice_provided": true,
+      "retention_policy": "90 days",
+      "deletion_mechanism": "automated_ttl",
+      "industry_domain": "edtech",
+      "system_name": "EdtechCore_v7",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 6(1)(a) compliance for edtech processing operations."
+  },
+  {
+    "id": "scen_100_070",
+    "split": "TEST",
+    "title": "Edtech CPRA Compliance Assessment 10",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.100",
+    "question": "Does the edtech system comply with CPRA \u00a71798.100 regarding fulfillment?",
+    "facts": {
+      "data_categories": [
+        "order history"
+      ],
+      "processing_purpose": "fulfillment",
+      "opt_out_link_present": true,
+      "user_notice_provided": true,
+      "retention_policy": "1 year",
+      "industry_domain": "edtech",
+      "system_name": "EdtechCore_v7",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.100 compliance for edtech processing operations."
+  },
+  {
+    "id": "scen_100_071",
+    "split": "TEST",
+    "title": "Recruiting GDPR Compliance Assessment 1",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(b)",
+    "question": "Does the recruiting system comply with GDPR Art. 5(1)(b) regarding secondary AI model improvement?",
+    "facts": {
+      "data_categories": [
+        "customer chat transcripts"
+      ],
+      "processing_purpose": "secondary AI model improvement",
+      "user_consent_obtained": false,
+      "secondary_ai_training": true,
+      "industry_domain": "recruiting",
+      "system_name": "RecruitingCore_v8",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "PURPOSE_LIMITATION_BREACH"
+    ],
+    "expected_counterarguments": [
+      "LEGITIMATE_INTEREST_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(b) compliance for recruiting processing operations."
+  },
+  {
+    "id": "scen_100_072",
+    "split": "TEST",
+    "title": "Recruiting GDPR Compliance Assessment 2",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(e)",
+    "question": "Does the recruiting system comply with GDPR Art. 5(1)(e) regarding security telemetry?",
+    "facts": {
+      "data_categories": [
+        "server access logs"
+      ],
+      "processing_purpose": "security telemetry",
+      "retention_policy": "indefinite",
+      "deletion_mechanism": "none",
+      "industry_domain": "recruiting",
+      "system_name": "RecruitingCore_v8",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "LEGAL_OBLIGATION_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(e) compliance for recruiting processing operations."
+  },
+  {
+    "id": "scen_100_073",
+    "split": "TEST",
+    "title": "Recruiting GDPR Compliance Assessment 3",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 9(1)",
+    "question": "Does the recruiting system comply with GDPR Art. 9(1) regarding wellness classification?",
+    "facts": {
+      "data_categories": [
+        "biometric face embeddings",
+        "health survey records"
+      ],
+      "processing_purpose": "wellness classification",
+      "special_category_data": true,
+      "explicit_consent_obtained": false,
+      "industry_domain": "recruiting",
+      "system_name": "RecruitingCore_v8",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING"
+    ],
+    "expected_counterarguments": [
+      "PUBLIC_HEALTH_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 9(1) compliance for recruiting processing operations."
+  },
+  {
+    "id": "scen_100_074",
+    "split": "TEST",
+    "title": "Recruiting GDPR Compliance Assessment 4",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 22",
+    "question": "Does the recruiting system comply with GDPR Art. 22 regarding credit scoring?",
+    "facts": {
+      "data_categories": [
+        "loan repayment history"
+      ],
+      "processing_purpose": "credit scoring",
+      "solely_automated_decision": true,
+      "human_in_the_loop": false,
+      "industry_domain": "recruiting",
+      "system_name": "RecruitingCore_v8",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AUTOMATED_DECISION_MAKING_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "CONTRACT_NECESSITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 22 compliance for recruiting processing operations."
+  },
+  {
+    "id": "scen_100_075",
+    "split": "TEST",
+    "title": "Recruiting GDPR Compliance Assessment 5",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 13",
+    "question": "Does the recruiting system comply with GDPR Art. 13 regarding quality assurance?",
+    "facts": {
+      "data_categories": [
+        "support audio clips"
+      ],
+      "processing_purpose": "quality assurance",
+      "user_notice_provided": false,
+      "industry_domain": "recruiting",
+      "system_name": "RecruitingCore_v8",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+    ],
+    "expected_counterarguments": [
+      "PROPORTIONALITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 13 compliance for recruiting processing operations."
+  },
+  {
+    "id": "scen_100_076",
+    "split": "TEST",
+    "title": "Recruiting GDPR Compliance Assessment 6",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 17",
+    "question": "Does the recruiting system comply with GDPR Art. 17 regarding account management?",
+    "facts": {
+      "data_categories": [
+        "user profile records"
+      ],
+      "processing_purpose": "account management",
+      "erasure_pipeline_implemented": false,
+      "deletion_mechanism": "manual_ticket",
+      "industry_domain": "recruiting",
+      "system_name": "RecruitingCore_v8",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "ABSENT_ERASURE_PIPELINE"
+    ],
+    "expected_counterarguments": [
+      "FREEDOM_OF_EXPRESSION_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 17 compliance for recruiting processing operations."
+  },
+  {
+    "id": "scen_100_077",
+    "split": "TEST",
+    "title": "Recruiting EU_AI_ACT Compliance Assessment 7",
+    "jurisdiction": "EU",
+    "legal_instrument": "EU_AI_ACT",
+    "legal_provision": "EU AI Act Art. 50",
+    "question": "Does the recruiting system comply with EU AI Act Art. 50 regarding customer avatar synthesis?",
+    "facts": {
+      "data_categories": [
+        "synthetic conversational audio"
+      ],
+      "processing_purpose": "customer avatar synthesis",
+      "ai_watermark_present": false,
+      "ai_transparency_notice": false,
+      "industry_domain": "recruiting",
+      "system_name": "RecruitingCore_v8",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AI_ACT_TRANSPARENCY_BREACH"
+    ],
+    "expected_counterarguments": [
+      "ARTISTIC_FREEDOM_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.35,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of EU_AI_ACT EU AI Act Art. 50 compliance for recruiting processing operations."
+  },
+  {
+    "id": "scen_100_078",
+    "split": "TEST",
+    "title": "Recruiting CPRA Compliance Assessment 8",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.120",
+    "question": "Does the recruiting system comply with CPRA \u00a71798.120 regarding targeted ad bidding?",
+    "facts": {
+      "data_categories": [
+        "browsing telemetry",
+        "device identifiers"
+      ],
+      "processing_purpose": "targeted ad bidding",
+      "opt_out_link_present": false,
+      "sale_of_data": true,
+      "industry_domain": "recruiting",
+      "system_name": "RecruitingCore_v8",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "MISSING_OPT_OUT_MECHANISM"
+    ],
+    "expected_counterarguments": [
+      "SERVICE_PROVIDER_SAFE_HARBOR"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.120 compliance for recruiting processing operations."
+  },
+  {
+    "id": "scen_100_079",
+    "split": "TEST",
+    "title": "Recruiting GDPR Compliance Assessment 9",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 6(1)(a)",
+    "question": "Does the recruiting system comply with GDPR Art. 6(1)(a) regarding feature enhancement?",
+    "facts": {
+      "data_categories": [
+        "user feedback"
+      ],
+      "processing_purpose": "feature enhancement",
+      "user_consent_obtained": true,
+      "user_notice_provided": true,
+      "retention_policy": "90 days",
+      "deletion_mechanism": "automated_ttl",
+      "industry_domain": "recruiting",
+      "system_name": "RecruitingCore_v8",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 6(1)(a) compliance for recruiting processing operations."
+  },
+  {
+    "id": "scen_100_080",
+    "split": "TEST",
+    "title": "Recruiting CPRA Compliance Assessment 10",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.100",
+    "question": "Does the recruiting system comply with CPRA \u00a71798.100 regarding fulfillment?",
+    "facts": {
+      "data_categories": [
+        "order history"
+      ],
+      "processing_purpose": "fulfillment",
+      "opt_out_link_present": true,
+      "user_notice_provided": true,
+      "retention_policy": "1 year",
+      "industry_domain": "recruiting",
+      "system_name": "RecruitingCore_v8",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.100 compliance for recruiting processing operations."
+  },
+  {
+    "id": "scen_100_081",
+    "split": "TEST",
+    "title": "Hospitality GDPR Compliance Assessment 1",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(b)",
+    "question": "Does the hospitality system comply with GDPR Art. 5(1)(b) regarding secondary AI model improvement?",
+    "facts": {
+      "data_categories": [
+        "customer chat transcripts"
+      ],
+      "processing_purpose": "secondary AI model improvement",
+      "user_consent_obtained": false,
+      "secondary_ai_training": true,
+      "industry_domain": "hospitality",
+      "system_name": "HospitalityCore_v9",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "PURPOSE_LIMITATION_BREACH"
+    ],
+    "expected_counterarguments": [
+      "LEGITIMATE_INTEREST_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(b) compliance for hospitality processing operations."
+  },
+  {
+    "id": "scen_100_082",
+    "split": "TEST",
+    "title": "Hospitality GDPR Compliance Assessment 2",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(e)",
+    "question": "Does the hospitality system comply with GDPR Art. 5(1)(e) regarding security telemetry?",
+    "facts": {
+      "data_categories": [
+        "server access logs"
+      ],
+      "processing_purpose": "security telemetry",
+      "retention_policy": "indefinite",
+      "deletion_mechanism": "none",
+      "industry_domain": "hospitality",
+      "system_name": "HospitalityCore_v9",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "LEGAL_OBLIGATION_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(e) compliance for hospitality processing operations."
+  },
+  {
+    "id": "scen_100_083",
+    "split": "TEST",
+    "title": "Hospitality GDPR Compliance Assessment 3",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 9(1)",
+    "question": "Does the hospitality system comply with GDPR Art. 9(1) regarding wellness classification?",
+    "facts": {
+      "data_categories": [
+        "biometric face embeddings",
+        "health survey records"
+      ],
+      "processing_purpose": "wellness classification",
+      "special_category_data": true,
+      "explicit_consent_obtained": false,
+      "industry_domain": "hospitality",
+      "system_name": "HospitalityCore_v9",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING"
+    ],
+    "expected_counterarguments": [
+      "PUBLIC_HEALTH_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 9(1) compliance for hospitality processing operations."
+  },
+  {
+    "id": "scen_100_084",
+    "split": "TEST",
+    "title": "Hospitality GDPR Compliance Assessment 4",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 22",
+    "question": "Does the hospitality system comply with GDPR Art. 22 regarding credit scoring?",
+    "facts": {
+      "data_categories": [
+        "loan repayment history"
+      ],
+      "processing_purpose": "credit scoring",
+      "solely_automated_decision": true,
+      "human_in_the_loop": false,
+      "industry_domain": "hospitality",
+      "system_name": "HospitalityCore_v9",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AUTOMATED_DECISION_MAKING_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "CONTRACT_NECESSITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 22 compliance for hospitality processing operations."
+  },
+  {
+    "id": "scen_100_085",
+    "split": "TEST",
+    "title": "Hospitality GDPR Compliance Assessment 5",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 13",
+    "question": "Does the hospitality system comply with GDPR Art. 13 regarding quality assurance?",
+    "facts": {
+      "data_categories": [
+        "support audio clips"
+      ],
+      "processing_purpose": "quality assurance",
+      "user_notice_provided": false,
+      "industry_domain": "hospitality",
+      "system_name": "HospitalityCore_v9",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+    ],
+    "expected_counterarguments": [
+      "PROPORTIONALITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 13 compliance for hospitality processing operations."
+  },
+  {
+    "id": "scen_100_086",
+    "split": "TEST",
+    "title": "Hospitality GDPR Compliance Assessment 6",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 17",
+    "question": "Does the hospitality system comply with GDPR Art. 17 regarding account management?",
+    "facts": {
+      "data_categories": [
+        "user profile records"
+      ],
+      "processing_purpose": "account management",
+      "erasure_pipeline_implemented": false,
+      "deletion_mechanism": "manual_ticket",
+      "industry_domain": "hospitality",
+      "system_name": "HospitalityCore_v9",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "ABSENT_ERASURE_PIPELINE"
+    ],
+    "expected_counterarguments": [
+      "FREEDOM_OF_EXPRESSION_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 17 compliance for hospitality processing operations."
+  },
+  {
+    "id": "scen_100_087",
+    "split": "TEST",
+    "title": "Hospitality EU_AI_ACT Compliance Assessment 7",
+    "jurisdiction": "EU",
+    "legal_instrument": "EU_AI_ACT",
+    "legal_provision": "EU AI Act Art. 50",
+    "question": "Does the hospitality system comply with EU AI Act Art. 50 regarding customer avatar synthesis?",
+    "facts": {
+      "data_categories": [
+        "synthetic conversational audio"
+      ],
+      "processing_purpose": "customer avatar synthesis",
+      "ai_watermark_present": false,
+      "ai_transparency_notice": false,
+      "industry_domain": "hospitality",
+      "system_name": "HospitalityCore_v9",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AI_ACT_TRANSPARENCY_BREACH"
+    ],
+    "expected_counterarguments": [
+      "ARTISTIC_FREEDOM_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.35,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of EU_AI_ACT EU AI Act Art. 50 compliance for hospitality processing operations."
+  },
+  {
+    "id": "scen_100_088",
+    "split": "TEST",
+    "title": "Hospitality CPRA Compliance Assessment 8",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.120",
+    "question": "Does the hospitality system comply with CPRA \u00a71798.120 regarding targeted ad bidding?",
+    "facts": {
+      "data_categories": [
+        "browsing telemetry",
+        "device identifiers"
+      ],
+      "processing_purpose": "targeted ad bidding",
+      "opt_out_link_present": false,
+      "sale_of_data": true,
+      "industry_domain": "hospitality",
+      "system_name": "HospitalityCore_v9",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "MISSING_OPT_OUT_MECHANISM"
+    ],
+    "expected_counterarguments": [
+      "SERVICE_PROVIDER_SAFE_HARBOR"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.120 compliance for hospitality processing operations."
+  },
+  {
+    "id": "scen_100_089",
+    "split": "TEST",
+    "title": "Hospitality GDPR Compliance Assessment 9",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 6(1)(a)",
+    "question": "Does the hospitality system comply with GDPR Art. 6(1)(a) regarding feature enhancement?",
+    "facts": {
+      "data_categories": [
+        "user feedback"
+      ],
+      "processing_purpose": "feature enhancement",
+      "user_consent_obtained": true,
+      "user_notice_provided": true,
+      "retention_policy": "90 days",
+      "deletion_mechanism": "automated_ttl",
+      "industry_domain": "hospitality",
+      "system_name": "HospitalityCore_v9",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 6(1)(a) compliance for hospitality processing operations."
+  },
+  {
+    "id": "scen_100_090",
+    "split": "TEST",
+    "title": "Hospitality CPRA Compliance Assessment 10",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.100",
+    "question": "Does the hospitality system comply with CPRA \u00a71798.100 regarding fulfillment?",
+    "facts": {
+      "data_categories": [
+        "order history"
+      ],
+      "processing_purpose": "fulfillment",
+      "opt_out_link_present": true,
+      "user_notice_provided": true,
+      "retention_policy": "1 year",
+      "industry_domain": "hospitality",
+      "system_name": "HospitalityCore_v9",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.100 compliance for hospitality processing operations."
+  },
+  {
+    "id": "scen_100_091",
+    "split": "TEST",
+    "title": "Logistics GDPR Compliance Assessment 1",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(b)",
+    "question": "Does the logistics system comply with GDPR Art. 5(1)(b) regarding secondary AI model improvement?",
+    "facts": {
+      "data_categories": [
+        "customer chat transcripts"
+      ],
+      "processing_purpose": "secondary AI model improvement",
+      "user_consent_obtained": false,
+      "secondary_ai_training": true,
+      "industry_domain": "logistics",
+      "system_name": "LogisticsCore_v10",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "PURPOSE_LIMITATION_BREACH"
+    ],
+    "expected_counterarguments": [
+      "LEGITIMATE_INTEREST_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(b) compliance for logistics processing operations."
+  },
+  {
+    "id": "scen_100_092",
+    "split": "TEST",
+    "title": "Logistics GDPR Compliance Assessment 2",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 5(1)(e)",
+    "question": "Does the logistics system comply with GDPR Art. 5(1)(e) regarding security telemetry?",
+    "facts": {
+      "data_categories": [
+        "server access logs"
+      ],
+      "processing_purpose": "security telemetry",
+      "retention_policy": "indefinite",
+      "deletion_mechanism": "none",
+      "industry_domain": "logistics",
+      "system_name": "LogisticsCore_v10",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "STORAGE_LIMITATION_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "LEGAL_OBLIGATION_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 5(1)(e) compliance for logistics processing operations."
+  },
+  {
+    "id": "scen_100_093",
+    "split": "TEST",
+    "title": "Logistics GDPR Compliance Assessment 3",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 9(1)",
+    "question": "Does the logistics system comply with GDPR Art. 9(1) regarding wellness classification?",
+    "facts": {
+      "data_categories": [
+        "biometric face embeddings",
+        "health survey records"
+      ],
+      "processing_purpose": "wellness classification",
+      "special_category_data": true,
+      "explicit_consent_obtained": false,
+      "industry_domain": "logistics",
+      "system_name": "LogisticsCore_v10",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "SPECIAL_CATEGORY_CONSENT_MISSING"
+    ],
+    "expected_counterarguments": [
+      "PUBLIC_HEALTH_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 9(1) compliance for logistics processing operations."
+  },
+  {
+    "id": "scen_100_094",
+    "split": "TEST",
+    "title": "Logistics GDPR Compliance Assessment 4",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 22",
+    "question": "Does the logistics system comply with GDPR Art. 22 regarding credit scoring?",
+    "facts": {
+      "data_categories": [
+        "loan repayment history"
+      ],
+      "processing_purpose": "credit scoring",
+      "solely_automated_decision": true,
+      "human_in_the_loop": false,
+      "industry_domain": "logistics",
+      "system_name": "LogisticsCore_v10",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AUTOMATED_DECISION_MAKING_VIOLATION"
+    ],
+    "expected_counterarguments": [
+      "CONTRACT_NECESSITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 22 compliance for logistics processing operations."
+  },
+  {
+    "id": "scen_100_095",
+    "split": "TEST",
+    "title": "Logistics GDPR Compliance Assessment 5",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 13",
+    "question": "Does the logistics system comply with GDPR Art. 13 regarding quality assurance?",
+    "facts": {
+      "data_categories": [
+        "support audio clips"
+      ],
+      "processing_purpose": "quality assurance",
+      "user_notice_provided": false,
+      "industry_domain": "logistics",
+      "system_name": "LogisticsCore_v10",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "INADEQUATE_NOTICE_FOR_AI_TRAINING"
+    ],
+    "expected_counterarguments": [
+      "PROPORTIONALITY_DEFENSE"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 13 compliance for logistics processing operations."
+  },
+  {
+    "id": "scen_100_096",
+    "split": "TEST",
+    "title": "Logistics GDPR Compliance Assessment 6",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 17",
+    "question": "Does the logistics system comply with GDPR Art. 17 regarding account management?",
+    "facts": {
+      "data_categories": [
+        "user profile records"
+      ],
+      "processing_purpose": "account management",
+      "erasure_pipeline_implemented": false,
+      "deletion_mechanism": "manual_ticket",
+      "industry_domain": "logistics",
+      "system_name": "LogisticsCore_v10",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "ABSENT_ERASURE_PIPELINE"
+    ],
+    "expected_counterarguments": [
+      "FREEDOM_OF_EXPRESSION_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 17 compliance for logistics processing operations."
+  },
+  {
+    "id": "scen_100_097",
+    "split": "TEST",
+    "title": "Logistics EU_AI_ACT Compliance Assessment 7",
+    "jurisdiction": "EU",
+    "legal_instrument": "EU_AI_ACT",
+    "legal_provision": "EU AI Act Art. 50",
+    "question": "Does the logistics system comply with EU AI Act Art. 50 regarding customer avatar synthesis?",
+    "facts": {
+      "data_categories": [
+        "synthetic conversational audio"
+      ],
+      "processing_purpose": "customer avatar synthesis",
+      "ai_watermark_present": false,
+      "ai_transparency_notice": false,
+      "industry_domain": "logistics",
+      "system_name": "LogisticsCore_v10",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "AI_ACT_TRANSPARENCY_BREACH"
+    ],
+    "expected_counterarguments": [
+      "ARTISTIC_FREEDOM_EXEMPTION"
+    ],
+    "expected_uncertainty": 0.35,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of EU_AI_ACT EU AI Act Art. 50 compliance for logistics processing operations."
+  },
+  {
+    "id": "scen_100_098",
+    "split": "TEST",
+    "title": "Logistics CPRA Compliance Assessment 8",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.120",
+    "question": "Does the logistics system comply with CPRA \u00a71798.120 regarding targeted ad bidding?",
+    "facts": {
+      "data_categories": [
+        "browsing telemetry",
+        "device identifiers"
+      ],
+      "processing_purpose": "targeted ad bidding",
+      "opt_out_link_present": false,
+      "sale_of_data": true,
+      "industry_domain": "logistics",
+      "system_name": "LogisticsCore_v10",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [
+      "MISSING_OPT_OUT_MECHANISM"
+    ],
+    "expected_counterarguments": [
+      "SERVICE_PROVIDER_SAFE_HARBOR"
+    ],
+    "expected_uncertainty": 0.45,
+    "ground_truth_gap_outcome": 1,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.120 compliance for logistics processing operations."
+  },
+  {
+    "id": "scen_100_099",
+    "split": "TEST",
+    "title": "Logistics GDPR Compliance Assessment 9",
+    "jurisdiction": "EU",
+    "legal_instrument": "GDPR",
+    "legal_provision": "GDPR Art. 6(1)(a)",
+    "question": "Does the logistics system comply with GDPR Art. 6(1)(a) regarding feature enhancement?",
+    "facts": {
+      "data_categories": [
+        "user feedback"
+      ],
+      "processing_purpose": "feature enhancement",
+      "user_consent_obtained": true,
+      "user_notice_provided": true,
+      "retention_policy": "90 days",
+      "deletion_mechanism": "automated_ttl",
+      "industry_domain": "logistics",
+      "system_name": "LogisticsCore_v10",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of GDPR GDPR Art. 6(1)(a) compliance for logistics processing operations."
+  },
+  {
+    "id": "scen_100_100",
+    "split": "TEST",
+    "title": "Logistics CPRA Compliance Assessment 10",
+    "jurisdiction": "California",
+    "legal_instrument": "CPRA",
+    "legal_provision": "CPRA \u00a71798.100",
+    "question": "Does the logistics system comply with CPRA \u00a71798.100 regarding fulfillment?",
+    "facts": {
+      "data_categories": [
+        "order history"
+      ],
+      "processing_purpose": "fulfillment",
+      "opt_out_link_present": true,
+      "user_notice_provided": true,
+      "retention_policy": "1 year",
+      "industry_domain": "logistics",
+      "system_name": "LogisticsCore_v10",
+      "assessment_date": "2026-10-31"
+    },
+    "ground_truth_issues": [],
+    "expected_counterarguments": [],
+    "expected_uncertainty": 0.2,
+    "ground_truth_gap_outcome": 0,
+    "provenance": "EXPERT_CURATED_SYNTHETIC",
+    "dataset_version": "benchmark_100_v1.0",
+    "rubric": "Evaluation of CPRA CPRA \u00a71798.100 compliance for logistics processing operations."
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "decision_id": "dec_case_alpha_recruitment_01_v1",
+  "case_id": "case_alpha_recruitment_01",
+  "is_valid": true,
+  "stored_digest": "0x7890abcdef1234567890abcdef1234567890abcdef1234567890abcdef123456",
+  "recomputed_digest": "0x7890abcdef1234567890abcdef1234567890abcdef1234567890abcdef123456",
+  "verification_status": "VERIFIED_INTEGRITY",
+  "claims_verified": 4,
+  "sources_verified": 2,
+  "passages_verified": 2,
+  "audit_events_count": 8
+}

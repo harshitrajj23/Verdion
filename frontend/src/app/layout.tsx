@@ -1,22 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { StoreProvider } from "@/lib/store";
 import { AppHeader } from "@/components/AppHeader";
 import { AppSidebar } from "@/components/AppSidebar";
 import { ToastContainer } from "@/components/ToastContainer";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "VERIDION | Decentralized Legal Intelligence Protocol",
@@ -29,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en">
       <body className="min-h-screen bg-cream-100 text-ink antialiased font-sans selection:bg-lavender-200 selection:text-lavender-900">
         <StoreProvider>
           <div className="flex flex-col min-h-screen">
@@ -47,4 +34,3 @@ export default function RootLayout({
     </html>
   );
 }
-

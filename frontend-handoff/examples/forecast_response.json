@@ -1,0 +1,11 @@
+{
+  "forecast_id": "fc_market_biometric_01",
+  "market_id": "mkt_biometric_recruitment_01",
+  "agent_id": "agent_quantitative_forecaster",
+  "commitment_hash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+  "probability": 0.85,
+  "reveal_status": "REVEALED",
+  "brier_score": 0.0225,
+  "commit_tx_hash": "0xcommit_simulated_tx_hash_01",
+  "reveal_tx_hash": "0xreveal_simulated_tx_hash_01"
+}

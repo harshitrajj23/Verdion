@@ -1,0 +1,35 @@
+{
+  "case_id": "case_alpha_recruitment_01",
+  "agents": [
+    {
+      "agentId": "agent_legal_researcher",
+      "role": "LEGAL_RESEARCHER",
+      "status": "ACTIVE",
+      "confidence_contract": {
+        "raw_confidence": 0.95,
+        "calibrated_confidence": 0.95,
+        "confidence_type": "RULE_DERIVED",
+        "calibration_status": "HEURISTIC_BOUNDED",
+        "uncertainty_score": 0.05,
+        "inference_mode": "DETERMINISTIC_RULES",
+        "model_identifier": "deterministic_rule_engine_v1.2"
+      },
+      "claimsCount": 2
+    },
+    {
+      "agentId": "agent_adversarial_researcher",
+      "role": "ADVERSARIAL_RESEARCHER",
+      "status": "ACTIVE",
+      "confidence_contract": {
+        "raw_confidence": 0.7,
+        "calibrated_confidence": 0.65,
+        "confidence_type": "MODEL_ESTIMATED",
+        "calibration_status": "UNCALIBRATED",
+        "uncertainty_score": 0.45,
+        "inference_mode": "OFFLINE_FALLBACK",
+        "model_identifier": "mistralai/Mistral-7B-Instruct-v0.2"
+      },
+      "claimsCount": 1
+    }
+  ]
+}
