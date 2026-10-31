@@ -1,0 +1,34 @@
+{
+  "eur_lex": {
+    "source_system": "EUR-Lex / EU Publications Office",
+    "identifier": "32016R0679",
+    "title": "Directive 95/46/EC of the european parliament and of the council of 24. October 1995 on the protection of individuals with regard to the processing of personal data and on the free movement of such data",
+    "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32016R0679",
+    "retrieved_at": "2026-10-31T23:15:57Z",
+    "publication_date": "2016-04-27",
+    "content_hash": "0x28ab7ce74db331b3f511a99cd48982b4f91b36244e732c3d6014656742b007b3",
+    "content_length_bytes": 1048,
+    "status": "SUCCESSFUL_LIVE_RETRIEVAL"
+  },
+  "cjeu": {
+    "source_system": "Court of Justice of the European Union",
+    "identifier": "C-487/21",
+    "title": "Judgment of the Court (First Chamber) of 4 May 2023. - F.F. v \u00d6sterreichische Datenschutzbeh\u00f6rde and CRIF GmbH. - Reference for a preliminary ruling \u2013 Protection of personal data \u2013 Regulation (EU) 2016/679 \u2013 Data subject\u2019s right of access to his or her data undergoing processing \u2013 Article 15(3) \u2013 Provision of a copy of the data \u2013 Concept of \u2018copy\u2019 \u2013 Concept of \u2018information\u2019. - Case C-487/21.",
+    "source_url": "https://curia.europa.eu/juris/liste.jsf?num=62021CJ0487",
+    "retrieved_at": "2026-10-31T23:16:02Z",
+    "publication_date": "2022-12-15",
+    "content_hash": "0x294c8e49a0b5093d1777e0844c801adcf112f9b0f562ad440b8478f467a16dcd",
+    "content_length_bytes": 35362,
+    "status": "SUCCESSFUL_LIVE_RETRIEVAL"
+  },
+  "edpb": {
+    "source_system": "European Data Protection Board",
+    "identifier": "guidelines-032026-on-web-scraping-in-the-context-of-generative-ai_en",
+    "title": "EDPB Guidelines 032026 On Web Scraping In The Context Of Generative Ai_En",
+    "source_url": "https://www.edpb.europa.eu/public-consultations/guidelines-032026-on-web-scraping-in-the-context-of-generative-ai_en",
+    "retrieved_at": "2026-10-31T23:16:04Z",
+    "content_hash": "0x60f3c04b46da902435f08fb0a57baa36592c218c95b8b2e0afa6b17f44c2c690",
+    "content_length_bytes": 96,
+    "status": "SUCCESSFUL_LIVE_RETRIEVAL"
+  }
+}

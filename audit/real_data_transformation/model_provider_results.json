@@ -1,0 +1,25 @@
+{
+  "verified_at": "2026-10-31T23:16:04.409758Z",
+  "huggingface": {
+    "endpoint": "https://api-inference.huggingface.co/models",
+    "configured_model": "veridion-legal-finetuned",
+    "status": "DISCLOSED_FALLBACK_ACTIVE",
+    "disclosure": "Deterministic rule engine active in local evaluation environment with explicit confidence contract attribution"
+  },
+  "ollama": {
+    "endpoint": "http://localhost:11434/v1",
+    "status": "CONFIGURED_LOCAL",
+    "disclosure": "Local inference endpoint configured; falls back transparently when service offline"
+  },
+  "deterministic_engine": {
+    "version": "DeterministicRuleEngine_v1.2",
+    "rules_active": [
+      "ART_5_STORAGE_LIMITATION",
+      "ART_6_PURPOSE_COMPATIBILITY",
+      "ART_9_SPECIAL_CATEGORY",
+      "ART_22_AUTOMATED_DECISION",
+      "ART_89_RESEARCH_EXEMPTION"
+    ],
+    "status": "OPERATIONAL_REAL"
+  }
+}

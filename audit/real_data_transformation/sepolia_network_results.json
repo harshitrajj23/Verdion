@@ -1,0 +1,9 @@
+{
+  "network": "Ethereum Sepolia Testnet",
+  "chain_id": 11155111,
+  "chain_id_verified": true,
+  "latest_block_number": 12037054,
+  "rpc_provider": "Alchemy Sepolia Gateway (3iY4UXhtAVBnPmW9e0962)",
+  "verified_at": "2026-10-31T23:15:53.047398Z",
+  "status": "CONNECTED_AND_VERIFIED"
+}

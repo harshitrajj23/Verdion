@@ -1,0 +1,19 @@
+{
+  "verified_at": "2026-10-31T23:16:04.410765Z",
+  "total_tests": 115,
+  "passed_tests": 115,
+  "failed_tests": 0,
+  "execution_duration_seconds": 57.09,
+  "scenarios_evaluated": 20,
+  "protocol_recall": 0.823,
+  "test_categories": {
+    "crypto_and_commitments": "PASS (10/10)",
+    "sybil_and_agent_nodes": "PASS (4/4)",
+    "judicial_pipeline_and_temporal_cutoffs": "PASS (5/5)",
+    "deduplication_and_citation": "PASS (5/5)",
+    "adversarial_and_merkle_attacks": "PASS (17/17)",
+    "end_to_end_and_api": "PASS (20/20)",
+    "governance_and_threshold": "PASS (8/8)",
+    "rule_engine_and_benchmarks": "PASS (46/46)"
+  }
+}
