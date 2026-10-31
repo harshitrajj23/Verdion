@@ -451,17 +451,17 @@ export default function CaseWorkspacePage() {
 
             <button
               onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-lavender-50 hover:bg-lavender-100 text-lavender-800 border border-lavender-200 transition-all active:scale-95"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-bubblegum-soft hover:bg-bubblegum-soft/80 text-bubblegum-deep border border-hairline transition-all active:scale-95"
             >
-              <Briefcase className="w-3.5 h-3.5 text-lavender-700" />
+              <Briefcase className="w-3.5 h-3.5 text-bubblegum-deep" />
               <span>New Case</span>
             </button>
 
             <button
               onClick={handleRunAnalysis}
               disabled={isAnalyzing}
-              className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-white transition-all shadow-apple-sm active:scale-95 ${
-                isAnalyzing ? "bg-lavender-400 cursor-not-allowed" : "bg-lavender-700 hover:bg-lavender-800"
+              className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-white transition-all shadow-soft active:scale-95 hover:-translate-y-0.5 ${
+                isAnalyzing ? "bg-bubblegum/50 cursor-not-allowed" : "bg-bubblegum hover:bg-bubblegum-hover"
               }`}
             >
               <Sparkles className={`w-3.5 h-3.5 ${isAnalyzing ? "animate-spin" : ""}`} />
@@ -639,7 +639,7 @@ export default function CaseWorkspacePage() {
               <button
                 onClick={handleBindEvidence}
                 disabled={isBindingEvidence}
-                className="px-3 py-1.5 rounded-full bg-cream-100 hover:bg-cream-200 text-ink border border-cream-300 font-medium transition-all active:scale-95 disabled:opacity-50"
+                className="px-3 py-1.5 rounded-full bg-bubblegum-soft hover:bg-bubblegum-soft/80 text-bubblegum-deep border border-hairline font-semibold transition-all active:scale-95 disabled:opacity-50"
               >
                 {isBindingEvidence ? "Binding Official Sources..." : "1. Bind Evidence"}
               </button>
@@ -647,7 +647,7 @@ export default function CaseWorkspacePage() {
               <button
                 onClick={handleAnalyzeAndSeal}
                 disabled={isSealingDecision}
-                className="px-3 py-1.5 rounded-full bg-lavender-50 hover:bg-lavender-100 text-lavender-800 border border-lavender-200 font-medium transition-all active:scale-95 disabled:opacity-50"
+                className="px-3.5 py-1.5 rounded-full bg-bubblegum hover:bg-bubblegum-hover text-white font-semibold transition-all shadow-soft active:scale-95 hover:-translate-y-0.5 disabled:opacity-50"
               >
                 {isSealingDecision ? "Analyzing & Sealing..." : "2. Analyze & Seal Decision"}
               </button>
@@ -655,13 +655,13 @@ export default function CaseWorkspacePage() {
               <button
                 onClick={handleFinalizeAudit}
                 disabled={isFinalizingAudit}
-                className="px-3 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-medium transition-all active:scale-95 disabled:opacity-50"
+                className="px-3 py-1.5 rounded-full bg-bubblegum-soft hover:bg-bubblegum-soft/80 text-bubblegum-deep border border-hairline font-semibold transition-all active:scale-95 disabled:opacity-50"
               >
                 {isFinalizingAudit ? "Certifying Package..." : "3. Finalize & Certify Audit"}
               </button>
 
               {actionMessage && (
-                <span className="text-[11px] text-ink-secondary italic">
+                <span className="text-[11px] text-muted italic">
                   {actionMessage}
                 </span>
               )}
@@ -671,9 +671,9 @@ export default function CaseWorkspacePage() {
               <button
                 onClick={handleDownloadAuditPackage}
                 disabled={!auditPackage}
-                className="px-3 py-1.5 rounded-full bg-cream-100 hover:bg-cream-200 text-ink border border-cream-300 font-medium transition-all active:scale-95 disabled:opacity-50 flex items-center gap-1"
+                className="px-3 py-1.5 rounded-full bg-cloud hover:bg-bubblegum-soft text-bubblegum-deep border border-hairline font-medium transition-all active:scale-95 disabled:opacity-50 flex items-center gap-1"
               >
-                <Download className="w-3.5 h-3.5 text-lavender-700" />
+                <Download className="w-3.5 h-3.5 text-bubblegum-deep" />
                 <span>Export Package</span>
               </button>
             </div>
@@ -682,7 +682,7 @@ export default function CaseWorkspacePage() {
 
         {/* Unified 6-Area Navigation Tabs */}
         <div className="pt-2">
-          <div className="inline-flex p-1 rounded-full bg-cream-200 border border-cream-300 max-w-full overflow-x-auto scrollbar-none">
+          <div className="inline-flex p-1 rounded-full bg-cloud border border-hairline max-w-full overflow-x-auto scrollbar-none">
             {[
               { id: "overview", label: "A. Decision Overview" },
               { id: "evidence", label: "B. Evidence Explorer" },
@@ -698,8 +698,8 @@ export default function CaseWorkspacePage() {
                 onClick={() => setActiveTab(t.id as any)}
                 className={`px-3.5 py-1.5 text-xs rounded-full font-medium transition-all duration-150 active:scale-[0.97] whitespace-nowrap ${
                   activeTab === t.id
-                    ? "bg-white text-ink shadow-sm border border-cream-300/60 font-semibold"
-                    : "text-ink-secondary hover:text-ink hover:bg-cream-100/60"
+                    ? "bg-bubblegum text-white shadow-soft font-semibold"
+                    : "text-muted hover:text-ink hover:bg-bubblegum-soft/40"
                 }`}
               >
                 {t.label}

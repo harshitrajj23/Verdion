@@ -2,14 +2,6 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import {
-  initialCase,
-  initialAgents,
-  initialGraphNodes,
-  initialGraphEdges,
-  initialMarkets,
-  initialBounties,
-  initialAuditRecords,
-  mockContractAddresses,
   CaseData,
   AgentMetric,
   GraphNode,
@@ -17,8 +9,140 @@ import {
   MarketData,
   BountyData,
   AuditRecord
-} from "./mockData";
+} from "./types";
+import deployments from "./deployments.json";
+import lifecycleSepolia from "./lifecycle_sepolia.json";
 import { api, CreateCasePayload } from "./api";
+
+export const contractAddresses = {
+  chainId: deployments.chainId,
+  networkName: "Ethereum Sepolia Testnet",
+  CaseRegistry: deployments.contracts.CaseRegistry.address,
+  AgentRegistry: deployments.contracts.AgentRegistry.address,
+  PredictionMarket: deployments.contracts.PredictionMarket.address,
+  EvidenceBounty: deployments.contracts.EvidenceBounty.address,
+  ReputationSettlement: deployments.contracts.ReputationSettlement.address
+};
+
+const initialCase: CaseData = {
+  id: lifecycleSepolia.caseId,
+  title: "AI Customer Support Analytics & Secondary Model Training",
+  jurisdiction: "European Union",
+  assessment_date: "2026-03-15",
+  question: "Does secondary processing of unredacted customer support transcripts for generative AI model fine-tuning constitute an incompatible purpose under GDPR Article 6(4) / Article 5(1)(b) absent explicit renewed consent?",
+  scope_version: 1,
+  status: "INVESTIGATION",
+  facts: {
+    processing_purpose: "Customer support AI fine-tuning and sentiment analytics",
+    data_categories: [
+      "Customer support conversation transcripts",
+      "User account identifiers",
+      "Timestamp & session metadata"
+    ],
+    affected_users: "All active EU platform users (approx. 450,000 subjects)",
+    retention_period_days: 365,
+    automated_decision_making: false,
+    user_consent_mechanism: "General clickwrap Terms of Service acceptance at account creation",
+    safeguards: ["Transport Layer Security (TLS 1.3)", "Role-based access control"]
+  },
+  missing_facts: [
+    "Whether data subjects were given granular opt-out before secondary training ingestion",
+    "Whether downstream model weights retain memorized PII"
+  ],
+  source_corpus_version: "2026.1-EU-CURATED",
+  created_at: "2026-03-15T09:00:00Z",
+  updated_at: "2026-03-15T12:00:00Z"
+};
+
+const initialMarkets: MarketData[] = [
+  {
+    market_id: lifecycleSepolia.marketId,
+    case_id: lifecycleSepolia.caseId,
+    case_version: 1,
+    question: "Will independent evaluator identify an unresolved Article 6(4) compliance gap in customer transcript fine-tuning?",
+    outcome_definition: "Resolves TRUE (1) if an unresolved compliance gap is confirmed, FALSE (0) otherwise.",
+    resolution_source: "Evaluator Determination / ReputationSettlement",
+    evaluator_address: lifecycleSepolia.deployer,
+    commit_deadline: "2026-03-15T12:00:00Z",
+    reveal_deadline: "2026-03-15T14:00:00Z",
+    challenge_deadline: "2026-03-16T14:00:00Z",
+    state: "SETTLED",
+    aggregate_probability: 0.65,
+    disagreement_variance: 0.0,
+    sample_size: 1,
+    reward_pool_credits: 1000,
+    revealed_forecasts: [
+      {
+        agent_id: "agent_deployer",
+        agent_address: lifecycleSepolia.deployer,
+        probability: 0.65,
+        evidence_digest: "0x8fa12b9c3f4e8891d09e7284cb9124a919248bb82948019a827401bbac901842",
+        revealed_at: "2026-03-15T14:15:20Z",
+        brier_score: 0.1225
+      }
+    ],
+    challenge_status: { is_challenged: false },
+    settlement_tx: "0x220d460591302025e7f12d621399e2ab15724979678b4aed92ec2d2970e989e4",
+    deadline_phase_label: "Settled on Sepolia Testnet",
+    is_recorded_sepolia: true
+  }
+];
+
+const initialAuditRecords: AuditRecord[] = lifecycleSepolia.steps.map((s, idx) => ({
+  id: `sepolia_step_${idx + 1}`,
+  event_type: s.step === "registerAgent" ? "AGENT_REGISTERED" :
+              s.step === "createMarket" ? "MARKET_CREATED" :
+              s.step === "fundMarket" ? "MARKET_FUNDED" :
+              s.step === "publishMarket" ? "MARKET_PUBLISHED" :
+              s.step === "commitForecast" ? "FORECAST_COMMITTED" :
+              s.step === "closeMarket" ? "MARKET_CLOSED" :
+              s.step === "revealForecast" ? "FORECAST_REVEALED" :
+              s.step === "proposeResolution" ? "RESOLUTION_PROPOSED" : "SETTLEMENT_EXECUTED",
+  actor: lifecycleSepolia.deployer,
+  target_id: s.step === "registerAgent" ? "agent_deployer" : lifecycleSepolia.marketId,
+  payload_digest: s.txHash,
+  tx_hash: s.txHash,
+  timestamp: "2026-03-15T12:00:00Z",
+  block_number: s.blockNumber,
+  status: s.status === "0x1" ? "CONFIRMED" : "REVERTED",
+  source_type: "ON_CHAIN_RECORDED"
+}));
+
+const initialAgents: AgentMetric[] = [
+  {
+    agent_id: "agent_deployer",
+    role: "COORDINATOR",
+    name: "Sepolia Testnet Deployer & Evaluator",
+    status: "COMPLETED",
+    current_task: "Market settlement executed on block 11997718",
+    sources_consulted: 1,
+    claims_generated: 1,
+    counterarguments_count: 0,
+    forecast_prob: 0.65,
+    uncertainty_score: 0.05,
+    elapsed_ms: 120,
+    token_usage: 1006,
+    cost_usd: 0.002,
+    failures: [],
+    last_output_summary: "Confirmed on-chain Sepolia execution."
+  }
+];
+
+const initialGraphNodes: GraphNode[] = [
+  {
+    id: "n_claim_purpose",
+    type: "CLAIM",
+    label: "Customer Support vs AI Fine-Tuning Purpose Compatibility",
+    agent: "agent_deployer",
+    evidence_status: "CONTRADICTED",
+    digest: "0x8fa12b9c3f4e8891d09e7284cb9124a919248bb82948019a827401bbac901842",
+    authority: "GDPR Art 6(4)",
+    details: "Evaluator determination on Sepolia testnet"
+  }
+];
+
+const initialGraphEdges: GraphEdge[] = [];
+const initialBounties: BountyData[] = [];
 
 export interface ToastMessage {
   id: string;
@@ -56,7 +180,7 @@ export interface StoreContextType {
   markets: MarketData[];
   bounties: BountyData[];
   auditRecords: AuditRecord[];
-  contractAddresses: typeof mockContractAddresses;
+  contractAddresses: typeof contractAddresses;
   toasts: ToastMessage[];
   addToast: (toast: Omit<ToastMessage, "id">) => void;
   removeToast: (id: string) => void;
@@ -568,7 +692,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         markets,
         bounties,
         auditRecords,
-        contractAddresses: mockContractAddresses,
+        contractAddresses,
         toasts,
         addToast,
         removeToast,

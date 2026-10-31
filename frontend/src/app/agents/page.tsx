@@ -92,9 +92,9 @@ export default function AgentLaboratoryPage() {
           </div>
         </div>
 
-        {/* Filters and Failure Toggle: Apple Pill Groups */}
+        {/* Filters and Failure Toggle: Pill Groups */}
         <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-          <div className="inline-flex p-1 rounded-full bg-cream-200 border border-cream-300 max-w-full overflow-x-auto scrollbar-none">
+          <div className="inline-flex p-1 rounded-full bg-cloud border border-hairline max-w-full overflow-x-auto scrollbar-none">
             {["ALL", "LEGAL_RESEARCHER", "LEGAL_INTERPRETER", "ADVERSARIAL_RESEARCHER", "EVIDENCE_VERIFIER", "QUANTITATIVE_FORECASTER", "COORDINATOR"].map(
               (role) => (
                 <button
@@ -102,8 +102,8 @@ export default function AgentLaboratoryPage() {
                   onClick={() => setRoleFilter(role)}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-150 active:scale-[0.97] whitespace-nowrap ${
                     roleFilter === role
-                      ? "bg-white text-ink shadow-sm border border-cream-300/60"
-                      : "text-ink-secondary hover:text-ink hover:bg-cream-100/60"
+                      ? "bg-bubblegum text-white shadow-soft font-semibold"
+                      : "text-muted hover:text-ink hover:bg-bubblegum-soft/40"
                   }`}
                 >
                   {role.replace(/_/g, " ")}
@@ -116,8 +116,8 @@ export default function AgentLaboratoryPage() {
             onClick={() => setShowFailuresOnly(!showFailuresOnly)}
             className={`px-3.5 py-1.5 rounded-full text-xs font-medium flex items-center gap-1.5 transition-all duration-150 active:scale-[0.97] ${
               showFailuresOnly
-                ? "bg-rose-100 text-rose-800 border border-rose-300 shadow-sm"
-                : "bg-cream-200 text-ink-secondary border border-cream-300 hover:text-ink"
+                ? "bg-rose-100 text-rose-800 border border-rose-300 shadow-soft"
+                : "bg-cloud text-muted border border-hairline hover:text-ink"
             }`}
           >
             <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />

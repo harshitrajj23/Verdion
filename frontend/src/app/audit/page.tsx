@@ -19,6 +19,8 @@ import {
 } from "lucide-react";
 
 import { api } from "@/lib/api";
+import deployments from "@/lib/deployments.json";
+import lifecycleSepolia from "@/lib/lifecycle_sepolia.json";
 
 export default function AuditExplorerPage() {
   const { auditRecords, contractAddresses, isLiveChain } = useStore();
@@ -115,7 +117,7 @@ export default function AuditExplorerPage() {
         );
       default:
         return (
-          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-cream-200 text-ink-secondary">
+          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-cloud text-muted border border-hairline">
             {status}
           </span>
         );
@@ -125,57 +127,60 @@ export default function AuditExplorerPage() {
   return (
     <div className="space-y-6 animate-fade-in-up">
       {/* Header */}
-      <div className="apple-card p-6 sm:p-8 rounded-[18px] bg-white border border-cream-300 shadow-apple-card space-y-5">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream-200 pb-5">
+      <div className="apple-card p-6 sm:p-8 rounded-[18px] bg-white border border-hairline shadow-soft space-y-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-hairline pb-5">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-lavender-100 text-lavender-700 border border-lavender-200">
+              <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-bubblegum-soft text-bubblegum-deep border border-hairline">
                 §16.7
               </span>
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink font-display">
                 Protocol Audit Explorer
               </h1>
             </div>
-            <p className="text-[15px] text-ink-secondary leading-relaxed">
+            <p className="text-[15px] text-muted leading-relaxed">
               Public tamper-evident ledger of smart contract addresses, lifecycle transitions, cryptographic commitments, evidence digests, and settlement proofs. Records with the &apos;Sepolia Receipt&apos; badge link directly to confirmed transactions on Sepolia Etherscan.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-ink bg-cream-100 px-3.5 py-1.5 rounded-full border border-cream-200 font-mono shadow-apple-sm">
-            <Network className="w-4 h-4 text-lavender-600" />
-            <span>ChainId: {contractAddresses.chainId} ({contractAddresses.networkName})</span>
+          <div className="flex items-center gap-2 text-xs text-ink bg-cloud px-3.5 py-1.5 rounded-full border border-hairline font-mono shadow-soft">
+            <Network className="w-4 h-4 text-bubblegum" />
+            <span>ChainId: {deployments.chainId} ({deployments.network})</span>
           </div>
         </div>
 
-        {/* Contract Address Registry (§12.2, §16.7) */}
+        {/* Contract Address Registry (§12.2, §16.7) - Imported from deployments.json */}
         <div className="space-y-2.5">
-          <span className="text-xs font-bold text-ink uppercase tracking-wider block">
-            Deployed Smart Contract Modules:
+          <span className="text-xs font-bold text-ink uppercase tracking-wider block font-display">
+            Deployed Smart Contract Modules (deployments.json):
           </span>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
             {[
-              { name: "CaseRegistry", address: contractAddresses.CaseRegistry, desc: "FR-001..FR-004 scope versioning" },
-              { name: "AgentRegistry", address: contractAddresses.AgentRegistry, desc: "PRD §8 agent role authorizations" },
-              { name: "PredictionMarket", address: contractAddresses.PredictionMarket, desc: "§10 commit-reveal markets" },
-              { name: "EvidenceBounty", address: contractAddresses.EvidenceBounty, desc: "§11 evidence bounty rubric" },
-              { name: "ReputationSettlement", address: contractAddresses.ReputationSettlement, desc: "FR-048 proper scoring settlement" }
+              { name: "CaseRegistry", address: deployments.contracts.CaseRegistry.address, block: deployments.contracts.CaseRegistry.deployBlock, desc: "FR-001..FR-004 scope versioning" },
+              { name: "AgentRegistry", address: deployments.contracts.AgentRegistry.address, block: deployments.contracts.AgentRegistry.deployBlock, desc: "PRD §8 agent role authorizations" },
+              { name: "PredictionMarket", address: deployments.contracts.PredictionMarket.address, block: deployments.contracts.PredictionMarket.deployBlock, desc: "§10 commit-reveal markets" },
+              { name: "EvidenceBounty", address: deployments.contracts.EvidenceBounty.address, block: deployments.contracts.EvidenceBounty.deployBlock, desc: "§11 evidence bounty rubric" },
+              { name: "ReputationSettlement", address: deployments.contracts.ReputationSettlement.address, block: deployments.contracts.ReputationSettlement.deployBlock, desc: "FR-048 proper scoring settlement" }
             ].map((c) => (
               <div
                 key={c.name}
-                className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-200 space-y-1.5 hover:border-lavender-300 hover:shadow-apple-sm transition-all"
+                className="p-3.5 rounded-[14px] bg-cloud border border-hairline space-y-1.5 hover:border-bubblegum hover:shadow-soft transition-all"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-xs text-lavender-700">{c.name}</span>
+                  <span className="font-bold text-xs text-bubblegum-deep font-display">{c.name}</span>
                   <button
                     onClick={() => copyToClipboard(c.name, c.address)}
-                    className="p-1 rounded-full text-ink-tertiary hover:text-ink hover:bg-cream-200 transition-colors"
+                    className="p-1 rounded-full text-muted hover:text-ink hover:bg-white transition-colors"
                     title="Copy Address"
                   >
                     {copiedKey === c.name ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
                 <div className="font-mono text-[11px] text-ink font-medium truncate">{c.address}</div>
-                <div className="text-[11px] text-ink-secondary">{c.desc}</div>
+                <div className="flex items-center justify-between text-[11px] text-muted">
+                  <span>{c.desc}</span>
+                  <span className="font-mono text-[10px] text-bubblegum-deep">Block {c.block}</span>
+                </div>
               </div>
             ))}
           </div>
@@ -183,25 +188,25 @@ export default function AuditExplorerPage() {
       </div>
 
       {/* Option C Independent Audit Verifier Panel */}
-      <div className="apple-card p-6 sm:p-8 rounded-[18px] bg-white border border-cream-300 shadow-apple-card space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream-200 pb-4">
+      <div className="apple-card p-6 sm:p-8 rounded-[18px] bg-white border border-hairline shadow-soft space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-hairline pb-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-lavender-100 text-lavender-700 border border-lavender-200">
+              <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-bubblegum-soft text-bubblegum-deep border border-hairline">
                 Option C Offline Verifier
               </span>
-              <h3 className="text-xl font-bold text-ink">Independent Audit Package Verifier</h3>
+              <h3 className="text-xl font-bold text-ink font-display">Independent Audit Package Verifier</h3>
             </div>
-            <p className="text-xs text-ink-secondary mt-1">
+            <p className="text-xs text-muted mt-1">
               Verify any exported VERIDION Audit Package offline. Recomputes canonical decision digests, Merkle root checkpoints, commit-reveal keccak256 hashes, and Brier proper scoring without trusting the server.
             </p>
           </div>
 
           <button
             onClick={() => setIsVerifierOpen(!isVerifierOpen)}
-            className="apple-btn-secondary text-xs py-1.5 px-3 flex items-center gap-1.5"
+            className="apple-btn-secondary text-xs py-1.5 px-3.5 flex items-center gap-1.5"
           >
-            <ShieldCheck className="w-4 h-4 text-lavender-700" />
+            <ShieldCheck className="w-4 h-4 text-bubblegum-deep" />
             <span>{isVerifierOpen ? "Hide Verifier Console" : "Open Verifier Console"}</span>
           </button>
         </div>
@@ -209,7 +214,7 @@ export default function AuditExplorerPage() {
         {isVerifierOpen && (
           <div className="space-y-4 pt-2">
             <div>
-              <label className="text-xs font-semibold text-ink block mb-1.5">
+              <label className="text-xs font-semibold text-ink block mb-1.5 font-display">
                 Paste Audit Package JSON or Decision Record:
               </label>
               <textarea
@@ -217,18 +222,18 @@ export default function AuditExplorerPage() {
                 onChange={(e) => setPackageJsonInput(e.target.value)}
                 placeholder='{"manifest": {...}, "decision_record": {...}, "checksums": {...}}'
                 rows={6}
-                className="w-full font-mono text-xs p-3.5 rounded-[14px] bg-cream-50 border border-cream-300 text-ink focus:outline-none focus:border-lavender-400 focus:ring-1 focus:ring-lavender-300"
+                className="w-full font-mono text-xs p-3.5 rounded-[14px] bg-cloud border border-hairline text-ink focus:outline-none focus:border-bubblegum focus:ring-1 focus:ring-bubblegum/30"
               />
             </div>
 
             <div className="flex items-center justify-between gap-3">
-              <span className="text-[11px] text-ink-muted">
+              <span className="text-[11px] text-muted">
                 Zero server-trust required: all digests and cryptographic chains verified deterministically.
               </span>
               <button
                 onClick={handleVerifyPackage}
                 disabled={isVerifying}
-                className="apple-btn-primary text-xs py-2 px-4 flex items-center gap-1.5 shadow-sm shrink-0"
+                className="apple-btn-primary text-xs py-2 px-4 flex items-center gap-1.5 shadow-soft shrink-0"
               >
                 <ShieldCheck className="w-4 h-4" />
                 <span>{isVerifying ? "Verifying..." : "Run Cryptographic Verification"}</span>
@@ -242,11 +247,11 @@ export default function AuditExplorerPage() {
             )}
 
             {verificationResult && (
-              <div className="p-5 rounded-[14px] bg-cream-50 border border-cream-300 space-y-3">
-                <div className="flex items-center justify-between border-b border-cream-200 pb-2.5">
+              <div className="p-5 rounded-[14px] bg-cloud border border-hairline space-y-3">
+                <div className="flex items-center justify-between border-b border-hairline pb-2.5">
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-lavender-700" />
-                    <span className="text-xs font-bold text-ink">Verification Report Verdict:</span>
+                    <ShieldCheck className="w-4 h-4 text-bubblegum-deep" />
+                    <span className="text-xs font-bold text-ink font-display">Verification Report Verdict:</span>
                   </div>
                   <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold font-mono ${
                     verificationResult.overall_status === "VERIFIED"
@@ -259,15 +264,15 @@ export default function AuditExplorerPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs">
                   {Object.entries(verificationResult.checks || {}).map(([key, check]: [string, any]) => (
-                    <div key={key} className="p-2.5 rounded-lg bg-white border border-cream-200 space-y-1">
+                    <div key={key} className="p-2.5 rounded-lg bg-white border border-hairline space-y-1">
                       <div className="flex items-center justify-between">
                         <span className="font-semibold text-ink capitalize text-[11px]">{key.replace(/_/g, " ")}:</span>
-                        <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-cream-100 text-ink">
+                        <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-cloud text-ink">
                           {check.status}
                         </span>
                       </div>
-                      {check.digest && <div className="text-[10px] font-mono text-ink-muted truncate">Digest: {check.digest}</div>}
-                      {check.merkle_checkpoint_root && <div className="text-[10px] font-mono text-ink-muted truncate">Merkle: {check.merkle_checkpoint_root}</div>}
+                      {check.digest && <div className="text-[10px] font-mono text-muted truncate">Digest: {check.digest}</div>}
+                      {check.merkle_checkpoint_root && <div className="text-[10px] font-mono text-muted truncate">Merkle: {check.merkle_checkpoint_root}</div>}
                     </div>
                   ))}
                 </div>
@@ -278,12 +283,19 @@ export default function AuditExplorerPage() {
       </div>
 
       {/* Audit Log Table */}
-      <div className="apple-card p-6 rounded-[18px] bg-white border border-cream-300 shadow-apple-card space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream-200 pb-4">
+      <div className="apple-card p-6 rounded-[18px] bg-white border border-hairline shadow-soft space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-hairline pb-4">
           <div>
-            <h3 className="text-base font-bold text-ink">Immutable Event Journal</h3>
-            <p className="text-xs text-ink-secondary">
-              {isLiveChain ? "Live on-chain transaction log" : "Chronological feed of validated testnet state transitions and benchmark records."}
+            <div className="flex items-center gap-2">
+              <h3 className="text-base font-bold text-ink font-display">Immutable Event Journal</h3>
+              {!isLiveChain && (
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cloud text-muted border border-hairline uppercase tracking-wider">
+                  No live data
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-muted">
+              {isLiveChain ? "Live on-chain transaction log from Sepolia network." : "Chronological feed of validated testnet state transitions and benchmark records."}
             </p>
           </div>
 
@@ -295,7 +307,7 @@ export default function AuditExplorerPage() {
                 setSourceFilter(e.target.value);
                 setCurrentPage(1);
               }}
-              className="bg-cream-100 border border-cream-200 rounded-full px-3.5 py-1.5 text-xs text-ink font-medium focus:outline-none cursor-pointer"
+              className="bg-cloud border border-hairline rounded-full px-3.5 py-1.5 text-xs text-ink font-medium focus:outline-none cursor-pointer"
             >
               <option value="ALL">All Data Sources</option>
               <option value="ON_CHAIN_RECORDED">Recorded Sepolia Receipts</option>
@@ -303,8 +315,8 @@ export default function AuditExplorerPage() {
             </select>
 
             {/* Event Type Filter */}
-            <div className="flex items-center gap-1.5 bg-cream-100 border border-cream-200 rounded-full px-3 py-1.5 text-xs text-ink">
-              <Filter className="w-3.5 h-3.5 text-ink-tertiary" />
+            <div className="flex items-center gap-1.5 bg-cloud border border-hairline rounded-full px-3 py-1.5 text-xs text-ink">
+              <Filter className="w-3.5 h-3.5 text-muted" />
               <select
                 value={eventTypeFilter}
                 onChange={(e) => {
@@ -328,7 +340,7 @@ export default function AuditExplorerPage() {
                 setStatusFilter(e.target.value);
                 setCurrentPage(1);
               }}
-              className="bg-cream-100 border border-cream-200 rounded-full px-3.5 py-1.5 text-xs text-ink font-medium focus:outline-none cursor-pointer"
+              className="bg-cloud border border-hairline rounded-full px-3.5 py-1.5 text-xs text-ink font-medium focus:outline-none cursor-pointer"
             >
               <option value="ALL">All Statuses</option>
               <option value="CONFIRMED">Confirmed</option>
@@ -338,7 +350,7 @@ export default function AuditExplorerPage() {
 
             {/* Search Input */}
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-ink-tertiary absolute left-3 top-2.5" />
+              <Search className="w-3.5 h-3.5 text-muted absolute left-3 top-2.5" />
               <input
                 type="text"
                 placeholder="Search target, tx, actor..."
@@ -347,7 +359,7 @@ export default function AuditExplorerPage() {
                   setSearch(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="pl-8 pr-4 py-1.5 rounded-full bg-cream-100 border border-cream-200 text-xs text-ink placeholder:text-ink-tertiary focus:outline-none focus:border-lavender-600 focus:bg-white w-56 shadow-apple-sm transition-all"
+                className="pl-8 pr-4 py-1.5 rounded-full bg-cloud border border-hairline text-xs text-ink placeholder:text-muted focus:outline-none focus:border-bubblegum focus:bg-white w-56 shadow-soft transition-all"
               />
             </div>
           </div>
@@ -355,7 +367,7 @@ export default function AuditExplorerPage() {
 
         {filteredAudit.length === 0 ? (
           <EmptyState
-            icon={<FileCheck2 className="w-7 h-7 text-ink-tertiary" />}
+            icon={<FileCheck2 className="w-7 h-7 text-muted" />}
             title="No Matching Audit Records"
             description="Try clearing your search query or selecting 'All Event Types' to inspect the complete cryptographic journal."
           />
@@ -364,7 +376,7 @@ export default function AuditExplorerPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-cream-200 text-ink-secondary font-semibold text-[10px] uppercase tracking-wider bg-cream-50">
+                  <tr className="border-b border-hairline text-muted font-semibold text-[10px] uppercase tracking-wider bg-cloud">
                     <th className="py-3 px-3.5">Provenance</th>
                     <th className="py-3 px-3.5">Event Type</th>
                     <th className="py-3 px-3.5">Target ID</th>
@@ -375,28 +387,28 @@ export default function AuditExplorerPage() {
                     <th className="py-3 px-3.5">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-cream-200">
+                <tbody className="divide-y divide-hairline">
                   {paginatedAudit.map((row) => (
-                    <tr key={row.id} className="hover:bg-cream-50 transition-colors">
+                    <tr key={row.id} className="hover:bg-cloud/60 transition-colors">
                       <td className="py-3 px-3.5">
                         {row.source_type === "ON_CHAIN_RECORDED" ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
-                            <Check className="w-3 h-3 text-emerald-600" />
-                            Sepolia Receipt
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-bubblegum-soft text-bubblegum-deep border border-hairline">
+                            <Check className="w-3 h-3 text-bubblegum-deep" />
+                            Sepolia testnet, single-deployer demo
                           </span>
                         ) : (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cream-200 text-ink-muted border border-cream-300">
-                            Sample Demo
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cloud text-muted border border-hairline uppercase tracking-wider">
+                            No live data
                           </span>
                         )}
                       </td>
                       <td className="py-3 px-3.5">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-lavender-50 text-lavender-700 border border-lavender-200">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-bubblegum-soft text-bubblegum-deep border border-hairline">
                           {row.event_type}
                         </span>
                       </td>
                       <td className="py-3 px-3.5 font-semibold text-ink">{row.target_id}</td>
-                      <td className="py-3 px-3.5 font-mono text-[11px] text-ink-secondary">
+                      <td className="py-3 px-3.5 font-mono text-[11px] text-muted">
                         {row.actor.slice(0, 8)}...{row.actor.slice(-4)}
                       </td>
                       <td className="py-3 px-3.5 font-mono text-[11px] text-ink">{row.block_number}</td>
@@ -406,19 +418,19 @@ export default function AuditExplorerPage() {
                             href={`https://sepolia.etherscan.io/tx/${row.tx_hash}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-mono text-[11px] text-lavender-700 hover:text-lavender-900 flex items-center gap-1 font-medium"
+                            className="font-mono text-[11px] text-bubblegum-deep hover:underline flex items-center gap-1 font-medium"
                           >
                             <span>{row.tx_hash.slice(0, 10)}...</span>
-                            <ExternalLink className="w-3 h-3 text-lavender-600" />
+                            <ExternalLink className="w-3 h-3 text-bubblegum" />
                           </a>
                         ) : (
-                          <span className="font-mono text-[11px] text-ink-muted flex items-center gap-1">
+                          <span className="font-mono text-[11px] text-muted flex items-center gap-1">
                             <span>{row.tx_hash.slice(0, 10)}...</span>
-                            <span className="text-[9px] text-amber-800 bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200 font-sans">Simulated</span>
+                            <span className="text-[9px] text-bubblegum-deep bg-bubblegum-soft px-1.5 py-0.2 rounded border border-hairline font-sans font-semibold">Simulated</span>
                           </span>
                         )}
                       </td>
-                      <td className="py-3 px-3.5 font-mono text-[11px] text-ink-tertiary">
+                      <td className="py-3 px-3.5 font-mono text-[11px] text-muted">
                         {row.payload_digest.slice(0, 12)}...
                       </td>
                       <td className="py-3 px-3.5">
@@ -432,7 +444,7 @@ export default function AuditExplorerPage() {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-between pt-3 border-t border-cream-200 text-xs text-ink-secondary">
+              <div className="flex items-center justify-between pt-3 border-t border-hairline text-xs text-muted">
                 <span>
                   Showing {(currentPage - 1) * itemsPerPage + 1}–{Math.min(currentPage * itemsPerPage, filteredAudit.length)} of {filteredAudit.length} records
                 </span>
@@ -440,7 +452,7 @@ export default function AuditExplorerPage() {
                   <button
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="p-1.5 rounded-full bg-cream-100 border border-cream-200 text-ink hover:bg-cream-200 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    className="p-1.5 rounded-full bg-cloud border border-hairline text-ink hover:bg-bubblegum-soft disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
@@ -450,7 +462,7 @@ export default function AuditExplorerPage() {
                   <button
                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="p-1.5 rounded-full bg-cream-100 border border-cream-200 text-ink hover:bg-cream-200 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    className="p-1.5 rounded-full bg-cloud border border-hairline text-ink hover:bg-bubblegum-soft disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { AgentMetric } from "@/lib/mockData";
+import { AgentMetric } from "@/lib/types";
 import {
   Clock,
   Database,
@@ -20,22 +20,22 @@ interface AgentCardProps {
 
 export const AgentCard: React.FC<AgentCardProps> = ({ agent }) => {
   const statusColor = {
-    ACTIVE: "bg-lavender-100 text-lavender-800 border-lavender-200",
-    COMPLETED: "bg-lavender-50 text-lavender-700 border-lavender-200",
-    FAILED: "bg-rose-50 text-rose-700 border-rose-200",
-    IDLE: "bg-cream-200 text-ink-muted border-cream-300",
+    ACTIVE: "bg-bubblegum-soft text-bubblegum-deep border-hairline font-semibold",
+    COMPLETED: "bg-emerald-50 text-emerald-800 border-emerald-200 font-semibold",
+    FAILED: "bg-rose-50 text-rose-700 border-rose-200 font-semibold",
+    IDLE: "bg-cloud text-muted border-hairline",
     ABSTAINED: "bg-amber-50 text-amber-800 border-amber-200"
   }[agent.status];
 
   return (
-    <div className="apple-card space-y-4 hover:border-lavender-300/90 transition-all duration-200">
+    <div className="apple-card space-y-4 hover:border-bubblegum hover:shadow-soft transition-all duration-200 bg-white border border-hairline">
       {/* Header */}
-      <div className="flex items-start justify-between gap-3 border-b border-cream-200 pb-3">
+      <div className="flex items-start justify-between gap-3 border-b border-hairline pb-3">
         <div>
-          <span className="text-[10px] font-mono text-lavender-700 tracking-wider uppercase font-semibold">
+          <span className="text-[10px] font-mono text-bubblegum-deep tracking-wider uppercase font-semibold">
             {agent.role}
           </span>
-          <h3 className="text-base font-semibold text-ink mt-0.5 font-appleDisplay">{agent.name}</h3>
+          <h3 className="text-base font-semibold text-ink mt-0.5 font-display">{agent.name}</h3>
         </div>
         <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${statusColor}`}>
           {agent.status}
@@ -44,24 +44,24 @@ export const AgentCard: React.FC<AgentCardProps> = ({ agent }) => {
 
       {/* Current Task */}
       <div className="space-y-1">
-        <span className="text-[11px] font-semibold text-ink-muted uppercase tracking-wider">Current Task:</span>
-        <p className="text-xs text-ink bg-cream-50 p-3 rounded-[12px] border border-cream-200 leading-relaxed">
+        <span className="text-[11px] font-semibold text-muted uppercase tracking-wider">Current Task:</span>
+        <p className="text-xs text-ink bg-cloud p-3 rounded-[12px] border border-hairline leading-relaxed">
           {agent.current_task}
         </p>
       </div>
 
       {/* Metrics Grid */}
       <div className="grid grid-cols-3 gap-2 text-center">
-        <div className="p-2.5 rounded-[12px] bg-cream-50 border border-cream-200">
-          <span className="text-[10px] text-ink-muted block font-medium">Sources</span>
-          <span className="text-xs font-mono font-bold text-lavender-700">{agent.sources_consulted}</span>
+        <div className="p-2.5 rounded-[12px] bg-cloud border border-hairline">
+          <span className="text-[10px] text-muted block font-medium">Sources</span>
+          <span className="text-xs font-mono font-bold text-bubblegum-deep">{agent.sources_consulted}</span>
         </div>
-        <div className="p-2.5 rounded-[12px] bg-cream-50 border border-cream-200">
-          <span className="text-[10px] text-ink-muted block font-medium">Claims</span>
+        <div className="p-2.5 rounded-[12px] bg-cloud border border-hairline">
+          <span className="text-[10px] text-muted block font-medium">Claims</span>
           <span className="text-xs font-mono font-bold text-ink">{agent.claims_generated}</span>
         </div>
-        <div className="p-2.5 rounded-[12px] bg-cream-50 border border-cream-200">
-          <span className="text-[10px] text-ink-muted block font-medium">Objections</span>
+        <div className="p-2.5 rounded-[12px] bg-cloud border border-hairline">
+          <span className="text-[10px] text-muted block font-medium">Objections</span>
           <span className="text-xs font-mono font-bold text-rose-700">{agent.counterarguments_count}</span>
         </div>
       </div>

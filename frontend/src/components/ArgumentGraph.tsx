@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { GraphNode, GraphEdge } from "@/lib/mockData";
+import { GraphNode, GraphEdge } from "@/lib/types";
 import {
   CheckCircle2,
   XCircle,
@@ -47,37 +47,37 @@ export const ArgumentGraph: React.FC<ArgumentGraphProps> = ({ nodes, edges }) =>
     SUPPORT: { stroke: "#10b981", label: "Supports", badge: "bg-emerald-50 text-emerald-700 border-emerald-200" },
     CONTRADICTION: { stroke: "#e11d48", label: "Contradicts", badge: "bg-rose-50 text-rose-700 border-rose-200" },
     QUALIFY: { stroke: "#d97706", label: "Qualifies", badge: "bg-amber-50 text-amber-700 border-amber-200" },
-    DEPEND_ON: { stroke: "#6e50bd", label: "Depends On", badge: "bg-lavender-50 text-lavender-700 border-lavender-200" },
+    DEPEND_ON: { stroke: "#FF8FB1", label: "Depends On", badge: "bg-bubblegum-soft text-bubblegum-deep border border-hairline" },
     SUPERSEDE: { stroke: "#8b5cf6", label: "Supersedes", badge: "bg-purple-50 text-purple-700 border-purple-200" }
   };
 
   return (
     <div className="space-y-4">
       {/* Controls Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 rounded-[16px] bg-white border border-cream-300 shadow-apple-card">
-        {/* Apple Segmented Control */}
-        <div className="inline-flex p-1 rounded-full bg-cream-200 border border-cream-300">
+      <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 rounded-[16px] bg-white border border-hairline shadow-soft">
+        {/* Segmented Control */}
+        <div className="inline-flex p-1 rounded-full bg-cloud border border-hairline">
           <button
             onClick={() => setViewMode("visual")}
             className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs transition-all ${
               viewMode === "visual"
-                ? "bg-white text-ink shadow-apple-sm font-semibold"
-                : "text-ink-secondary hover:text-ink font-medium"
+                ? "bg-bubblegum text-white shadow-soft font-semibold"
+                : "text-muted hover:text-ink font-medium"
             }`}
           >
-            <Network className="w-3.5 h-3.5 text-lavender-600" />
+            <Network className={`w-3.5 h-3.5 ${viewMode === "visual" ? "text-white" : "text-bubblegum"}`} />
             <span>Visual Graph</span>
           </button>
           <button
             onClick={() => setViewMode("table")}
             className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs transition-all ${
               viewMode === "table"
-                ? "bg-white text-ink shadow-apple-sm font-semibold"
-                : "text-ink-secondary hover:text-ink font-medium"
+                ? "bg-bubblegum text-white shadow-soft font-semibold"
+                : "text-muted hover:text-ink font-medium"
             }`}
             title="Full screen-reader accessible text & table fallback (§16.4)"
           >
-            <TableIcon className="w-3.5 h-3.5 text-lavender-600" />
+            <TableIcon className={`w-3.5 h-3.5 ${viewMode === "table" ? "text-white" : "text-bubblegum"}`} />
             <span>Accessible Table Fallback (§16.4)</span>
           </button>
         </div>

@@ -3,400 +3,314 @@
 import React from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
+import deployments from "@/lib/deployments.json";
+import lifecycleSepolia from "@/lib/lifecycle_sepolia.json";
+import resultsTrainLive from "@/data/results_train_live.json";
 import {
   Briefcase,
   TrendingUp,
   Gift,
   Coins,
-  ShieldCheck,
-  AlertTriangle,
   ArrowRight,
   ExternalLink,
-  CheckCircle2,
-  Clock,
   Layers,
-  Sparkles,
-  Database,
-  Radio,
   FileCheck,
-  Scale,
-  Cpu
+  CheckCircle2,
+  Clock
 } from "lucide-react";
 
 export default function DashboardPage() {
-  const { currentCase, casesList, markets, bounties, auditRecords, isLiveChain, userCredits } = useStore();
+  const { currentCase } = useStore();
 
-  const activeMarket = markets[0];
-  const activeBounty = bounties[0];
-  const settlements = auditRecords.filter(
-    (a) => a.event_type === "SETTLEMENT_EXECUTED" || a.event_type === "BOUNTY_SETTLED"
-  );
+  // 1. Prediction markets & settlement from lifecycle_sepolia.json
+  const marketCount = lifecycleSepolia.marketId ? 1 : 0;
+  const settledMarketCount = lifecycleSepolia.finalState?.marketStateName === "SETTLED" ? 1 : 0;
+  // Brier computed from probBps 6500 (0.65) vs outcome true (1) = (0.65 - 1)^2 = 0.1225
+  const prob = 6500 / 10000;
+  const sepoliaBrier = Math.pow(prob - 1, 2).toFixed(4); // 0.1225
 
-  const brierScores = markets.flatMap((m) =>
-    (m.revealed_forecasts || [])
-      .map((f) => f.brier_score)
-      .filter((b): b is number => typeof b === "number")
-  );
-  const liveBrier = brierScores.length > 0
-    ? (brierScores.reduce((a, b) => a + b, 0) / brierScores.length).toFixed(4)
-    : null;
-  const settledMarkets = markets.filter((m) => m.state === "SETTLED").length;
-  const openMarkets = markets.filter((m) => m.state === "PUBLISHED" || m.state === "REVEAL").length;
-  const openBounties = bounties.filter((b) => b.state === "OPEN" || b.state === "REVIEW").length;
+  // 2. Deployed contract count from deployments.json (5 contracts)
+  const deployedContractCount = Object.keys(deployments.contracts).length; // 5
+
+  // 3. Train benchmark mean Brier from results_train_live.json only (0.1611)
+  const trainBenchmarkBrier = resultsTrainLive.aggregate_brier_scores.live_forecaster.toFixed(4); // 0.1611
 
   return (
     <div className="space-y-10 animate-fade-in-up">
-      {/* ── Apple Hero Tile: Dark Obsidian Tile (design.md §product-tile-dark) ── */}
-      <section className="relative overflow-hidden rounded-[24px] bg-tile-dark text-cream-100 p-8 sm:p-12 border border-tile-border shadow-apple-hover">
-        <div className="relative z-10 max-w-3xl space-y-5">
-          {/* Top Category Tag & Mode Indicator */}
-          <div className="flex flex-wrap items-center gap-2.5">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-lavender-500/20 text-lavender-300 border border-lavender-500/30">
-              <Sparkles className="w-3.5 h-3.5 text-lavender-300" />
-              <span>Decentralized Legal Intelligence Protocol</span>
-            </span>
-
-            <span
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium border ${
-                isLiveChain
-                  ? "bg-lavender-900/60 text-lavender-200 border-lavender-500/40"
-                  : "bg-cream-200/20 text-cream-200 border-cream-400/30"
-              }`}
-            >
-              {isLiveChain ? (
-                <>
-                  <Radio className="w-3 h-3 text-lavender-300" />
-                  <span>Sepolia Testnet Live</span>
-                </>
-              ) : (
-                <>
-                  <Database className="w-3 h-3 text-cream-300" />
-                  <span>Curated Benchmark Sample</span>
-                </>
-              )}
-            </span>
+      {/* ── Plain White Hero Section (Fraunces headline, 1 muted paragraph, 2 buttons) ── */}
+      <section className="rounded-2xl bg-white p-8 sm:p-12 border border-hairline shadow-soft space-y-6">
+        <div className="max-w-3xl space-y-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-bubblegum-soft text-bubblegum-deep border border-hairline">
+            <span>Sepolia testnet, single-deployer demo</span>
           </div>
 
-          {/* Apple Display Headline (design.md §display-lg: 40px, 600 weight, -0.28px tracking) */}
-          <div className="space-y-2">
-            <h1 className="text-3xl sm:text-5xl font-semibold tracking-apple-tight text-white leading-[1.08] font-appleDisplay">
-              Evidence-Grounded Legal Risk Forecasting.
-            </h1>
-            <p className="text-base sm:text-lg text-cream-300 font-normal leading-relaxed max-w-2xl font-appleText">
-              Coordinating autonomous multi-agent swarms, prediction markets, and evidence bounties.
-              Cryptographically verified on-chain via commit-reveal proper scoring.
-            </p>
-          </div>
+          <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-ink font-display leading-[1.12]">
+            Evidence-Grounded Legal Risk Forecasting.
+          </h1>
 
-          {/* Action CTAs: Apple Pill CTAs (§button-primary & §button-secondary-pill) */}
+          <p className="text-base sm:text-lg text-muted font-normal leading-relaxed max-w-2xl font-sans">
+            Autonomous multi-agent swarms, commit-reveal prediction markets, and verifiable cryptographic audit trails for European AI and data protection law.
+          </p>
+
           <div className="flex flex-wrap items-center gap-3 pt-2">
-            <Link
-              href="/cases"
-              className="apple-btn-primary"
-            >
-              <span>Explore Case Workspace</span>
+            <Link href="/markets" className="apple-btn-primary">
+              <span>View Prediction Market</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link
-              href="/markets"
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-[15px] font-medium text-cream-100 bg-tile-dark2 hover:bg-tile-dark3 border border-tile-border transition-all active:scale-[0.97]"
-            >
-              <TrendingUp className="w-4 h-4 text-lavender-300" />
-              <span>Prediction Markets</span>
+            <Link href="/benchmark" className="apple-btn-secondary">
+              <span>Inspect Benchmark Data</span>
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-
-          {/* Metadata Footprint Chips */}
-          <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-tile-border/60 text-xs text-cream-400">
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-tile-dark2 border border-tile-border/80">
-              <span className="w-1.5 h-1.5 rounded-full bg-lavender-400" />
-              <span>Jurisdiction: <strong className="text-cream-200">European Union</strong></span>
-            </div>
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-tile-dark2 border border-tile-border/80">
-              <span className="w-1.5 h-1.5 rounded-full bg-lavender-300" />
-              <span>Corpus Digest: <strong className="font-mono text-cream-200">0x8fa12b...</strong></span>
-            </div>
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-tile-dark2 border border-tile-border/80">
-              <span className="w-1.5 h-1.5 rounded-full bg-lavender-400" />
-              <span>Swarm Nodes: <strong className="text-cream-200">6 Specialized Agents</strong></span>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* ── Protocol Key Metrics: Apple Store Utility Cards (design.md §store-utility-card) ── */}
-      <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-        <div className="apple-card space-y-2">
-          <div className="flex items-center justify-between text-xs font-medium text-ink-secondary">
-            <span>Active Cases</span>
-            <Briefcase className="w-4 h-4 text-lavender-600" />
+      {/* ── Protocol Key Metrics Cards ── */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Metric 1: Prediction Markets */}
+        <div className="rounded-2xl bg-white p-6 border border-hairline shadow-soft space-y-2 flex flex-col justify-between">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-xs font-medium text-muted">
+              <span>Prediction Markets</span>
+              <TrendingUp className="w-4 h-4 text-bubblegum" />
+            </div>
+            <div className="text-3xl font-semibold tracking-tight text-ink font-display">
+              {marketCount} Market
+            </div>
+            <span className="inline-block text-[11px] font-semibold text-bubblegum-deep bg-bubblegum-soft px-2.5 py-0.5 rounded-full border border-hairline">
+              {settledMarketCount} Settled, 0 Open
+            </span>
           </div>
-          <div className="text-3xl font-semibold tracking-tight text-ink font-appleDisplay">{casesList?.length || 1}</div>
-          <span className="inline-block text-[11px] font-medium text-lavender-700 bg-lavender-100 px-2 py-0.5 rounded-full">
-            Scope v{currentCase.scope_version} Frozen
-          </span>
+          <p className="text-[11px] font-mono text-muted pt-2 border-t border-hairline">
+            Source: frontend/src/lib/lifecycle_sepolia.json
+          </p>
         </div>
 
-        <div className="apple-card space-y-2">
-          <div className="flex items-center justify-between text-xs font-medium text-ink-secondary">
-            <span>Prediction Markets</span>
-            <TrendingUp className="w-4 h-4 text-lavender-600" />
+        {/* Metric 2: Sepolia Settlement Brier Score */}
+        <div className="rounded-2xl bg-white p-6 border border-hairline shadow-soft space-y-2 flex flex-col justify-between">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-xs font-medium text-muted">
+              <span>Sepolia Market Brier Score</span>
+              <Coins className="w-4 h-4 text-bubblegum" />
+            </div>
+            <div className="text-3xl font-semibold tracking-tight text-ink font-mono">
+              {sepoliaBrier}
+            </div>
+            <span className="inline-block text-[11px] font-semibold text-bubblegum-deep bg-bubblegum-soft px-2.5 py-0.5 rounded-full border border-hairline">
+              probBps 6500 vs outcome true
+            </span>
           </div>
-          <div className="text-3xl font-semibold tracking-tight text-ink font-appleDisplay">{markets.length}</div>
-          <span className="inline-block text-[11px] font-medium text-lavender-700 bg-lavender-100 px-2 py-0.5 rounded-full">
-            {settledMarkets} Settled, {openMarkets} Active
-          </span>
+          <p className="text-[11px] font-mono text-muted pt-2 border-t border-hairline">
+            Source: frontend/src/lib/lifecycle_sepolia.json
+          </p>
         </div>
 
-        <div className="apple-card space-y-2">
-          <div className="flex items-center justify-between text-xs font-medium text-ink-secondary">
-            <span>Evidence Bounties</span>
-            <Gift className="w-4 h-4 text-lavender-600" />
+        {/* Metric 3: Deployed Contracts */}
+        <div className="rounded-2xl bg-white p-6 border border-hairline shadow-soft space-y-2 flex flex-col justify-between">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-xs font-medium text-muted">
+              <span>Deployed Contracts</span>
+              <Layers className="w-4 h-4 text-bubblegum" />
+            </div>
+            <div className="text-3xl font-semibold tracking-tight text-ink font-display">
+              {deployedContractCount} Contracts
+            </div>
+            <span className="inline-block text-[11px] font-semibold text-bubblegum-deep bg-bubblegum-soft px-2.5 py-0.5 rounded-full border border-hairline">
+              Sepolia Block {deployments.deployBlock}
+            </span>
           </div>
-          <div className="text-3xl font-semibold tracking-tight text-ink font-appleDisplay">{bounties.length}</div>
-          <span className="inline-block text-[11px] font-medium text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
-            {openBounties > 0 ? `${openBounties} Open / Review` : `${bounties.length} Settled`}
-          </span>
+          <p className="text-[11px] font-mono text-muted pt-2 border-t border-hairline">
+            Source: frontend/src/lib/deployments.json
+          </p>
         </div>
 
-        <div className="apple-card space-y-2">
-          <div className="flex items-center justify-between text-xs font-medium text-ink-secondary">
-            <span>Brier Score</span>
-            <Coins className="w-4 h-4 text-lavender-600" />
+        {/* Metric 4: Train Benchmark Mean Brier */}
+        <div className="rounded-2xl bg-white p-6 border border-hairline shadow-soft space-y-2 flex flex-col justify-between">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-xs font-medium text-muted">
+              <span>Train Benchmark Mean Brier</span>
+              <FileCheck className="w-4 h-4 text-bubblegum" />
+            </div>
+            <div className="text-3xl font-semibold tracking-tight text-ink font-mono">
+              {trainBenchmarkBrier}
+            </div>
+            <span className="inline-block text-[11px] font-semibold text-bubblegum-deep bg-bubblegum-soft px-2.5 py-0.5 rounded-full border border-hairline">
+              14 scenarios, in-sample live_forecaster
+            </span>
           </div>
-          <div className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink font-mono">
-            {liveBrier ? liveBrier : "—"}
-          </div>
-          <span className="inline-block text-[11px] font-medium text-lavender-700 bg-lavender-100 px-2 py-0.5 rounded-full">
-            {liveBrier ? `N = ${brierScores.length} Forecasts` : "Awaiting Settlement"}
-          </span>
+          <p className="text-[11px] font-mono text-muted pt-2 border-t border-hairline">
+            Source: results_train_live.json
+          </p>
         </div>
 
-        <div className="apple-card space-y-2 col-span-2 sm:col-span-1">
-          <div className="flex items-center justify-between text-xs font-medium text-ink-secondary">
-            <span>Settlements</span>
-            <FileCheck className="w-4 h-4 text-lavender-600" />
+        {/* Metric 5: Active Cases */}
+        <div className="rounded-2xl bg-white p-6 border border-hairline shadow-soft space-y-2 flex flex-col justify-between">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-xs font-medium text-muted">
+              <span>Active Cases</span>
+              <Briefcase className="w-4 h-4 text-bubblegum" />
+            </div>
+            <div className="text-2xl font-semibold tracking-tight text-ink font-display">
+              None recorded
+            </div>
+            <span className="inline-block text-[11px] font-semibold text-muted bg-cloud px-2.5 py-0.5 rounded-full border border-hairline">
+              No live case records
+            </span>
           </div>
-          <div className="text-3xl font-semibold tracking-tight text-ink font-mono">{settlements.length}</div>
-          <span className="inline-block text-[11px] font-medium text-lavender-700 bg-lavender-100 px-2 py-0.5 rounded-full">
-            On-Chain Verified
-          </span>
+          <p className="text-[11px] font-mono text-muted pt-2 border-t border-hairline">
+            Source: No live case source recorded
+          </p>
+        </div>
+
+        {/* Metric 6: Evidence Bounties */}
+        <div className="rounded-2xl bg-white p-6 border border-hairline shadow-soft space-y-2 flex flex-col justify-between">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-xs font-medium text-muted">
+              <span>Evidence Bounties</span>
+              <Gift className="w-4 h-4 text-bubblegum" />
+            </div>
+            <div className="text-2xl font-semibold tracking-tight text-ink font-display">
+              None recorded
+            </div>
+            <span className="inline-block text-[11px] font-semibold text-muted bg-cloud px-2.5 py-0.5 rounded-full border border-hairline">
+              No live bounty records
+            </span>
+          </div>
+          <p className="text-[11px] font-mono text-muted pt-2 border-t border-hairline">
+            Source: No live bounty source recorded
+          </p>
         </div>
       </section>
 
-      {/* ── Main Workspace Grid: Case Spotlight + Quick Actions ── */}
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left (2 cols): Active Case Spotlight */}
-        <div className="lg:col-span-2 apple-card space-y-6">
-          <div className="flex items-start justify-between gap-3 border-b border-cream-200 pb-5">
+      {/* ── Sepolia Testnet Demo Spotlight ── */}
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* On-Chain Market Spotlight */}
+        <div className="rounded-2xl bg-white p-6 sm:p-8 border border-hairline shadow-soft space-y-5">
+          <div className="flex items-center justify-between border-b border-hairline pb-4">
             <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-lavender-100 text-lavender-800 border border-lavender-200 uppercase">
-                  {currentCase.id}
-                </span>
-                <span className="text-xs text-ink-muted">Scope Version {currentCase.scope_version}</span>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-cream-200 text-ink-secondary">
-                  {isLiveChain ? "Live Chain Scope" : "Curated Dataset"}
-                </span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-semibold text-ink mt-2 tracking-tight font-appleDisplay">
-                {currentCase.title}
+              <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-bubblegum-soft text-bubblegum-deep border border-hairline">
+                Sepolia Market
+              </span>
+              <h2 className="text-xl font-semibold text-ink mt-1.5 font-display tracking-tight">
+                Settled Forecast Market
               </h2>
             </div>
-            <Link
-              href="/cases"
-              className="apple-btn-secondary text-xs px-3.5 py-1.5 shrink-0"
-            >
-              <span>Open Case</span>
-              <ArrowRight className="w-3.5 h-3.5 text-lavender-600" />
-            </Link>
+            <span className="text-xs font-semibold text-bubblegum-deep bg-bubblegum-soft px-3 py-1 rounded-full border border-hairline">
+              {lifecycleSepolia.finalState.marketStateName}
+            </span>
           </div>
 
           <div className="space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
-              Investigative Question:
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted font-sans">
+              Market ID & Target:
             </span>
-            <div className="p-4 rounded-[14px] bg-cream-200/60 border border-cream-300 text-[15px] text-ink leading-relaxed font-normal">
-              {currentCase.question}
+            <div className="p-3.5 rounded-xl bg-cloud border border-hairline font-mono text-xs text-ink break-all">
+              {lifecycleSepolia.marketId}
             </div>
           </div>
 
-          {/* Missing Facts Alert */}
-          {currentCase.missing_facts.length > 0 && (
-            <div className="p-4 rounded-[14px] bg-amber-50 border border-amber-200 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-semibold text-amber-900">
-                <AlertTriangle className="w-4 h-4 text-amber-600" />
-                <span>Missing Material Facts Identified (FR-002):</span>
-              </div>
-              <ul className="space-y-1 text-xs text-amber-800 pl-6 list-disc">
-                {currentCase.missing_facts.map((mf, idx) => (
-                  <li key={idx}>{mf}</li>
-                ))}
-              </ul>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-muted font-medium">Evaluator Forecast Probability:</span>
+              <span className="font-mono font-bold text-bubblegum-deep text-sm">65.0%</span>
             </div>
-          )}
+            <div className="w-full h-2 rounded-full bg-bubblegum-soft overflow-hidden border border-hairline">
+              <div className="h-full bg-bubblegum rounded-full" style={{ width: "65%" }} />
+            </div>
+            <div className="flex items-center justify-between text-[11px] text-muted">
+              <span>Outcome: Confirmed (1)</span>
+              <span>Brier: {sepoliaBrier}</span>
+            </div>
+          </div>
 
-          {/* Case Facts Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-            <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-300">
-              <span className="text-[11px] text-ink-muted block font-medium">Processing Purpose:</span>
-              <span className="text-xs font-semibold text-ink truncate block mt-0.5">
-                {currentCase.facts.processing_purpose}
-              </span>
-            </div>
-            <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-300">
-              <span className="text-[11px] text-ink-muted block font-medium">Affected Users:</span>
-              <span className="text-xs font-semibold text-ink truncate block mt-0.5">
-                {currentCase.facts.affected_users}
-              </span>
-            </div>
-            <div className="p-3.5 rounded-[14px] bg-cream-50 border border-cream-300">
-              <span className="text-[11px] text-ink-muted block font-medium">Data Retention:</span>
-              <span className="text-xs font-semibold text-ink truncate block mt-0.5">
-                {currentCase.facts.retention_period_days} Days
-              </span>
-            </div>
+          <div className="pt-2">
+            <Link href="/markets" className="apple-btn-secondary w-full justify-center text-xs py-2">
+              <span>Inspect Market Lifecycle</span>
+              <ArrowRight className="w-3.5 h-3.5 text-bubblegum-deep" />
+            </Link>
           </div>
         </div>
 
-        {/* Right (1 col): Live Spotlights */}
-        <div className="space-y-6">
-          {/* Active Market Card */}
-          {activeMarket && (
-            <div className="apple-card space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-lavender-100 text-lavender-800 border border-lavender-200">
-                  {activeMarket.market_id}
-                </span>
-                <span className="text-xs font-semibold text-lavender-700 bg-lavender-50 px-2 py-0.5 rounded-full border border-lavender-200">
-                  {activeMarket.state}
-                </span>
-              </div>
-
-              <div>
-                <span className="text-[11px] font-semibold text-ink-muted block mb-1 uppercase tracking-wider">
-                  Target Question:
-                </span>
-                <p className="text-xs text-ink-secondary line-clamp-2 leading-relaxed">
-                  {activeMarket.question}
-                </p>
-              </div>
-
-              <div className="space-y-2 pt-1">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-ink-secondary font-medium">Consensus Probability:</span>
-                  <span className="font-mono font-bold text-lavender-700 text-sm">
-                    {(activeMarket.aggregate_probability * 100).toFixed(1)}%
-                  </span>
-                </div>
-                <div className="w-full h-2 rounded-full bg-cream-200 overflow-hidden border border-cream-300">
-                  <div
-                    className="h-full bg-lavender-600 rounded-full"
-                    style={{ width: `${activeMarket.aggregate_probability * 100}%` }}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-[11px] text-ink-muted">
-                  <span>Variance: {activeMarket.disagreement_variance}</span>
-                  <span>N = {activeMarket.sample_size} Agents</span>
-                </div>
-              </div>
-
-              <Link
-                href="/markets"
-                className="apple-btn-secondary w-full text-xs py-2 justify-center"
-              >
-                <span>Commit / Reveal Forecast</span>
-                <ArrowRight className="w-3.5 h-3.5 text-lavender-600" />
-              </Link>
+        {/* On-Chain Deployed Smart Contracts */}
+        <div className="rounded-2xl bg-white p-6 sm:p-8 border border-hairline shadow-soft space-y-5">
+          <div className="flex items-center justify-between border-b border-hairline pb-4">
+            <div>
+              <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-bubblegum-soft text-bubblegum-deep border border-hairline">
+                EVM Core
+              </span>
+              <h2 className="text-xl font-semibold text-ink mt-1.5 font-display tracking-tight">
+                Verified Deployed Contracts
+              </h2>
             </div>
-          )}
+            <span className="text-xs font-semibold text-bubblegum-deep bg-bubblegum-soft px-3 py-1 rounded-full border border-hairline">
+              Chain 11155111
+            </span>
+          </div>
 
-          {/* Active Bounty Card */}
-          {activeBounty && (
-            <div className="apple-card space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-cream-200 text-ink-secondary border border-cream-300">
-                  {activeBounty.bounty_id}
-                </span>
-                <span className="text-xs font-semibold text-lavender-700 bg-lavender-100 px-2.5 py-0.5 rounded-full">
-                  +{activeBounty.reward_credits} Credits
-                </span>
-              </div>
-
-              <div>
-                <span className="text-[11px] font-semibold text-ink-muted block mb-1 uppercase tracking-wider">
-                  Target Legal Uncertainty:
-                </span>
-                <p className="text-xs text-ink-secondary line-clamp-2 leading-relaxed">
-                  {activeBounty.question}
-                </p>
-              </div>
-
-              <div className="text-xs text-ink-secondary space-y-1.5 pt-1">
-                <div className="flex items-center justify-between">
-                  <span>Submissions:</span>
-                  <span className="font-semibold text-ink">{activeBounty.submissions.length}</span>
+          <div className="space-y-2.5 divide-y divide-hairline">
+            {Object.entries(deployments.contracts).map(([name, info]) => (
+              <div key={name} className="pt-2 flex items-center justify-between text-xs">
+                <div>
+                  <span className="font-bold text-ink">{name}</span>
+                  <p className="font-mono text-[11px] text-muted">{info.address.slice(0, 10)}...{info.address.slice(-8)}</p>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span>Status:</span>
-                  <span className="text-amber-800 font-semibold">{activeBounty.state}</span>
-                </div>
+                <span className="text-[10px] font-mono text-bubblegum-deep bg-bubblegum-soft px-2 py-0.5 rounded-full border border-hairline">
+                  Block {info.deployBlock}
+                </span>
               </div>
+            ))}
+          </div>
 
-              <Link
-                href="/bounties"
-                className="apple-btn-secondary w-full text-xs py-2 justify-center"
-              >
-                <span>View Evidence & Rubric</span>
-                <ArrowRight className="w-3.5 h-3.5 text-lavender-600" />
-              </Link>
-            </div>
-          )}
+          <div className="pt-2">
+            <Link href="/audit" className="apple-btn-secondary w-full justify-center text-xs py-2">
+              <span>View Full Audit Registry</span>
+              <ArrowRight className="w-3.5 h-3.5 text-bubblegum-deep" />
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ── Settlement Audit Trail: Apple Table Utility ── */}
-      <section className="apple-card space-y-5">
-        <div className="flex items-center justify-between border-b border-cream-200 pb-4">
+      {/* ── Sepolia Testnet Receipts Trail ── */}
+      <section className="rounded-2xl bg-white p-6 sm:p-8 border border-hairline shadow-soft space-y-5">
+        <div className="flex items-center justify-between border-b border-hairline pb-4">
           <div>
-            <h3 className="text-base font-semibold text-ink font-appleDisplay">
-              Recent Protocol Events & Settlement Audit
-            </h3>
-            <p className="text-xs text-ink-muted">
-              Verified cryptographic transaction receipts and hash proofs on Sepolia testnet.
+            <h2 className="text-xl font-semibold text-ink font-display tracking-tight">
+              Sepolia Testnet Receipts Journal
+            </h2>
+            <p className="text-xs text-muted">
+              Nine confirmed transactions executing the complete commit-reveal market lifecycle.
             </p>
           </div>
           <Link
             href="/audit"
-            className="text-xs text-lavender-700 hover:text-lavender-900 flex items-center gap-1 font-semibold"
+            className="text-xs text-bubblegum-deep hover:underline flex items-center gap-1 font-semibold"
           >
             <span>Full Audit Explorer</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        <div className="divide-y divide-cream-200">
-          {auditRecords.slice(0, 4).map((record) => (
-            <div key={record.id} className="py-3.5 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="divide-y divide-hairline">
+          {lifecycleSepolia.steps.map((step, idx) => (
+            <div key={idx} className="py-3 flex flex-wrap items-center justify-between gap-3 text-xs">
               <div className="flex items-center gap-3">
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-semibold bg-cream-200 text-ink">
-                  {record.event_type}
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-bubblegum-soft text-bubblegum-deep border border-hairline">
+                  {step.step}
                 </span>
-                <span className="text-ink font-mono text-[11px]">{record.target_id}</span>
+                <span className="font-mono text-ink text-[11px]">Block {step.blockNumber}</span>
               </div>
-              <div className="flex items-center gap-4 text-ink-muted">
+              <div className="flex items-center gap-4 text-muted">
                 <a
-                  href={`https://sepolia.etherscan.io/tx/${record.tx_hash}`}
+                  href={`https://sepolia.etherscan.io/tx/${step.txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-[11px] text-lavender-700 hover:underline flex items-center gap-1"
+                  className="font-mono text-[11px] text-bubblegum-deep hover:underline flex items-center gap-1"
                 >
-                  <span>Tx: {record.tx_hash.slice(0, 10)}...{record.tx_hash.slice(-8)}</span>
-                  <ExternalLink className="w-3 h-3" />
+                  <span>Tx: {step.txHash.slice(0, 10)}...{step.txHash.slice(-8)}</span>
+                  <ExternalLink className="w-3 h-3 text-bubblegum" />
                 </a>
-                <span className="text-[11px]">{new Date(record.timestamp).toLocaleTimeString()}</span>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-lavender-100 text-lavender-700 border border-lavender-200">
-                  {record.status}
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  Confirmed
                 </span>
               </div>
             </div>
@@ -406,4 +320,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-

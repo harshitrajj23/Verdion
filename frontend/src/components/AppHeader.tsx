@@ -20,9 +20,8 @@ import {
 } from "lucide-react";
 
 const subNavTabs = [
-  { href: "/", label: "Overview" },
+  { href: "/", label: "Dashboard" },
   { href: "/cases", label: "Cases" },
-  { href: "/sources", label: "Legal Sources" },
   { href: "/agents", label: "Agents" },
   { href: "/graph", label: "Argument Graph" },
   { href: "/markets", label: "Markets" },
@@ -86,27 +85,32 @@ export const AppHeader: React.FC = () => {
 
   return (
     <>
-      {/* ── Tier 1: Apple Global Navigation Bar (height: 44px, design.md §global-nav) ── */}
-      <nav className="w-full h-11 bg-tile-dark text-cream-100 border-b border-tile-border/70 z-50 text-[12px] font-normal tracking-[-0.01em]">
+      {/* ── Tier 1: Protocol Utility Bar (height: 44px) ── */}
+      <nav className="w-full h-11 bg-[#1F171D] text-cloud border-b border-[#352731] z-50 text-[12px] font-normal tracking-[-0.01em]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Brand mark & Protocol Identity */}
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2 group transition-opacity hover:opacity-85">
-              <div className="w-5 h-5 rounded-full bg-lavender-500/20 border border-lavender-400/40 flex items-center justify-center">
-                <Shield className="w-3 h-3 text-lavender-300" />
+              <div className="w-5 h-5 rounded-full bg-bubblegum/20 border border-bubblegum/40 flex items-center justify-center">
+                <Shield className="w-3 h-3 text-bubblegum" />
               </div>
-              <span className="font-semibold tracking-tight text-white">VERIDION</span>
+              <span className="font-semibold tracking-tight text-white font-display">VERIDION</span>
             </Link>
 
-            <div className="hidden md:flex items-center gap-4 text-cream-400 text-[11px]">
+            <div className="hidden md:flex items-center gap-3 text-muted text-[11px]">
               <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-lavender-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-bubblegum" />
                 EU Legal Intelligence
               </span>
               <span>•</span>
-              <span>Corpus v2026.1</span>
-              <span>•</span>
-              <span className="font-mono text-lavender-300">Commit-Reveal v1.0</span>
+              <span className="font-mono text-bubblegum-soft">Commit-Reveal v1.0</span>
+              <Link
+                href="/landing"
+                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-medium text-bubblegum-soft bg-bubblegum/20 hover:bg-bubblegum/30 border border-bubblegum/40 transition-colors"
+                title="Experience Video Landing Page"
+              >
+                <span>Landing Page</span>
+              </Link>
             </div>
           </div>
 
@@ -114,8 +118,8 @@ export const AppHeader: React.FC = () => {
           <div className="flex items-center gap-3">
             {/* Pending Txs */}
             {activePendingCount > 0 && (
-              <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-950/80 border border-amber-600/50 text-amber-200 text-[11px] font-medium">
-                <span className="spinner w-2.5 h-2.5 text-amber-300" />
+              <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-bubblegum-soft/20 border border-bubblegum text-bubblegum text-[11px] font-medium">
+                <span className="spinner w-2.5 h-2.5 text-bubblegum" />
                 <span>{activePendingCount} pending</span>
               </div>
             )}
@@ -123,21 +127,21 @@ export const AppHeader: React.FC = () => {
             {/* Network indicator pill */}
             <button
               onClick={() => isLiveChain && setShowNetworkModal(true)}
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tile-dark2 hover:bg-tile-dark3 border border-tile-border text-cream-300 text-[11px] transition-colors"
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#2A1F27] hover:bg-[#382B35] border border-[#443240] text-cloud text-[11px] transition-colors"
             >
-              <Network className="w-3 h-3 text-lavender-400" />
+              <Network className="w-3 h-3 text-bubblegum" />
               <span>Sepolia</span>
-              <span className={`w-1.5 h-1.5 rounded-full ${isLiveChain ? "bg-lavender-400 pulse-dot" : "bg-cream-600"}`} />
+              <span className={`w-1.5 h-1.5 rounded-full ${isLiveChain ? "bg-bubblegum pulse-dot" : "bg-muted"}`} />
             </button>
 
             {/* Demo Faucet Credits */}
-            <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-lavender-900/40 border border-lavender-700/50 text-cream-100 text-[11px]">
-              <Coins className="w-3 h-3 text-lavender-300" />
-              <span className="font-mono font-semibold text-lavender-200">{userCredits}</span>
-              <span className="text-cream-400 text-[10px] hidden md:inline">Sim</span>
+            <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-bubblegum-soft/15 border border-bubblegum/30 text-white text-[11px]">
+              <Coins className="w-3 h-3 text-bubblegum" />
+              <span className="font-mono font-semibold text-bubblegum-soft">{userCredits}</span>
+              <span className="text-muted text-[10px] hidden md:inline">Sim</span>
               <button
                 onClick={() => mintDemoCredits(100)}
-                className="text-lavender-300 hover:text-white transition-colors ml-0.5"
+                className="text-bubblegum hover:text-white transition-colors ml-0.5"
                 title="Mint +100 Simulated Test Credits"
               >
                 <PlusCircle className="w-3 h-3" />
@@ -148,16 +152,16 @@ export const AppHeader: React.FC = () => {
             {walletAddress ? (
               <button
                 onClick={disconnectWallet}
-                className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-tile-dark2 hover:bg-tile-dark3 border border-tile-border text-cream-200 text-[11px] font-mono transition-colors active:scale-[0.97]"
+                className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2A1F27] hover:bg-[#382B35] border border-[#443240] text-cloud text-[11px] font-mono transition-colors active:scale-[0.97]"
                 title="Click to disconnect"
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-lavender-400" />
+                <div className="w-1.5 h-1.5 rounded-full bg-bubblegum" />
                 <span>{walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}</span>
               </button>
             ) : (
               <button
                 onClick={connectWallet}
-                className="flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-lavender-600 hover:bg-lavender-500 text-white text-[11px] font-medium shadow-apple-pill transition-all active:scale-[0.97]"
+                className="flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-bubblegum hover:bg-bubblegum-hover text-white text-[11px] font-medium shadow-soft transition-all duration-150 transform hover:-translate-y-[1px] active:scale-[0.97]"
               >
                 <Wallet className="w-3 h-3" />
                 <span>Connect</span>
@@ -167,7 +171,7 @@ export const AppHeader: React.FC = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden text-cream-400 hover:text-white p-1 ml-1"
+              className="lg:hidden text-cloud hover:text-white p-1 ml-1"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -176,28 +180,28 @@ export const AppHeader: React.FC = () => {
         </div>
       </nav>
 
-      {/* ── Tier 2: Apple Sub-Nav Frosted Glass (height: 52px, design.md §sub-nav-frosted) ── */}
-      <header className="sticky top-0 z-40 w-full apple-frosted-nav">
+      {/* ── Tier 2: Apple Sub-Nav Frosted Glass (height: 52px) ── */}
+      <header className="sticky top-0 z-40 w-full bg-white/85 backdrop-blur-md border-b border-hairline">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[52px] flex items-center justify-between gap-4">
           {/* Section Category Title */}
           <div className="flex items-center gap-4 shrink-0">
-            <Link href="/" className="font-appleDisplay font-semibold text-lg text-ink tracking-tight hover:opacity-85 transition-opacity">
+            <Link href="/" className="font-display font-semibold text-lg text-ink tracking-tight hover:opacity-85 transition-opacity">
               Legal Intelligence
             </Link>
           </div>
 
           {/* Horizontal Apple Pill Navigation Tabs */}
-          <nav className="hidden lg:flex items-center gap-1 overflow-x-auto py-1 scrollbar-none">
+          <nav className="hidden lg:flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none">
             {subNavTabs.map((tab) => {
               const isActive = pathname === tab.href;
               return (
                 <Link
                   key={tab.href}
                   href={tab.href}
-                  className={`px-3 py-1.5 rounded-full text-[13px] font-medium tracking-tight transition-all duration-150 active:scale-[0.97] whitespace-nowrap ${
+                  className={`px-3 py-1.5 rounded-full text-[13px] tracking-tight transition-all duration-150 active:scale-[0.97] whitespace-nowrap ${
                     isActive
-                      ? "bg-lavender-600 text-white shadow-apple-pill"
-                      : "text-ink-secondary hover:text-ink hover:bg-cream-200/80"
+                      ? "bg-bubblegum-soft text-bubblegum-deep font-semibold border border-hairline shadow-soft"
+                      : "text-muted hover:text-ink hover:bg-cloud border border-transparent font-medium"
                   }`}
                 >
                   {tab.label}
@@ -214,8 +218,8 @@ export const AppHeader: React.FC = () => {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-cream-300 bg-cream-100/98 backdrop-blur-xl p-4 space-y-2 animate-fade-in-up shadow-apple">
-            <div className="grid grid-cols-2 gap-1.5 pb-3 border-b border-cream-300">
+          <div className="lg:hidden border-t border-hairline bg-white/95 backdrop-blur-xl p-4 space-y-2 animate-fade-in-up shadow-soft">
+            <div className="grid grid-cols-2 gap-1.5 pb-3 border-b border-hairline">
               {subNavTabs.map((tab) => {
                 const isActive = pathname === tab.href;
                 return (
@@ -223,10 +227,10 @@ export const AppHeader: React.FC = () => {
                     key={tab.href}
                     href={tab.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`px-3 py-2 rounded-xl text-xs font-medium text-center transition-all ${
+                    className={`px-3 py-2 rounded-full text-xs text-center transition-all ${
                       isActive
-                        ? "bg-lavender-600 text-white shadow-sm"
-                        : "bg-cream-200 text-ink-secondary hover:bg-cream-300 hover:text-ink"
+                        ? "bg-bubblegum-soft text-bubblegum-deep font-semibold border border-hairline shadow-soft"
+                        : "bg-cloud text-ink hover:bg-bubblegum-soft/30"
                     }`}
                   >
                     {tab.label}

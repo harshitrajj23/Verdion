@@ -32,10 +32,10 @@ export const AppSidebar: React.FC = () => {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 shrink-0 hidden lg:block border-r border-cream-300/80 bg-cream-100/40 p-4 min-h-[calc(100vh-6rem)]">
+    <aside className="w-64 shrink-0 hidden lg:block border-r border-hairline bg-cloud/40 p-4 min-h-[calc(100vh-6rem)]">
       <div className="space-y-6">
         <div>
-          <p className="px-3 text-[11px] font-semibold uppercase tracking-wider text-ink-muted mb-2 font-appleDisplay">
+          <p className="px-3 text-[11px] font-semibold uppercase tracking-wider text-muted mb-2 font-display">
             Protocol Workspaces
           </p>
           <nav className="space-y-1">
@@ -49,14 +49,14 @@ export const AppSidebar: React.FC = () => {
                   href={item.href}
                   className={`flex items-center justify-between px-3.5 py-2 rounded-full text-xs transition-all duration-150 active:scale-[0.97] group ${
                     isActive
-                      ? "bg-lavender-100 text-lavender-800 font-semibold border border-lavender-200 shadow-sm"
-                      : "text-ink-secondary hover:text-ink hover:bg-cream-200/70 border border-transparent font-normal"
+                      ? "bg-bubblegum-soft text-bubblegum-deep font-semibold border border-hairline shadow-sm"
+                      : "text-ink-secondary hover:text-ink hover:bg-cloud border border-transparent font-normal"
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
                     <Icon
                       className={`w-3.5 h-3.5 transition-colors ${
-                        isActive ? "text-lavender-600" : "text-ink-muted group-hover:text-ink"
+                        isActive ? "text-bubblegum-deep" : "text-muted group-hover:text-ink"
                       }`}
                     />
                     <span>{item.label}</span>
@@ -64,8 +64,8 @@ export const AppSidebar: React.FC = () => {
                   <span
                     className={`text-[10px] font-mono px-2 py-0.5 rounded-full ${
                       isActive
-                        ? "bg-white text-lavender-700 font-semibold shadow-xs"
-                        : "text-ink-muted group-hover:text-ink-secondary"
+                        ? "bg-white text-bubblegum-deep font-semibold shadow-xs"
+                        : "text-muted group-hover:text-ink-secondary"
                     }`}
                   >
                     {item.section}
@@ -76,21 +76,21 @@ export const AppSidebar: React.FC = () => {
           </nav>
         </div>
 
-        {/* Apple Store Utility Card: Protocol Metadata */}
-        <div className="apple-card p-4 text-[11px] space-y-2.5 bg-white border border-cream-300">
+        {/* Utility Card: Protocol Metadata */}
+        <div className="apple-card p-4 text-[11px] space-y-2.5 bg-white border border-hairline shadow-soft">
           <div className="flex items-center justify-between text-ink-secondary">
             <span>Jurisdiction</span>
             <span className="font-semibold text-ink">European Union</span>
           </div>
           <div className="flex items-center justify-between text-ink-secondary">
             <span>Corpus Version</span>
-            <span className="font-mono text-lavender-700 font-medium">2026.1.0</span>
+            <span className="font-mono text-bubblegum-deep font-medium">2026.1.0</span>
           </div>
           <div className="flex items-center justify-between text-ink-secondary">
             <span>Commit Hash</span>
-            <span className="font-mono text-lavender-600">0x8fa12b...</span>
+            <span className="font-mono text-bubblegum-deep">0x8fa12b...</span>
           </div>
-          <div className="pt-2 border-t border-cream-200 text-[10px] text-ink-muted leading-relaxed">
+          <div className="pt-2 border-t border-hairline text-[10px] text-muted leading-relaxed">
             VERIDION is decision support; it does not replace qualified legal counsel.
           </div>
         </div>

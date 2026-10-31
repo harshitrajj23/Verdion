@@ -92,43 +92,43 @@ export default function EvidenceBountiesPage() {
     <div className="space-y-8 animate-fade-in-up">
       {/* ── Apple Header Card ── */}
       <div className="apple-card space-y-5">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream-200 pb-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-hairline pb-5">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-lavender-100 text-lavender-800 border border-lavender-200">
+              <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-bubblegum-soft text-bubblegum-deep border border-hairline">
                 §16.6
               </span>
-              <h1 className="text-2xl sm:text-3xl font-semibold text-ink tracking-tight font-appleDisplay">
+              <h1 className="text-2xl sm:text-3xl font-semibold text-ink tracking-tight font-display">
                 Evidence Bounty Protocol
               </h1>
             </div>
-            <p className="text-xs text-ink-secondary mt-1">
+            <p className="text-xs text-muted mt-1">
               Directing economic incentives toward specific legal uncertainties using simulated credits and standardized acceptance rubrics.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-50 border border-cream-300 text-xs">
-              <Coins className="w-4 h-4 text-lavender-600" />
-              <span className="text-ink-secondary">Balance: <strong className="font-mono text-lavender-700 font-semibold">{userCredits}</strong> Credits</span>
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cloud border border-hairline text-xs">
+              <Coins className="w-4 h-4 text-bubblegum" />
+              <span className="text-muted">Balance: <strong className="font-mono text-bubblegum-deep font-semibold">{userCredits}</strong> Credits</span>
             </div>
           </div>
         </div>
 
-        {/* Bounty Selector: Apple Pill Bar */}
-        <div className="inline-flex p-1 rounded-full bg-cream-200 border border-cream-300 max-w-full overflow-x-auto scrollbar-none">
+        {/* Bounty Selector: Pill Bar */}
+        <div className="inline-flex p-1 rounded-full bg-cloud border border-hairline max-w-full overflow-x-auto scrollbar-none">
           {bounties.map((b) => (
             <button
               key={b.bounty_id}
               onClick={() => setSelectedBountyId(b.bounty_id)}
               className={`px-4 py-1.5 rounded-full text-xs font-medium flex items-center gap-2 transition-all duration-150 active:scale-[0.97] ${
                 selectedBountyId === b.bounty_id
-                  ? "bg-white text-ink shadow-sm border border-cream-300/60"
-                  : "text-ink-secondary hover:text-ink hover:bg-cream-100/60"
+                  ? "bg-bubblegum text-white shadow-soft font-semibold"
+                  : "text-muted hover:text-ink hover:bg-bubblegum-soft/40"
               }`}
             >
               <span>{b.bounty_id}</span>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-cream-100 text-ink-muted font-mono">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-cloud text-muted font-mono">
                 {b.state}
               </span>
             </button>

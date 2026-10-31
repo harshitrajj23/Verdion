@@ -4,64 +4,76 @@
 
 @layer base {
   :root {
-    --canvas: #FAF7F2;          /* Cream 70% Base Canvas */
-    --canvas-parchment: #F4EFEA;/* Apple Parchment */
-    --surface-pearl: #FDFCF9;   /* Crisp Pearl White */
+    --canvas: #FFFDFB;          /* Marshmallow White Background */
+    --canvas-parchment: #FFF6F9;/* Cloud Surface */
+    --surface-cloud: #FFF6F9;   /* Cloud Surface */
+    --surface-pearl: #FFFDFB;   /* Crisp Marshmallow White */
     --surface-card: #FFFFFF;    /* Pure Card Surface */
-    --ink: #1D1B1E;             /* Apple Near-Black Espresso Ink */
-    --ink-secondary: #635E6B;   /* Secondary Body Ink */
-    --ink-muted: #8E8896;       /* Micro & Caption Ink */
-    --border-hairline: #EAE3D8; /* Hairline Border */
-    --border-soft: #F0EAE1;     /* Soft Divider */
-    --lavender-action: #6E50BD; /* Apple Action Lavender */
-    --lavender-hover: #5A3EA2;  /* Pressed / Hover Lavender */
-    --lavender-chip: #F1ECFB;   /* Translucent Lavender Mist */
-    --lavender-border: #DCD0F6; /* Lavender Border */
-    --tile-dark: #191720;       /* Contrast Dark Tile */
-    --tile-dark-surface: #221E2C;
+    --ink: #2A1F26;             /* Editorial Ink Text */
+    --ink-secondary: #7A6670;   /* Muted Body Ink */
+    --ink-muted: #7A6670;       /* Muted Caption Ink */
+    --border-hairline: #F5DCE6; /* 1px Hairline Border */
+    --border-soft: #F5DCE6;     /* Soft Divider */
+    --bubblegum: #FF8FB1;       /* Bubblegum Pink Primary */
+    --bubblegum-hover: #FF6FA0; /* Bubblegum Hover */
+    --bubblegum-deep: #E8567F;  /* Bubblegum Deep Text Accent */
+    --bubblegum-soft: #FFE4EE;  /* Bubblegum Soft Surface */
+    /* Compatibility mapping for existing styles */
+    --lavender-action: #FF8FB1;
+    --lavender-hover: #FF6FA0;
+    --lavender-chip: #FFE4EE;
+    --lavender-border: #F5DCE6;
+    --tile-dark: #2A1F26;
+    --tile-dark-surface: #382A33;
   }
 
   body {
-    background-color: var(--canvas);
-    color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Inter", system-ui, sans-serif;
-    font-size: 17px;
-    line-height: 1.47;
-    letter-spacing: -0.022em;
+    background-color: #FFFDFB;
+    color: #2A1F26;
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.015em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro", "Inter", system-ui, sans-serif;
+  h1, h2 {
+    font-family: var(--font-fraunces), serif;
     letter-spacing: -0.025em;
-    color: var(--ink);
+    color: #2A1F26;
+  }
+
+  h3, h4, h5, h6 {
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    color: #2A1F26;
   }
 }
 
-/* ── Apple Glassmorphism & Frosted Panels ── */
+/* ── Marshmallow Glassmorphism & Frosted Panels ── */
 .apple-frosted-nav {
-  background: rgba(250, 247, 242, 0.82);
+  background: rgba(255, 253, 251, 0.88);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(234, 227, 216, 0.85);
+  border-bottom: 1px solid rgba(245, 220, 230, 0.85);
 }
 
 .apple-frosted-dark {
-  background: rgba(25, 23, 32, 0.88);
+  background: rgba(42, 31, 38, 0.92);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(51, 46, 65, 0.6);
+  border-bottom: 1px solid rgba(245, 220, 230, 0.2);
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-hairline);
-  box-shadow: 0 1px 3px rgba(35, 25, 50, 0.02), 0 6px 20px -2px rgba(35, 25, 50, 0.03);
+  border: 1px solid #F5DCE6;
+  box-shadow: 0 8px 30px rgba(232, 86, 127, 0.08);
 }
 
 .glass-panel-hover {
@@ -70,60 +82,62 @@
 
 .glass-panel-hover:hover {
   background: #FFFFFF;
-  border-color: #C7B5EE;
+  border-color: #FF8FB1;
   transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(35, 25, 50, 0.04), 0 16px 36px -6px rgba(110, 80, 189, 0.08);
+  box-shadow: 0 12px 36px rgba(232, 86, 127, 0.14);
 }
 
-/* ── Apple Capsule Pill Buttons & Actions (§design.md) ── */
-.apple-btn-primary {
+/* ── Pill Buttons & Actions (Marshmallow + Bubblegum) ── */
+.apple-btn-primary, .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: var(--lavender-action);
+  background-color: #FF8FB1;
   color: #FFFFFF;
   font-size: 0.9375rem;
   font-weight: 500;
   border-radius: 9999px;
   padding: 0.625rem 1.375rem;
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 1px 2px rgba(110, 80, 189, 0.2), 0 3px 8px -1px rgba(110, 80, 189, 0.25);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(232, 86, 127, 0.2);
   cursor: pointer;
 }
 
-.apple-btn-primary:hover {
-  background-color: var(--lavender-hover);
-  box-shadow: 0 2px 4px rgba(110, 80, 189, 0.25), 0 6px 14px -1px rgba(110, 80, 189, 0.3);
+.apple-btn-primary:hover, .btn-primary:hover {
+  background-color: #FF6FA0;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(232, 86, 127, 0.28);
 }
 
-.apple-btn-primary:active {
-  transform: scale(0.97);
+.apple-btn-primary:active, .btn-primary:active {
+  transform: translateY(0);
 }
 
-.apple-btn-secondary {
+.apple-btn-secondary, .btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: var(--surface-pearl);
-  color: var(--ink);
+  background-color: #FFE4EE;
+  color: #E8567F;
   font-size: 0.9375rem;
-  font-weight: 500;
-  border: 1px solid var(--border-hairline);
+  font-weight: 600;
+  border: 1px solid #F5DCE6;
   border-radius: 9999px;
   padding: 0.625rem 1.375rem;
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
 
-.apple-btn-secondary:hover {
-  background-color: var(--canvas-parchment);
-  border-color: #DFD6C7;
+.apple-btn-secondary:hover, .btn-secondary:hover {
+  background-color: #FFD4E3;
+  color: #C93D64;
+  transform: translateY(-1px);
 }
 
-.apple-btn-secondary:active {
-  transform: scale(0.97);
+.apple-btn-secondary:active, .btn-secondary:active {
+  transform: translateY(0);
 }
 
 .apple-btn-ghost {
@@ -132,37 +146,38 @@
   justify-content: center;
   gap: 0.5rem;
   background-color: transparent;
-  color: var(--lavender-action);
+  color: #E8567F;
   font-size: 0.9375rem;
   font-weight: 500;
-  border: 1px solid rgba(110, 80, 189, 0.3);
+  border: 1px solid rgba(232, 86, 127, 0.3);
   border-radius: 9999px;
   padding: 0.625rem 1.375rem;
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
 
 .apple-btn-ghost:hover {
-  background-color: var(--lavender-chip);
-  border-color: var(--lavender-action);
+  background-color: #FFE4EE;
+  border-color: #FF8FB1;
+  transform: translateY(-1px);
 }
 
 .apple-btn-ghost:active {
-  transform: scale(0.97);
+  transform: translateY(0);
 }
 
-/* ── Apple Utility Cards (rounded.lg = 18px) ── */
-.apple-card {
+/* ── Card Styling (Hairline border #F5DCE6, Soft Shadow) ── */
+.apple-card, .card {
   background-color: #FFFFFF;
   border-radius: 18px;
-  border: 1px solid var(--border-hairline);
+  border: 1px solid #F5DCE6;
   padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(35, 25, 50, 0.02), 0 6px 18px -3px rgba(35, 25, 50, 0.03);
+  box-shadow: 0 8px 30px rgba(232, 86, 127, 0.08);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.apple-card:hover {
-  border-color: #C7B5EE;
+.apple-card:hover, .card:hover {
+  border-color: #FF8FB1;
 }
 
 /* ── Apple Scrollbar ── */
@@ -242,8 +257,8 @@
 
 .spinner {
   animation: spin-smooth 1s linear infinite;
-  border: 2px solid rgba(110, 80, 189, 0.2);
-  border-top-color: var(--lavender-action);
+  border: 2px solid rgba(255, 143, 177, 0.25);
+  border-top-color: #FF8FB1;
   border-radius: 50%;
 }
 
@@ -268,9 +283,9 @@
 }
 
 .tx-chip-confirmed {
-  background: #F1ECFB;
-  color: #6E50BD;
-  border: 1px solid #DCD0F6;
+  background: #FFE4EE;
+  color: #E8567F;
+  border: 1px solid #F5DCE6;
 }
 
 .tx-chip-reverted {

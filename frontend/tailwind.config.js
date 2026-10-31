@@ -9,86 +9,90 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        cream: {
-          50: "#FDFCF9",   // Crisp Pearl Milk
-          100: "#FAF7F2",  // Primary 70% Canvas
-          200: "#F4EFEA",  // Apple Parchment
-          300: "#EAE3D8",  // Hairline Border
-          400: "#DFD6C7",  // Muted Border
-          500: "#C6B9A5",  // Subtle Warm Gray
-          600: "#9E907B",
-          700: "#756A59",
+        marshmallow: {
+          DEFAULT: "#FFFDFB",
+          white: "#FFFDFB",
         },
-        lavender: {
-          50: "#F8F6FD",   // Ultra Soft Lavender Tint
-          100: "#F1ECFB",  // Soft Chip & Badge Surface
-          200: "#E0D5F6",  // Lavender Hairline Border
-          300: "#C7B5EE",  // Lavender Focus & Ring
-          400: "#A78FE0",  // Light Accent
-          500: "#8969D3",  // Luminous Accent
-          600: "#6E50BD",  // Apple Action Lavender (Primary CTA)
-          700: "#5A3EA2",  // Pressed / Active Lavender
-          800: "#452E80",  // Deep Royal Lavender
-          900: "#31205F",
+        cloud: {
+          DEFAULT: "#FFF6F9",
+          surface: "#FFF6F9",
+          50: "#FFF6F9",
+          100: "#FFF0F5",
+        },
+        bubblegum: {
+          DEFAULT: "#FF8FB1",
+          hover: "#FF6FA0",
+          deep: "#E8567F",
+          soft: "#FFE4EE",
+          50: "#FFF6F9",
+          100: "#FFE4EE",
+          200: "#FFC9DA",
+          300: "#FFAEC6",
+          400: "#FF8FB1",
+          500: "#FF6FA0",
+          600: "#E8567F",
+          700: "#C93D64",
+          800: "#A8294D",
+          900: "#751833",
         },
         ink: {
-          DEFAULT: "#1D1B1E", // Apple Near-Black Espresso Ink
-          secondary: "#635E6B", // Secondary Body Ink
-          muted: "#8E8896",     // Micro-legal / Caption Ink
-          hairline: "#EAE3D8",
-          dark: "#FAF7F2",      // Body on dark tiles
-          darkMuted: "#B8B2C4", // Muted on dark tiles
+          DEFAULT: "#2A1F26",
+          secondary: "#7A6670",
+          muted: "#7A6670",
+          hairline: "#F5DCE6",
+          dark: "#FFFDFB",
+          darkMuted: "#FFE4EE",
         },
-        tile: {
-          dark: "#191720",  // Apple Contrast Dark Tile 1
-          dark2: "#221E2C", // Apple Dark Tile 2
-          dark3: "#2B2737", // Apple Dark Tile 3
-          border: "#332E41",
+        muted: {
+          DEFAULT: "#7A6670",
+          text: "#7A6670",
         },
-        // Compatibility palette tailored to match the cream/lavender ecosystem
+        hairline: "#F5DCE6",
+        // Backward-compatibility aliases mapped to the new marshmallow & bubblegum system
+        cream: {
+          50: "#FFFDFB",
+          100: "#FFFDFB",
+          200: "#FFF6F9",
+          300: "#F5DCE6",
+          400: "#F0CFDC",
+          500: "#7A6670",
+          600: "#7A6670",
+          700: "#2A1F26",
+        },
+        lavender: {
+          50: "#FFF6F9",
+          100: "#FFE4EE",
+          200: "#F5DCE6",
+          300: "#FFC9DA",
+          400: "#FFAEC6",
+          500: "#FF8FB1",
+          600: "#FF8FB1",
+          700: "#E8567F",
+          800: "#C93D64",
+          900: "#751833",
+        },
         verdion: {
-          950: "#FAF7F2",   // Redirect dark background to Cream 100
-          900: "#F4EFEA",   // Redirect to Parchment
-          850: "#EAE3D8",   // Redirect to Hairline
-          800: "#DFD6C7",
-          700: "#635E6B",
-          600: "#8E8896",
-          accent: "#6E50BD", // Primary Lavender
-          cyan: "#5A3EA2",   // Deep Lavender
-          indigo: "#6E50BD", // Lavender Swarm
-          rose: "#E11D48",   // Clean Crimson
-          amber: "#D97706",  // Refined Amber
+          950: "#FFFDFB",
+          900: "#FFF6F9",
+          850: "#F5DCE6",
+          800: "#F0CFDC",
+          700: "#7A6670",
+          600: "#7A6670",
+          accent: "#FF8FB1",
+          cyan: "#E8567F",
+          indigo: "#FF8FB1",
+          rose: "#E8567F",
+          amber: "#D97706",
         }
       },
       fontFamily: {
-        appleDisplay: [
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "SF Pro Display",
-          "SF Pro",
-          "Inter",
-          "system-ui",
-          "sans-serif"
-        ],
-        appleText: [
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "SF Pro Text",
-          "SF Pro",
-          "Inter",
-          "system-ui",
-          "sans-serif"
-        ],
-        sans: [
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "SF Pro Text",
-          "SF Pro",
-          "Inter",
-          "system-ui",
-          "sans-serif"
-        ],
-        mono: ["var(--font-jetbrains)", "SFMono-Regular", "Menlo", "monospace"],
+        display: ["var(--font-fraunces)", "serif"],
+        fraunces: ["var(--font-fraunces)", "serif"],
+        appleDisplay: ["var(--font-fraunces)", "serif"],
+        sans: ["var(--font-inter)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        inter: ["var(--font-inter)", "sans-serif"],
+        appleText: ["var(--font-inter)", "-apple-system", "sans-serif"],
+        mono: ["SFMono-Regular", "Menlo", "monospace"],
       },
       borderRadius: {
         "apple-card": "18px", // Apple design.md {rounded.lg} 18px
@@ -99,14 +103,19 @@ module.exports = {
         "apple-display": "-0.015em",
       },
       boxShadow: {
-        apple: "0 2px 10px rgba(35, 25, 50, 0.03), 0 8px 30px -4px rgba(35, 25, 50, 0.05)",
-        "apple-hover": "0 4px 14px rgba(35, 25, 50, 0.05), 0 16px 40px -8px rgba(35, 25, 50, 0.08)",
-        "apple-product": "3px 5px 30px 0px rgba(30, 20, 50, 0.12)",
-        "apple-pill": "0 2px 8px -1px rgba(110, 80, 189, 0.25)",
-        glow: "0 0 20px -3px rgba(110, 80, 189, 0.2)",
-        "glow-cyan": "0 0 20px -3px rgba(110, 80, 189, 0.2)",
-        "glow-rose": "0 0 20px -3px rgba(225, 29, 72, 0.15)",
-        glass: "0 8px 32px 0 rgba(35, 25, 50, 0.06)",
+        soft: "0 8px 30px rgba(232, 86, 127, 0.08)",
+        bubblegum: "0 8px 30px rgba(232, 86, 127, 0.08)",
+        "bubblegum-hover": "0 12px 36px rgba(232, 86, 127, 0.16)",
+        "apple-card": "0 8px 30px rgba(232, 86, 127, 0.08)",
+        "apple-sm": "0 2px 10px rgba(232, 86, 127, 0.04)",
+        apple: "0 8px 30px rgba(232, 86, 127, 0.08)",
+        "apple-hover": "0 12px 36px rgba(232, 86, 127, 0.14)",
+        "apple-product": "3px 5px 30px 0px rgba(232, 86, 127, 0.12)",
+        "apple-pill": "0 2px 8px -1px rgba(232, 86, 127, 0.25)",
+        glow: "0 0 20px -3px rgba(255, 143, 177, 0.3)",
+        "glow-cyan": "0 0 20px -3px rgba(232, 86, 127, 0.25)",
+        "glow-rose": "0 0 20px -3px rgba(232, 86, 127, 0.2)",
+        glass: "0 8px 32px 0 rgba(232, 86, 127, 0.06)",
       },
     },
   },

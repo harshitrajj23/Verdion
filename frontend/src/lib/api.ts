@@ -1,4 +1,4 @@
-import { CaseData, MarketData, BountyData, AuditRecord, AgentMetric } from "./mockData";
+import { CaseData, MarketData, BountyData, AuditRecord, AgentMetric } from "./types";
 
 const API_BASE = typeof window !== "undefined" ? "/api/v1" : "http://127.0.0.1:8000/api/v1";
 
