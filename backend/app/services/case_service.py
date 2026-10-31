@@ -84,6 +84,20 @@ class CaseService:
         return list(res.scalars().all())
 
     @staticmethod
+    async def get_all_cases(
+        db: AsyncSession,
+        exclude_test: bool = False,
+        provenance: Optional[str] = None
+    ) -> List[Case]:
+        stmt = select(Case).order_by(Case.created_at.desc())
+        if provenance:
+            stmt = stmt.where(Case.provenance == provenance)
+        elif exclude_test:
+            stmt = stmt.where(Case.provenance != "TEST")
+        res = await db.execute(stmt)
+        return list(res.scalars().all())
+
+    @staticmethod
     async def update_case(
         db: AsyncSession,
         case_id: str,
@@ -119,8 +133,9 @@ class CaseService:
                 case.scope_version += 1
                 version_incremented = True
 
-        if req.jurisdiction is not None and req.jurisdiction != case.jurisdiction:
-            case.jurisdiction = req.jurisdiction
+        req_jurisdiction = getattr(req, "jurisdiction", None)
+        if req_jurisdiction is not None and req_jurisdiction != case.jurisdiction:
+            case.jurisdiction = req_jurisdiction
             if not version_incremented:
                 case.scope_version += 1
                 version_incremented = True
@@ -235,26 +250,40 @@ class CaseService:
         # Build and seal Canonical Decision Record (Option C)
         from backend.app.services.decision_service import DecisionService
         decision_rec = await DecisionService.build_canonical_decision_record(db, case.id, persist=True)
+        rec_digest = getattr(decision_rec, "record_digest", None) or (decision_rec.get("record_digest") if isinstance(decision_rec, dict) else "")
+        claims_list = getattr(decision_rec, "claims", None) or (decision_rec.get("claims", []) if isinstance(decision_rec, dict) else [])
         await AuditService.log_event(
             db=db,
             case_id=case.id,
             event_type="DECISION_RECORD_SEALED",
             actor="0xSystem",
             payload={
-                "decision_record_id": decision_rec["record_digest"],
-                "claims_count": len(decision_rec.get("claims", [])),
+                "decision_record_id": rec_digest,
+                "claims_count": len(claims_list) if claims_list else 0,
                 "is_verified": True
             }
         )
 
+        agent_outputs = [
+            researcher_out.model_dump(),
+            interpreter_out.model_dump(),
+            adversary_out.model_dump(),
+            verifier_out.model_dump()
+        ]
+        argument_graph = {
+            "claims": coordinator_out.get("claims", []),
+            "edges": coordinator_out.get("edges", [])
+        }
         return {
             "case_id": case.id,
             "status": case.status,
+            "agent_outputs": agent_outputs,
+            "argument_graph": argument_graph,
             "researcher_output": researcher_out.model_dump(),
             "interpreter_output": interpreter_out.model_dump(),
             "adversary_output": adversary_out.model_dump(),
             "verifier_output": verifier_out.model_dump(),
             "forecast_output": forecast_out,
             "coordinator_output": coordinator_out,
-            "decision_record": decision_rec
+            "decision_record": decision_rec.model_dump() if hasattr(decision_rec, "model_dump") else (decision_rec.dict() if hasattr(decision_rec, "dict") else decision_rec)
         }

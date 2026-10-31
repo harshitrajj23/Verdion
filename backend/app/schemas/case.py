@@ -16,6 +16,7 @@ class CaseCreateRequest(BaseModel):
 class CaseUpdateRequest(BaseModel):
     title: Optional[str] = None
     question: Optional[str] = None
+    jurisdiction: Optional[str] = None
     facts: Optional[Dict[str, Any]] = None
 
 

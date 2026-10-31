@@ -597,6 +597,8 @@ class AgentService:
             "status": "SYNTHESIZED",
             "claims_count": len(claims_created),
             "edges_count": len(edges_created),
+            "claims": [{"id": c.id, "claim_text": c.claim_text, "claim_type": c.claim_type} for c in claims_created],
+            "edges": [{"id": e.id, "source_claim_id": e.source_claim_id, "target_claim_id": e.target_claim_id, "relationship_type": e.relationship_type, "reason": e.reason} for e in edges_created],
             "ranked_uncertainties": [u.model_dump() for u in all_uncertainties],
             "top_priority_score": all_uncertainties[0].priority_score if all_uncertainties else 0.0,
             "correlated_failure_risk": "LOW (Isolated deontic rule engine and independent evidence verification)"

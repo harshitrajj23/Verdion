@@ -48,14 +48,16 @@ class ArgumentService:
         claim_id: str,
         evidence_id: str,
         relationship_type: str = "SUPPORTS",
-        verification_status: str = "VERIFIED"
+        verification_status: str = "VERIFIED",
+        relationship: Optional[str] = None
     ) -> ClaimEvidenceLink:
+        rel = relationship or relationship_type
         link_id = f"link_{uuid.uuid4().hex[:10]}"
         link = ClaimEvidenceLink(
             id=link_id,
             claim_id=claim_id,
             evidence_id=evidence_id,
-            relationship_type=relationship_type,
+            relationship_type=rel,
             verification_status=verification_status
         )
         db.add(link)
@@ -68,17 +70,21 @@ class ArgumentService:
         case_id: str,
         source_claim_id: str,
         target_claim_id: str,
-        relationship_type: str,
-        reason: str
+        relationship_type: str = "SUPPORTS",
+        reason: str = "Dialectic argument relationship",
+        edge_type: Optional[str] = None,
+        weight: Optional[float] = None
     ) -> ArgumentEdge:
+        rel = edge_type or relationship_type
+        edge_reason = reason or (f"Relationship weight: {weight}" if weight is not None else "Dialectic argument relationship")
         edge_id = f"edge_{uuid.uuid4().hex[:10]}"
         edge = ArgumentEdge(
             id=edge_id,
             case_id=case_id,
             source_claim_id=source_claim_id,
             target_claim_id=target_claim_id,
-            relationship_type=relationship_type,
-            reason=reason,
+            relationship_type=rel,
+            reason=edge_reason,
             timestamp=utcnow()
         )
         db.add(edge)
