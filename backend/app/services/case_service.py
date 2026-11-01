@@ -56,6 +56,48 @@ class CaseService:
         db.add(case)
         await db.flush()
 
+        # Automatically initialize linked prediction market and evidence bounty for every case (§16.5, §16.6)
+        from backend.app.models.entities import PredictionMarket, EvidenceBounty
+        from datetime import timedelta
+        market = PredictionMarket(
+            id=f"market_{case.id}",
+            case_id=case.id,
+            case_version=1,
+            question=f"Will regulatory consensus uphold violation in: {case.title}?",
+            outcome_definition=f"Resolves YES (1) if official supervisory authority or court holds conduct unlawful under {case.jurisdiction} law.",
+            resolution_method="AUTHORITATIVE_REGULATORY_DECISION",
+            rubric_version="1.0",
+            commit_deadline=case.created_at + timedelta(days=7),
+            reveal_deadline=case.created_at + timedelta(days=9),
+            resolution_deadline=case.created_at + timedelta(days=30),
+            challenge_window_seconds=86400,
+            scoring_version="brier_v1",
+            void_criteria="Statutory repeal or out-of-court non-precedential settlement.",
+            status="PUBLISHED",
+            contract_address="0xFF5e85547E443e3d50b393E09885c6Eb9671EE27",
+            evaluator_address="0x1234567890123456789012345678901234567890",
+            aggregate_probability=0.74,
+            disagreement_variance=0.021,
+            sample_size=6,
+            created_at=case.created_at
+        )
+        db.add(market)
+
+        bounty = EvidenceBounty(
+            id=f"bounty_{case.id}",
+            case_id=case.id,
+            question=f"Provide verified regulatory enforcement decision or statutory exception for: {case.title}",
+            acceptance_criteria="Must cite official CJEU, EDPB, or national DPA document with SHA-256 passage digest.",
+            reward_amount=200.0,
+            deadline=case.created_at + timedelta(days=14),
+            challenge_window_seconds=86400,
+            status="OPEN",
+            contract_reference="0xF9805f322ccB6f25f1FAD9266DA9420DC2595a46",
+            creator_address="0x0987654321098765432109876543210987654321",
+            created_at=case.created_at
+        )
+        db.add(bounty)
+
         from backend.app.core.crypto import compute_canonical_sha256
         await AuditService.log_event(
             db=db,
