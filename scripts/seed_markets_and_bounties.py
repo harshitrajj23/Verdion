@@ -1,15 +1,17 @@
 import asyncio
+import os
 import sys
 from datetime import datetime, timezone, timedelta
 
 # Project setup
 sys.path.insert(0, '.')
+from backend.app.core.config import settings
 from backend.app.core.database import configure_database
 from backend.app.models.entities import Base, Case, PredictionMarket, EvidenceBounty, EvidenceSubmission
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from sqlalchemy import select
 
-raw_url = 'postgresql://neondb_owner:npg_Buj7CH1kvREP@ep-red-sunset-a1nfpyki-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+raw_url = os.getenv("DATABASE_URL") or settings.DATABASE_URL
 db_url, engine_args = configure_database(raw_url)
 
 async def seed_data():
